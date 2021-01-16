@@ -40,8 +40,10 @@ class Admin extends CI_Controller {
 	}
 		
 	public function dashboard(){
-            
-                $data['freelancer_count']       = $this->Admimodel->get_user_counts($usertype = 4, true);
+				// Start Amardeep
+				$data['txnlist'] = $this->Transaction->get_transaction_list($count = 1, $status);
+				// End Amardeep
+				$data['freelancer_count']       = $this->Admimodel->get_user_counts($usertype = 4, true);
                 $data['client_count']           = $this->Admimodel->get_user_counts($usertype = 3, true);
                 $data['naluacer_count']         = $this->Admimodel->get_user_counts($usertype = 5, true);
                 $data['problem_ticket_count']   = $this->Admimodel->get_problem_ticket_count();
@@ -61,7 +63,17 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/pages/user_list',$data);
 		$this->load->view('admin/includes/admin_footer_all');
 	}
-	
+	// Start Amardeep
+	public function transaction_list($status = ""){
+		$data['txnlist'] = $this->Transaction->get_transaction_list($count = 0, $status);
+		// $this->Admimodel->Update_read_status($usertype = 3, '1');
+		// echo"<pre>";print_r(count($data['txnlist']));exit;
+		$this->load->view('admin/includes/admin_header_all');
+		$this->load->view('admin/includes/navbar');
+		$this->load->view('admin/pages/transaction_list',$data);
+		$this->load->view('admin/includes/admin_footer_all');
+	}	
+	// End Amardeep
 	public function user_add(){
 		
 		$uricheck = base64_decode($this->uri->segment(4));
