@@ -227,19 +227,24 @@
 						</tbody>
 						<tfoot>
 						<tr>
-						<th align="center">Sl No.</td>
+						  <th align="center">Sl No.</td>
 						  	<?php if($status=="unsolved"){?>
-						  		<th align="center">Unique ID </td>
-						  		<th  align="center">Problem Crated Date </td>	
-						  			<th  align="center">Ticket Unique ID</td>	
+						  		<th >Unique ID </td>
+						  		<th  >Problem Crated Date </td>	
+						  			<th  >Ticket Unique ID</td>	
 						  	<?php }?>
-						  <th  align="center">User Type</th>
+						  	<?php if($status=="solved"){?>
+						 <th  align="center">User Type</th> 
+						<?php }?>
 						  <th  align="center">Username</th>
-						  <th align="center">Problem Category</th>
+						  <th align="center" >Problem Category</th>
 						  
-						  <th  align="center">Ticket No</th>
-						  <th  align="center">Problem Status</th>
-						  <th  align="center">Date Created</th>
+						  <th  align="center" >Ticket No</th>
+						  <th  >Problem Status</th>
+						  <?php if($status=="solved"){?>
+						 <th  align="center">Date Created</th> 
+						<?php }?>
+						  <!--  -->
 						  <th  align="center">Actions</th>
 						</tr>
 						</tfoot>

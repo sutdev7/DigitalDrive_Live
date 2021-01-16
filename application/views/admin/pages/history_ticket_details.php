@@ -205,35 +205,11 @@
    </section>
    <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
-<script type="text/javascript" language="" src="https://tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+<!-- /.content-wrapper sdasd-->
+
 <script src="<?php echo base_url()?>/assets/admin/js_css_admin/editor.js"></script>
 <script type="text/javascript" language="javascript">
-   tinymce.init({
-   selector: "textarea",
-   plugins: [
-     "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-     "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-     "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
-   ],
-   toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-   toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
-   toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
-   menubar: false,
-   style_formats: [
-     {title: 'Bold text', inline: 'b'},
-     {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-     {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-     {title: 'Example 1', inline: 'span', classes: 'example1'},
-     {title: 'Example 2', inline: 'span', classes: 'example2'},
-     {title: 'Table styles'},
-     {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-   ],
-   templates: [
-     {title: 'Test template 1', content: 'Test 1'},
-     {title: 'Test template 2', content: 'Test 2'}
-   ]
-   });
+  
 </script>
   <script>
     $(function () {
@@ -247,33 +223,7 @@
       $("#emailBody").Editor();
    });
    </script>
-<script type="text/javascript" language="javascript">
-   // tinymce.init({
-   // selector: "textarea",
-   // plugins: [
-   //   "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-   //   "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-   //   "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
-   // ],
-   // toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-   // toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
-   // toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
-   // menubar: false,
-   // style_formats: [
-   //   {title: 'Bold text', inline: 'b'},
-   //   {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-   //   {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-   //   {title: 'Example 1', inline: 'span', classes: 'example1'},
-   //   {title: 'Example 2', inline: 'span', classes: 'example2'},
-   //   {title: 'Table styles'},
-   //   {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-   // ],
-   // templates: [
-   //   {title: 'Test template 1', content: 'Test 1'},
-   //   {title: 'Test template 2', content: 'Test 2'}
-   // ]
-   // });
-</script>
+
 <style>
    .user-info-wrapper {
    position: relative;
