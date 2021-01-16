@@ -11,7 +11,6 @@ class Admin extends CI_Controller {
         	redirect('sign-in', 'refresh');
         }
 		 $this->load->library('encryption');
-		 // comment by amardeep
 		
 	}
 	
