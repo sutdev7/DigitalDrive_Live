@@ -110,7 +110,7 @@ class Lhire {
 		$return = $CI->Hires->hire_data_insert($post_data);
 		
 		if($return){
-        	$CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">'.$return['message'].'</div>');
+        ///	$CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">'.$return['message'].'</div>');
         } else {
             $CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Unable to send hire request.</div>');
 		}
