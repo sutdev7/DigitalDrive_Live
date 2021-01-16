@@ -152,20 +152,20 @@ class Hires extends CI_Model {
 					$task_name = $user_task_id = '';
 				}
 				
-				$job_details_link = '<a href="'.base_url().'hired-job-details/'.$user_task_id.'">'.$task_name.'</a>';
+				// $job_details_link = '<a href="'.base_url().'hired-job-details/'.$user_task_id.'">'.$task_name.'</a>';
 				
-				// insert notification
-				$notidata = array(
-					'task_id' => $task_id,
-					'offer_id' => 0,
-					'notification_master_id' => 11,
-					'notification_from' => $this->session->userdata('user_id'),
-					'notification_to' => $postValue['freelancer_id'],
-					'notification_details' => 'SEND HIRED ',
-					'notification_message' => '<strong>'.'<a href="'.base_url().'public-profile/'.$this->session->userdata('profile_id').'">'.$this->session->userdata('user_name').'</a></strong> wants to hire you for <strong> '.$job_details_link.' </strong>',
-					'notification_doc' => date('Y-m-d H:i:s')
-				);
-				$this->db->insert('task_notification',$notidata);
+				// // insert notification
+				// $notidata = array(
+				// 	'task_id' => $task_id,
+				// 	'offer_id' => 0,
+				// 	'notification_master_id' => 11,
+				// 	'notification_from' => $this->session->userdata('user_id'),
+				// 	'notification_to' => $postValue['freelancer_id'],
+				// 	'notification_details' => 'SEND HIRED ',
+				// 	'notification_message' => '<strong>'.'<a href="'.base_url().'public-profile/'.$this->session->userdata('profile_id').'">'.$this->session->userdata('user_name').'</a></strong> wants to hire you for <strong> '.$job_details_link.' </strong>',
+				// 	'notification_doc' => date('Y-m-d H:i:s')
+				// );
+				// $this->db->insert('task_notification',$notidata);
 				
 				return array('status' => TRUE, 'message' => 'Hire request has been sent successfully.');
 			}else{
