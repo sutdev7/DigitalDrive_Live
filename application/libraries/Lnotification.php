@@ -279,9 +279,18 @@ $data['micro_notifications']=$this->notification_details_micro_project($user_id)
 				
 				
 			}
-			$task_info = $CI->Notifications->get_task_info($task_id);
-			$task_details_link = '<a href="'.base_url().'task-details/'.$task_info->user_task_id.'">'.$task_name.'</a>';
-			
+			$task_info = $CI->Notifications->get_task_info($task_id);			
+			if($action_id == 14) {				
+				$hired_id = $CI->Tasks->get_user_hired_task($task_info->user_task_id);
+				if(isset($hired_id[0]->hired_id)) {
+					$hired_id = base64_encode($hired_id[0]->hired_id);
+					$task_details_link = '<a href="'.base_url().'view-contract/'.$hired_id.'">'.$task_name.'</a>';
+				} else {
+					$task_details_link = '<a href="'.base_url().'task-details/'.$task_info->user_task_id.'">'.$task_name.'</a>';
+				}				
+			} else {
+				$task_details_link = '<a href="'.base_url().'task-details/'.$task_info->user_task_id.'">'.$task_name.'</a>';
+			}
 			$masterInfo = $CI->Notifications->get_notification_master_data($action_id);
 			if(!empty($masterInfo)){
 				$title = $masterInfo->TITLE;
@@ -430,8 +439,10 @@ $data['micro_notifications']=$this->notification_details_micro_project($user_id)
 				$CI->db->where('task_id',$task_id)->update('task',array('task_status'=>'1','task_hired'=>'1','task_is_complete'=>'1','task_completion_date'=>date('Y-m-d H:i:s')));
 				if($return){
 					$CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">Task Completed</div>');
+					$CI->session->set_flashdata('popup_msg', 'You have completed task successfully. We will notify to the client.');
 				}else{
 					$CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Something Error. Please try again.</div>');
+					$CI->session->set_flashdata('popup_msg', 'Something Error. Please try again.');
 				}
 				$insert = array(
 					'task_id' => $task_id,
@@ -459,7 +470,8 @@ $data['micro_notifications']=$this->notification_details_micro_project($user_id)
 				 
 				 
 				 // Redirect to Review page
-				 redirect('givereview/'.$notification_from,'refresh');
+				 redirect('hired-job-details/'.$task_info->user_task_id,'refresh');
+				 //redirect('givereview/'.$notification_from,'refresh');
 				 exit;
 				 
 			}else if($action_id==19){
