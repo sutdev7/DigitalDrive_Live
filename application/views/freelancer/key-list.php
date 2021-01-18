@@ -4,23 +4,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $msg = $this->session->flashdata('msg'); 
 if(!empty($msg)) {
   ?>
-<section style="padding-top: 10%;">
-    <?php echo $msg; ?>
-</section>
+  <div class="container">
+      <br/>
+    <section style="padding-top: 10%;">
+        <?php echo $msg; ?>
+    </section>
+    </div>
 <?php
 }
  
 $frmValidationMsg = validation_errors(); 
 if(!empty($frmValidationMsg)) {
   ?>
+  <div class="container">
+  <br/>
 <section style="padding-top: 7%;">
     <?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
 </section>
+</div>
 <?php
 }
  ?>
 
-<div class="browser-taskDiv">
+<div class="browser-taskDiv pt-0">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
