@@ -9674,4 +9674,13 @@ ol.progtrckr {
         background-color: white;
         font-size: 1.5em;
         bottom: -1.6em;
-    }
+	}
+	
+
+	/* IMPORTED CSS FOR DETAILS PAGE ENDS */
+.theme-color {color:#46b4e7 !important;}
+.bg-theme, .job-detail-content .required-skills h5.bg-theme {background-color:#46b4e7;color:#FFF;}
+.alert.alert-success a {color:#0f6848;text-decoration:underline;}
+.proposal-remark {height:auto;box-shadow:1px 0px 5px 5px #dfdfdf;overflow:auto;padding:10px;}
+.wish-close .modal-dialog.modal-lg { max-width: 991px;} 
+.designation {background: #46b4e7;padding: 5px 10px;border-radius: 5px;color: #FFF;}
