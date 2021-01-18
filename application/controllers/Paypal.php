@@ -103,8 +103,40 @@ class Paypal extends CI_Controller{
 		// $data['product'] = $productData;
 		// $data['payment'] = $paymentData;
 		// $this->load->view('paypal/success', $data);
+		$this->db->select('*');
 
-		$parsedata = array();
+        $this->db->from('payments');
+
+		$this->db->join('task', 'task.task_id = payments.task_id');
+
+		$this->db->join('task_hired', 'task_hired.task_id = payments.task_id');
+
+        $this->db->join('user_login', 'task_hired.freelancer_id = user_login.user_id');
+
+		$this->db->where(['payments.id'=> $insertId]);
+
+		// $this->db->join('user_login', 'user_login.user_id = users.user_id');
+
+		// $this->db->join('country', 'country.country_id = users.country','left');
+
+		// $this->db->order_by('user_login.unique_id','asc');
+
+		$result = $this->db->get();
+
+		//echo $this->db->last_query();exit;
+
+		// echo'<pre>';print_r($result->result());exit;
+
+		if($result->num_rows() > 0){
+
+			$parsedata['result'] = $result->result();
+
+		}else{
+
+			$parsedata['result'] = array();
+
+		}
+
 		$content = $this->parser->parse('account/payment_success',$parsedata,true);
 		$data = array(
 					'content' => $content,
