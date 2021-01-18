@@ -1,8 +1,8 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <link rel="stylesheet" href="../assets/css/responsive.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
     integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
     crossorigin="anonymous" />
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <main id="main"> 
     <!--==========================
         ConterDiv Section
@@ -11,15 +11,15 @@
       <div class="container">
         <div class="banner-content">
           <div class="left-col">
-            <div class="logo-container">
+            <?php /*<div class="logo-container">
               <img src="../assets/img/logo.png" class="logo" alt="" />
-            </div>
+            </div> */ ?>
             <div class="banner-text">
               <h2>{task_info}{task_title}{/task_info}</h2>
               <span>
-                <p><i class="fas fa-map-marker-alt"></i>
-                  {task_info}{task_country}{/task_info}, {task_info}{task_continent}{/task_info}</p>
-                <p><i class="fas fa-calendar-alt"></i>
+                <p><i class="fas fa-map-marker-alt theme-color"></i>
+                  {task_info}{task_country}{/task_info}</p>
+                <p><i class="fas fa-calendar-alt theme-color"></i>
                   Posted {task_info}{task_doc}{/task_info}</p>
               </span>
             </div>
@@ -41,30 +41,32 @@
     if (!empty($msg)) {
         ?>
         <section style="padding-top: 7%;">
+            <div class="container">
             <?php echo $msg; ?>
+            </div>
         </section>
         <?php
     }
     ?>
 
     <section class="job-name">
-      <div class="container">
+      <?php /*<div class="container">
         <div class="job-name-content">
 
           <h2>{task_info}{task_title}{/task_info}</h2>
 
 
           <div class="line-2">
-            <span><i class="fas fa-map-marker-alt"></i> {task_info}{task_country}{/task_info}, {task_info}{task_continent}{/task_info}</span>
+            <span><i class="fas fa-map-marker-alt theme-color"></i> {task_info}{task_country}{/task_info}</span>
           </div>
 
           <div class="line-3">
-            <span><i class="fas fa-calendar-alt"></i> Post Date: {task_info}{task_doc}{/task_info}</span>
+            <span><i class="fas fa-calendar-alt theme-color"></i> Post Date: {task_info}{task_doc}{/task_info}</span>
           </div>
 
 
         </div>
-      </div>
+      </div> */ ?>
     </section>
 
     <section class="outer-wrapper-job">
@@ -101,7 +103,7 @@
                   </div>
                 </div>
 
-                <div class="more-detail col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <?php /*<div class="more-detail col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                   <div class="more-detail-content">
                     <div>
                       <img src="../assets/img/bag.png" alt="" />
@@ -111,7 +113,7 @@
                       <h6>{task_info}{task_duration_type}{/task_info}</h6>
                     </div>
                   </div>
-                </div>
+                </div> */ ?>
 
                 <div class="more-detail col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                   <div class="more-detail-content">
@@ -134,22 +136,37 @@
                 <p>{task_info}{task_details}{/task_info}</p>
               </div>
 
-              <div class="what-will-do">
+              <div class="required-skills">
                 <h3>Keywords</h3>
-                <h5><i class="fas fa-long-arrow-alt-right"></i> {task_info}{task_keywords}{/task_info}</h5>
+                 <?php 
+                $task_keywords = isset($task_info[0]['task_keywords']) ? explode(', ',$task_info[0]['task_keywords']) : array();
+                if(!empty($task_keywords)) {
+                  ?>
+                  <span class="w-100">
+                  <?php
+                  foreach ($task_keywords as $keyword) {
+                      ?>
+                      <h5 class="bg-theme"><?php echo $keyword; ?></h5>
+                      <?php                      
+                  }
+                  ?>
+                  </span>
+                  <?php
+                }
+                 ?>
               </div>
 
               <div class="required-skills">
                 <h3>skills</h3>
 
-                <span class="w-100">{task_info}{task_requirements}<h5>{skill_name}</h5> {/task_requirements}{/task_info}</span>
+                <span class="w-100">{task_info}{task_requirements}<h5 class="bg-theme">{skill_name}</h5> {/task_requirements}{/task_info}</span>
               </div>
               <br>
               <div class="what-will-do">
                 <h3>Activity On this Job</h3>
-                <h5><i class="fas fa-long-arrow-alt-right"></i> Proposal <b>{proposal_count}</b> </h5>
+                <?php /*<h5><i class="fas fa-long-arrow-alt-right"></i> Proposal <b>{proposal_count}</b> </h5>*/ ?>
                 <h5><i class="fas fa-long-arrow-alt-right"></i> Hired <b>{task_info}{task_freelancer_hire}{/task_info}</b> </h5>
-                <h5><i class="fas fa-long-arrow-alt-right"></i> Offer Send <b>{offer_send}</b> </h5>
+                <?php /*<h5><i class="fas fa-long-arrow-alt-right"></i> Offer Send <b>{offer_send}</b> </h5>*/ ?>
               </div>
             </div>
           </div>
@@ -180,7 +197,7 @@
               <h6>OR APPLY WITH</h6>
               <ul>
                     <li>
-                        <h3><a href="javascript:void(0)" class="{inappropriateclass}" id="txtflag" ><i class="fa fa-flag mr-2"></i>{inappropriatetext}</a></h3>
+                        <?php /*<h3><a href="javascript:void(0)" class="{inappropriateclass}" id="txtflag" ><i class="fa fa-flag mr-2"></i>{inappropriatetext}</a></h3>*/ ?>
                         <p class="mb-1">Required connects to submit this proposal <b>1</b></p>
                         <p class="mb-1">Available Connects <b>{connection}</b>
                     </li>
@@ -219,26 +236,26 @@
                   </div>
                   <h4>Member since {creator_data}{since}{/creator_data}</h4>
                 </div>
-              </div>
+              <?php  /*</div>
 
-              <h3>About the Client</h3>
-              <div class="about-client-content">
-                <div class="text-line">
+              <?php /*<h3>About the Client</h3>
+              <div class="about-client-content"> */ ?>
+                <?php /*<div class="text-line">
                   <div><i class="fas fa-address-card"></i>
                   </div>
                   <h4>Payment method verified</h4>
-                </div>
+                </div> */ ?>
 
-                <div class="text-line">
+                <?php /*<div class="text-line">
                   <div><i class="fas fa-credit-card"></i>
                   </div>
                   <h4>Identity verified</h4>
-                </div>
+                </div> */ ?>
 
                 <div class="text-line">
-                  <div><i class="fas fa-envelope"></i>
+                  <div><i class="fas fa-envelope <?php echo isset($creator_data[0]['status']) && $creator_data[0]['status'] == '1' ? 'text-success' : '';  ?>"></i>
                   </div>
-                  <h4>Email address verified</h4>
+                  <h4><?php echo isset($creator_data[0]['status']) && $creator_data[0]['status'] == '1' ? 'Email address verified' : 'Email address not verified';  ?></h4>
                 </div>
 
                 <div class="text-line">
@@ -247,20 +264,15 @@
                   <h4>Profile completed</h4>
                 </div>
 
-                <div class="text-line">
-                  <div><i class="fas fa-phone-alt"></i>
+                <?php /*<div class="text-line">
+                  <div><i class="fas fa-phone-alt <?php $creator_data[0]['is_mobile_verified'] = 1; echo isset($creator_data[0]['is_mobile_verified']) && $creator_data[0]['is_mobile_verified'] == '1' ? 'text-success' : '';  ?>"></i>
                   </div>
                   <h4>Phone number verified</h4>
-                </div>
-
-                <div class="text-line">
-                  <div><i class="fas fa-address-card"></i>
-                  </div>
-                  <h4>Identity verified</h4>
-                </div>
+                </div> */ ?>
               </div>
               <br>
 
+              
               <h3>Job Link</h3>
 
               <div class="about-client-content">
@@ -322,9 +334,9 @@
 
                             <div class="file-upload">
                                 <div class="image-upload-wrap">
-                                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" name="fldTaskDocuments[]" required/>
+                                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="fldTaskDocuments[]" />
                                     <div class="drag-text">
-                                        <img src="../assets/img/modal-upload.jpg" alt="" />
+                                        <img src="../assets/img/modal-upload.jpg" data-default-path="../assets/img/modal-upload.jpg" alt="" />
                                     </div>
                                 </div>
                                 <div class="file-upload-content">
