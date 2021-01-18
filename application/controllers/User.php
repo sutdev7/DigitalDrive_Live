@@ -9,6 +9,8 @@ class User extends CI_Controller {
 		$this->load->library('Luser');
 		$this->load->library('Laccount');
 		$this->load->helper('captcha');
+		$this->load->model('Messages');
+		$this->load->model('Users');
 
         if(!$this->auth->is_logged()) {
         	$this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You haven\'t login to the portal. Please login to proceed further.</div>');
@@ -225,8 +227,7 @@ function hashpassword($password) {
 			$user_id_to = '';
 		}
 		$content = $this->luser->messages($user_id_to);
-
-//		echo '<pre>'; print_r($content); echo '</pre>'; die;
+		
 		$data = array(
 			'content' => $content,
 			'title' => display('Messages :: Hire-n-Work'),
@@ -255,12 +256,21 @@ function hashpassword($password) {
         $this->load->model('Users');
         $otherUserData = $this->Users->get_user_profile_info_by_id($user_id_to);
         $otherUserLogin = $otherUserData['basic_info']->is_login;
-        $lastSeen = $this->Messages->lastSeen($user_id_to);
-        echo ($otherUserLogin == 1) ? 'Online' : $lastSeen;
+        //$lastSeen = $this->Messages->lastSeen($user_id_to);
+		$login_status = $this->Users->get_login_status($user_id_to);
+		$lastSeen = $this->Messages->lastSeen_login($user_id_to);
+        //echo ($otherUserLogin == 1) ? 'Online' : $lastSeen;
+		echo ($login_status == 'l') ? 'Online' : $lastSeen;
     }
 
 	public function saveMsgData() {
-		return $this->luser->addMsgUserData();
+		$CI =& get_instance();
+		$message_id = $CI->input->post('message_id');
+		$this->Messages->delete_chat_session($CI->session->userdata('user_id'),$CI->input->post('user_to'));
+		if($message_id > 0)
+		 return $this->luser->updateMsgUserData($message_id);
+        else	
+		 return $this->luser->addMsgUserData();
 	}
 
 	public function paymentsave() {
@@ -410,5 +420,126 @@ function hashpassword($password) {
 		);
 		$this->template->full_customer_html_view($data);
 	}
+	
+	/** Function to delete message **/
+	public function delete_message($user_id,$message_id)
+	{
+       $CI =& get_instance();
+	   $status = $CI->Messages->get_message($user_id,$message_id);
+	   if($status == 1) {
+	    $this->luser->delete_message($user_id,$message_id);
+	    $msg = array('status'=>1,'message'=>'Message has been deleted');
+	   }
+       else {
+		$this->luser->delete_message($user_id,$message_id);   
+		$msg = array('status'=>0,'message'=>'Problem in deleting message');
+	   }
+	   echo json_encode($msg);die;
+	}
+	
+	
+	/** Function to type message **/
+	public function type_message($user_from_id,$user_to_id)
+	{
+       $CI =& get_instance();
+	   $status = $CI->Messages->type_message($user_from_id,$user_to_id);
+	}
+	
+	
+	
+	/** function to type message **/
+	public function fetch_chat_session($user_to_id,$user_from_id)
+	{
+	  $CI =& get_instance();
+	  echo $status = $CI->Messages->get_chat_session_message($user_to_id,$user_from_id);die;
+	}
+	
+	
+	/** function to remove chat session not working **/
+	public function remove_chat_session($user_from_id,$user_to_id)
+	{
+	  $CI =& get_instance();
+	  echo $status = $CI->Messages->delete_chat_session($user_from_id,$user_to_id);die;
+	}
+	
+	/** function to add message by ajax **/
+	public function add_ajax_message($user_from_id,$user_to_id,$code) {
+		$CI =& get_instance();
+		$message_id = $CI->input->post('message_id');
+		$this->Messages->delete_chat_session($user_from_id,$user_to_id);
+		if($message_id > 0)
+		 return $this->luser->updateMsgUserDataAjax($message_id);
+        else	
+		 return $this->luser->addMsgUserDataAjax($code);
+	}
+	
+	
+	/** function to check message visibility **/
+	public function check_messages_visibility($user_from_id,$user_to_id)
+	{
+	  echo $this->Messages->check_messages_visibility($user_from_id,$user_to_id);	
+	}
+	
+	
+	/** function to check message visibility **/
+	public function update_message_seen_status($user_from_id,$user_to_id)
+	{
+	  $CI =& get_instance();
+	  $ids = $CI->input->post('ids');
+	  $this->Messages->update_message_seen_status($user_from_id,$user_to_id,$ids);		
+	}	
+	
+	
+	
+	public function fetch_login_session($user_to_id)
+	{
+	  echo $this->Users->get_login_status($user_to_id);	
+	}
+	
+	
+	
+	public function download_file($code)
+	{
+		$CI =& get_instance();
+		$files = $this->Messages->getFileNames($code);
+		$file = $files['file'];
+		$remoteURL = base_url()."uploads/messages/".$file;
+		$original_file = $files['original'];
+		// Force download
+		/**header("Content-type: application/pdf"); 
+		header("Content-Length: " . filesize($remoteURL));
+		header("Content-Disposition: attachment; filename=".basename($original_file));
+		ob_end_clean();
+		readfile($remoteURL);
+		exit;**/
+		$this->Messages->updateDownloadStatus($file,$original_file);
+		$file = FCPATH."uploads/messages/".$file;
+		$len = filesize($file); // Calculate File Size
+		ob_clean();
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Cache-Control: public"); 
+		header("Content-Description: File Transfer");
+		header("Content-Type:application/force-download"); // Send type of file
+		$header="Content-Disposition: attachment; filename=$original_file;"; // Send File Name
+		header($header );
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Length: ".$len); // Send File Size
+		@readfile($file);
+		exit;
+	}
+	
+	
+	public function get_unloaded_messages($user_id_to) {
+        $CI =& get_instance();
+		$message_id = $CI->input->post('last_message');
+		$content = $this->luser->get_unloaded_messages($user_id_to,$message_id);
+		
+        $data = array(
+            'content' => $content
+        );
+        $this->load->view('user/messages_ajax', $data);
+    }
 }
 

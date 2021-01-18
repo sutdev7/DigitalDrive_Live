@@ -389,10 +389,10 @@ class Admin extends CI_Controller {
 	// }
 
 	public function user_messages($user_id = ""){
-            $data['user_message'] = $this->Admimodel->get_message_users();
+            $data['user_message'] = $this->Admimodel->get_message_users_list();
             $this->load->view('admin/includes/admin_header_all');
             $this->load->view('admin/includes/navbar');
-            $this->load->view('admin/pages/messages_list_admin',$data);
+            $this->load->view('admin/pages/messages_list',$data);
             $this->load->view('admin/includes/admin_footer_all');
 	}
 
@@ -419,12 +419,13 @@ class Admin extends CI_Controller {
 			     $get_user           = $this->Admimodel->get_user_info($user_id);
                 $data['send_mail']  = isset($get_user->email) ? $get_user->email : '';
                 $data['user_id']    = ($user_id != "") ? $user_id : '';
-                $data['username'] = $user_id;
+                $CI = & get_instance();
+				$userData = $CI->Users->get_user_profile_info_by_id($user_id);
+				$data['otheruserInfo'] = $userData;
 			//dd($data);die;
 				$this->load->view('admin/includes/admin_header_all');
 				$this->load->view('admin/includes/navbar');
-				//$this->load->view('admin/pages/messages_view_list',$data);
-				$this->load->view('admin/pages/messages_list_admin',$data);
+				$this->load->view('admin/pages/messages_view_list',$data);
 				$this->load->view('admin/includes/admin_footer_all');
             } else {
                 $this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You haven\'t login to the portal. Please login to proceed further.</div>');

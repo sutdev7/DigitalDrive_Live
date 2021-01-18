@@ -220,6 +220,7 @@ $route['admin/view-messages']       = 'Admin/view_messages';
 $route['admin/outbox-view-messages/(:any)/(:any)'] = 'Admin/outbox_view_messages/$1/$2';
 $route['admin/replay-user-message/(:any)'] = 'Admin/replay_user_message/$1';
 $route['see-all-projects'] = 'Freelancer/see_all_projects';
+$route['admin/view-messages-ajax/(:any)'] = 'Admin/view_messages_ajax/$1';
 
 
 

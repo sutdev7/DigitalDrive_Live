@@ -811,14 +811,14 @@ public function get_user_tasko_id($userid = ''){
 	public function get_messages($user_id = "") {
         $result = array();
         if ($user_id != "") {
-            $this->db->select('user_messages.*,users.name,users.user_id, user_login.email, user_login.user_type , user_login.is_login, CASE WHEN user_login.profile_image is null THEN "assets/img/no-image.png" ELSE CONCAT("uploads/user/profile_image/",user_login.profile_image) END profile_image ', FALSE);
+            $this->db->select('user_messages.*,users.name,users.user_id, user_login.email, user_login.user_type , user_login.is_login, user_login.profile_id, CASE WHEN user_login.profile_image is null THEN "assets/img/no-image.png" ELSE CONCAT("uploads/user/profile_image/",user_login.profile_image) END profile_image ', FALSE);
             $this->db->from('user_messages');
             $this->db->join('users', 'users.user_id = user_messages.user_id_from', 'LEFT');
             $this->db->join('user_login', 'user_login.user_id = user_messages.user_id_from', 'LEFT');
             $this->db->join('country', 'country.country_id = users.country', 'LEFT');
 			$login_user = $this->session->userdata('user_id');
-			$this->db->where("((user_messages.user_id_from='".$user_id."' OR user_messages.user_id_to='".$user_id."') AND (user_messages.user_id_from='".$login_user."' OR user_messages.user_id_to='".$login_user."'))", NULL, FALSE);
-
+			$this->db->where("((user_messages.user_id_from='".$user_id."' AND user_messages.user_id_to='".$login_user."') OR (user_messages.user_id_from='".$login_user."' AND user_messages.user_id_to='".$user_id."'))", NULL, FALSE);
+			
             //$this->db->where('user_messages.user_id_from', $user_id);
             //$this->db->or_where('user_messages.user_id_from', $this->session->userdata('user_id'));
            // $this->db->where('user_messages.user_id_to', $this->session->userdata('user_id'));
