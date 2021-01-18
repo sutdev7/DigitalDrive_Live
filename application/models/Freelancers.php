@@ -503,7 +503,7 @@ class Freelancers extends CI_Model {
 			$this->db->where('task.task_status', 1);
 			$this->db->where('task.task_hired', 1);
             $this->db->where('task.task_is_complete', 1); 
-            $this->db->where('task.task_completed_by_owner', 0); 			
+            //$this->db->where('task.task_completed_by_owner', 0); 			
 			$this->db->where('task_hired.freelancer_id',$user_id);
 		} if($type == 'completed'){
 			$this->db->select('task_hired.*, task.*, users.*');
@@ -513,7 +513,7 @@ class Freelancers extends CI_Model {
 			$this->db->where('task.task_status', 1);
 			$this->db->where('task.task_hired', 1);
             $this->db->where('task.task_is_complete', 1); 
-            $this->db->where('task.task_completed_by_owner', 1); 			
+            //$this->db->where('task.task_completed_by_owner', 1); 			
 			$this->db->where('task_hired.freelancer_id',$user_id);
 		} if($type == 'cancelled'){
 			$this->db->select('task_hired.*, task.*, DATE_FORMAT(task.task_due_date, "%d/%m/%Y") as task_due_date, users.*');
@@ -589,7 +589,7 @@ class Freelancers extends CI_Model {
 			$this->db->where('task.task_status', 1);
 			$this->db->where('task.task_hired', 1);
             $this->db->where('task.task_is_complete', 1); 
-            $this->db->where('task.task_completed_by_owner', 0); 			
+            //$this->db->where('task.task_completed_by_owner', 0); 			
 			$this->db->where('task_hired.freelancer_id',$user_id);
 		}else if($type == 'completed'){
 			$this->db->select('task_hired.*, DATE_FORMAT(task_hired.hired_end_date, "%d/%m/%Y") as hired_end_date, task.*, users.*');
@@ -599,7 +599,7 @@ class Freelancers extends CI_Model {
 			$this->db->where('task.task_status', 1);
 			$this->db->where('task.task_hired', 1);
             $this->db->where('task.task_is_complete', 1); 
-            $this->db->where('task.task_completed_by_owner', 1); 			
+            //$this->db->where('task.task_completed_by_owner', 1); 			
 			$this->db->where('task_hired.freelancer_id',$user_id);
 			 
 		}else if($type == 'cancelled'){
