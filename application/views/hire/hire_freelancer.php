@@ -188,7 +188,7 @@
                       <div class="col-lg-4 col-md-12 col-xs-12">
                         <label>Amount</label>
                         <div class="input-group amt"> <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                          <input class="form-control" type="text" name="amount" placeholder="250">
+						<input class="form-control" type="text" name="amount" id="whole_hiring_amount" value="" placeholder="00" required>
                         </div>
                       </div>
                     </li>
@@ -227,7 +227,7 @@
 						<div class="col-lg-4 col-md-12 col-xs-12">
 						  <label>Amount</label>
 						  <div class="input-group amt"> <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-							<input class="form-control milestone_amount" id="" type="text" name="milestone_agreed_budget[]" value="" placeholder="250">
+						  <input class="form-control milestone_amount" id="" type="text" name="milestone_agreed_budget[]" value="" placeholder="00">
 						  </div>
 						</div>
 						<div> 
@@ -389,6 +389,7 @@ $(document).ready(function(){
           if(obj.status == 1) {
             var gross_total = obj.task_details[0].basic_info.task_total_budget;
             var task_details = obj.task_details[0].basic_info.task_details;
+			$("#whole_hiring_amount").val(gross_total);
 			var commision=0;
 			var percentage=0;
 			if(gross_total<100){
