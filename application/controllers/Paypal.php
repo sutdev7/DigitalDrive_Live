@@ -105,7 +105,7 @@ class Paypal extends CI_Controller{
 		// $this->load->view('paypal/success', $data);
 
 		$parsedata = array();
-		$content = $this->parser->parse('paypal/success',$parsedata,true);
+		$content = $this->parser->parse('account/payment_success',$parsedata,true);
 		$data = array(
 					'content' => $content,
 					'title' => display('Sign Up As :: Hire-n-Work'),
