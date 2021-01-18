@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           {jobs}
           <div class="my-mbl-app" id="searchResult">
-            <div class="my-mbl-app-lft"> <small> {task_post_duration} minutes ago </small>
+            <div class="my-mbl-app-lft"> <small>  {job_doc} </small>
               <div class="freelancerDiv">
                 <ul class="RvwLists">
                   <li>
@@ -66,8 +66,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </div>
                       <div class="Txthldr">
                           <h2>{name}</h2>
-                          <h6>{profile_title_skill}</h6>
-                          <h6>{country}</h6>
+                          <h6 class="mb-3"><span class="designation">{profile_title_skill}</span></h6>
+                          <h6 class="mb-3"><span class="designation"><i class="fa fa-map-marker"></i>  {country}</span></h6>
                           <!--<h6>{profile_title}</h6>-->
                           <span class="plus">+ {total_positive_coins} Coins</span>
                           <span class="minus"> {total_negative_coins} Coins</span>
@@ -79,16 +79,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="my-mbl-app-rht">
               <a href="javascript:void(0)" class="view-btn1"> Offer Price: {terms_amount_max} </a>
-              <a href="#" class="eyeBtn" data-toggle="modal" data-target="#myModa{user_id}"> <i class="fa fa-eye" aria-hidden="true"></i> View Proposal</a>
+              <a href="#" class="eyeBtn m-0" data-toggle="modal" data-target="#myModa{user_id}"><i class="fa fa-eye text-white" aria-hidden="true"></i>  View Proposal</a>
             </div>
 
               <div class="wish-close">
                   <div class="modal" id="myModa{user_id}">
-                      <div class="modal-dialog">
+                      <div class="modal-dialog modal-lg">
                           <div class="modal-content">
 
                               <!-- Modal Header -->
                               <div class="modal-header" style="border:none;">
+                                  <h3>
+                                  Proposal Details On <a href="<?php echo base_url('task-details/'); ?>{user_task_id}" title="{task_name}">{task_name}</a>
+                                  </h3>
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                               </div>
 
@@ -96,18 +99,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <div class="modal-body" id="mproposal_details_modal">
                                   <div class="to-close">
                                       <h2>Proposal Details</h2>
-                                      <p> <i class="fa fa-dollar"></i>  Bidding Amount : $ {terms_amount_max}</p>
-                                      <p> <i class="fa fa-calendar"></i>  Posting Date : {posting_date}</p>
+                                      <p><i class="fa fa-dollar theme-color"></i> Bidding Amount: ${terms_amount_max}</p>
+                                      <p><i class="fa fa-calendar theme-color"></i> Posting Date: {posting_date}</p>
+                                      <hr/>
                                       <h2 class="Atta">Download Attachment</h2>
                                       {attachments}
                                       <a href="<?php echo base_url(); ?>download_attachment_proposal/{file_name}"><img style="padding: 10px; width: 84px; height: 84px;" src="{file_ext_type}" alt=""></a>
-                                      {/attachments}
+                                      <br/>
+                                      <a href="<?php echo base_url(); ?>download_attachment_proposal/{file_name}" class="" download><i class="fa fa-download"></i> Download</a>
+                                      <br/>
+                                      {/attachments}                                      
                                       <!--<p>{p_attachments}</p> -->
                                      <!-- <form id="frm_attachment" action="<?php /*echo base_url() */?>download_attachment/{p_attachments}" method="post" style="width:100%;">
                                           <p id="download_attachment_{p_attachments}" style="cursor: pointer;"><i class="fa fa-download"></i> Download Attachment </p>
                                       </form>-->
-
-                                      <div class="anyClass black_color">{remarks}</div>
+                                      <hr/>
+                                      <h2>Cover Letter</h2>
+                                      <div class="anyClass black_color proposal-remark">{remarks}</div>
+                                      <hr/>
                                       <h2>Message</h2>
                                   </div>
                                   <!-- <textarea id="message_{p_attachments}" class="form-controll"></textarea>-->
@@ -119,10 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                           <form name="frmMakeOffer" id="frmMakeOffer_{user_id}" action="" method="post">
                                               <input type="hidden" name="chkMakeOfferFreelancer" value="{user_id}" />
                                           </form>
-
-
                                       </div>
-
                                   </div>
                                   <br/>
                                   <div class="row">
