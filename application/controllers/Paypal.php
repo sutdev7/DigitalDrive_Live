@@ -8,9 +8,6 @@ class Paypal extends CI_Controller{
 		// Load paypal library
 		$this->load->library('paypal_lib');
 
-		
-		// Load payment model
-		$this->load->model('payment');
 		$this->load->model('Tasks');
 	 }
 
