@@ -10,7 +10,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   if(!empty($msg)) {
   ?>
   <section style="padding-top: 7%;">
+  <div class="container">
     <?php echo $msg; ?>
+    </div>
   </section>
   <?php
   }
