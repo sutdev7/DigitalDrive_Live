@@ -62,41 +62,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <li class="breadcrumb-item active" aria-current="page">My Job Details</li>
                             </ol>
                         </nav>-->
-                        <?php 
-                            $datetime1 = new DateTime();
-$datetime2 = new DateTime($interval);
-$interval = $datetime1->diff($datetime2);
-$interval_year=$interval->format('%y');
-$interval_month=$interval->format('%m');
-$interval_day=$interval->format('%a');
-$interval_hour=$interval->format('%h');
-$interval_min=$interval->format('%i');
-$elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
-//echo $interval_year.'/'.$interval_month.'/'.$interval_hour.'/'.$interval_min;
-                       // echo $interval;?>
                         <div class="task_Left_Div">
-                            <h2>Posted 
-                                <?php 
-if($interval_hour>0){
-    echo $interval->format('%h hours');
-}else if($interval_day>0){
-    echo $interval->format('%a days');
-}
-else if($interval_month>0){
-    echo $interval->format(' %m months');
-}
-else if($interval_year>0){
-    echo $interval->format('%y years');
-}
-else if($interval_min>0){
-    echo $interval->format('%i minutes');
-}
-else{
-    echo $interval->format('%s seconds');
-}
-
-                                ?>
-                             ago</h2>
+                            <h2>Posted <?php 
+                            if(isset($task_info[0]['task_doc'])) {
+                                echo get_time_ago($task_info[0]['task_doc']);
+                            }
+                            ?></h2>
                             <h3>{task_title}</h3>
                             <a href="<?= base_url() . 'edit-task-step-1/' . $this->uri->segment(2) ?>" class="EdBtn"><i class="fa fa-pencil" aria-hidden="true"></i></a> <span> 
                                 {task_requirements}
