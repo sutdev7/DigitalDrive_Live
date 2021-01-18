@@ -8,8 +8,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   $msg = $this->session->flashdata('msg'); 
   if(!empty($msg)) {
   ?>
-  <section style="padding-top: 7%;">
+  <section class="mt-4" style="padding-top: 7%;">
+    <div class="container">
     <?php echo $msg; ?>
+    </div>
   </section>
   <?php
   }
