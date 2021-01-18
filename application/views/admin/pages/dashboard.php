@@ -117,6 +117,24 @@ $unactiveFreelancer=$query_unactive_freelancers->result();
           </div>
           <!-- ./col -->
         </div>
+                  <!-- amardeep changes -->
+                  <div class="col-lg-3 col-6">
+            <!-- transaction list -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3><?php echo  isset($txnlist) ? $txnlist : 0; ?></h3>
+                <p>Transaction list</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="<?php echo base_url().'admin/transaction_list' ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+          <!-- amardeep changes end -->
+
         <div class="row"></div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
