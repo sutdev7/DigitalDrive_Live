@@ -159,10 +159,13 @@
          </div>
         </div>
         <?php if($this->session->userdata('user_type') == 4){?>
-         <div class="row mb-4">
+          <div class="row mb-4">
                  <div class="col-lg-12">
              <h3>Title <a href="#EditTitle" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i></a></h3>
-                   <p>{user_info}{profiletitleskill} {profiletitle} {/user_info}</p>
+<!--Change For More Skills Add Abhishek-->
+
+              <p><b>Profile Title: </b>{user_info} {profiletitle} {/user_info}</p>
+              <p><b> Skills: </b>{user_info}{profiletitleskill}  {/user_info}</p>
          </div>
         </div>
         <?php } ?>
