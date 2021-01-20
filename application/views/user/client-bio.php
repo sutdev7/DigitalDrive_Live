@@ -372,8 +372,14 @@
         <!-- Modal body -->
         <div class="modal-body">
           <p>Chose Your skill</p>
+          <!--Changes Abhishek-->
           <select class="multipleSelect" multiple name="Skillsname[]" id="myskill">
             {user_skills_name} <option value="{value}" {currentselections}>{value}</option> {/user_skills_name}
+           <?php foreach($skills as $val){
+             ?>
+            <option value="<?= $val['value']?>" {currentselections}><?= $val['value']?></option>
+          <?php 
+        }?>
           </select>
 
           <p>Edit Title</p>
