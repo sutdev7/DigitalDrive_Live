@@ -19,9 +19,10 @@ class Luser {
 		}
         
 		$userData = $CI->Users->get_user_profile_info_by_id($CI->session->userdata('user_id'));
+
 		$user_profile_image = $CI->session->userdata('user_image');
-		
-		if(empty($user_profile_image)) {
+		#Cahnge By Abhishek
+		 if(empty($user_profile_image)) {
 			$user_profile_image = base_url('assets/img/no-image.png');
 		}else{
 			$user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);	    	

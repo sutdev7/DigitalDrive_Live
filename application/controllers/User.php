@@ -135,6 +135,26 @@ function hashpassword($password) {
 	    }
 		$this->template->full_customer_html_view($data);
 	}
+	#user Message And Redirect 
+	public function welcome_singhin($welcome=''){
+		if(empty($welcome)){
+			$content=$this->load->view('account/welcome_google');
+			die();
+		}
+		else{
+			$content=$this->load->view('account/welcome_google',$welcome);
+			die();
+		}
+	
+		// $data = array(
+		// 	        'content' => $content,
+		// 	        'title' => display('Sign Up :: Hire-n-Work'),
+		//         );		
+		// $this->template->full_website_html_view($data);	
+		
+	}
+	#user Message And Redirect 
+
 	public function payment_details(){
         $this->form_validation->set_rules('fldCreditCardNo','Card No', 'trim|required|numeric|min_length[13]|max_length[16]');
         $this->form_validation->set_rules('fldCardExpiryMonth','Expiry Month', 'required');

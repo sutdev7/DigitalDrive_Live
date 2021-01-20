@@ -24,6 +24,7 @@ if(!empty($msg)) {
       <div class="full" style="width:100%; float:left; position:relative;">
         <?php $this->load->view('user/molivi-section.php') ?>
         <div class="ongoing-task">
+     
           <!-- <div class="ongoing-task-lft">
             <label>Sort by Status</label>
             <div class="select-style">

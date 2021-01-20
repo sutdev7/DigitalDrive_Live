@@ -24,9 +24,9 @@ class Google_login extends CI_Controller {
     public function login()
     {
        
-        $clientId = '688554065697-8bne0fvu2qhlv51nfh41r9j56sfvdqut.apps.googleusercontent.com'; //Google client ID
-        $clientSecret = 'GA_GfdecFevGdjsJ2BEkK1fC'; //Google client secret
-        $redirectURL = 'https://www.drivedigitally.com/live/sign-in';
+        $clientId = '705398889517-2q0m1imu0j6iih51emka4tp269pt8315.apps.googleusercontent.com'; //Google client ID
+        $clientSecret = 'wu_YGKR_fliKaIlxQPl9yocL'; //Google client secret
+        $redirectURL = 'https://www.drivedigitally.com/live/Googlelogin/login';
         
         //https://curl.haxx.se/docs/caextract.html
 
@@ -39,9 +39,9 @@ class Google_login extends CI_Controller {
         $google_oauthV2 = new Google_Oauth2Service($gClient);
 
         // print_r($google_oauthV2->userinfo->get());
-	         // print_r($_GET);
-	         // die('11');
-	        
+             // print_r($_GET);
+             // die('11');
+            
         if(isset($_GET['code']))
         {
             $gClient->authenticate($_GET['code']);

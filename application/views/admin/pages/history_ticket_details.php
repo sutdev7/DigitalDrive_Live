@@ -29,22 +29,22 @@
          <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
          <div class="container padding-bottom-3x mb-2">
             <div class="row">
-				  <div class="col-lg-12">
-				  <?php 
-				  if($this->session->flashdata('msg')){
-					  echo $this->session->flashdata('msg');
-				  } 
-				              $user_profile_image = $user_details->profile_image;
-						if(empty($user_profile_image)) {
-							$user_profile_image = base_url('assets/img/no-image.png');
-						}
-						else {
-							$user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);          
-						}           
-				  
-				  ?>
-				  
-				  </div>
+          <div class="col-lg-12">
+          <?php 
+          if($this->session->flashdata('msg')){
+            echo $this->session->flashdata('msg');
+          } 
+                      $user_profile_image = $user_details->profile_image;
+            if(empty($user_profile_image)) {
+              $user_profile_image = base_url('assets/img/no-image.png');
+            }
+            else {
+              $user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);          
+            }           
+          
+          ?>
+          
+          </div>
                <div class="col-lg-4">
                   <aside class="user-info-wrapper">
                      <div class="user-cover" style="background-image: url(https://bootdey.com/img/Content/bg1.jpg);">
@@ -108,8 +108,8 @@
                      </div>
                   </div>
                   <?php  if(!empty($info)){ $vcount = count($info); $vcount2 = 0;
-					//echo "<pre>";print_r($info);die; 
-                        foreach($info as $information) { $vcount2++;	?>
+          //echo "<pre>";print_r($info);die; 
+                        foreach($info as $information) { $vcount2++;  ?>
                   <div class="comment <?php echo ($vcount == $vcount2) ? "last_comment" : "" ?>">
                      <div class="comment-author-ava"><img src="<?php echo ($information->user_type=='outbox')?$user_profile_image:base_url('assets/img/logo.png')?>" alt="Avatar"></div>
                      <div class="comment-body">
@@ -117,14 +117,14 @@
                         <div class="comment-footer"><span class="comment-meta"><?php echo ($information->user_type=='outbox')?$user_details->name:$this->session->userdata('user_name'); ?></span> <span class="comment-meta">   (<?php echo date("F j, Y", strtotime($information->dom)) ;?>)<span></div>
                      </div>
                   </div>
-				   <?php }}else{ ?>
-				   
-						 	  <div class="comment"><div class="comment-body">
+           <?php }}else{ ?>
+           
+                <div class="comment"><div class="comment-body">
                         <p class="comment-text"><div class="" style="text-align: center;padding: 50px;">No message list found</div></p>
 
                      </div></div>
 
-						 <?php } ?> 	
+             <?php } ?>   
 
                   
                </div>
@@ -213,7 +213,7 @@
 </script>
   <script>
     $(function () {
-	   $('html, body').animate({
+     $('html, body').animate({
         scrollTop: $(".last_comment").offset().top - 10
     }, 1000);
        
@@ -485,17 +485,17 @@
    }
    @media (max-width: 576px) {
    .comment {
-	   padding-left: 0
-	   }
-	   .comment .comment-author-ava {
-	   display: none
-	   }
-	   .comment .comment-body {
-	   padding: 15px
-	   }
-	   .comment .comment-body::before,
-	   .comment .comment-body::after {
-	   display: none
-		}
+     padding-left: 0
+     }
+     .comment .comment-author-ava {
+     display: none
+     }
+     .comment .comment-body {
+     padding: 15px
+     }
+     .comment .comment-body::before,
+     .comment .comment-body::after {
+     display: none
+    }
    }
 </style>

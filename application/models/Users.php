@@ -318,6 +318,7 @@ class Users extends CI_Model
 
     /*
      * User Google login information By ID
+     * Changes Jha
      */
 
      public function register_user_google($user_data = array())
@@ -533,7 +534,7 @@ class Users extends CI_Model
                 //$string1 = "tarunmodi";
                 
                 //die();
-                
+                #Changes For Images
                 $data   = array(
                     'user_id' => $id_generator,
                     'profile_id' => $this->auth->generator(20),

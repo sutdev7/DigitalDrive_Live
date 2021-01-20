@@ -78,13 +78,13 @@ $unactiveFreelancer=$query_unactive_freelancers->result();
             small box -->
             <!-- <div class="small-box bg-success">
               <div class="inner">
-                <h3><?php //echo count($solved); ?></h3>
+                <h3><?php echo count($solved); ?></h3>
                 <p>Problem Solved Tickets</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="<?php //echo base_url().'admin/problem-ticket/solved' ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url().'admin/problem-ticket/solved' ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div> -->
       
@@ -117,24 +117,6 @@ $unactiveFreelancer=$query_unactive_freelancers->result();
           </div>
           <!-- ./col -->
         </div>
-                  <!-- amardeep changes -->
-                  <div class="col-lg-3 col-6">
-            <!-- transaction list -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3><?php echo  isset($txnlist) ? $txnlist : 0; ?></h3>
-                <p>Transaction list</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="<?php echo base_url().'admin/transaction_list' ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div>
-          <!-- amardeep changes end -->
-
         <div class="row"></div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
@@ -142,29 +124,7 @@ $unactiveFreelancer=$query_unactive_freelancers->result();
     <!-- /.content -->
   </div>
 
-  <!--  <div id="alert_popover" class="text-right" style="width: 254px;height: 170px;margin-left: 50%;border: 1px solid;background: gray; color: white;">
-  
-    
-    <button style="color:red;border: 2px solid red;background: black;">&times;</button>
-
-    <div class="wrapper">
-      
-     <div id="notification_content_Freelancer"  style=" margin-top: 3%;margin-right: 50%;">
-
-     </div>
-      <div id="notification_content_Client"  style=" margin-top: 3%; margin-right: 50%;">
-
-     </div>
-      <div id="notification_content_Room"  style="margin-top: 3%; margin-right: 50%;">
-
-     </div>
-      <div id="notification_content_Ticket" style=" margin-top: 3%;margin-right: 50%;">
-
-     </div>
-    </div>
-    </div> -->
-    
-    <div class="notify" data-notify-type="notice">
+   <div class="notify" data-notify-type="notice">
      <a href="<?php echo base_url()?>admin/freelancer-list" style="color: white;">Freelancer (<b><?php echo count_inactive_freelance(); ?></b>)</a>
    </div>
 <div class="notify" data-notify-type="notice">
@@ -176,18 +136,35 @@ $unactiveFreelancer=$query_unactive_freelancers->result();
 <div class="notify" data-notify-type="notice">
   <a href="<?= base_url() ?>" style="color: white;">Ticket (<b><?php echo count_unsolved_ticket(); ?></b>)</a>
 </div>
-    <script src="<?php echo base_url()?>assets/jquery.notify.js"></script>
+    
+  <script src="<?php echo base_url()?>assets/jquery.notify.js"></script>
     <script type="text/javascript"><!--
 google_ad_client = "ca-pub-2783044520727903";
 /* jQuery_demo */
 google_ad_slot = "2780937993";
-google_ad_width = 1728;
-google_ad_height = 190;
+google_ad_width = 728;
+google_ad_height = 90;
 //-->
 </script>
   <!-- /.content-wrapper -->
   <script type="text/javascript">
-  
+    setInterval(function(){
+  load_last_notification();
+ }, 1000);
+
+ function load_last_notification()
+ {
+  var data_Freelancer = '<a href="<?php echo base_url()?>admin/freelancer-list" style="color: white;">Freelancer (<b><?php echo count_inactive_freelance(); ?></b>)</a>';
+  var data_Client = '<a href="<?php echo base_url()?>admin/client-list" style="color: white;">Client (<b><?php echo count_inactive_client(); ?></b>)</a>';
+  var data_Room = '<a href="<?= base_url()?>admin/naluacer-lists/client" style="color: white;" >Room (<b><?php echo count_inactive_room(); ?></b>)</a>';
+  var data_Ticket = '<a href="<?= base_url() ?>" style="color: white;">Ticket (<b><?php echo count_unsolved_ticket(); ?></b>)</a>';
+  $('#notification_content_Freelancer').html(data_Freelancer);
+  $('#notification_content_Client').html(data_Client);
+  $('#notification_content_Room').html(data_Room);
+  $('#notification_content_Ticket').html(data_Ticket);
+
+ }
+
 
 
 $(document).ready(function(){
@@ -199,7 +176,7 @@ $(document).ready(function(){
   </script>
 
   <script>
-$.notifySetup({sound: 'https://www.drivedigitally.com/live/assets/audio/notify.wav'});
+$.notifySetup({sound: '<?php base_url()?>assets/audio/notify.wav'});
 $('.notify').notify();
 </script>
 <script type="text/javascript">
@@ -229,7 +206,4 @@ $(function() {
     var refreshId = setInterval(loadCount, 60000);
     $.ajaxSetup({ cache: false });
 });
-
-
 </script>
-  <!-- /.content-wrapper -->

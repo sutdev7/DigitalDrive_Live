@@ -62,12 +62,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <li class="breadcrumb-item active" aria-current="page">My Job Details</li>
                             </ol>
                         </nav>-->
+                        <?php 
+                            $datetime1 = new DateTime();
+$datetime2 = new DateTime($interval);
+$interval = $datetime1->diff($datetime2);
+$interval_year=$interval->format('%y');
+$interval_month=$interval->format('%m');
+$interval_day=$interval->format('%a');
+$interval_hour=$interval->format('%h');
+$interval_min=$interval->format('%i');
+$elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
+//echo $interval_year.'/'.$interval_month.'/'.$interval_hour.'/'.$interval_min;
+                       // echo $interval;?>
                         <div class="task_Left_Div">
-                            <h2>Posted <?php 
-                            if(isset($task_info[0]['task_doc'])) {
-                                echo get_time_ago($task_info[0]['task_doc']);
-                            }
-                            ?></h2>
+                            <h2>Posted 
+                                <?php 
+if($interval_hour>0){
+    echo $interval->format('%h hours');
+}else if($interval_day>0){
+    echo $interval->format('%a days');
+}
+else if($interval_month>0){
+    echo $interval->format(' %m months');
+}
+else if($interval_year>0){
+    echo $interval->format('%y years');
+}
+else if($interval_min>0){
+    echo $interval->format('%i minutes');
+}
+else{
+    echo $interval->format('%s seconds');
+}
+
+                                ?>
+                             ago</h2>
                             <h3>{task_title}</h3>
                             <a href="<?= base_url() . 'edit-task-step-1/' . $this->uri->segment(2) ?>" class="EdBtn"><i class="fa fa-pencil" aria-hidden="true"></i></a> <span> 
                                 {task_requirements}
@@ -85,32 +114,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <em><i class="fa fa-user" aria-hidden="true"></i> {task_freelancer_hire} Hired</em> </span>
                                 <span>
                                     <h5>Total Proposals</h5>
-									<?php
-									if(count($proposals) > 0) {
-										?>
-										<em onclick="javascript:receivedOffers('{user_task_id}');" style="cursor: pointer;"><i class="fa fa-book" aria-hidden="true"></i><?= count($proposals) ?></em>
-										<?php
-									} else {
-										?>
-										<em><i class="fa fa-book" aria-hidden="true"></i><?= count($proposals) ?></em>
-										<?php
-									}
-									?>
-                                </span>				
+                                    <?php
+                                    if(count($proposals) > 0) {
+                                        ?>
+                                        <em onclick="javascript:receivedOffers('{user_task_id}');" style="cursor: pointer;"><i class="fa fa-book" aria-hidden="true"></i><?= count($proposals) ?></em>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <em><i class="fa fa-book" aria-hidden="true"></i><?= count($proposals) ?></em>
+                                        <?php
+                                    }
+                                    ?>
+                                </span>             
                             </div>
-                            <?php 
-                            if(isset($task_attachments) && count($task_attachments) > 0) {
-                            ?>
                             <h2 class="Atta">Attachment</h2>
                             {task_attachments}
                                 <a href="<?php echo base_url(); ?>download_file/{file_name}"><img style="padding: 10px; width: 84px; height: 84px;" src="{file_ext_type}" alt=""></a>
                             {/task_attachments}
-                            <?php 
-
-                             }?>
 
                             <div class="CommentsDiv">
-                                <!--<h5>Comments</h5>-->					
+                                <!--<h5>Comments</h5>-->                    
                                 <!--<div class="media anaaDiv-top"> <a class="pull-left" href="<?= base_url() . 'public-profile/' ?>{public_id}"> <img class="media-object img-circle" src="{profile_image}" height="40" width="40"></a>
                                   <div class="media-body">
                                 <?php
@@ -125,7 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php
                                 }
                                 ?>
-                                <!--	<p>{remarks}</p> -->
+                                <!--    <p>{remarks}</p> -->
                                 <!--<p> {city}, {state}, {country} </p> -->
               <!--<small> + {total_positive_coins} Coins </small>
               <em> {total_negative_coins} Coins </em> 
@@ -165,8 +188,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php /*} */?>
                         </ul>-->
                     </div>
-                    <div>
-                        <?php echo (isset($hire_list) && $hire_list) ? "<h3>Hired Freelancers</h3>" : "<h3>Top Freelancers</h3>";?>
+                    <div >
+                      <div class="card text-center">
+  <div class="card-header">  <?php echo (isset($hire_list) && $hire_list) ? "<h3>Hired Freelancers</h3>" : "<h3>Top Freelancers</h3>";?></div></div>
                         <ul class="RvwLists">
                             <?php
                             $a_freelancers = array();
@@ -199,17 +223,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     ?>
                                     <li>
                                         <div class="PflImgHldrWrpr">
-                                            <div class="Imghldr" style="background:url(<?php echo $user_profile_image; ?>) no-repeat center center; background-size:cover;"></div>
-                                            <?php if ($fRow->is_login) { ?>
+                                            <!-- <div class="Imghldr" style="background:url(<?php echo $user_profile_image; ?>) no-repeat center center; background-size:cover;"></div> -->
+                                           <!--  <?php if ($fRow->is_login) { ?>
                                                 <img src="<?php echo base_url('assets/img/activeIcon.png'); ?>" alt=""></div>
-                                            <?php } ?>
-                                        <div class="Txthldr">
-                                            <h2><?php echo $fRow->name; ?></h2>
-                                            <h6><?php echo isset($ss['user_selected_skills'][0]) ? $ss['user_selected_skills'][0]['skill_name'] : ''; ?></h6>
+                                            <?php } ?> -->
+                                            <div class="card text-center">
+  <div class="card-header"><div class="Imghldr" style="background:url(<?php echo $user_profile_image; ?>) no-repeat center center; background-size:cover;"></div>
+    <h5 class="card-title"><?php echo $fRow->name; ?></h5>
+    <p class="card-text">
+      <h6><?php echo isset($ss['user_selected_skills'][0]) ? $ss['user_selected_skills'][0]['skill_name'] : ''; ?></h6>
                                             <h6><?php echo $fRow->country;?></h6>
-                                            <span class="plus">+ <?php echo $fRow->total_positive_coins; ?> Coins</span>
+    </p>
+  
+  </div>
+ <div class="card-footer text-muted" style="display: flex"> 
+    <span class="plus" style="flex:1;margin-top: 21px;">+ <?php echo $fRow->total_positive_coins; ?> Coins</span>
                                             <span id="negetive_coin"> <?php echo $fRow->total_negative_coins; ?> Coins</span>
                                         </div>
+</div>
+                                        <!-- <div class="Txthldr">
+                                            <h2></h2>
+                                            
+                                           
+                                        </div> -->
                                     </li>
                                 <?php
                                 }
@@ -217,13 +253,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             ?>
                         </ul>
                     </div>
-					<?php
-					if(count($proposals) > 0) {
-						?>
-						<a href="<?php echo base_url()?>received-offers/{user_task_id}" class="eyeBtn"> <i class="fa fa-eye" aria-hidden="true"></i> Received Offers</a>
-						<?php
-					}
-					?>
+                    <?php
+                    if(count($proposals) > 0) {
+                        ?>
+                        <a href="<?php echo base_url()?>received-offers/{user_task_id}" class="eyeBtn"> <i class="fa fa-eye" aria-hidden="true"></i> Received Offers</a>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
             {/task_info}       
