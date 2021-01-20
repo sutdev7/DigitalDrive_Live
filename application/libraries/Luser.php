@@ -355,7 +355,8 @@ exit; */
         $data = $arrCountry = $arrLanguage = $arrSkills = $arrSkillsName = $userInfo = array();
         $CI->load->model('Users');
         $CI->load->helper('captcha');
-
+        $CI->load->model('Skills');
+        $data['skills'] = $CI->Skills->get_all_skill_data();
         $userData = $CI->Users->get_user_profile_info_by_id($CI->session->userdata('user_id'));
         $user_profile_image = $CI->session->userdata('user_image');
         if (empty($user_profile_image)) {
@@ -444,7 +445,8 @@ exit; */
         $data = $arrCountry = $arrLanguage = $arrSkills = $arrSkillsName = $userInfo = array();
         $CI->load->model('Users');
         $CI->load->helper('captcha');
-
+        $CI->load->model('Skills');
+        $data['skills'] = $CI->Skills->get_all_skill_data();
         $userData = $CI->Users->get_user_profile_info_by_id($CI->session->userdata('user_id'));
         $user_profile_image = $CI->session->userdata('user_image');
         if (empty($user_profile_image)) {
