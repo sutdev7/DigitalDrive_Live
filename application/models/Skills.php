@@ -55,7 +55,18 @@ class Skills extends CI_Model {
                 
         return $skill_list;
     }
-
+    /*
+     * All Skills Jha
+     */
+    public function get_all_skill_data(){
+        
+        $this->db->where('status', 1);
+        $this->db->where('deleted',0);
+        $query = $this->db->get('area_of_interest')->result();
+       
+                
+        return $query;
+    }
     public function get_user_skills($user_id) {
         $skill_list = array();
         // Get user selected skills
