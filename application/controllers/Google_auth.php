@@ -14,8 +14,8 @@ require_once 'Google/Client.php';
 require_once 'Google/Service/Oauth2.php';
 
 // Fill CLIENT ID, CLIENT SECRET ID, REDIRECT URI from Google Developer Console
- $client_id = '688554065697-8bne0fvu2qhlv51nfh41r9j56sfvdqut.apps.googleusercontent.com';
- $client_secret = 'GA_GfdecFevGdjsJ2BEkK1fC';
+ $client_id = '705398889517-2q0m1imu0j6iih51emka4tp269pt8315.apps.googleusercontent.com';
+ $client_secret = 'wu_YGKR_fliKaIlxQPl9yocL';
  $redirect_uri = 'https://www.drivedigitally.com/live/freelancer-dashboard/';
  $simple_api_key = 'AIzaSyBnAC00d5SfmY-5mM5Vr4AGisPRk8_KCsY';
  
