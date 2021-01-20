@@ -164,8 +164,12 @@
              <h3>Title <a href="#EditTitle" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i></a></h3>
 <!--Change For More Skills Add Abhishek-->
 
-              <p><b>Profile Title: </b>{user_info} {profiletitle} {/user_info}</p>
+<?php $values='{user_info} {profiletitleskill}';
+           if(!empty($values)){?>
+            <p><b>Profile Title: </b>{user_info} {profiletitle} {/user_info}</p>
               <p><b> Skills: </b>{user_info}{profiletitleskill}  {/user_info}</p>
+          <?php } 
+            ?>
          </div>
         </div>
         <?php } ?>
