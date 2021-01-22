@@ -351,7 +351,7 @@ class Users extends CI_Model
             );
             
             $result = $this->db->insert('users', $data1);
-            //$insert_id = $this->db->insert_id();
+            
             
             
             
@@ -388,7 +388,7 @@ class Users extends CI_Model
                         if (!in_array($i, $Fr_uniquefr))
                             $missing[] = $i;
                     }
-                    //}
+                   
                     
                     if (!empty($missing)) {
                         $last_id= array_values($missing)[0];
@@ -397,7 +397,7 @@ class Users extends CI_Model
                         $last_id = $this->Users->getUserUniqueId($user_type);
                     }
                     
-                    //$last_id        = $this->Users->getUserUniqueId($user_type);
+                    
                     $profile_status   = 0;
                     $status           = 0;  
                     $total_connects   = 10;
@@ -427,14 +427,14 @@ class Users extends CI_Model
                         if (!in_array($i, $Fr_uniquefr))
                             $missing[] = $i;
                     }
-                    //}
+                   
                     if (!empty($missing)) {
                         $last_id= array_values($missing)[0];
                         
                     } else {
                         $last_id = $this->Users->getUserUniqueId($user_type);
                     }
-                    //echo 'mm'.$last_id; die();
+                   
                     
                     $profile_status   = 0;
                     $status           = 0;
@@ -447,7 +447,7 @@ class Users extends CI_Model
                 } 
                 elseif ($user_data['fldUserType'] == 'nlancer') {
                     $user_type    = 5;
-                    //$last_id        = $this->Users->getUserUniqueId($user_type);
+                   
                     $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%NL%' ORDER BY unique_id DESC");
                     $get_result   = $query_status->result();
                     
@@ -471,7 +471,7 @@ class Users extends CI_Model
                                 $missing[] = $i;
                         }                        
                     }
-                    //}
+                   
                     if (!empty($missing)) {
                         $last_id= array_values($missing)[0];
                         
@@ -489,7 +489,7 @@ class Users extends CI_Model
                 }
                 elseif ($user_data['fldUserType'] == 'nclient') {
                     $user_type    = 6;
-                    //$last_id        = $this->Users->getUserUniqueId($user_type);
+                    
                     $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%NC%' ORDER BY unique_id DESC");
                     $get_result   = $query_status->result();
                     
@@ -514,7 +514,7 @@ class Users extends CI_Model
                         }                        
                     }
 
-                    //}
+                  
                     if (!empty($missing)) {
                         $last_id= array_values($missing)[0];
                         
@@ -530,10 +530,7 @@ class Users extends CI_Model
                     $notification_msg = $user_data['username'] . " New Room Client Register";
                     $notif            = "NC";
                 }                
-                //  echo $unique_id; 
-                //$string1 = "tarunmodi";
                 
-                //die();
                 #Changes For Images
                 $data   = array(
                     'user_id' => $id_generator,
