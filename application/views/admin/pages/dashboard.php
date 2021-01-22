@@ -74,19 +74,7 @@ $unactiveFreelancer=$query_unactive_freelancers->result();
             </div>
           </div>
           <!-- ./col -->
-         <!--  <div class="col-lg-3 col-6">
-            small box -->
-            <!-- <div class="small-box bg-success">
-              <div class="inner">
-                <h3><?php echo count($solved); ?></h3>
-                <p>Problem Solved Tickets</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="<?php echo base_url().'admin/problem-ticket/solved' ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div> -->
+         
       
        <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -139,11 +127,11 @@ $unactiveFreelancer=$query_unactive_freelancers->result();
     
   <script src="<?php echo base_url()?>assets/jquery.notify.js"></script>
     <script type="text/javascript"><!--
-google_ad_client = "ca-pub-2783044520727903";
-/* jQuery_demo */
-google_ad_slot = "2780937993";
-google_ad_width = 728;
-google_ad_height = 90;
+      google_ad_client = "ca-pub-2783044520727903";
+      /* jQuery_demo */
+      google_ad_slot = "2780937993";
+      google_ad_width = 728;
+      google_ad_height = 90;
 //-->
 </script>
   <!-- /.content-wrapper -->
@@ -154,14 +142,14 @@ google_ad_height = 90;
 
  function load_last_notification()
  {
-  var data_Freelancer = '<a href="<?php echo base_url()?>admin/freelancer-list" style="color: white;">Freelancer (<b><?php echo count_inactive_freelance(); ?></b>)</a>';
-  var data_Client = '<a href="<?php echo base_url()?>admin/client-list" style="color: white;">Client (<b><?php echo count_inactive_client(); ?></b>)</a>';
-  var data_Room = '<a href="<?= base_url()?>admin/naluacer-lists/client" style="color: white;" >Room (<b><?php echo count_inactive_room(); ?></b>)</a>';
-  var data_Ticket = '<a href="<?= base_url() ?>" style="color: white;">Ticket (<b><?php echo count_unsolved_ticket(); ?></b>)</a>';
-  $('#notification_content_Freelancer').html(data_Freelancer);
-  $('#notification_content_Client').html(data_Client);
-  $('#notification_content_Room').html(data_Room);
-  $('#notification_content_Ticket').html(data_Ticket);
+    var data_Freelancer = '<a href="<?php echo base_url()?>admin/freelancer-list" style="color: white;">Freelancer (<b><?php echo count_inactive_freelance(); ?></b>)</a>';
+    var data_Client = '<a href="<?php echo base_url()?>admin/client-list" style="color: white;">Client (<b><?php echo count_inactive_client(); ?></b>)</a>';
+    var data_Room = '<a href="<?= base_url()?>admin/naluacer-lists/client" style="color: white;" >Room (<b><?php echo count_inactive_room(); ?></b>)</a>';
+    var data_Ticket = '<a href="<?= base_url() ?>" style="color: white;">Ticket (<b><?php echo count_unsolved_ticket(); ?></b>)</a>';
+    $('#notification_content_Freelancer').html(data_Freelancer);
+    $('#notification_content_Client').html(data_Client);
+    $('#notification_content_Room').html(data_Room);
+    $('#notification_content_Ticket').html(data_Ticket);
 
  }
 
