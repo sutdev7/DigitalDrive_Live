@@ -26,7 +26,6 @@ public function __construct()
 		$redirectURL = 'https://www.drivedigitally.com/live/Googlelogin/login';
 		
 		
-		//https://curl.haxx.se/docs/caextract.html
 
 		//Call Google API
 		$gClient = new Google_Client();
