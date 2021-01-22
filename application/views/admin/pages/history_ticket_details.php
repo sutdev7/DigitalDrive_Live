@@ -34,7 +34,7 @@
           if($this->session->flashdata('msg')){
             echo $this->session->flashdata('msg');
           } 
-                      $user_profile_image = $user_details->profile_image;
+            $user_profile_image = $user_details->profile_image;
             if(empty($user_profile_image)) {
               $user_profile_image = base_url('assets/img/no-image.png');
             }
@@ -108,7 +108,7 @@
                      </div>
                   </div>
                   <?php  if(!empty($info)){ $vcount = count($info); $vcount2 = 0;
-          //echo "<pre>";print_r($info);die; 
+         
                         foreach($info as $information) { $vcount2++;  ?>
                   <div class="comment <?php echo ($vcount == $vcount2) ? "last_comment" : "" ?>">
                      <div class="comment-author-ava"><img src="<?php echo ($information->user_type=='outbox')?$user_profile_image:base_url('assets/img/logo.png')?>" alt="Avatar"></div>
