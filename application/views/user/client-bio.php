@@ -1,12 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <main id="main"> 
-  <?php /*
-  $msg = $this->session->flashdata('msg'); 
-  if(!empty($msg)) {?>
-  <section style="padding-top: 7%;">
-    <?php echo $msg; ?>
-  </section>
-  <?php } */ ?>
+ 
 
   <?php 
   ($this->session->userdata('user_type') == 3)? $user_type = 'Client' : $user_type = 'Freelancer';
