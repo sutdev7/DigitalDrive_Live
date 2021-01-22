@@ -64,36 +64,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </nav>-->
                         <?php 
                             $datetime1 = new DateTime();
-$datetime2 = new DateTime($interval);
-$interval = $datetime1->diff($datetime2);
-$interval_year=$interval->format('%y');
-$interval_month=$interval->format('%m');
-$interval_day=$interval->format('%a');
-$interval_hour=$interval->format('%h');
-$interval_min=$interval->format('%i');
-$elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
-//echo $interval_year.'/'.$interval_month.'/'.$interval_hour.'/'.$interval_min;
-                       // echo $interval;?>
+                            $datetime2 = new DateTime($interval);
+                            $interval = $datetime1->diff($datetime2);
+                            $interval_year=$interval->format('%y');
+                            $interval_month=$interval->format('%m');
+                            $interval_day=$interval->format('%a');
+                            $interval_hour=$interval->format('%h');
+                            $interval_min=$interval->format('%i');
+                            $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
+                        ?>
                         <div class="task_Left_Div">
                             <h2>Posted 
                                 <?php 
-if($interval_hour>0){
-    echo $interval->format('%h hours');
-}else if($interval_day>0){
-    echo $interval->format('%a days');
-}
-else if($interval_month>0){
-    echo $interval->format(' %m months');
-}
-else if($interval_year>0){
-    echo $interval->format('%y years');
-}
-else if($interval_min>0){
-    echo $interval->format('%i minutes');
-}
-else{
-    echo $interval->format('%s seconds');
-}
+                                    if($interval_hour>0){
+                                        echo $interval->format('%h hours');
+                                    }else if($interval_day>0){
+                                        echo $interval->format('%a days');
+                                    }
+                                    else if($interval_month>0){
+                                        echo $interval->format(' %m months');
+                                    }
+                                    else if($interval_year>0){
+                                        echo $interval->format('%y years');
+                                    }
+                                    else if($interval_min>0){
+                                        echo $interval->format('%i minutes');
+                                    }
+                                    else{
+                                        echo $interval->format('%s seconds');
+                                    }
 
                                 ?>
                              ago</h2>
@@ -144,72 +143,35 @@ else{
                                     <?php
                                 } else {
                                     ?>
-                                            <h2>{name}</h2>
+                                           
                                     <?php
                                 }
                                 ?>
-                                <!--    <p>{remarks}</p> -->
-                                <!--<p> {city}, {state}, {country} </p> -->
-              <!--<small> + {total_positive_coins} Coins </small>
-              <em> {total_negative_coins} Coins </em> 
-                                  <p>Skills :</p>
-                                  
-                                <p>{user_skills}</p>
-                                  </div>
-                                  
-                                  <a href="#" class="view-btn" data-toggle="modal" data-target="#myModa{user_id}"> View Proposal</a> 
-                                  
-                                </div>-->
-                                <!--<form action="<?php echo base_url() . 'Task/comment_post' ?>" method="post">
-                                        <input type="hidden" name="taskId" value="{user_task_id}">
-                                        <textarea rows="" cols="" placeholder="Add Comments" name="taskRemark"></textarea>
-                                        <input type="submit" class="btn btn-primary pull-right" value="Submit" />
-                                </form>-->
+                                   -->
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="offerDiv">
-                        <!--<h4>Offers <a href="<?php echo base_url(); ?>view-all-offers/{user_task_id}" class="viewBtn">View All</a></h4>-->
-                        <!--<ul>
-                            <?php
-/*                                    foreach ($hire_list as $hire) {
-                                if (empty($hire->user_profile_image)) {
-                                    $user_profile_image = base_url('assets/img/no-image.png');
-                                } else {
-                                    $user_profile_image = base_url('uploads/user/profile_image/' . $hire->user_profile_image);
-                                }
-                                */?>
-                                <li>
-                                    <h3><span><?php /*echo $hire->name */?></span> Offered for </h3>
-                                    <h4><?php /*echo $hire->task_name */?></h4>
-                                </li>
-                            <?php /*} */?>
-                        </ul>-->
+                        
                     </div>
                     <div >
                       <div class="card text-center">
-  <div class="card-header">  <?php echo (isset($hire_list) && $hire_list) ? "<h3>Hired Freelancers</h3>" : "<h3>Top Freelancers</h3>";?></div></div>
+                          <div class="card-header">  <?php echo (isset($hire_list) && $hire_list) ? "<h3>Hired Freelancers</h3>" : "<h3>Top Freelancers</h3>";?></div></div>
                         <ul class="RvwLists">
                             <?php
                             $a_freelancers = array();
                             if(isset($hire_list) && $hire_list){
                                 $a_freelancers = $hire_list;
-                                /* if(count($a_freelancers) < 5) {
-                                    $a_freelancers = array_merge($a_freelancers,array_slice($top_freelancers, 0, 5-count($a_freelancers)));
-                                } */
+                               
                             } else {
                                 $a_freelancers = $top_freelancers;
                             }
-                            /*print('<pre>');
-                            print_r($a_freelancers);
-                            print('</pre>');*/
+                           
                             if (isset($a_freelancers) && !empty($a_freelancers)) {
                                 foreach ($a_freelancers as $fRow) {
-                                    /*print('<pre>');
-                                    print_r($fRow);
-                                    print('</pre>');*/
+                                   
                                     if (empty($fRow->profile_image)) {
                                         $user_profile_image = base_url('assets/img/no-image.png');
                                     } else {
@@ -217,9 +179,7 @@ else{
                                     }
                                     $ss = $this->Hires->get_freelancer_info_by_id($fRow->user_id);
                                     $a_skils = array();
-                                    /*foreach($ss['user_selected_skills'] as $k => $v) {
-                                        $a_skils[] = $v['skill_name'];
-                                    }*/
+                                   
                                     ?>
                                     <li>
                                         <div class="PflImgHldrWrpr">
@@ -228,19 +188,19 @@ else{
                                                 <img src="<?php echo base_url('assets/img/activeIcon.png'); ?>" alt=""></div>
                                             <?php } ?> -->
                                             <div class="card text-center">
-  <div class="card-header"><div class="Imghldr" style="background:url(<?php echo $user_profile_image; ?>) no-repeat center center; background-size:cover;"></div>
-    <h5 class="card-title"><?php echo $fRow->name; ?></h5>
-    <p class="card-text">
-      <h6><?php echo isset($ss['user_selected_skills'][0]) ? $ss['user_selected_skills'][0]['skill_name'] : ''; ?></h6>
-                                            <h6><?php echo $fRow->country;?></h6>
-    </p>
-  
-  </div>
- <div class="card-footer text-muted" style="display: flex"> 
-    <span class="plus" style="flex:1;margin-top: 21px;">+ <?php echo $fRow->total_positive_coins; ?> Coins</span>
-                                            <span id="negetive_coin"> <?php echo $fRow->total_negative_coins; ?> Coins</span>
-                                        </div>
-</div>
+                                            <div class="card-header"><div class="Imghldr" style="background:url(<?php echo $user_profile_image; ?>) no-repeat center center; background-size:cover;"></div>
+                                                <h5 class="card-title"><?php echo $fRow->name; ?></h5>
+                                                <p class="card-text">
+                                                <h6><?php echo isset($ss['user_selected_skills'][0]) ? $ss['user_selected_skills'][0]['skill_name'] : ''; ?></h6>
+                                                                                        <h6><?php echo $fRow->country;?></h6>
+                                                </p>
+                                            
+                                            </div>
+                                            <div class="card-footer text-muted" style="display: flex"> 
+                                                <span class="plus" style="flex:1;margin-top: 21px;">+ <?php echo $fRow->total_positive_coins; ?> Coins</span>
+                                                                                        <span id="negetive_coin"> <?php echo $fRow->total_negative_coins; ?> Coins</span>
+                                                                                    </div>
+                                            </div>
                                         <!-- <div class="Txthldr">
                                             <h2></h2>
                                             
