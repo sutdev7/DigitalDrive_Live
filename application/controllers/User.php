@@ -139,18 +139,13 @@ function hashpassword($password) {
 	public function welcome_singhin($welcome=''){
 		if(empty($welcome)){
 			$content=$this->load->view('account/welcome_google');
-			die();
+			
 		}
 		else{
 			$content=$this->load->view('account/welcome_google',$welcome);
-			die();
+			
 		}
-	
-		// $data = array(
-		// 	        'content' => $content,
-		// 	        'title' => display('Sign Up :: Hire-n-Work'),
-		//         );		
-		// $this->template->full_website_html_view($data);	
+		
 		
 	}
 	#user Message And Redirect 
