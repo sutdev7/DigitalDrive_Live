@@ -116,7 +116,7 @@
                       </form>
                     </div>
                 <?php } ?>
-                <!--<a href="#" class=""></a>--> 
+                 
               </span>
               <h2><?php echo $this->session->userdata('user_name'); ?></h2>
               <p>{user_info} {city} {/user_info}, {user_info} {state} {/user_info}, {user_info} {country} {/user_info}</p>
@@ -130,17 +130,13 @@
                 <div class="col-lg-3">
                   <label>Name</label>
                   <h5><?php echo $this->session->userdata('user_name'); ?>  
-                      <?php /* if($user_info[0]['profile_status'] == 0 ) { ?>
-                        <a href="#EditName" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                      <?php } */ ?>
+                      
                   </h5>
                 </div>
                 <div class="col-lg-5">
                   <label>Email</label>
                   <h5><?php echo $this->session->userdata('user_email'); ?>
-                      <?php /* if($user_info[0]['profile_status'] == 0 ) { ?>
-                        <a href="#EditEmail" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                      <?php } */ ?>
+                     
                   </h5>
                 </div>
                 <div class="col-lg-4">
@@ -180,11 +176,7 @@
               <ul class="AreaOption">
                 {user_skills} 
                 <li><span>{skill_name} <a href="#" class="removeUserSkill" data-user="{user_id}" data-skill="{skill_id}"><img src="<?php  echo base_url('assets/img/removeIcon.png'); ?>" alt="Close"/></a></span></li>
-                <!--<li><span>Dreamweaver <a href="#"><img src="<?php  echo base_url('assets/img/removeIcon.png'); ?>" alt=""/></a></span></li>
-                <li><span>Web Development <a href="#"><img src="<?php  echo base_url('assets/img/removeIcon.png'); ?>" alt=""/></a></span></li>
-                <li><span>Wordpress Development <a href="#"><img src="<?php  echo base_url('assets/img/removeIcon.png'); ?>" alt=""/></a></span></li>
-                <li><span>Web Development <a href="#"><img src="<?php  echo base_url('assets/img/removeIcon.png'); ?>" alt=""/></a></span></li>-->
-                {/user_skills} 
+                  {/user_skills} 
                 <li><a class="addMore" data-toggle="modal" href="#EditArea"><i class="fa fa-plus" aria-hidden="true"></i></a></li>                
               </ul>
               {/user_info}
@@ -216,34 +208,12 @@
                 <div class="col-lg-4"> 
                   <label>Mobile Number</label>
                   <h5>{user_info} {phone_no} {/user_info}
-                      <?php /* if($user_info[0]['profile_status'] == 0 ){?>
-                        <a href="#EditPhone" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                      <?php } */ ?>
+                     
                   </h5>
 
                 </div>
               </div>
-                <?php /* if($user_info[0]['profile_status'] == 0 ){ ?>
-                    <form name="frmProfileActive" class="userInfos" method="post" action="<?php echo base_url(); ?>user/activeUserProfile" >
-          <div class="row">
-                          <div class="col-lg-12" >
-              <p id="captcha-img"><?php echo $captchaImg; ?></p>
-              </div>
-              </div>
-                        <div class="row">
-                            <div class="col-lg-12" >
-                                <div class="col-lg-6" style="float: left;">
-                                    
-                                    <!-- <p>Can't read the image? click <a href="https://www.drivedigitally.com/hwfinal/user-bio" class="refresh">here</a> to refresh.</p> -->
-                                    <input type="text" class="form-control" name="captcha" placeholder="captcha" />
-                                </div>
-                                <div class="col-lg-6" style="float: right;"> 
-                                    <button name="btnSubmit" class="btn btn-success" type="submit" id="allsubmit">Submit</button> 
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                <?php } */ ?>
+               
             </div>
           </div>
         </div>
@@ -437,11 +407,7 @@
         <!-- Modal body -->
         <div class="modal-body">
           <p>Edit State</p>
-          <!--<div class="select-style">
-            <select>
-              <option>Select</option>
-            </select>
-          </div>-->
+         
           <input class="form-control" name="fldState" type="text" value="{user_info} {state} {/user_info}" placeholder="Enter your state" />
         </div>
         <!-- Modal footer -->
@@ -518,11 +484,7 @@
         <!-- Modal body -->
         <div class="modal-body">
           <p>Edit City</p>
-          <!--<div class="select-style">
-            <select>
-              <option>Select</option>
-            </select>
-          </div>-->
+         
           <input class="form-control" name="fldCity" type="text" value="{user_info} {city} {/user_info}" placeholder="Enter your city" />
         </div>
         <!-- Modal footer -->
@@ -751,27 +713,14 @@
     }
    });
    
-   /*  jQuery('#skillsbtn').click(function(){
-    // e.preventDefault();
-    var skilsarea = jQuery('.fstResultsOpened').val();
-    if(skilsarea=="" || skilsarea==null){
-      jQuery('#skilsarea').css('border-color', 'red'); 
-      return false;  
-    }
-    else{
-      jQuery('#skilsarea').css('border-color', '');
-      return true;
-    }
-    
-   }) ;*/
+  
    
        jQuery('#addressbtn').click(function(){
     var bioaddress = jQuery('#bioadds').val();
-    //alert(bioaddress);
+   
     if(!$.trim(bioaddress)){
       jQuery('#bioadds').addClass('adsbio');
-      //alert('empty');
-      //jQuery('#bioadd').css('border-color', 'red!important'); 
+     
       return false;  
     }
     else{
@@ -782,27 +731,25 @@
    
     jQuery('#name-btn').click(function(){
     var fldName = jQuery('#fldName').val();
-    //alert(bioaddress);
+   
     if(!$.trim(fldName)){
       jQuery('#fldName').addClass('fldNames');
-      //alert('empty');
-      //jQuery('#fldName').css('border-color', 'red!important'); 
+       
       return false;  
     }
     else{
       jQuery('#fldName').removeClass('fldNames');
-      //jQuery('#fldName').removeClass('adsbio');
+      
       return true;
     }
    });
    
       jQuery('#emailbtn').click(function(){
     var fldEmail = jQuery('#fldEmail').val();
-    //alert(bioaddress);
+    
     if(!$.trim(fldEmail)){
       jQuery('#fldEmail').addClass('emailfield');
-      //alert('empty');
-      //jQuery('#fldName').css('border-color', 'red!important'); 
+      
       return false;  
     }
     else{
