@@ -28,7 +28,7 @@ class Google_login extends CI_Controller {
         $clientSecret = 'wu_YGKR_fliKaIlxQPl9yocL'; //Google client secret
         $redirectURL = 'https://www.drivedigitally.com/live/Googlelogin/login';
         
-        //https://curl.haxx.se/docs/caextract.html
+        
 
         //Call Google API
         $gClient = new Google_Client();
@@ -38,9 +38,7 @@ class Google_login extends CI_Controller {
         $gClient->setRedirectUri($redirectURL);
         $google_oauthV2 = new Google_Oauth2Service($gClient);
 
-        // print_r($google_oauthV2->userinfo->get());
-             // print_r($_GET);
-             // die('11');
+       
             
         if(isset($_GET['code']))
         {
