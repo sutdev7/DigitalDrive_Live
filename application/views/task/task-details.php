@@ -56,12 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">
                 <div class="col-lg-8">
                     <div class="task_Left">
-                        <!--<nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="<?php /*echo base_url(); */?>dashboard">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">My Job Details</li>
-                            </ol>
-                        </nav>-->
+                       
                         <?php 
                             $datetime1 = new DateTime();
                             $datetime2 = new DateTime($interval);
