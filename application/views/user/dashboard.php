@@ -97,7 +97,7 @@ $query=$this->db->get_where('task',array('task_id'=>'{task_id}'))->row();
                     </div>
           </td> -->
                  <!--  <td>{offer_cnt} Offers</td> -->
-                  <td>${task_total_budget}</td>
+                  <td style="font-size: 19px;">${task_total_budget}</td>
                   <td><small class="btn btn-danger" > <!-- <img src="<?php  echo base_url('assets/img/dot-sec.png'); ?>" alt=""> -->
                    Action
                     <ul>
