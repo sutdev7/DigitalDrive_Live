@@ -79,7 +79,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </td>
                 <td><strong> - - </strong></td>
-                <td><strong> - - </strong></td>
+                <td><strong>${task_total_budget}</strong></td>
                 <!-- <td>${task_total_budget}</td> -->
                 <td><small class="btn btn-danger" > <!-- <img src="<?php  echo base_url('assets/img/dot-sec.png'); ?>" alt=""> -->
                   Action
