@@ -415,6 +415,30 @@ class Hires extends CI_Model {
 		}
 	}
 	
+	##Find All Changes  old freelincer Comparition Jha
+	public function get_old_hire_list_byskills($main_val,$user_id = '',$user_task=''){
+
+		$this->db->select('task_hired.*, task.*, users.*,user_login.*, country.name as country');
+		$this->db->from('task_hired');
+		$this->db->join('task','task.task_id = task_hired.task_id');
+		$this->db->join('users','users.user_id = task_hired.freelancer_id');
+		$this->db->join('user_login','user_login.user_id = users.user_id');
+		$this->db->join('country','country.country_id = users.country','left');
+		
+		$this->db->where('task.task_created_by',$user_id);
+		$this->db->where('user_login.profile_title_skill='.$main_val.'');
+		$this->db->group_by('users.user_id');
+		$query = $this->db->get();
+		
+		if($query->num_rows() >0){
+			return $query->result();
+			
+		}else{
+			return array();
+		}
+	}
+	##Find All Changes For New and old freelincer Comparition Jha
+	
 	public function update_data($data = array()){
 		
 		if(!empty($data)){

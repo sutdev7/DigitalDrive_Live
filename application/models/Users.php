@@ -1889,6 +1889,62 @@ class Users extends CI_Model
         
         return $freelancerList;
     }
+
+
+     ## This Is For Client Requirment Skills New Freelincer Jha##
+     public function get_task_name($user_task_id){
+        $this->db->select('task_keywords');
+          $this->db->where('user_task_id',$user_task_id);
+          $user_skills_data = $this->db->get('task')->row_array();
+        
+         return $user_skills_data;
+  
+      }
+      ## This Is For Fatching New Freelincer Abhishek##
+       public function get_top_freelancers_profile_info_new_freelincer($filter = array(),$user_id = '')
+      {
+          $freelancerList = array();
+          
+          $this->db->select('users.*,user_login.*, country.name as country');
+          $this->db->from('users');
+          $this->db->join('user_login', 'user_login.user_id = users.user_id');
+          
+          $this->db->join('country', 'country.country_id = users.country', 'left');
+          $this->db->where('user_login.total_positive_coins >', 0);
+          $this->db->where('user_login.user_type', 4);
+          $this->db->where('user_login.profile_title_skill='.$user_id.'');
+          $this->db->where('user_login.status', 1);
+          if (isset($filter['not_user_id'])) {
+              //                $this->db->where('user_id !=', $filter['not_user_id']);
+          }
+          if (isset($filter['limit']['limit'])) {
+              $this->db->limit($filter['limit']['limit'], (isset($filter['limit']['from'])) ? $filter['limit']['from'] : 0);
+          }
+          $this->db->order_by('user_login.total_positive_coins', 'desc');
+          $query          = $this->db->get();
+          $freelancerList = $query->result();
+         
+          if (!empty($freelancerList)) {
+              foreach ($freelancerList as $row) {
+                  $user_languages     = $user_skills = array();
+                  $user_profile_image = $row->profile_image;
+                  if (empty($user_profile_image)) {
+                      $user_profile_image = base_url('assets/img/no-image.png');
+                  } else {
+                      $user_profile_image = base_url('uploads/user/profile_image/' . $user_profile_image);
+                  }
+                  $row->user_profile_image = $user_profile_image;
+                
+              }
+          }
+          
+        
+          
+          
+          return $freelancerList;
+      }
+  
+       ## This Is For Fatching New Freelincer Jha##
     public function checkUser($data = array())
     {
         $this->db->select($this->primaryKey);
