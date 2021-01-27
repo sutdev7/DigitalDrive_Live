@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/DigitalDrive_Live';//'https://www.drivedigitally.com/live';
+$config['base_url'] = 'https://www.drivedigitally.com/live';
 
 /*
 |--------------------------------------------------------------------------
@@ -377,6 +377,7 @@ $config['encryption_key'] = 'HIRENWORK';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
+//Praveen yesy
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
