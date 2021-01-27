@@ -3,6 +3,9 @@
 class Lmicrokey {
 	public function past_microkey_page_1($postData = array()){
 		$CI =& get_instance();
+		#change Abishek 
+		$CI->load->model('Admimodel');
+        $data ['category_skills']= $CI->Admimodel->get_category();
 		$data = $arrSkills = $userInfo = array();
 
 		if(!empty($postData) && is_array($postData)) {
