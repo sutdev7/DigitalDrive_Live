@@ -65,6 +65,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!--==========================
       ConterDiv Section
     ============================-->
+    <?php
+
+#For Find How many micro Abhishek And Below Jquery New Change 
+              $user_id = $this->session->userdata('user_id');
+              $this->db->select('*');
+              $this->db->from('microkey');
+              $this->db->where('user_id',$user_id);
+              $query = $this->db->get();
+      
+              $micro_values= $query->num_rows();
+
+              $this->db->select('category_name');
+    $this->db->from('category');
+    $this->db->group_by('category_name');
+    $this->db->order_by('category_name','asc');
+    $category_skills = $this->db->get()->result();
+    
+          
+    ?>
 
   <section id="postDiv">
     <div class="postLink"> <a href="javascript:void(0);" class="act"><i class="fa num">1</i> Overview</a> <a href="javascript:void(0);"><i class="fa num">2</i> Pricing</a> <a href="javascript:void(0);"><i class="fa num">3</i> Description</a> </div>
@@ -74,7 +93,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="postDiv_Box">
             <form action="<?php echo base_url(); ?>post-microkey-Step-2" name="frmPostTaskFirst" method="post" enctype="multipart/form-data">
               <div class="step_Box">
-                <h3>Description</h3>
+                 <?php  if($micro_values>5){ $microMessage="<p class='microMessage' style='color:red'>Your mirco profile is allready  5</p>";
+            echo $microMessage;}?>
+                <h3>Description  </h3>
                 <ul>
                   <li><span>
 					      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Micro key Title</label>
@@ -99,12 +120,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span>
                     <label>Category</label>
                   <div class="select-style">
-                    <select name="fldSelCat" id="fldSelCat">
-                      <option>Developer</option>
-                      <option>Designer</option>
-                      <option>Tester</option>
-                      <option>Digital Marketing</option>
-                      <option>Sales</option>
+                    <select name="fldSelCat" class="category_data" id="fldSelCat">
+                      <?php foreach($category_skills as $row){?>
+                      <option value="<?=$row->category_name?>"><?=$row->category_name?></option>
+                    <?php }?>
+                     
                     </select>
                   </div>
                 </span>
@@ -113,10 +133,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span>
                     <label>Sub Category</label>
                   <div class="select-style">
-                    <select name="fldSelCatSub" id="fldSelCatSub">
-                      <option>Wordpress</option>
-                      <option>HTML</option>
-                      <option>SEO</option>
+                    <select name="fldSelCatSub" class="subctgeory" id="fldSelCatSub">
+                     
                     </select>
                   </div>
                 </span>
@@ -125,10 +143,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				
 				
               </div>
+              <?php 
+              
+               
+              
+               if($micro_values<=5){
+              ?>
               <div class="fullDiv_bottom">
                 <button type="submit" name="btnSubmit" class="btn btn-primary" value="Save and Continue">Save and Continue</button>
                 <!-- <button type="submit" class="btn btn-primary" id="save_continue_task">Save and Continue</button> -->
               </div>
+            <?php }?>
+
             </form>
           </div>
         </div>
@@ -149,6 +175,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  <script src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 
     <script>
+      $('.subctgeory').click(function(){
+        var cat_val=$('.category_data').val();
+        $.ajax({
+url: "<?php echo base_url()?>admin/subctgeory_data/"+cat_val,
+type: "POST",
+data: {
+cat_val: cat_val
+},
+cache: false,
+success: function(result){
+
+$(".subctgeory").html(result);
+
+
+}
+});
+
+      });
             jQuery(document).ready(function(){
                 // Basic
                jQuery('.dropify').dropify({
