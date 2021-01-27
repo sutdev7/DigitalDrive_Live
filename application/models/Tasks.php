@@ -674,7 +674,7 @@ class Tasks extends CI_Model {
     }            
 
 
-//modified on 19-10-2020
+//Chning Abhishek
     public function count_all_upcoming_tasks($searchCriteria='') {
 
         $task_count = 0;
