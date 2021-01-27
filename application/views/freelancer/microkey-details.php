@@ -122,7 +122,7 @@
                 <ul class="RvwLists">
                   <?php
             
-         if(count($reviews>0)){
+            if(!empty($reviews)){
               foreach($reviews as $rv){
             ?>
                   <li>
