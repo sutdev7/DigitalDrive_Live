@@ -19,6 +19,20 @@
   <!--==========================
       ConterDiv Section
     ============================-->
+  <!-- flash message to show  -->
+  <?php 
+  $msg = $this->session->flashdata('msg'); 
+
+  
+  if(!empty($msg)) {
+  ?>
+  <section style="padding-top: 7%;">
+    <?php echo $msg; ?>
+  </section>
+  <?php
+  }
+  ?>
+
   <section id="postDiv">
     <div class="container">
       <div class="row">
@@ -126,11 +140,11 @@
             <div class="mbldiv-scroll">
               <table class="table">
                 <thead>
-                  <tr>
-                    
+                  <tr>         
                     <th>Date</th>
                     <th>Project Name</th>
                     <th>Amount</th>
+                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -142,8 +156,11 @@
                     <td><?php  echo $row["task_name"]; ?></td>
                     
                     <td><?php echo $row["amount"]; ?></td>
-                    <td><a data-toggle="tooltip" data-placement="top" title="withdraw"><i class="fa fa-money" style="font-size:24px;"></i></a> 
-                        <a data-toggle="tooltip" data-placement="top" title="Details" href="<?php echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>">
+                    <td><?php echo $row["payment_status"]; ?></td>
+                    <td><a data-toggle="tooltip" data-placement="top" title="request for withdraw" 
+                      href="<?php echo base_url(); ?>razorpay/refund_request/<?php echo $row['id'] ;?>"><i class="fa fa-money" style="font-size:24px;"></i></a> 
+                        <a data-toggle="tooltip" data-placement="top" title="Details" 
+                        href="<?php echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>">
                           <i class="fa fa-eye" style="font-size:24px;" aria-hidden="true"></i>
                           </a>
                   </td>
@@ -161,7 +178,7 @@
                       <!-- Render pagination links -->
                     <tr>
                     <td  colspan="4">
-                      <?php echo $this->ajax_pagination->create_links(); ?>
+                      <?php echo ($this->ajax_pagination->create_links() !== "") ? $this->ajax_pagination->create_links():"";  ?>
                       
                     </td>
                     </tr>
@@ -360,6 +377,78 @@
 		});
 	}
 	</script>
+
+<!-- Razor pay integration in js-->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var SITEURL = "<?php echo base_url() ?>";
+$('body').on('click', '.razorpay_now', function(e){
+var totalAmount = $(this).attr("data-amount");
+var plan_id =  $(this).attr("data-plan_id");
+ var user_id= $(this).attr("data-user_id");
+var options = {
+"key": "rzp_test_6zWahD2t7IjCvW", //"rzp_test_zchN665lTTrnce", // "rzp_test_6zWahD2t7IjCvW",
+"amount": (totalAmount * 100), // 2000 paise = INR 20
+"name": "Digitally Drive",
+"description": "Payment",
+"image": "<?php  echo base_url('assets/img/logo.png'); ?>",
+"handler": function (response){
+   // alert("handler");
+         // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature)
+       // window.location.href = SITEURL + 'razorpay/RazorThankYou';
+    $.ajax({
+    url: SITEURL + 'Razorpay/razorPaySubscription',
+    method: 'post',
+    // dataType: 'json',
+    data: {
+    razorpay_payment_id: response.razorpay_payment_id ,
+    payment_type:"Razor", totalAmount : totalAmount ,
+    plan_id : plan_id,client_id :user_id,paid_for:"subscription"
+    }, 
+    success: function (msg) {
+      // alert("ajax success");
+      var msgobj = JSON.parse(msg);
+      window.location.href = SITEURL + 'razorpay/RazorSubscriptionSuccess/' + msgobj.id;
+    },
+    beforeSend:function(){
+      // alert("beforeSend");
+    },
+    error:function(){
+      console.log('error in payment insertion');
+    }
+
+    });
+// alert(123);
+},
+
+"theme": {
+"color": "#528FF0"
+}
+
+};
+
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        // alert(response.error.code);
+        // alert(response.error.description);
+        // alert(response.error.source);
+        // alert(response.error.step);
+        // alert(response.error.reason);
+        // alert(response.error.metadata.order_id);
+        // alert(response.error.metadata.payment_id);
+        // window.location.href = SITEURL + 'razorpay/cancel';
+});
+
+rzp1.open();
+
+e.preventDefault();
+
+});
+
+</script>
+
 <!-- 
 <script>
 $(document).ready(function(){
