@@ -195,21 +195,21 @@ class Admimodel extends CI_Model {
               
               return $query;
       
-		
-	#Abhishek
-	public function get_category_list(){
-		$this->db->select('area_of_interest.*');
-		$this->db->from('area_of_interest');
-		$this->db->where('deleted',NULL);
-		$this->db->or_where('deleted',0);
-		$this->db->order_by('area_of_interest.name','asc');
-		$result = $this->db->get();
-		if($result->num_rows() > 0){
-			return $result->result();
-		}else{
-			return array();
-		}
 	}
+	#Abhishek
+	// public function get_category_list(){
+	// 	$this->db->select('area_of_interest.*');
+	// 	$this->db->from('area_of_interest');
+	// 	$this->db->where('deleted',NULL);
+	// 	$this->db->or_where('deleted',0);
+	// 	$this->db->order_by('area_of_interest.name','asc');
+	// 	$result = $this->db->get();
+	// 	if($result->num_rows() > 0){
+	// 		return $result->result();
+	// 	}else{
+	// 		return array();
+	// 	}
+	// }
 	
 	public function get_category_info($rowid = ''){
 		$this->db->select('area_of_interest.*');
