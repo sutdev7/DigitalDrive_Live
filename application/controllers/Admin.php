@@ -257,7 +257,34 @@ class Admin extends CI_Controller {
 			$this->load->view('admin/pages/user_list',$data);
 			$this->load->view('admin/includes/admin_footer_all');			
 	}
-	
+	#Abhishek 
+	public function category(){
+		
+		$data['categorylist'] = $this->Admimodel->get_category();
+		
+		$this->load->view('admin/includes/admin_header_all');
+		$this->load->view('admin/includes/navbar');
+		$this->load->view('admin/pages/category',$data);
+		$this->load->view('admin/includes/admin_footer_all');
+	} 
+	public function sub_category_listing($cat_val){
+		
+		$data['categorylist'] = $this->Admimodel->get_sub_category_data($cat_val);
+		$data['CategoryName'] = $cat_val;
+		
+		$this->load->view('admin/includes/admin_header_all');
+		$this->load->view('admin/includes/navbar');
+		$this->load->view('admin/pages/sub_category',$data);
+		$this->load->view('admin/includes/admin_footer_all');
+	} 
+	public function subctgeory_data($cat_val){
+		
+		$sucateory_report = $this->Admimodel->get_sub_category_data($cat_val);
+		foreach ($sucateory_report as $key => $row) {
+			echo "<option value=".$row->sub_category_name.">". $row->sub_category_name."</option>";
+		}
+	}
+#End Abhishek 
 	public function category_list(){
 		
 		$data['categorylist'] = $this->Admimodel->get_category_list();
