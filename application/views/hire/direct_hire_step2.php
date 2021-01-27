@@ -273,7 +273,7 @@ var totalAmount = $(this).attr("data-amount");
 var task_id =  $(this).attr("data-task_id");
 var client_id= $(this).attr("data-user_task_id");
 var options = {
-"key": "rzp_test_zchN665lTTrnce", // "rzp_test_6zWahD2t7IjCvW",
+"key": "rzp_test_6zWahD2t7IjCvW",// amardeep test account // "rzp_test_zchN665lTTrnce",  // digital drive test account
 "amount": (totalAmount * 100), // 2000 paise = INR 20
 "name": "Digitally Drive",
 "description": "Payment",
