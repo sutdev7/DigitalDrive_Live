@@ -128,6 +128,8 @@
                </ul>
             </li>
             <li><a href="<?= base_url() . 'admin/category-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'category-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Project Category </a></li>
+            <!--Abhishek-->
+            <li><a href="<?= base_url() . 'admin/category' ?>" class="nav-link <?= ($this->uri->segment(2) == 'category') ? 'active' : '' ?>"><i class="fas fa-bars"></i>Skill Category </a></li>
             <li><a href="<?= base_url() . 'admin/task-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'task-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Task </a></li>
             <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'problem-ticket') ? 'menu-open' : '' ?> ">
                <a href="javascript:void(0);" class="nav-link <?= ($this->uri->segment(2) == 'problem-ticket') ? 'active' : '' ?> ">
