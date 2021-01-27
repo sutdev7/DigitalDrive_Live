@@ -151,7 +151,52 @@ class Admimodel extends CI_Model {
 			return array();
 		}
 	}
-	
+	#Abhishek
+		
+	public function get_category_list(){
+		$this->db->select('area_of_interest.*');
+		$this->db->from('area_of_interest');
+		$this->db->where('deleted',NULL);
+		$this->db->or_where('deleted',0);
+		$this->db->order_by('area_of_interest.name','asc');
+		$result = $this->db->get();
+		if($result->num_rows() > 0){
+			return $result->result();
+		}else{
+			return array();
+		}
+	}
+
+	public function get_category(){
+		$this->db->select('*');
+		$this->db->from('category');
+		$this->db->group_by('category_name');
+		$this->db->order_by('category_name','asc');
+		$result = $this->db->get()->result();
+		return $result;
+		
+	}
+	public function get_sub_category($cat_name){
+		
+              $this->db->select('sub_category_name');
+              $this->db->from('category');
+              $this->db->where('category_name',$cat_name);
+              $query = $this->db->get();
+      
+              return $query->num_rows();
+		
+	}
+	public function get_sub_category_data($cat_name){
+		
+              $this->db->select('sub_category_name');
+              $this->db->from('category');
+              $this->db->where('category_name',$cat_name);
+              $query = $this->db->get()->result();
+              
+              return $query;
+      
+		
+	#Abhishek
 	public function get_category_list(){
 		$this->db->select('area_of_interest.*');
 		$this->db->from('area_of_interest');
