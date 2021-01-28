@@ -12,9 +12,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @package     CodeIgniter
  * @category    Libraries
- * @author      CodexWorld
- * @license     http://www.codexworld.com/license/
- * @link        http://www.codexworld.com
+ * @author      
+ * @license     
+ * @link        
  * @version     3.0
  */
 
@@ -70,5 +70,21 @@ class Stripe_lib{
 			// echo'api_error';print_r($this->api_error);
 			return false;
 		}
-    }
+	}
+	
+	function refund(){
+		$pi = \Stripe\PaymentIntent::create([
+			'amount' => 100,
+			'currency' => 'inr',
+			'payment_method_types' => ['card'],
+		  ]);
+		//   echo'<pre>';print_r($pi);exit;
+
+		$re = \Stripe\Refund::create([
+			'amount' => 1,
+			'payment_intent' => $pi['id']//'txn_1IAGIdJ75Fg0QL2lgPQxI75N',
+		  ]);
+		  
+		  echo'<pre>';print_r($re);exit;
+	}
 }
