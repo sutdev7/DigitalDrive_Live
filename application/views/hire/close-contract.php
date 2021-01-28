@@ -53,42 +53,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <ul>
               <li>
                 <label class="containerdiv">Mark as incomplete
-                  <input type="radio"   name="action" value="incomplete" required >
+                  <input type="radio"   name="action" value="incomplete" id="markasincomplete" data-toggle="modal" data-target="#myModal" required >
                   <span class="checkmark"></span> </label>
               </li>
               <li>
                 <label class="containerdiv">Mark as complete
-                  <input type="radio" name="action" value="complete" >
+                  <input type="radio" name="action" id="markascomplete" value="complete" >
                   <span class="checkmark"></span> </label>
               </li>
 			  
             </ul>
 			 </div>
-			 <div class="radiodiv">
-			 
-			 <span>Coins</span>
-			  
-			<ul>
-			  <li>
-                <label class="containerdiv"> <small> -2 Coin </small> Bad Work
-                  <input type="radio"   name="coin" value="0" required >
-                  <span class="checkmark"></span> </label>
-				  
-				   <label class="containerdiv"> <small> -1 Coins </small> Bad Work
-                  <input type="radio"   name="coin" value="-1" >
-                  <span class="checkmark"></span> </label>
-              </li>
-			  
-			    <li>
-                <label class="containerdiv"> <small> +1 Coin </small> Good Work
-                  <input type="radio"   name="coin" value="1" >
-                  <span class="checkmark"></span> </label>
-				  
-				  <label class="containerdiv"> <small> +2 Coins </small> Good Work
-                  <input type="radio"   name="coin" value="2" >
-                  <span class="checkmark"></span> </label>
-              </li>
-			</ul>
+			 <div id="coinsdiv" class="radiodiv">
+                
+                <span>Coins</span>
+                  
+                <ul>
+                  <li>
+                          <label class="containerdiv"> <small> -2 Coin </small> Bad Work
+                            <input type="radio"   name="coin" value="0" required >
+                            <span class="checkmark"></span> </label>
+                    
+                    <label class="containerdiv"> <small> -1 Coins </small> Bad Work
+                            <input type="radio"   name="coin" value="-1" >
+                            <span class="checkmark"></span> </label>
+                        </li>
+                  
+                    <li>
+                          <label class="containerdiv"> <small> +1 Coin </small> Good Work
+                            <input type="radio"   name="coin" value="1" >
+                            <span class="checkmark"></span> </label>
+                    
+                    <label class="containerdiv"> <small> +2 Coins </small> Good Work
+                            <input type="radio"   name="coin" value="2" >
+                            <span class="checkmark"></span> </label>
+                        </li>
+                </ul>
 			
 			
             <textarea rows="" cols="" name="fldContractReview" placeholder="Leave a review" required></textarea>
@@ -98,10 +98,99 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div>
   </form>
+
+<!-- Start by amardeep -->
+  <!-- Button to Open the Modal -->
+  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+  </button> -->
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Problem Ticket</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <!-- Modal body.. -->
+          <!-- <div class="container"> -->
+            <!-- <div class="row"> -->
+              <!-- <div class="col-lg-12"> -->
+                <!-- <div class="postDiv_Box"> -->
+                  <form action="<?= base_url().'hire/save_problem_ticket' ?>" method="post">
+                    <div class="step_Box step_box2">
+                      <!-- <h3>Problem Ticket</h3> -->
+                      <ul>
+                        <li class="w-100"> 
+                          <span>
+                              <label>Issue Type</label>
+                              <div class="select-style">
+                                  <select name="problem_id" required>
+                                  {grievance}
+                                      <option value="{fid}">{problem_type}</option>
+                                  {/grievance} 
+                                  </select>
+                              </div>
+                          </span> 
+                        </li>
+                      </ul>
+                      <ul>
+                        <li class="w-100">
+                          <span>
+                              <label>Other Issue Type (optional)</label>
+                              <input type="text" name="grievance_subject" class="form-control" />
+                          </span>
+                        </li>
+                      </ul>
+                      <ul>
+                        <li class="w-100">
+                          <span>
+                              <label>Describe your problem</label>
+                              <textarea name="grievance_content" class="form-control" rows="7" cols="" placeholder="Enter Description" required></textarea>
+                        </span>
+                        </li>
+                      </ul>
+                    </div>
+
+                <!-- </div> -->
+              <!-- </div> -->
+            <!-- </div> -->
+          <!-- </div> -->
+        </div>
+        <!--End Modal body -->
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+                  <!-- <div class="fullDiv_bottom"> -->
+                      <input type="submit" class="btn btn-primary" value="Raise Ticket" />
+                    <!-- </div> -->
+                  </form>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+<!-- End by amardeep -->
+
 </main>
 
 <script>
 $(document).ready(function(){
-     
+  $("#markasincomplete").on('click',function(){
+    // alert();
+    $("#coinsdiv").hide();
+  });
+  $("#markascomplete").on('click',function(){
+    // alert();
+    $("#coinsdiv").show();
+  });
 });
 </script>
