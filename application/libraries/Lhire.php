@@ -385,7 +385,8 @@ class Lhire {
 	public function close_contract_page(){
 		$CI =& get_instance();
         $CI->load->model('Hires');
-        $CI->load->model("Tasks");
+		$CI->load->model("Tasks");
+		$CI->load->model('Freelancers');// added by Amardeep
         $contractInfo = $CI->Hires->get_contract_details_by_id($CI->uri->segment(2));
 		
 		//echo '<pre>'; print_r($contractInfo); die;
@@ -434,7 +435,8 @@ class Lhire {
 			$data['freelancer_details'] = array();
 		}
 		//pre($data);die;
-		
+		// $data = array();
+		$data['grievance'] = $CI->Freelancers->get_grievance(); // Added by amardeep
 		$AccountForm = $CI->parser->parse('hire/close-contract',$data,true);
 		return $AccountForm;
 	}

@@ -132,6 +132,14 @@ $route['key-list/(:any)/(:num)'] = 'Freelancer/key_list/$l/$1';
 //$route['public-profile'] = 'Freelancer/public_profile';
 //$route['public-profile/(:any)'] = 'Freelancer/public_profile/$l';
 $route['earnings'] = 'Freelancerearnings';//'Freelancer/earnings'; // by amardeep
+$route['wallets'] = 'coins_wallet'; // by amardeep
+$route['admin/wallet'] = 'earning/coins_wallet'; // by amardeep
+$route['admin/earning'] = 'earning'; // by amardeep
+$route['admin/transaction-list'] = 'admin/transaction_list'; // by amardeep
+
+
+
+
 $route['analytics'] = 'Freelancer/analytics';
 $route['problem-ticket'] = 'Freelancer/problem_ticket';
 $route['problem-ticket'] = 'Freelancer/problem_ticket';

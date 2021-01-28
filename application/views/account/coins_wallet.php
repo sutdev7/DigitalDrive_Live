@@ -59,6 +59,7 @@
                     <div class="col-md-12"><h5>Withdraw</h5></div>
                     <!-- <div class="col-md-5"><a href="close-contract.html" class="btn py-3 px-4 btn-block btn-outline-primary" disabled><img src="img/paypal.png" width="20" class="mr-2"/>Paypal Account</a></div>
                     <div class="col-md-5"><a href="#myModal" class="btn py-3 px-4 btn-block btn-outline-primary">Bank Transfer</a></div> -->
+                    <div class="col-md-5"><a href="javascript:void(0)" onclick="confirmreq('<?php echo base_url(); ?>razorpay/refund_request_coins/<?php echo $coins_data[0]['user_id'] ;?>','<?php echo number_format($coins_data[0]['total_coins'],2) ;?>')" class="btn py-3 px-4 btn-block btn-outline-primary">Click to withdraw</a></div>
                   </div>
                 </div>
               </div>
@@ -331,7 +332,7 @@
 
 <!-- jQuery library -->
 <!-- <script src="<?php //echo base_url('assets/js/jquery.min.js'); ?>"></script> -->
-	
+
 	<script>
 	function searchFilter(page_num){
 		page_num = page_num?page_num:0;
@@ -352,6 +353,26 @@
 		});
 	}
 	</script>
+
+<script>
+function confirmreq(url, positivecoins) {
+  // alert(typeof Number(positivecoins));
+  // alert(url);
+  if(Number(positivecoins) >= 500){
+    var txt;
+    var r = confirm("Please make sure to widraw the money\n");
+    if (r == true) {
+      // txt = "You pressed OK!";
+      window.location = url;
+    } else {
+      txt = "You pressed Cancel!";
+    }
+    // document.getElementById("demo").innerHTML = txt;
+  }else{
+    alert('you have not reached to withdrawal limits(500 coins).')
+  }
+}
+</script>
 <!-- 
 <script>
 $(document).ready(function(){

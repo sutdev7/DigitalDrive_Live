@@ -16,11 +16,16 @@ class Earning extends CI_Controller {
 
 	public function index(){
 		$data["inescrowdata"]=$this->transaction->get_freelancer_inescrow_data(0,"");
-		echo '<pre>';print_r($parsedata);exit;
+		// echo '<pre>';print_r($data);exit;
 		$this->load->view('admin/includes/admin_header_all');
 		$this->load->view('admin/includes/navbar');
 		$this->load->view('admin/pages/earning',$data);
-		$this->load->view('admin/includes/admin_footer_all');	
+		$this->load->view('admin/includes/admin_footer_all');
+	}
+
+
+	public function coins_wallet(){
+
 	}
 		
 }

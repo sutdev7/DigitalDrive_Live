@@ -26,6 +26,7 @@
                 <li><a href="<?= base_url().'offer-jobs' ?>" class="<?php echo ($this->uri->segment(1) == 'offer-jobs') ? "active" : '' ?> ">My Offers</a></li>
                 <li><a href="<?= base_url().'earnings' ?>" class="<?php echo ($this->uri->segment(1) == 'earnings') ? "active" : '' ?> ">My Earnings</a></li>
                 <li><a href="<?= base_url().'analytics' ?>" class="<?php echo ($this->uri->segment(1) == 'analytics') ? "active" : '' ?> ">Analytics</a></li>
+                <li><a href="<?= base_url().'wallets' ?>" class="<?php echo ($this->uri->segment(1) == 'wallets') ? "active" : '' ?> ">coins wallet</a></li>
 
             </ul>
             <ul class="nav-right_Div d-block d-sm-none">
