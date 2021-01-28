@@ -504,32 +504,88 @@ class Razorpay extends CI_Controller {
       $id=$this->uri->segment('3');
       $query=$this->db->get_where('payments',['id'=> $id]);
       $paymentsdata = $query->num_rows() > 0 ? $query->result_array(): [];
+      //  echo'<pre>';print_r($paymentsdata);exit;
+      // $data = [
+      //   'payments_id' => $paymentsdata[0]['id'],
+      //   // 'client_id' => $paymentsdata['client_id'],
+      //   'txn_id' => $paymentsdata[0]['txn_id'], //$refund['id'],
+      //   'amount' =>  '',
+      //   'payment_type'=>'Razor',
+      //   'task_id' => $paymentsdata[0]['task_id'],
+      //   // 'currency_code' => $refund['currency'],
+      //   'payment_status' => 'processing',// $refund['entity'],
+      //   'created_date' => date('Y-m-d H-i-s'),
+      //   'updated_date' => date('Y-m-d H-i-s'),
+      // ];
+      // $this->db->insert('payments_withdra', $data);
+      // // echo $this->db->last_query();exit;
+      // $insertId = $this->db->insert_id();
+      if($paymentsdata[0]['withdrawal_status'] != 'requested'){
+      $this->db->update('payments',['withdrawal_status'=> 'requested','updated_date'=>date('Y-m-d H:i:s')],['id'=> $paymentsdata[0]['id'], 'withdrawal_status !='=> 'paid']);
+      //  echo $this->db->last_query();exit;
+      $updatedid = $this->db->affected_rows();
+      }else{
+        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Already requested !! Contact to admin </div>');
+        redirect('earnings');
+      }
 
-      $data = [
-        'payments_id' => $paymentsdata[0]['id'],
-        // 'client_id' => $paymentsdata['client_id'],
-        'txn_id' => $paymentsdata[0]['txn_id'], //$refund['id'],
-        'amount' =>  '',
-        'payment_type'=>'Razor',
-        'task_id' => $paymentsdata[0]['task_id'],
-        // 'currency_code' => $refund['currency'],
-        'payment_status' => 'processing',// $refund['entity'],
-        'created_date' => date('Y-m-d H-i-s'),
-        'updated_date' => date('Y-m-d H-i-s'),
-      ];
-      $this->db->insert('payments_withdra', $data);
-      // echo $this->db->last_query();exit;
-      $insertId = $this->db->insert_id();
-
-      if($insertId > 0){
+      if($updatedid > 0){
         $this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You have successfully requested for withdrawal </div>');
         redirect('earnings');
       }else{
-        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Oops !! Smoething went wrong please contact to admin </div>');
+        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Already requested !! Contact to admin </div>');
         redirect('earnings');
       }
-       echo'<pre>';print_r($paymentsdata);
-         exit;     
+           
+    }
+
+    public function refund_request_admin(){
+      $id=$this->uri->segment('3');
+      $query=$this->db->get_where('payments',['id'=> $id]);
+      $paymentsdata = $query->num_rows() > 0 ? $query->result_array(): [];
+
+      // $this->db->update('payments',['withdrawal_status'=> 'paid','updated_date'=>date('Y-m-d H:i:s')],['id'=> $paymentsdata[0]['id']]);
+      // $updatedid = $this->db->affected_rows();
+
+      if($paymentsdata[0]['withdrawal_status'] != 'paid'){
+        $this->db->update('payments',['withdrawal_status'=> 'paid','updated_date'=>date('Y-m-d H:i:s')],['id'=> $paymentsdata[0]['id'], 'withdrawal_status !='=> 'paid']);
+        //  echo $this->db->last_query();exit;
+        $updatedid = $this->db->affected_rows();
+        }else{
+          $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Already paid</div>');
+          redirect('earning');
+        }
+
+      if($updatedid > 0){
+        $this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You have successfully paid for withdrawal </div>');
+        redirect('earning');
+      }else{
+        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Already paid </div>');
+        redirect('earning');
+      }
+    }
+
+    public function refund_request_coins(){
+      $id=$this->uri->segment('3');
+      $query=$this->db->get_where('user_login',['user_id'=> $id]);
+      $data = $query->num_rows() > 0 ? $query->result_array(): [];
+      //  echo'<pre>';print_r($data);exit;//&& int($data[0]['total_coins'] >= 500
+       if($data[0]['coins_withdrawal_status'] != 'requested' ){
+        $this->db->update('user_login',['coins_withdrawal_status'=> 'requested','modified'=>date('Y-m-d H:i:s')],['user_id'=> $data[0]['user_id'], 'withdrawal_status !='=> 'paid']);
+        //  echo $this->db->last_query();exit;
+        $updatedid = $this->db->affected_rows();
+        }else{
+          $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Already requested !! Contact to admin </div>');
+          redirect('wallets');
+        }
+  
+        if($updatedid > 0){
+          $this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You have successfully requested for withdrawal </div>');
+          redirect('wallets');
+        }else{
+          $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Already requested !! Contact to admin </div>');
+          redirect('wallets');
+        }
     }
 
 }
