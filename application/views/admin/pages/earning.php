@@ -53,7 +53,9 @@
                                 <th>Project Name</th>
                                 <th>Amount</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>Withdrawal Status</th>
+                                <th>Freelancer Id</th>
+                               <th>Action</th>
                             </tr>
 						</thead>
 						<tbody>
@@ -69,8 +71,14 @@
                                 
                                 <td><?php echo $row["amount"]; ?></td>
                                 <td><?php echo $row["payment_status"]; ?></td>
-                                <td><a data-toggle="tooltip" data-placement="top" title="withdraw" 
-                                href="<?php echo base_url(); ?>razorpay/refund/<?php echo $row['id'] ;?>"><i class="fa fa-money" style="font-size:24px;"></i></a> 
+                                <td><?php echo $row["withdrawal_status"]; ?></td>
+                                <td><?php echo $row["unique_id"]; ?></td>
+                                <td>
+                                <a data-toggle="tooltip" data-placement="top" title="pay for withdraw" 
+                                href="<?php echo base_url(); ?>razorpay/refund_request_admin/<?php echo $row['id'] ;?>">
+                                pay<i class="fa fa-money" style="font-size:24px;" ></i>
+                                </a> 
+
                                     <a data-toggle="tooltip" data-placement="top" title="Details" 
                                     href="<?php echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>">
                                     <i class="fa fa-eye" style="font-size:24px;" aria-hidden="true"></i>
@@ -92,9 +100,11 @@
 						<tfoot>
 						<td>Sl No.</td>
                         <th>Project Name</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Withdrawal Status</th>
+                                <th>Freelancer Id</th>
+                               <th>Action</th>
 						 </tfoot>
 					  </table>
 					</div>
