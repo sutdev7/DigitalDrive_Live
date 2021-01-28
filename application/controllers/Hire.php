@@ -12,7 +12,9 @@ class Hire extends CI_Controller {
 		
 		$this->load->library('Lhire');
 		// Load Stripe library 
-		$this->load->library('stripe_lib');
+		$this->load->library('stripe_lib'); // Added by Amar
+		$this->load->library('Lfreelancer'); // Added  by Amar
+
         
     }
 
@@ -146,6 +148,16 @@ class Hire extends CI_Controller {
 					'title' => display('Release Approve:: Hire-n-Work'),
 				);		
 		$this->template->full_customer_html_view($data);
+	}
+
+	public function save_problem_ticket(){
+		$this->form_validation->set_rules('grievance_id','Issue Type', 'required');
+        $this->form_validation->set_rules('grievance_content','Description','required');       
+
+        if($this->form_validation->run() == false){ 
+			$this->lfreelancer->add_ticket($this->session->all_userdata());
+		}
+		redirect('close-contract/Nw==');
 	}
 	
 	public function submit_close_contract(){
