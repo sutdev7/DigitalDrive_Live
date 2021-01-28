@@ -131,6 +131,11 @@
             <!--Abhishek-->
             <li><a href="<?= base_url() . 'admin/category' ?>" class="nav-link <?= ($this->uri->segment(2) == 'category') ? 'active' : '' ?>"><i class="fas fa-bars"></i>Skill Category </a></li>
             <li><a href="<?= base_url() . 'admin/task-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'task-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Task </a></li>
+            <!-- start Amardeep -->
+            <li><a href="<?= base_url() . 'admin/earning' ?>" class="nav-link <?= ($this->uri->segment(2) == 'earning') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Freelancer Earning </a></li>
+            <li><a href="<?= base_url() . 'admin/wallet' ?>" class="nav-link <?= ($this->uri->segment(2) == 'wallet') ? 'active' : '' ?>"><i class="fas fa-bars"></i>Coins Wallet </a></li>
+            <li><a href="<?= base_url() . 'admin/transaction-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'transaction-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i>Transaction List </a></li>
+            <!-- end Amardeep -->
             <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'problem-ticket') ? 'menu-open' : '' ?> ">
                <a href="javascript:void(0);" class="nav-link <?= ($this->uri->segment(2) == 'problem-ticket') ? 'active' : '' ?> ">
                <i class="fas fa-user-tie"></i> Problem Ticket <i class="right fas fa-angle-left"></i>
