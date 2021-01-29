@@ -19,7 +19,16 @@ class Freelancer extends CI_Controller {
 
         }
     }
-
+	#Abhshek 
+	public function details_project($id){
+		$content = $this->lmicrokey->microkey_project_list_client_page($id);
+		$data = array(
+			'content' => $content,
+			'title' => display('Upcoming Projects :: Hire-n-Work'),
+		);
+		$this->template->full_customer_html_view($data);
+	}
+	#Abhshek 
      public function microkey_client_details($taskID = null){
 		if(empty($taskID))
 			redirect('microkey-list-client', 'refresh');
