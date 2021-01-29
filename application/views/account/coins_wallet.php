@@ -19,6 +19,17 @@
   <!--==========================
       ConterDiv Section
     ============================-->
+      <!-- flash message to show  -->
+  <?php 
+  $msg = $this->session->flashdata('msg'); 
+  if(!empty($msg)) {
+  ?>
+  <section style="padding-top: 7%;">
+    <?php echo $msg; ?>
+  </section>
+  <?php
+  }
+  ?>
   <section id="postDiv">
     <div class="container">
       <div class="row">
@@ -51,6 +62,25 @@
                     </a>
                   </div>
                 </div>
+
+                <div class="col-div-5 mb-0">
+                  <div class="task_Left_Div blue">
+                    <label>Withrawan Coins</label>
+                    <a href="<?php // base_url(); ?>">
+                    <h4><?php echo isset($coins_data[0]["no_of_coins_withdrawal"])? number_format($coins_data[0]["no_of_coins_withdrawal"],2) : 00; ?></h4>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-div-5 mb-0">
+                  <div class="task_Left_Div blue">
+                    <label>Wallets Coins</label>
+                    <a href="<?php // base_url(); ?>">
+                    <h4><?php echo isset($coins_data[0]["no_of_coins_withdrawal"])? (int)number_format($coins_data[0]["total_coins"],2) - (int)number_format($coins_data[0]["no_of_coins_withdrawal"],2) : 00; ?></h4>
+                    </a>
+                  </div>
+                </div>
+                
               </div>
               <div class="row mb-5">
                 
@@ -363,7 +393,7 @@ function confirmreq(url, positivecoins) {
     var r = confirm("Please make sure to widraw the money\n");
     if (r == true) {
       // txt = "You pressed OK!";
-      window.location = url;
+      window.location = url+ '/'+Number(positivecoins);
     } else {
       txt = "You pressed Cancel!";
     }
