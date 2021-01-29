@@ -62,7 +62,7 @@ class Coinswallet extends CI_Model {
 			
 			$query = $this->db->get();
 
-			// echo $this->db->last_query();exit;
+			//echo $this->db->last_query();exit;
 
 			$result = ($query->num_rows() > 0)?$query->num_rows():0;
 
