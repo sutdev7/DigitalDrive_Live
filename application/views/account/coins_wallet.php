@@ -67,7 +67,7 @@
                   <div class="task_Left_Div blue">
                     <label>Withrawan Coins</label>
                     <a href="<?php // base_url(); ?>">
-                    <h4><?php echo isset($coins_data[0]["no_of_coins_withdrawal"])? number_format($coins_data[0]["no_of_coins_withdrawal"],2) : 00; ?></h4>
+                    <h4><?php echo isset($coins_data[0]["no_of_coins_withdrawal"]) ? number_format((int)$coins_data[0]["no_of_coins_withdrawal"],2) : 00; ?></h4>
                     </a>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
                   <div class="task_Left_Div blue">
                     <label>Wallets Coins</label>
                     <a href="<?php // base_url(); ?>">
-                    <h4><?php echo isset($coins_data[0]["no_of_coins_withdrawal"])? (int)number_format($coins_data[0]["total_coins"],2) - (int)number_format($coins_data[0]["no_of_coins_withdrawal"],2) : 00; ?></h4>
+                    <h4><?php echo isset($coins_data[0]["no_of_coins_withdrawal"]) && isset($coins_data[0]["total_coins"]) ? number_format((int)$coins_data[0]["total_coins"] - (int)$coins_data[0]["no_of_coins_withdrawal"] ,2) : 00; ?></h4>
                     </a>
                   </div>
                 </div>
@@ -105,7 +105,7 @@
                 <div class="col-md-2">
               		<div class="select-style">
                       <select id="sortBy" onchange="searchFilter();">
-                        <option value="">Sort by Title</option>
+                        <option value="">Sort by Project Name</option>
                         <option value="asc">Ascending</option>
                         <option value="desc">Descending</option>
                       </select>
