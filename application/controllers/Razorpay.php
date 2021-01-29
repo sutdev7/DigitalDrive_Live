@@ -569,9 +569,12 @@ class Razorpay extends CI_Controller {
       $id=$this->uri->segment('3');
       $query=$this->db->get_where('user_login',['user_id'=> $id]);
       $data = $query->num_rows() > 0 ? $query->result_array(): [];
+      $coinsforwithdraw = $this->uri->segment('4');
+      // $remainingcoin = $data[0]['total_coins'] % 10 
       //  echo'<pre>';print_r($data);exit;//&& int($data[0]['total_coins'] >= 500
        if($data[0]['coins_withdrawal_status'] != 'requested' ){
-        $this->db->update('user_login',['coins_withdrawal_status'=> 'requested','modified'=>date('Y-m-d H:i:s')],['user_id'=> $data[0]['user_id'], 'withdrawal_status !='=> 'paid']);
+        $this->db->update('user_login',['coins_withdrawal_status'=> 'requested','no_of_coins_withdrawal'=>$coinsforwithdraw,'modified'=>date('Y-m-d H:i:s')],
+        ['user_id'=> $data[0]['user_id'], 'coins_withdrawal_status !='=> 'paid']);
         //  echo $this->db->last_query();exit;
         $updatedid = $this->db->affected_rows();
         }else{
