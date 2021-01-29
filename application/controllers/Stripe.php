@@ -572,6 +572,8 @@ class Stripe extends CI_Controller {
 
 	}
 
-	
+	public function refund(){
+		$this->stripe_lib->refund();
+	}	
 
 }

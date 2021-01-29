@@ -3,3 +3,5 @@ application/config/config.php
 application/config/database.php
 .htaccess
 freelancerhtml/debug.log
+application/config/database.php
+application/config/config.php

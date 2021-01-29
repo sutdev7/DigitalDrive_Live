@@ -80,13 +80,13 @@
               </div>
               <div class="row mb-5">
                 
-                <div class="col-md-7 pflBox3">
+                <!-- <div class="col-md-7 pflBox3">
                   <div class="row">
                     <div class="col-md-12"><h5>Withdraw</h5></div>
                     <div class="col-md-5"><a href="close-contract.html" class="btn py-3 px-4 btn-block btn-outline-primary" disabled><img src="img/paypal.png" width="20" class="mr-2"/>Paypal Account</a></div>
                     <div class="col-md-5"><a href="#myModal" class="btn py-3 px-4 btn-block btn-outline-primary">Bank Transfer</a></div>
                   </div>
-                </div>
+                </div> -->
               </div>
               <div class="row">
               
@@ -100,7 +100,7 @@
                 <div class="col-md-2">
               		<div class="select-style">
                       <select id="sortBy" onchange="searchFilter();">
-                        <option value="">Sort by Title</option>
+                        <option value="">Sort by Project Name</option>
                         <option value="asc">Ascending</option>
                         <option value="desc">Descending</option>
                       </select>
@@ -145,6 +145,7 @@
                     <th>Project Name</th>
                     <th>Amount</th>
                     <th>Status</th>
+                    <th>Withdrawal Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -157,8 +158,12 @@
                     
                     <td><?php echo $row["amount"]; ?></td>
                     <td><?php echo $row["payment_status"]; ?></td>
-                    <td><a data-toggle="tooltip" data-placement="top" title="request for withdraw" 
-                      href="<?php echo base_url(); ?>razorpay/refund_request/<?php echo $row['id'] ;?>"><i class="fa fa-money" style="font-size:24px;"></i></a> 
+                    <td><?php echo $row["withdrawal_status"]; ?></td>
+                    <td>
+                    <a data-toggle="tooltip" onclick="confirmreq('<?php echo base_url(); ?>razorpay/refund_request/<?php echo $row['id'] ;?>')" data-placement="top" title="request for withdraw" 
+                      href="javascript:void(0);">
+                      <i class="fa fa-money" style="font-size:24px;"></i>
+                      </a>
                         <a data-toggle="tooltip" data-placement="top" title="Details" 
                         href="<?php echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>">
                           <i class="fa fa-eye" style="font-size:24px;" aria-hidden="true"></i>
@@ -354,6 +359,20 @@
   </div>
 </div>
 
+<script>
+function confirmreq(url) {
+  // alert(url);
+  var txt;
+  var r = confirm("Please make sure to widraw the money\n");
+  if (r == true) {
+    // txt = "You pressed OK!";
+    window.location = url;
+  } else {
+    txt = "You pressed Cancel!";
+  }
+  // document.getElementById("demo").innerHTML = txt;
+}
+</script>
 <!-- jQuery library -->
 <!-- <script src="<?php //echo base_url('assets/js/jquery.min.js'); ?>"></script> -->
 	

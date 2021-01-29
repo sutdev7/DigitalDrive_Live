@@ -9,9 +9,9 @@
  *
  * @package     CodeIgniter
  * @category    Libraries
- * @author      CodexWorld
- * @license     http://www.codexworld.com/license/
- * @link        http://www.codexworld.com
+ * @author      
+ * @license     
+ * @link        
  * @version     2.0
  */
 
