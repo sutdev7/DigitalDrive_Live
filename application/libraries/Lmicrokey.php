@@ -33,7 +33,15 @@ class Lmicrokey {
 		$AccountForm = $CI->parser->parse('freelancer/post-microkey-step-1',$data,true);
 		return $AccountForm;
 	}
+	 # Abhishek 
+	 public function microkey_project_list_client_page($id){
+        $CI =& get_instance();
+        $data = $arrSkills = $userInfo = array();
+        $AccountForm = $CI->parser->parse('freelancer/micro_procect_list',$data,true);
+        return $AccountForm;
+    }
 
+    #Abhishek
 	public function microkey_list_client_page($pageIndex = 0){
 
 		$CI =& get_instance();
