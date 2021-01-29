@@ -185,12 +185,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script>
 $(document).ready(function(){
   $("#markasincomplete").on('click',function(){
-    // alert();
     $("#coinsdiv").hide();
   });
   $("#markascomplete").on('click',function(){
-    // alert();
     $("#coinsdiv").show();
   });
+  $("#myModal").on("hidden.bs.modal", function () {
+    // unchecked marksasinomplete
+    $("#markasincomplete").prop('checked', false);
+});
 });
 </script>
