@@ -471,8 +471,8 @@ class Lmicrokey {
 		$CI->pagination->initialize($config);
 		
 		$data['links'] = $CI->pagination->create_links();
-		
-		$data['microkey_array'] = $CI->Microkeys->get_microkey_data_freelance($searchValue,$rowperpage,$rowno);
+		#changes Uniue Value Abhishek
+		$data['microkey_array'] = $CI->Microkeys->get_microkey_data_freelance_unque($searchValue,$rowperpage,$rowno);
 		//echo '<pre>'; print_r($data['microkey_array']);die();
 		
 		$userData = $CI->Users->get_user_profile_info_by_id($CI->session->userdata('user_id'));
