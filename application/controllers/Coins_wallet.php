@@ -61,7 +61,9 @@ class Coins_wallet extends CI_Controller {
 		// Get records
 		$conditions = array(
 			'limit' => $this->perPage
-        );
+		);
+       // $conditions['limit']    = $this->perPage;
+		
 
 		$parsedata['posts'] = $this->coinswallet->getRows($conditions);
 		// echo "<pre>";print_r($parsedata['posts']);exit;
