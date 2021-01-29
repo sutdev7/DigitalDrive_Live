@@ -119,27 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!--==========================
       ConterDiv Section
     ============================-->
-    <?php
-
-#For Find How many micro Abhishek 
-              $user_id = $this->session->userdata('user_id');
-              $this->db->select('*');
-              $this->db->from('microkey');
-              $this->db->where('user_id',$user_id);
-              $query = $this->db->get();
-      
-              $micro_values= $query->num_rows();
-
-              $this->db->select('*');
-    $this->db->from('skillcategory');
-    $this->db->where('status','1');
-    $this->db->where('parent_id','0');
-    $this->db->group_by('category_name');
-    $this->db->order_by('category_name','asc');
-    $category_skills = $this->db->get()->result();
-    
-          
-    ?>
+ 
 
   <section id="postDiv">
    
