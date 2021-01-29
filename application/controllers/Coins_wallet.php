@@ -6,7 +6,11 @@ class Coins_wallet extends CI_Controller {
 
     public function __construct(){
         parent::__construct();
+		if(!$this->auth->is_logged()) {
+        	$this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You haven\'t login to the portal. Please login to proceed further.</div>');
+        	redirect('sign-in', 'refresh');
 
+        }
         // Load pagination library
         $this->load->library('ajax_pagination');
 		// Load post model
