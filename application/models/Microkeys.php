@@ -475,6 +475,58 @@ class Microkeys extends CI_Model {
     
     }
 
+     /*
+     * Get user Micro Kek Unque Value.
+     *Abhishek 
+     */
+    public function get_microkey_data_freelance_unque($searchValue,$rowperpage,$rowno){
+        
+        //echo $rowno; echo $rowperpage; die;
+        
+        
+        //$user_id = $this->session->userdata('user_id');
+        //$this->db->select('task_proposal.*, task.*, DATE_FORMAT(task.task_due_date, "%d/%m/%Y") as task_due_date, users.*');
+        $this->db->select('microkey.*,users.*');
+        $this->db->from('microkey');
+        //$this->db->join('task','task.task_id = task_proposal.task_id');
+        $this->db->join('users','users.user_id = microkey.user_id');
+        //$this->db->where('task.task_status', 1);
+        //$this->db->where('task.task_is_ongoing', 0);         
+        //  $this->db->where('microkey.user_id',$user_id);
+        if($searchValue!=""){
+            //$this->db->or_like('users.name',$searchValue,'both');
+            //$this->db->like('task.task_name',$searchValue,'both');
+            
+            $this->db->group_start();
+            $this->db->like('users.name', $searchValue,'both');
+            $this->db->or_like('task.task_name', $searchValue,'both');
+            $this->db->or_like('task.task_total_budget', $searchValue,'both');
+            //$this->db->or_where('task.task_due_date', $searchValue,'both');
+            $this->db->group_end();
+            
+        }
+        $this->db->group_by('microkey.user_id');
+                
+        //$this->db->order_by('task_proposal.doc','desc');
+        $this->db->limit($rowperpage,$rowno);
+        $query = $this->db->get();
+        // echo $this->db->last_query(); 
+    //   echo '<pre>'; print_r($query->result_array()); die('model');
+        
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }else{
+            return array();
+        }
+    
+    }
+
+   /*
+     * End user Micro Kek Unque Value.
+     *Abhishek 
+     */ 
+    
+
     public function project_details1($userId,$searchValue,$rowperpage,$rowno){
         
        $CI =& get_instance();
