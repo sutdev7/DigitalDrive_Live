@@ -52,6 +52,7 @@
           <li><a href="<?php echo base_url(); ?>dashboard">Dashboard</a></li>
 			<li><a href="<?php echo base_url(); ?>public-profile">Public Profile</a></li>
             <li><a href="<?php echo base_url(); ?>user-bio">Client Bio</a></li>
+            <li><a href="<?php echo base_url(); ?>subscription">Upgrade Membership</a></li>
             <li><a href="<?php echo base_url(); ?>settings">Settings</a></li>
             <li><a href="<?php echo base_url(); ?>reviews">Reviews</a></li>
 			<li><a href="<?php echo base_url(); ?>problem-ticket">Problem Ticket</a></li>
