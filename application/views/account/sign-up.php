@@ -66,6 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <form action="<?php echo base_url(); ?>confirm-sign-up" name="frmSignUp" id="frmSignUp"  enctype="multipart/form-data" method="post">
               <!-- http://demoupdates.com/updates/nlaucer/html/confirmation.html -->
               <input type="hidden" name="fldUserType" value="{sign_up_as}" />
+              <input type="hidden" name="subscription_plan" value="{subscription_plan}" />
               <div class="form-group">
                 <label>Enter your name <span style="color:red">*</span></label>
                 <input type="text" class="form-control" id="fldName" name="fldName" placeholder="Enter Name" value=""  required>
