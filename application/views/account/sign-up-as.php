@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-lg-12">
           <h2> <span> Sign up as </span> </h2>
           <form id="frmSignUpAs" name="frmSignUpAs" action="<?php echo base_url(); ?>sign-up" method="post">
+          <input type="hidden" name="subscription_plan" value="{subscription_plan}" />
             <div class="signInasDiv">
 
               <span class="roomOptions" style="display: none;">
