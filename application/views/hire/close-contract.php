@@ -51,11 +51,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <big> {task_name} </big> </div>
           <div class="radiodiv">
             <ul>
+            <?php if ($task_is_completed_by_owner != '1' && $task_is_completed != '1') { ?>
               <li>
                 <label class="containerdiv">Mark as incomplete
                   <input type="radio"   name="action" value="incomplete" id="markasincomplete" data-toggle="modal" data-target="#myModal" required >
                   <span class="checkmark"></span> </label>
               </li>
+              <?php } ?>
               <li>
                 <label class="containerdiv">Mark as complete
                   <input type="radio" name="action" id="markascomplete" value="complete" >
