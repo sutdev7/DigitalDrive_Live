@@ -62,6 +62,7 @@ $route['terms-and-condition'] = 'Home/terms_and_condition';
 $route['help-center'] = 'Home/help_center';
 $route['captcha'] = 'captcha';
 $route['sign-in'] = 'account';
+$route['sign-up-as-membership'] = 'Account/sign_up_as_choose_membership';
 $route['sign-up-as'] = 'Account/sign_up_as';
 $route['sign-up'] = 'Account/sign_up';
 $route['confirm-sign-up'] = 'Account/confirm_sign_up';
