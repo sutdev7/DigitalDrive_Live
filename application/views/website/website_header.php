@@ -19,7 +19,8 @@
                 <?php
 			if($this->session->userdata('user_type') =='' || !$this->session->userdata('user_type')){
 		?>
-                <li><a href="<?php echo base_url(); ?>sign-up-as">Sign up</a></li>
+                <!-- <li><a href="<?php echo base_url(); ?>sign-up-as">Sign up</a></li> -->
+                <li><a href="<?php echo base_url(); ?>sign-up-as-membership">Sign up</a></li> <!-- Changed by Amar -->
                 <?php		
 			}
 		?>
