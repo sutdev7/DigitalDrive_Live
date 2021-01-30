@@ -45,6 +45,7 @@ class Laccount {
 	{
 		$CI =& get_instance();
 		$data = array();
+		$data['subscription_plan'] = $CI->input->post('membership');
 		$AccountForm = $CI->parser->parse('account/sign-up-as',$data,true);
 		return $AccountForm;
 	}
@@ -70,7 +71,8 @@ class Laccount {
 		$data = array(
 			'sign_up_as' => $CI->input->post('fldUserType'),
 			'countries' => $arrCountry,
-			'skills' => $skills
+			'skills' => $skills,
+			'subscription_plan' => $CI->input->post('subscription_plan'),
 		);
 		$AccountForm = $CI->parser->parse('account/sign-up',$data,true);
 		return $AccountForm;
@@ -82,6 +84,8 @@ class Laccount {
         $CI->load->model('Users');
 
 		$data = $CI->input->post();
+        	// echo '<pre>'; print_r($data); exit();
+
            // $id_generator     = $this->auth->generator(10);
             if(is_array($_FILES) && !empty($_FILES['userImage']['name'])){
             	//if(is_uploaded_file($_FILES['userImage']['tmp_name'])) {
@@ -158,7 +162,8 @@ class Laccount {
 		if($result['status']) {
 			if(!empty($result['email_flag'])) {
 	            if($CI->auth->sendVerificatinEmail( $CI->input->post('fldEmail'), $CI->input->post('fldUserType'))) {
-			        $AccountForm = $CI->parser->parse('account/confirm-sign-up',array('uid' => $result['userId']),true);
+					$AccountForm = $CI->parser->parse('account/confirm-sign-up',array('uid' => $result['userId']),true);
+					redirect('subscription/payment/'.$data['subscription_plan'].'/'.$result['userId'], 'refresh'); // by amardeep
 			        return $AccountForm;
 	            }
 			} else {
