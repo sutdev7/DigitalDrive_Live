@@ -7,11 +7,12 @@ class Subscription extends CI_Controller {
 		
 		// Load Stripe library
 		$this->load->library('stripe_lib');
-		if(!$this->auth->is_logged()) {
-        	$this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You haven\'t login to the portal. Please login to proceed further.</div>');
-        	redirect('sign-in', 'refresh');
+		// if(!$this->auth->is_logged()) {
+        // 	$this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You haven\'t login to the portal. Please login to proceed further.</div>');
+        // 	redirect('sign-in', 'refresh');
 
-        }
+		// }
+		
 		// if($this->auth->is_logged()) {
 			
 		// 	if($this->session->userdata('user_type') == 1){
@@ -21,13 +22,13 @@ class Subscription extends CI_Controller {
 		// 	}
         // }
 		// Get user ID from current SESSION
-		$this->userID = isset($_SESSION['user_id'])?$_SESSION['user_id']:1;
+		$this->userID = isset($_SESSION['user_id']) ? $_SESSION['user_id']:$this->uri->segment(4);
 
     }
     
     public function index(){
         $parsedata = array();
-		$content = $this->parser->parse('account/subscription_plan',$parsedata,true);//$this->laccount->sign_up_as_page();
+		$content = $this->parser->parse('account/subscription_plan',$parsedata,true);
 		$data = array(
 			        'content' => $content,
 			        'title' => display('Subscription :: Hire-n-Work'),
@@ -39,7 +40,7 @@ class Subscription extends CI_Controller {
 		// echo $this->uri->segment(3);exit;
 		$query = $this->db->get_where('subscription_plan',['id'=>$this->uri->segment(3)]);
 		$parsedata["planinfo"] = $query->num_rows() > 0 ? $query->result_array() :array();
-		$parsedata["planinfo"][0]["user_id"] = $_SESSION["user_id"];
+		$parsedata["planinfo"][0]["user_id"] = $this->userID;
 		// echo"<pre>";print_r($parsedata["planinfo"]);exit;
 
 		$content = $this->parser->parse('account/subscription_payment',$parsedata,true);//$this->laccount->sign_up_as_page();
