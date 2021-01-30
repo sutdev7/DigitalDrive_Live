@@ -143,6 +143,7 @@ class Hire extends CI_Controller {
 	
 	public function close_contract(){ 
 		$content = $this->lhire->close_contract_page($this->uri->segment(2));
+		// echo'<pre>';print_r($content);exit;
 		$data = array(
 					'content' => $content,
 					'title' => display('Release Approve:: Hire-n-Work'),
