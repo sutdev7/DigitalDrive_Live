@@ -389,12 +389,14 @@ class Lhire {
 		$CI->load->model('Freelancers');// added by Amardeep
         $contractInfo = $CI->Hires->get_contract_details_by_id($CI->uri->segment(2));
 		
-		//echo '<pre>'; print_r($contractInfo); die;
+		// echo '<pre>'; print_r($contractInfo); die;
 
 		if(!empty($contractInfo)){
             $task_data = $CI->Tasks->getTaskDataById($contractInfo['contract_details']['task_id']);
             $freelancer_id = $contractInfo['contract_details']['freelancer_id'];
 			$data = array(
+				'task_is_complete' => $task_data->task_is_complete,
+				'task_completed_by_owner'=> $task_data->task_completed_by_owner,
 				'contract_title' => $contractInfo['contract_details']['hired_title'],
 				'contract_id' => $contractInfo['contract_details']['hired_id'],
 				'offer_id' => $contractInfo['contract_details']['offer_id'],
@@ -437,6 +439,7 @@ class Lhire {
 		//pre($data);die;
 		// $data = array();
 		$data['grievance'] = $CI->Freelancers->get_grievance(); // Added by amardeep
+		// echo '<pre>'; print_r($data); die;
 		$AccountForm = $CI->parser->parse('hire/close-contract',$data,true);
 		return $AccountForm;
 	}
