@@ -43,6 +43,18 @@ class Account extends CI_Controller {
 		echo "In";die;
 	}
 
+	// start by amar
+	public function sign_up_as_choose_membership(){
+		$parsedata = array();
+		$content = $this->parser->parse('account/subscription_plan_as_signup',$parsedata,true);
+		$data = array(
+			        'content' => $content,
+			        'title' => display('Choose Membership :: Hire-n-Work'),
+		        );
+		$this->template->full_website_html_view($data);	
+	}
+	// end by amar
+
 	public function sign_up_as()
 	{
 		/*if($this->session->userdata('user_type') == 1){
@@ -50,6 +62,7 @@ class Account extends CI_Controller {
 		}else{
 			redirect('dashboard', 'refresh');
 		}*/
+		// print_r($_POST['membership']);exit;
 		$content = $this->laccount->sign_up_as_page();
 		$data = array(
 			        'content' => $content,
