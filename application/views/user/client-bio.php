@@ -42,7 +42,7 @@
           <div class="col-lg-3"> </div>
           <div class="col-lg-9">
             <div class="profile_topLink <?php echo  ($this->session->userdata('user_type') == 4) ? 'freelancer' : 'client'; ?>">
-             <ol class="progtrckr" data-progtrckr-steps="5">
+            <ol class="progtrckr" data-progtrckr-steps="5">
               <?php 
               foreach($user_login_data as $val){ 
               if(!empty($val->bio)){
@@ -54,8 +54,8 @@
               <li class="progtrckr-done">
                 <a href="<?php echo base_url(); ?>portfolio"><img src="<?php  echo base_url('assets/img/GenderIcon-1A.png'); ?>" alt=""> Portfolio</a>
               </li>
-              <?php }else{?>
-                <li class="progtrckr-todo"><?php if($this->session->userdata('user_type') == 4) { 
+              <?php }else{?><?php if($this->session->userdata('user_type') == 4) { ?>
+                <li class="progtrckr-todo"><?php 
                   foreach($user_login_data as $val){ 
                   if(!empty($val->bio)){
                   ?>
@@ -63,17 +63,21 @@
                 <?php }else{?>
                    <img src="<?php  echo base_url('assets/img/GenderIcon-1A.png'); ?>" alt=""> Portfolio
                   <?php
-                } }}?></li>
+                } }?></li><?php }?>
               <?php }}?>
                 <?php foreach($user_login_data as $val){ 
               if(!empty($val->gender)){
               ?>
                <li class="progtrckr-done"><a href="<?php echo base_url(); ?>gender"><img src="<?php  echo base_url('assets/img/GenderIcon-1A.png'); ?>" alt=""> Gender</a></li>
             <?php }else{   ?>
-              <li class="progtrckr-todo"><?php if(!empty($portfolioData)){?><a href="<?php echo base_url(); ?>gender"><img src="<?php  echo base_url('assets/img/GenderIcon-1A.png'); ?>" alt=""> Gender</a>
+              <li class="progtrckr-todo"><?php 
+                if($this->session->userdata('user_type') == 4) {
+              if(!empty($portfolioData)){?><a href="<?php echo base_url(); ?>gender"><img src="<?php  echo base_url('assets/img/GenderIcon-1A.png'); ?>" alt=""> Gender</a>
             <?php }
             else{ ?>
               <img src="<?php  echo base_url('assets/img/GenderIcon-1A.png'); ?>" alt=""> Gender
+              <?php }}else{?>
+                <a href="<?php echo base_url(); ?>gender"><img src="<?php  echo base_url('assets/img/GenderIcon-1A.png'); ?>" alt=""> Gender</a>
               <?php }
             }}?>
              </li>
@@ -329,6 +333,7 @@
 <!--Edit Bio Popup--> 
 
 <!--Edit Title Popup-->
+<!--Abhishek-->
 <div class="modal editingModal" id="EditTitle">
   <div class="modal-dialog modal-sm">
     <div class="modal-content"> 
@@ -338,10 +343,14 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
+        
         <div class="modal-body">
-          <p>Chose Your skill</p>
-          <!--Changes Abhishek-->
-          <select class="multipleSelect" multiple name="Skillsname[]" id="myskill">
+          <p></p>
+         <input type="text" class="form-control" name="fldtitle" value="{user_info}{profiletitle}{/user_info}">
+        
+         <input type="hidden" name="Skillsname[]" value="{user_info}{user_skills} {skill_name} {/user_skills} {/user_info} ">
+<!--Changes Abhishek-->
+          <!-- <select class="multipleSelect" multiple name="Skillsname[]" id="myskill">
             {user_skills_name} <option value="{value}" {currentselections}>{value}</option> {/user_skills_name}
            <?php foreach($skills as $val){
              ?>
@@ -349,9 +358,9 @@
           <?php 
         }?>
           </select>
-
+      
           <p>Edit Title</p>
-          <textarea rows="" cols="" name="fldtitle">{user_info}{profiletitle}{/user_info}</textarea>
+          <textarea rows="" cols="" name="fldtitle">{user_info}{profiletitle}{/user_info}</textarea> -->
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
@@ -361,6 +370,7 @@
     </div>
   </div>
 </div>
+<!--Abhishek-->
 <!--Edit Title Popup--> 
 
 <!--Edit Area Popup-->
