@@ -157,6 +157,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <input class="form-control" id="userImgname_<?php echo $i ?>" type="hidden" value="<?= $single_data->portfolio_name;?>" />
                         <input class="form-control" id="userImgdesc_<?php echo $i ?>" type="hidden" value="<?= $single_data->portfolio_desc;?>" /> 
                         <input class="form-control" id="userImgUrl_<?php echo $i ?>" type="hidden" value="<?= $single_data->portfolio_url;?>" /> 
+                        <input class="form-control" id="userImgval_<?php echo $i ?>" type="hidden" value="<?=base_url()?>/uploads/user/portfolio_image/<?= $single_data->portfolio_image;?>" />
                         <button onclick="addMore('<?php echo $i ?>')">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </button>   
@@ -193,10 +194,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   </textarea>
                                 </div>
 
-
-
+                                   <span class="imsurls" style="width: 100%;height: 100px"></span>
+                                    <span class="imsurl" id="blah_update"></span>
                                 <div class="custom-file">
-                                  <input class="custom-file-input file-upload" id="customFile"  name="projectImage" type="file" accept="image/*">
+                                  <input class="custom-file-input file-upload update_images" id="customFile"  name="projectImage" type="file" accept="image/*">
 
                                   <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
@@ -249,14 +250,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <textarea class="fldDesc" name="fldDesc" placeholder="project description" required></textarea>
             </div>
 
-
+             <span class="imsurl" id="blah"></span>
 
             <div class="custom-file">
-              <input class="custom-file-input file-upload" id="customFile" name="projectImage" type="file" accept="image/*">
+              <input class="custom-file-input file-upload img_add" id="customFile" name="projectImage" type="file" accept="image/*">
 
               <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
-            <span class="imsurl"></span>
+           
 
           </div>
 
@@ -276,17 +277,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //   var fileName = $(this).val().split("\\").pop();
 //   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 // });
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+      $('#blah').html('<img  src='+e.target.result+' with="150px" height="150px">');
+
+     
+    }
+    
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+  }
+}
+$(".img_add").change(function() {
+  readURL(this);
+});
+
+
+
+
+function updateImages(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+      $('#blah_update').html('<img  src='+e.target.result+' with="150px" height="50px">');
+
+     
+    }
+    
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+  }
+}
+$(".update_images").change(function() {
+  updateImages(this);
+});
 function addMore(id){
  $("#AddArea").show(); 
   var userId=$("#userId_"+id).val();
   var userImgname=$("#userImgname_"+id).val();
   var userImgdesc=$("#userImgdesc_"+id).val();
   var userImgUrl=$("#userImgUrl_"+id).val();
-   
+   var userImgVal=$("#userImgval_"+id).val();
   $("#id").val(userId);
   $("#fldName").val(userImgname);
   $("#fldDesc").val(userImgdesc);
-  $("#fldUrl").val(userImgUrl);  
+  $("#fldUrl").val(userImgUrl);
+  $('.imsurls').html('<img  src='+userImgVal+' with="150px" height="50px">');  
 }
 
 $(document).on('click','#BtnCloseModel',function(){

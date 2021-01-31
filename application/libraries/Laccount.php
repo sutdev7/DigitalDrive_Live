@@ -224,7 +224,7 @@ function imageResize($imageResourceId,$width,$height) {
 		        $CI->email->message($body);
 		        $CI->email->send(); 
 
-            $CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">Email address is confirmed. Please login to the system</div>');
+            $CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">We have sent email to your email address for verification. Please verify once</div>');
 			
 		    redirect('sign-in', 'refresh');	            
 		}
@@ -262,7 +262,7 @@ function imageResize($imageResourceId,$width,$height) {
 		        $CI->email->message($body);
 		        $CI->email->send(); 
 
-            $CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">Email address is confirmed. Please login to the system</div>');
+            $CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">We have sent email to your email address for verification. Please verify once</div>');
 			
 		    redirect('sign-in', 'refresh');	            
 		}
@@ -300,7 +300,7 @@ function imageResize($imageResourceId,$width,$height) {
 		        $CI->email->message($body);
 		        $CI->email->send(); 
 
-            $CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">Email address is confirmed. Please login to the system</div>');
+            $CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">We have sent email to your email address for verification. Please verify once</div>');
 			
 		    redirect('sign-in', 'refresh');	            
 		}
