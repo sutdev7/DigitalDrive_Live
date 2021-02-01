@@ -10444,19 +10444,15 @@ ol.progtrckr {
 .proposal-remark {height:auto;box-shadow:1px 0px 5px 5px #dfdfdf;overflow:auto;padding:10px;}
 .wish-close .modal-dialog.modal-lg { max-width: 991px;} 
 .designation {background: #46b4e7;padding: 5px 10px;border-radius: 5px;color: #FFF;}
+
 .chat-rht-other.chat-rht-sec .chat-back-img .action-option {
     position: absolute;
-    right: -30px;
     top: 0;
     width: 10px;
     height: 20px;
     cursor: pointer;
+    right: 0;
 	transition: all .2s;
-	opacity: 0;
-}
-.chat-rht-other.chat-rht-sec .chat-back-img:hover .action-option {
-	right: 0;
-	opacity: 1;
 }
 .chat-rht-other.chat-rht-sec .chat-back-img .action-option i {
     width: 3px;
@@ -10466,6 +10462,9 @@ ol.progtrckr {
     margin: 3px 0px 0 4px;
     border-radius: 5px;
 }
+
+
+
 .chatDiv .searchDiv ul li .txthldr span.online-dot {
     background: #34c635;
     border: 2px solid #fff;

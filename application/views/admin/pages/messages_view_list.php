@@ -194,6 +194,11 @@
                     <?php }else{ $current_user_name = $row->name; ?>
 
                         <div class="chat_msg outgoing_msg chat_message_<?= $row->id ?>" rel="<?php echo $row->id; ?>">
+						<div class="action-option">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                          </div>
                                     <div class="Profile-pic"> 
                                        <a href="<?php echo base_url()."/public-profile/".$row->profile_id ?>"><img src="<?php echo $user_profile_image; ?>" alt="<?= $row->name ?>"></a>
                                     </div>
@@ -270,7 +275,7 @@
 <span id="visibility" rel="0"></span>
 <span id="currently_typing" rel="0"></span>
 <?php 
-$user_msg_html = "<div class='outgoing_msg'><p class='single_name'>".$current_user_name."</p><p class='single_date' style='display:none'>".date("F j, Y")."</p><div class='sent_msg deleted_message0' rel='message-0'><p>[MESSAGE_CONTENT]</p>[ATTACHMENT]<span class='time_date'>".date("h:i a")." | ". date("F j, Y")."</span></div></div>";
+$user_msg_html = "<div class='outgoing_msg'><div class='action-option'><i></i><i></i><i></i></div><p class='single_name'>".$current_user_name."</p><p class='single_date' style='display:none'>".date("F j, Y")."</p><div class='sent_msg deleted_message0' rel='message-0'><p>[MESSAGE_CONTENT]</p>[ATTACHMENT]<span class='time_date'>".date("h:i a")." | ". date("F j, Y")."</span></div></div>";
 ?>
 <script>
    (function() {
@@ -693,21 +698,28 @@ $user_msg_html = "<div class='outgoing_msg'><p class='single_name'>".$current_us
     color: #f9fafc;
 }
 .messaging .inbox_msg .mesgs .msg_history .chat_msg.outgoing_msg {
-    padding-right: 55px;
+    padding-right: 30px;
 }
 .messaging .inbox_msg .mesgs .msg_history .chat_msg.outgoing_msg .Profile-pic {
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 42px;
-    height: 42px;
+    width: 22px;
+    height: 22px;
     overflow: hidden;
     border-radius: 100px;
+}
+.messaging .inbox_msg .mesgs .msg_history .chat_msg.outgoing_msg .Profile-pic a {
+    display: block;
+    height: 22px;
+    width: 22px;
+    position: relative;
 }
 .messaging .inbox_msg .mesgs .msg_history .chat_msg.outgoing_msg .Profile-pic img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: absolute;
 }
 .messaging .inbox_msg .mesgs .msg_history .chat_msg .message-wrap .received_withd_msg {
     width: 100%;
@@ -744,7 +756,7 @@ $user_msg_html = "<div class='outgoing_msg'><p class='single_name'>".$current_us
 .messaging .inbox_msg .mesgs .msg_history .chat_msg.outgoing_msg .time_date {
     position: absolute;
     bottom: -20px;
-    right: 55px;
+    right: 30px;
     color: #cccccc;
     display: block;
     font-size: 12px;
@@ -881,6 +893,23 @@ span.custom-tooltip:before {
     left: 52px;
 }
 
+.messaging .inbox_msg .mesgs .msg_history .chat_msg.outgoing_msg .action-option {
+    position: absolute;
+    top: 20px;
+    width: 10px;
+    height: 20px;
+    cursor: pointer;
+    right: 0;
+  transition: all .2s;
+}
+.messaging .inbox_msg .mesgs .msg_history .chat_msg.outgoing_msg .action-option i {
+    width: 3px;
+    height: 3px;
+    display: block;
+    background: #999;
+    margin: 3px 0px 0 4px;
+    border-radius: 5px;
+}
 
 
 </style>
@@ -964,6 +993,27 @@ $(".msg_history").mCustomScrollbar({
     });
 	}
 });
+
+
+$('.msg_history').on('click','.action-option',function(){ 
+  // Avoid the real one
+    if(!$(this).closest('.chat_msg').find('.sent_msg').hasClass('deleted_message1'))
+  { 
+  event.preventDefault();
+	$('.custom-right-menu').attr('rel',$(this).closest('.chat_msg').find('.sent_msg').attr('rel'));
+	//alert($(".custom-right-menu").attr('data-attr'));
+    // Show contextmenu
+    $(".custom-right-menu").finish().toggle(100).
+    
+    // In the right position (the mouse)
+    css({
+        top: event.pageY + "px",
+        left: event.pageX + "px"
+    });
+  }
+
+});
+
 
  $('.msg_history').on("contextmenu", '.incoming_msg .received_msg',function (event) {
     // Avoid the real one

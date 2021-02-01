@@ -96,6 +96,7 @@
 									<?php }else{ ?>
 
 									<div class="chat_msg outgoing_msg chat_message_<?= $row->id ?>" rel="<?= $row->id ?>">
+										<div class='action-option'><i></i><i></i><i></i></div>
 										<div class="Profile-pic">
 	                                    	<a href="<?php echo base_url()."/public-profile/".$row->profile_id ?>"><img src="<?php echo $user_profile_image; ?>" alt="<?= $row->name ?>"> </a>
 	                                    </div>
