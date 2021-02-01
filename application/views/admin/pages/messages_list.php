@@ -90,6 +90,24 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<style>
+    table.table-bordered.dataTable tbody td span.online-dot {
+    background: #34c635;
+    width: 14px;
+    height: 14px;
+    border-radius: 50px;
+    display: inline-flex;
+    position: relative;
+    float: right;
+    top: 7px;
+    font-size: 11px;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 2px 2px;
+    font-weight: 600;
+}
+</style>
 <script>
   
     (function() {
@@ -104,5 +122,17 @@
         $("#example1").DataTable();
         
     });
+	
+	  var message_ajax_call = function(user_id=0) {
+      $.ajax({
+          method: "POST",
+          url: "<?php echo base_url(); ?>admin/user-messages-ajax/",
+          data: {}
+      }).done(function(msg) {
+	    $("tbody").html(msg);
+      });
+  };
+  
+  setInterval(message_ajax_call, 1000, '');
 </script>
 

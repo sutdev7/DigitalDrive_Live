@@ -12,7 +12,11 @@ if(isset($content['user_info'][0])) {
             <div class="chat-back-img"> <!--<span style="background:url(<?php echo $value['profileImage']?>) no-repeat center top; background-size:cover;"></span>-->
 			<a href="<?php echo base_url() ?>public-profile/<?php echo $value['profile_id'] ?>">
 			 <img src="<?php echo $value['profileImage']?>" class="profile_image"/></a>
-
+             <div class="action-option">
+                <i></i>
+                <i></i>
+                <i></i>
+                </div>
                 <div class="chat-back-sec">
 					<p class="single_name"><?php echo $value['name']?></p>
 					<span class='single_date' style='display:none'><?php echo $value['date_time']?></span>

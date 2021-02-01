@@ -1284,6 +1284,20 @@ $(".custom-right-menu li").click(function(){
   
   setInterval(message_ajax_call, 1000, '<?php echo $user_id_to;?>');
   
+  setInterval(function(){ remove_chat_seesion_time(); }, 5000);
+  
+  function remove_chat_seesion_time()
+{
+  var url = "<?php echo base_url(); ?>User/remove_chat_session_time/";  
+      $.ajax({
+          method: "POST",
+          url: url,
+          data: {}
+         }).done(function(data) {
+
+        });
+}
+  
   
   var frndlist_ajax_call = function() {
       var user_to =  $('[name=user_to]').val();  

@@ -57,6 +57,7 @@ class Auth {
 			);
 
           	$CI->session->set_userdata($user_data);
+			$CI->Users->set_login_session($user_data);
            	return TRUE;
 		}else{
 			return FALSE;
@@ -83,7 +84,7 @@ class Auth {
 		$user_data = array(
 				'sid_web','user_id','profile_id','user_type','user_name','user_email','user_mobile','is_mobile_verified','receive_transactional_notification','receive_task_update_notification','receive_task_reminder_notification','receive_helpful_notification','user_image','user_site_image'
 			);
-
+		$CI->Users->remove_login_session($CI->session->userdata('user_id'));
         $CI->Users->update_user_login_status($CI->session->userdata('user_id'));
         $CI->session->unset_userdata($user_data);
 		return true;

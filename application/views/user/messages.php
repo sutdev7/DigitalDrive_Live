@@ -23,6 +23,7 @@
                   <span class="stat">{totalmessage}</span>
                 </div>
                 <div class="txthldr">
+				{online_status}
                     <h2>{name}</h2> <!--({task_name})
                     <p>{address}, {city}, {state}, {country}</p>-->
                 </div>
@@ -94,7 +95,11 @@
                           <div class="chat-back-img"> <!--<span style="background:url({profileImage}) no-repeat center top; background-size:cover;"></span>-->
                           <a href="<?php echo base_url() ?>public-profile/{profile_id}">
                           <img src="{profileImage}" class="profile_image" /></a>
-
+                          <div class="action-option">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                          </div>
                           <div class="chat-back-sec">
                             <p class="single_name">{name}</p>
                             <span class='single_date' style='display:none'>{date_time}</span>
@@ -181,8 +186,8 @@ $date = date('d/m/Y H:i A');
 $name = $this->session->userdata('user_name');
 $profile_url = base_url().'public-profile/'.$this->session->userdata('profile_id');
 //$user_msg_html = "<div class='chat-rht-sec chat-rht-other' id='res'><div class='chat-back-img'><span style='background:url({user_info} {user_image} {/user_info} ) no-repeat center top; background-size:cover;'></span><div class='chat-back-sec'><div class='cap deleted_message0' rel='message-0'><p class='message_contentv'>[MESSAGE_CONTENT]</p>[ATTACHMENT]</div><div class='cap2 remove_date0'>$date</div></div></div></div>";
-$user_msg_html = "<div class='chat-rht-sec chat-rht-other chat_new' id='res'><div class='chat-back-img'><a href='$profile_url'><img src={user_info} {user_image} {/user_info} class='profile_image'></a><div class='chat-back-sec'><p class='single_name'>$name</p><div class='cap deleted_message0' rel='message-0'><p class='message_contentv'>[MESSAGE_CONTENT]</p>[ATTACHMENT]</div><div class='cap2 remove_date0'>$date</div></div></div></div>";
-$user_msg_html2 = "<div class='chat-rht-sec chat-rht-other chat-rht-other-remove chat_new' id='res'><div class='chat-back-img'><a href='$profile_url'><img src={user_info} {user_image} {/user_info} class='profile_image'></a><div class='chat-back-sec'><p class='single_name'>$name</p><div class='cap deleted_message0' rel='message-0'><p class='message_contentv'>[MESSAGE_CONTENT]</p>[ATTACHMENT]</div><div class='cap2 remove_date0'>$date</div></div></div></div>";
+$user_msg_html = "<div class='chat-rht-sec chat-rht-other chat_new' id='res'><div class='chat-back-img'><a href='$profile_url'><img src={user_info} {user_image} {/user_info} class='profile_image'></a><div class='action-option'><i></i><i></i><i></i></div><div class='chat-back-sec'><p class='single_name'>$name</p><div class='cap deleted_message0' rel='message-0'><p class='message_contentv'>[MESSAGE_CONTENT]</p>[ATTACHMENT]</div><div class='cap2 remove_date0'>$date</div></div></div></div>";
+$user_msg_html2 = "<div class='chat-rht-sec chat-rht-other chat-rht-other-remove chat_new' id='res'><div class='chat-back-img'><a href='$profile_url'><img src={user_info} {user_image} {/user_info} class='profile_image'></a><div class='action-option'><i></i><i></i><i></i></div><div class='chat-back-sec'><p class='single_name'>$name</p><div class='cap deleted_message0' rel='message-0'><p class='message_contentv'>[MESSAGE_CONTENT]</p>[ATTACHMENT]</div><div class='cap2 remove_date0'>$date</div></div></div></div>";
 ?>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.visible.min.js"></script>
 <script src="https://cdn.tiny.cloud/1/rzset1ozumcl232vpuh2ctlwzaslo3ys33l3wa4clelmcov5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -332,11 +337,12 @@ $user_msg_html2 = "<div class='chat-rht-sec chat-rht-other chat-rht-other-remove
           //  alert($(".badge2").text())
       });
   };
-  setInterval(frndlist_ajax_call, 8000, '<?php echo $user_id_to;?>');
+setInterval(frndlist_ajax_call, 8000, '<?php echo $user_id_to;?>');
   var scroll_messages_call = function(user_id=0) {
 	  scroll_messages();
    };
   setInterval(scroll_messages_call, 1000, '<?php echo $user_id_to;?>');
+
   
   /**function check_messages_visibility(html_msg)
   {
@@ -449,6 +455,26 @@ $user_msg_html2 = "<div class='chat-rht-sec chat-rht-other chat-rht-other-remove
         left: event.pageX + "px"
     });
   }
+});
+
+
+$('#msgID').on('click','.action-option',function(){ 
+  // Avoid the real one
+    if(!$(this).closest('.chat-rht-sec').find('.cap').hasClass('deleted_message1'))
+  { 
+  event.preventDefault();
+  $('.custom-right-menu').attr('rel',$(this).closest('.chat-rht-sec').find('.cap').attr('rel'));
+  //alert($(".custom-right-menu").attr('data-attr'));
+    // Show contextmenu
+    $(".custom-right-menu").finish().toggle(100).
+    
+    // In the right position (the mouse)
+    css({
+        top: event.pageY + "px",
+        left: event.pageX + "px"
+    });
+  }
+
 });
 
 
@@ -647,6 +673,9 @@ $(".custom-left-menu li").click(function(){
   };
   setInterval(login_session_call, 1000, '<?php echo $user_id_to;?>');
   
+  setInterval(function(){ remove_chat_seesion_time(); }, 5000);
+
+  
   
   /**$(".send_msg").click(function(){
   var user_id = "<?php echo $this->session->userdata('user_id'); ?>";
@@ -775,6 +804,7 @@ $(".custom-left-menu li").click(function(){
   $('[name=msg2]').val(msg);
   $("#attchmentpreview").text("");
   tinymce.get("msg").setContent("");
+  tinyMCE.execCommand('mceInsertContent',false, '');
   /**$("#divscroll").animate({
         scrollTop: $('#divscroll')[0].scrollHeight - $('#divscroll')[0].clientHeight
      }, 0);**/
@@ -794,6 +824,7 @@ $(".custom-left-menu li").click(function(){
       $el.wrap('<form>').closest('form').get(0).reset();
       $el.unwrap();
 	  tinymce.get("msg").setContent("");
+	  //tinyMCE.execCommand('mceInsertContent',false, '');
      },
     error: function(){}           
     });
@@ -912,6 +943,19 @@ function remove_chat_seesion()
   var user_id = "<?php echo $this->session->userdata('user_id'); ?>";
   var user_to =  $('[name=user_to]').val();  
   var url = "<?php echo base_url(); ?>User/remove_chat_session/" + user_id + "/" + user_to;  
+      $.ajax({
+          method: "POST",
+          url: url,
+          data: {}
+         }).done(function(data) {
+
+        });
+}
+
+
+function remove_chat_seesion_time()
+{
+  var url = "<?php echo base_url(); ?>User/remove_chat_session_time/";  
       $.ajax({
           method: "POST",
           url: url,

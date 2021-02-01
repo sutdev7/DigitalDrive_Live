@@ -304,11 +304,13 @@ class Messages extends CI_Model {
                     }
 					if($login_session->status == 1)
 					{	
-					$data[$i]['logout_date'] = "Online";	
+					$data[$i]['logout_date'] = "";
+                    $data[$i]['online_status'] = '<span class="online-dot"></span>'; 					
 					$data[$i]['login_session'] = "1";
 					} else {
 					$data[$i]['logout_date'] = date("h:i A",strtotime($login_session->logout_date));
-                    $data[$i]['login_session'] = "";	
+                    $data[$i]['login_session'] = "";
+				    $data[$i]['online_status'] = ''; 							
 					}
 					$data[$i]['active'] = $active;
                     $data[$i]['is_login'] = $log;
@@ -390,6 +392,7 @@ class Messages extends CI_Model {
 	  $data	= array(
 		    	'user_id_from' => $user_from_id,
 			    'user_id_to' => $user_to_id,
+				'chat_date' => time()
 		    );
 	  $this->db->insert('user_chat_session',$data);		
 	}
@@ -531,7 +534,7 @@ class Messages extends CI_Model {
 		
 		
 		public function get_friend_list_admin($userIdTo = '') {
-            $this->db->select('users.name,users.user_id,user_login.is_login, user_login.profile_id,user_login.user_type, CASE WHEN user_login.profile_image is null THEN "assets/img/no-image.png" ELSE CONCAT("uploads/user/profile_image/",user_login.profile_image) END profile_image ', FALSE);
+            $this->db->select('max(user_messages.id) as message_id,users.name,users.user_id,user_login.is_login, user_login.profile_id,user_login.user_type, CASE WHEN user_login.profile_image is null THEN "assets/img/no-image.png" ELSE CONCAT("uploads/user/profile_image/",user_login.profile_image) END profile_image ', FALSE);
             $this->db->from('user_messages');
             $this->db->join('users', 'users.user_id = user_messages.user_id_from', 'LEFT');
             $this->db->join('user_login', 'user_login.user_id = user_messages.user_id_from', 'LEFT');
@@ -542,6 +545,7 @@ class Messages extends CI_Model {
             //$this->db->or_where('user_login.user_type', 2);
             //$this->db->group_end();
             $this->db->group_by('user_login.user_id');
+			$this->db->order_by('message_id desc,users.user_id asc');
             $query = $this->db->get();
             $admin_result = $query->result();
             
@@ -735,6 +739,15 @@ class Messages extends CI_Model {
 		}else{
 			return array();
 		}
+	}
+	
+	
+	/** function to delete all message after some time**/
+	public function delete_chat_session_time()
+	{
+	      $CI = & get_instance();
+		  $time = time() - 3;
+		  $CI->db->query("delete from user_chat_session WHERE chat_date < '" . $time . "'");
 	}
 
 }		

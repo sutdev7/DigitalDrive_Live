@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.168.100.71',
-    'username' => 'Drive_Digitally',
-	'password' => 'MRqfH6YIKf4DQIzA',
-	'database' => 'Drive_Digitally',
+	'hostname' => 'localhost',
+    'username' => 'drivedigitally_dev5hiremylive',//'drivedigitally_dev1room',
+	'password' => 'Y9tef?k2@5X^',//'V*1,}1e(%j({',
+	'database' => 'drivedigitally_dev5hiremylive',//'drivedigitally_dev1room',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

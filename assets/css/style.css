@@ -6495,7 +6495,7 @@ ul.nav-right_Div li .dropdown-menu li a, .drop-menu .dropdown-menu a {
 .chat-rht-other.chat-rht-sec .chat-back-img,
 .chat-rht-other-remove.chat-rht-sec .chat-back-img  {
     float: right;
-    padding-right: 60px;
+    padding-right: 30px;
     padding-left: 0;
 }
 .chat-rht-other .chat-back-img span,
@@ -6966,7 +6966,7 @@ ul.nav-right_Div li .dropdown-menu li a, .drop-menu .dropdown-menu a {
     flex-direction: column;
     border-left: .5px solid #ecebeb;
     border-right: .5px solid #ecebeb;
-    / border-bottom: .5px solid #ecebeb; /
+    /* border-bottom: .5px solid #ecebeb; */
 }
 /*.hblock:hover .ptitle { display: none; }
 .hblock:hover .ptitle2 { display: block; }*/
@@ -9238,7 +9238,6 @@ content: "";
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-}
 .breadcrumb {
     background-color: #46b4e7!important;
     /* color: #fff!important; */
@@ -9297,8 +9296,8 @@ li.breadcrumb-item.active {
 }
 .chat-rht-other.chat-rht-sec .chat-back-img .profile_image,
 .chat-rht-other-remove.chat-rht-sec .chat-back-img .profile_image {
-    width: 50px;
-    height: 50px;
+    width: 22px;
+    height: 22px;
     border-radius: 100%;
     float: right;
     position: absolute;
@@ -10445,3 +10444,34 @@ ol.progtrckr {
 .proposal-remark {height:auto;box-shadow:1px 0px 5px 5px #dfdfdf;overflow:auto;padding:10px;}
 .wish-close .modal-dialog.modal-lg { max-width: 991px;} 
 .designation {background: #46b4e7;padding: 5px 10px;border-radius: 5px;color: #FFF;}
+.chat-rht-other.chat-rht-sec .chat-back-img .action-option {
+    position: absolute;
+    right: -30px;
+    top: 0;
+    width: 10px;
+    height: 20px;
+    cursor: pointer;
+	transition: all .2s;
+	opacity: 0;
+}
+.chat-rht-other.chat-rht-sec .chat-back-img:hover .action-option {
+	right: 0;
+	opacity: 1;
+}
+.chat-rht-other.chat-rht-sec .chat-back-img .action-option i {
+    width: 3px;
+    height: 3px;
+    display: block;
+    background: #999;
+    margin: 3px 0px 0 4px;
+    border-radius: 5px;
+}
+.chatDiv .searchDiv ul li .txthldr span.online-dot {
+    background: #34c635;
+    border: 2px solid #fff;
+    width: 13px;
+    height: 13px;
+    border-radius: 50px;
+    display: block;
+    margin: 0 0px -13px -27px;
+}

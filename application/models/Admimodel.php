@@ -958,6 +958,32 @@ $result = $query->result();
 		$this->db->order_by('user_login.unique_id','asc');
 		$result = $this->db->get();
 		return $all=$result->result();
-	}	
+	}
+
+
+
+
+	public function get_message_users_list_ajax() {
+        $this->db->select('max(user_messages.id) as message_id, users.name,users.user_id, user_login.email, user_login.user_type , user_login.is_login, user_login.profile_id, CASE WHEN user_login.profile_image is null THEN "assets/img/no-image.png" ELSE CONCAT("uploads/user/profile_image/",user_login.profile_image) END profile_image,SUM(CASE WHEN user_messages.is_read = "N" THEN "1" ELSE "0" END) unread_count ', FALSE);
+        $this->db->from('user_messages');
+        $this->db->join('users', 'users.user_id = user_messages.user_id_from', 'LEFT');
+        $this->db->join('user_login', 'user_login.user_id = user_messages.user_id_from', 'LEFT');
+        $this->db->join('country', 'country.country_id = users.country', 'LEFT');
+        $this->db->where('user_messages.user_id_to', $this->session->userdata('user_id'));
+		//$this->db->where('user_messages.is_read', 'N');
+        $this->db->group_start();
+        $this->db->or_where('user_login.user_type', 3);
+        $this->db->or_where('user_login.user_type', 4);
+        $this->db->or_where('user_login.user_type', 5);
+        $this->db->group_end();
+        $this->db->group_by('user_login.user_id');
+		$this->db->order_by('message_id desc,users.user_id asc');
+        $query = $this->db->get();
+		//echo $this->db->last_query();
+        $result = $query->result();
+		
+        return $result;
+
+    }	
 	
 }

@@ -30,7 +30,7 @@ if(isset($content['user_info'][0])) {
                 </div>
 
                 <div class="txthldr">
-
+					<?php echo $value['online_status'];?>
                     <h2><?php echo $value['name'];?></h2> <!--({task_name})
 
                             <p>{address}, {city}, {state}, {country}</p>-->

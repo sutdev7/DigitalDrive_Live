@@ -220,6 +220,7 @@ $route['user-analytics'] = 'User/analytics';
 $route['admin/compose_email/(:any)'] = 'Admin/compose_email/$1';
 $route['admin/send_email'] = 'Admin/send_email';
 $route['admin/user-messages'] = 'Admin/user_messages';
+$route['admin/user-messages-ajax'] = 'Admin/user_messages_ajax';
 $route['admin/users-messages/(:any)'] = 'Admin/get_message_userss/$1';
 $route['admin/outbox-messages/(:any)'] = 'Admin/get_message_users_outbox/$1';
 //$route['admin/user-messages-clients'] = 'Admin/get_message_users_clients';

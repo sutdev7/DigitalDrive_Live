@@ -556,5 +556,13 @@ function hashpassword($password) {
         );
         $this->load->view('user/messages_ajax', $data);
     }
+	
+	
+	/** function to remove chat session not working **/
+	public function remove_chat_session_time()
+	{
+	  $CI =& get_instance();
+	  echo $status = $CI->Messages->delete_chat_session_time();die;
+	}
 }
 

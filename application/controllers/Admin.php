@@ -766,4 +766,10 @@ class Admin extends CI_Controller {
         );
         $this->load->view('admin/pages/friendList_ajax', $data);
     }
+	
+	
+	public function user_messages_ajax($user_id = ""){
+            $data['user_message'] = $this->Admimodel->get_message_users_list_ajax();
+            $this->load->view('admin/pages/messages_list_ajax',$data);
+	}
 }
