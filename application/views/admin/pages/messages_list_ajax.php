@@ -12,7 +12,7 @@
                                                     }
                                                 ?>
                                                 </td>
-                                                <td><?= $row->name ?> <span class="online-dot"><?php echo $row->unread_count ?></span></td>
+                                                <td><?= $row->name ?> <?php if($row->unread_count > 0) : ?> <span class="online-dot"><?php echo $row->unread_count ?></span><?php endif;?></td>
                                                 <td><a href="<?= base_url() ?>admin/view-messages/<?php echo $row->user_id; ?>" title="View Details"><i class="fa fa-eye"></i></a>
                                                 </td>
                                             </tr>
