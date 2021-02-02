@@ -57,10 +57,12 @@ if(!empty($frmValidationMsg)) {
     <span class="coin-tag"> {user_coins} Coins</span>
   </div>
   <div class="pull-right" style="margin-top: 6px;">
-    <span class="text-primary">$ {yearly_income_analytics}</span>
+  
+    <span class="text-primary"><a href="<?=base_url()?>freelancer/details_project/{user_id}" title="" class="view-more-pro">No of profile : {total_project_count}</a></span>
   </div>
   
-   <div class="w-100 text-center mt-3"><a href="<?=base_url()?>freelancer/details_project/{microkey_id}" style="text-decoration: none;color: silver" title="" class="view-more-pro"><b>View Profile </b></a></div>
+  <!--  <div class="w-100 text-center mt-3"><a href="<?=base_url()?>freelancer/details_project/{microkey_id}" style="text-decoration: none;color: silver" title="" class="view-more-pro"><b>View Profile </b></a></div> -->
+  <div class="w-100 text-center mt-3"><a href="<?=base_url()?>freelancer/details_project/{user_id}" title="" class="view-more-pro"><b>View Profile </b></a></div>
    <!--  <div class="w-100 border-top mt-3">
       <p class="text-center text-muted small mt-2 mb-0" style="font-size: 12px">{last_login}</p>
     </div> -->
