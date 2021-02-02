@@ -423,7 +423,7 @@ class Lmicrokey {
 		redirect('microkey-list', 'refresh');	
 	}
 
-
+#Abhishek
 	public function micro_freelancer(){
 		$CI =& get_instance();
         $CI->load->model('Microkeys');
@@ -490,6 +490,7 @@ class Lmicrokey {
 		
 		$config['use_page_numbers'] = TRUE;
 		$config['total_rows'] = $CI->Microkeys->get_microkey_count_freelance($searchValue);
+        
 		$config['per_page'] = $rowperpage;
 		//echo $CI->session->userdata('user_id');
 		//echo '884';echo '<pre>'; print_r($config['total_rows']);
@@ -499,9 +500,16 @@ class Lmicrokey {
 		$data['links'] = $CI->pagination->create_links();
 		#changes Uniue Value Abhishek
 		$data['microkey_array'] = $CI->Microkeys->get_microkey_data_freelance_unque($searchValue,$rowperpage,$rowno);
+        $microkeyData['val_mcro'] = $CI->Microkeys->get_microkey_data_freelance_unque($searchValue,$rowperpage,$rowno);
+        #change count Abhishek 
+        
+       // $microkeyData['total_rows'] = $CI->Microkeys->get_microkey_count_freelance($searchValue);
+
+
 		//echo '<pre>'; print_r($data['microkey_array']);die();
 		
 		$userData = $CI->Users->get_user_profile_info_by_id($CI->session->userdata('user_id'));
+      
 		
 		$userLoginData = $CI->Users->getUserLoginData('user_id', $CI->session->userdata('user_id'));
 		if(!empty($userLoginData)){
@@ -524,6 +532,7 @@ class Lmicrokey {
 			//$spend_by_user = $CI->Tasks->get_user_total_spend($userData['basic_info']->user_id);
 			
 			$userInfo = array('id' => $userData['basic_info']->user_id, 'name' => $userData['basic_info']->name, 'country' => $userData['basic_info']->country, 'gender' => $userData['basic_info']->gender, 'date_of_birth' => $userData['basic_info']->date_of_birth, 'bio' => $userData['basic_info']->bio, 'address' => $userData['basic_info']->address, 'state' => $userData['basic_info']->state, 'city' => $userData['basic_info']->city, 'vat' => $userData['basic_info']->vat, 'user_languages' => implode(', ', $userData['user_selected_languages']), 'user_skills' => $userData['user_selected_skills'], 'user_image' => $user_profile_image, 'spend_by_user' => "",'total_positive_coins'=> $total_positive_coins,'total_negative_coins'=> $total_negative_coins, 'connections' => $connections);
+
 
 		}
 		$data['user_info'][] = $userInfo;
@@ -548,8 +557,12 @@ class Lmicrokey {
 
 
 		$monthly_yearly_income_analytics = $CI->Microkeys->monthly_yearly_income_analytics($CI->session->userdata('user_id'));
+        $total_project = $CI->Microkeys->get_microkey_count_freelance_by_id($row['user_id']);
+        
 		if(!empty($monthly_yearly_income_analytics)){
 			$yearly_income_analytics = $monthly_yearly_income_analytics['yearly_income'];
+            $total_project_count = $total_project;
+            
 		}else{
 			$yearly_income_analytics = 0;
 		}
@@ -567,9 +580,10 @@ class Lmicrokey {
 		}
 
 		//echo '<pre>'; print_r($userData1);die();
-				
+				$data['microkey_id']=$row['id'];
 				$microkeyData['dataArr'][] = array(
 					'microkey_id' => $row['id'],
+                    'user_id' => $row['user_id'],
 					'microkey_title' => $row['title'],
 					'microkey_price' => $row['price'],
 					'microkey_image' => $microkey_image_path,
@@ -581,8 +595,12 @@ class Lmicrokey {
 					'user_projects' => $projectCount,
 					'user_image' => $user_profile_image1,
 					'yearly_income_analytics' => $yearly_income_analytics,
+                    'total_project_count' => $total_project_count,
 					'last_login' => $userLoginData->last_login
 				);
+                $CI->load->model('Microkeys');
+                $microkeyData['user_id'] = $row['user_id'];
+                $microkeyData['total_rows'] = $CI->Microkeys->get_microkey_count_freelance_by_id($row['user_id']);
 			}
 		}
 
@@ -591,7 +609,7 @@ class Lmicrokey {
 		return $MicrokeyDataok;
 	}
 
-
+#Abhishek
 	public function microkey_list(){
 		$CI =& get_instance();
         $CI->load->model('Microkeys');
