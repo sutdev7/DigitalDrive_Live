@@ -23,10 +23,10 @@
               
               <h3 class="mt-0">{microkey_title} </h3>
 
-				<p class="mb-3">{microkey_freelicer_name}</p>
+        <p class="mb-3">{microkey_freelicer_name}</p>
                        <span>{microkey_skills1}  </span>
-				<div class="mb-3">
-					<ul class="Portfolio_img">
+        <div class="mb-3">
+          <ul class="Portfolio_img">
                 <li class="w-100 mb-4">
                   <div class="Portfolio_box w-auto h-100"> 
                     <img src="{microkey_image}" class="w-100 h-100" alt="" style="width:650px;height:284px;">
@@ -81,38 +81,38 @@
                 </li>
                 
               </ul>
-					<div class="clearfix"></div>
-				</div>
+          <div class="clearfix"></div>
+        </div>
               
              
              <!--  <div class="task_info"><h5>Seller Details </h5> 
-				  <div class="media"> 
-				  <a class="pull-left" href="#"> <img class="media-object img-circle " src="{user_state}"> </a>
+          <div class="media"> 
+          <a class="pull-left" href="#"> <img class="media-object img-circle " src="{user_state}"> </a>
               <div class="media-body">
                 <h2>{user_name} <span class="float-right w-auto"><a href="#"><i class="fa fa-comment"></i></a></span></h2>
                 <p>{user_city}, {user_state}, {user_country}</p><br>
                 <p>{user_skills}</p>
                 <h3>{user_total_positive_coins}</h3>
-				  <h3>- {user_total_negative_coins}</h3>
+          <h3>- {user_total_negative_coins}</h3>
               </div>
-					  
+            
             </div>
-			<div class="row">
-				<div class="col-sm-4">
-					  	<h3 class="mb-1">{user_projects}</h3>
-						<p class="small">Completed Projects</p>
-					  </div>
-				<div class="col-sm-4">
-					  	<h3 class="mb-1">$500,00</h3>
-						<p class="small">Earn on Projects</p>
-					  </div>
-			
-			</div> -->
-				  
-			<!-- 	</div> -->
+      <div class="row">
+        <div class="col-sm-4">
+              <h3 class="mb-1">{user_projects}</h3>
+            <p class="small">Completed Projects</p>
+            </div>
+        <div class="col-sm-4">
+              <h3 class="mb-1">$500,00</h3>
+            <p class="small">Earn on Projects</p>
+            </div>
+      
+      </div> -->
+          
+      <!--  </div> -->
              <!--  <div class="mt-3">
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-				  </div> -->
+          </div> -->
             </div>
             
             
@@ -123,21 +123,21 @@
           <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. <a href="#"> More </a> </p>
 
           <div class="task_info"> 
-			  <div class="row">
-			  <span class="col-sm-4"><h5> Hours to be determined</h5>
+        <div class="row">
+        <span class="col-sm-4"><h5> Hours to be determined</h5>
                 <em> Hourly</em></span>
                 <span class="col-sm-4">
                 <h5>Project length</h5>
                 <em>1 month</em> </span> 
-			  <span class="col-sm-4">
+        <span class="col-sm-4">
                 <h5>Level</h5>
                 <em>Intermediate</em> </span>
-			</div>
-				</div>
+      </div>
+        </div>
                 <button type="submit" class="btn big-btn mt-3 float-right">Confirm this order</button>
               
         </div>
-			  <div class="pro_info mt-3">
+        <div class="pro_info mt-3">
               <h3 class="small">Reviews</h3>
               <div class="RvwWrapper">
                 <ul class="RvwLists">
@@ -204,7 +204,7 @@
               </div>
               <ul>
                 <li>
-                	<h3>I need a UI designer for my Mobile app</h3>
+                  <h3>I need a UI designer for my Mobile app</h3>
             <p class="mb-1">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
         
                 </li>
@@ -212,7 +212,7 @@
                   
               
             </div>
-			   <a href="#" class="eyeBtn">Confirm This Order</a>
+         <a href="#" class="eyeBtn">Confirm This Order</a>
           </div>
         </div> 
         
@@ -222,43 +222,43 @@
 </main>
 
 <script> 
-	$(document).ready(function() {
-		$('.saveBtn').on('click',function(){
-			$.ajax({
-				  type: "POST",
-				  url: "<?= base_url().'save-job' ?>",
-				  data: {taskId : '<?= $this->uri->segment(2) ?>' },
-				  dataType: "text",
-				  success: function(resultData){ 
-					  $('.HireBtn').removeClass('saveBtn');
-					  $('#txtShow').html('Job Saved ').css("color", '#ccc');
-					  
-				  }
-			});
-		});
-		$('.flagBtn').on('click',function(){
-			$.ajax({
-				  type: "POST",
-				  url: "<?= base_url().'save-inappropriate' ?>",
-				  data: {taskId : '<?= $this->uri->segment(2) ?>' },
-				  dataType: "text",
-				  success: function(resultData){ 
-					  $('.flb').removeClass('flagBtn');
-					  $('#txtflag').html('Already Flaged This Job As an inappropriate').css("color", '#25bef3');
-					  
-				  }
-			});
-		});
-	});
-	
-	function copyToClipboard(element) {
-	  var $temp = $("<input>");
-	  $("body").append($temp);
-	  $temp.val($(element).attr('href')).select();
-	  document.execCommand("copy");
-	  alert('Linked Copied');
-	  $temp.remove();
-	}
-	
-	
-</script>	
+  $(document).ready(function() {
+    $('.saveBtn').on('click',function(){
+      $.ajax({
+          type: "POST",
+          url: "<?= base_url().'save-job' ?>",
+          data: {taskId : '<?= $this->uri->segment(2) ?>' },
+          dataType: "text",
+          success: function(resultData){ 
+            $('.HireBtn').removeClass('saveBtn');
+            $('#txtShow').html('Job Saved ').css("color", '#ccc');
+            
+          }
+      });
+    });
+    $('.flagBtn').on('click',function(){
+      $.ajax({
+          type: "POST",
+          url: "<?= base_url().'save-inappropriate' ?>",
+          data: {taskId : '<?= $this->uri->segment(2) ?>' },
+          dataType: "text",
+          success: function(resultData){ 
+            $('.flb').removeClass('flagBtn');
+            $('#txtflag').html('Already Flaged This Job As an inappropriate').css("color", '#25bef3');
+            
+          }
+      });
+    });
+  });
+  
+  function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).attr('href')).select();
+    document.execCommand("copy");
+    alert('Linked Copied');
+    $temp.remove();
+  }
+  
+  
+</script> 
