@@ -281,7 +281,7 @@ class Admin extends CI_Controller {
 		
 		$sucateory_report = $this->Admimodel->get_sub_category_data($cat_val);
 		foreach ($sucateory_report as $key => $row) {
-			echo "<option value=".$row->sub_category_name.">". $row->sub_category_name."</option>";
+			echo "<option value=".$row->category_name.">". $row->category_name."</option>";
 		}
 	}
 #End Abhishek 
