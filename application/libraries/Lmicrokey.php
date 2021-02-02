@@ -1129,7 +1129,7 @@ class Lmicrokey {
 		$MicrokeyDataok = $CI->parser->parse('freelancer/microkey-list-clientpanel',$microkeyData,true);
 		return $MicrokeyDataok;
 	}
-
+#Abhishek
 	public function microkey_details($taskID = ''){
 
 		$CI =& get_instance();
@@ -1140,6 +1140,7 @@ class Lmicrokey {
 
 		$userData = $CI->Users->get_user_profile_info_by_id($CI->session->userdata('user_id'));
 		$microkeyData = $CI->Microkeys->get_microkey_info_by_id($taskID);
+
 		$userLoginData = $CI->Users->getUserLoginData('user_id', $CI->session->userdata('user_id'));
 		if(!empty($userLoginData)){
 			$connections = $userLoginData->total_connects;
@@ -1217,7 +1218,7 @@ class Lmicrokey {
 
 		$condition=array("review_received"=>$CI->session->userdata('user_id'),"show_review"=>1);
 		$reviews_data=$CI->Reviews->get_reviews($condition);
-		
+		 
 		$reviews=array();
 		if(count($reviews_data)>0 ){
 			
@@ -1246,13 +1247,54 @@ class Lmicrokey {
 				);
 			}			
 		}
+
 		//$data1['reviews']=$reviews;
 //echo '<pre>'; print_r($data1);die();
+                // $skills=$microkeyData->skills;
+                // $skills=$microkeyData->skills;
+                //  $b = str_replace( ',', '', $skills );
 
+                  $useid=$CI->Microkeys->get_microkey_info_by_id($taskID);
+                 
+                  $username = $CI->db->get_where('users',array('user_id'=>$useid->user_id))->row();
+                 $skills=$useid->skills;
+                $b = str_replace( ',', '', $skills );
+                $c = strlen($skills); 
+                $tyy = "";
+                for($i=0;$i<$c;$i++){
+                  $val= $skills[$i];
+                  if($val!==','){
+                   
+                    $skils_name=$CI->db->get_where('area_of_interest',array('area_of_interest_id'=>$val))->row();
+                  
+                    $tyy .= '<a href="#">'.$skils_name->name.'</a>&nbsp;&nbsp;';
+                  }
+                }
+              // print_r($tyy);die();
+                #Abhishek
+                $portfolio_link1 = $microkeyData->portfolio_link1;   
+                $portfolio_link2 = $microkeyData->portfolio_link2;   
+                $portfolio_link3 = $microkeyData->portfolio_link3;   
+                $portfolio_link4 = $microkeyData->portfolio_link4;   
+                $portfolio_desc1 = $microkeyData->portfolio_desc1;   
+                $portfolio_desc2 = $microkeyData->portfolio_desc2;   
+                $portfolio_desc3 = $microkeyData->portfolio_desc3;   
+                $portfolio_desc4 = $microkeyData->portfolio_desc4;  
 				$microkeyData = array(
 					'microkey_id' => $microkeyData->id,
 					'microkey_title' => $microkeyData->title,
 					'microkey_skills' => $microkeyData->skills,
+                    'microkey_freelicer_name' => $username->name,
+                    'portfolio_link1' => $portfolio_link1,
+                    'portfolio_link2' => $portfolio_link2,
+                    'portfolio_link3' => $portfolio_link3,
+                    'portfolio_link4' => $portfolio_link4,
+                    'portfolio_desc1' => $portfolio_desc1,
+                    'portfolio_desc2' => $portfolio_desc2,
+                    'portfolio_desc3' => $portfolio_desc3,
+                    'portfolio_desc4' => $portfolio_desc4,
+                   
+                    'microkey_skills1' => $tyy,
 					'microkey_category' => $microkeyData->category,
 					'microkey_subcategory' => $microkeyData->subcategory,
 					'microkey_description' => $microkeyData->description,
@@ -1274,6 +1316,7 @@ class Lmicrokey {
 					'reviews' => $reviews,
 					'last_login' => "Last Login 9.08.20, 10.30 P.M"
 				);
+                #Abhishek
 			//}
 		//}
 
@@ -1282,6 +1325,7 @@ class Lmicrokey {
 		return $MicrokeyDataok;
 		
 	}
+#Abhishek
 
 	public function edit_task_page_1($taskID = null, $postData = array()){
 

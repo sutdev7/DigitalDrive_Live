@@ -22,46 +22,70 @@
             <div class="task_Left_Div">
               
               <h3 class="mt-0">{microkey_title} </h3>
-				<p class="mb-3">{user_name}</p>
-                       <span> <a href="#">{microkey_category}</a> <a href="#">{microkey_subcategory}</a> <a href="#">Dreamweaver</a> <a href="#">Illustrator</a> </span>
+
+				<p class="mb-3">{microkey_freelicer_name}</p>
+                       <span>{microkey_skills1}  </span>
 				<div class="mb-3">
 					<ul class="Portfolio_img">
                 <li class="w-100 mb-4">
                   <div class="Portfolio_box w-auto h-100"> 
                     <img src="{microkey_image}" class="w-100 h-100" alt="" style="width:650px;height:284px;">
-                    <div class="Por_overlay"> <a href="img/banner.jpg" class="venobox" data-gall="gallery-carousel"> <img src="{microkey_image}" alt=""></a> <a href="#" class="download"> <img src="img/down.png" alt=""style="width:650px;height:284px;"></a> </div>
-                  </div>
-              <!-- <div style="background: url('img/about-us-big-img1.jpg'); background-size: cover; height: 200px;border: 1px solid #dfdfdf; border-radius: 0.25rem ; margin-bottom: 15px">
-                    
+                   <!--  <div class="Por_overlay"> <a href="img/banner.jpg" class="venobox" data-gall="gallery-carousel"> 
+                      <img src="{microkey_image}" alt="">
+                    </a> <a href="#" class="download"> <img src="img/down.png" alt=""style="width:650px;height:284px;"></a> </div>
                   </div> -->
-              
-                </li>
-                <li>
-                  <div class="Portfolio_box"> <img src="{portfolio_img1}" alt="">
-                    <div class="Por_overlay"> <a href="img/p1.png" class="venobox" data-gall="gallery-carousel"> <img src="{portfolio_img1}" alt=""></a> <a href="#" class="download"> <img src="{portfolio_img1}" alt=""></a> </div>
+              <div style="background: url('img/about-us-big-img1.jpg'); background-size: cover; border: 1px solid #dfdfdf; border-radius: 0.25rem ; margin-bottom: 15px">
+                    
                   </div>
+               <p>{microkey_description}</p>
                 </li>
-                <li>
-                  <div class="Portfolio_box"> <img src="{portfolio_img2}" alt="">
-                    <div class="Por_overlay"> <a href="img/p1.png" class="venobox" data-gall="gallery-carousel"> <img src="{portfolio_img2}" alt=""></a> <a href="#" class="download"> <img src="{portfolio_img2}" alt=""></a> </div>
+                <li class="w-100 mb-4" style="display:flex;">
+                  <div class="Portfolio_box" style="flex: 1">
+                  <div class="col-sm-4" > <img src="{portfolio_img1}" alt=""></div>
+                  
                   </div>
-                </li>
-                <li>
-                  <div class="Portfolio_box"> <img src="{portfolio_img3}" alt="">
-                    <div class="Por_overlay"> <a href="img/p1.png" class="venobox" data-gall="gallery-carousel"> <img src="{portfolio_img3}" alt=""></a> <a href="#" class="download"> <img src="{portfolio_img3}" alt=""></a> </div>
+                  <div class="col-sm-8" > 
+                    <p>{portfolio_desc1}</p>
+                    <a href="{portfolio_link1}">View My Project</a>
                   </div>
+                   
+                   <hr>
                 </li>
-                <li>
-                  <div class="Portfolio_box"> <img src="{portfolio_img4}" alt="">
-                    <div class="Por_overlay"> <a href="img/p1.png" class="venobox" data-gall="gallery-carousel"> <img src="{portfolio_img4}" alt=""></a> <a href="#" class="download"> <img src="{portfolio_img4}" alt=""></a> </div>
+                
+                <li class="w-100 mb-4" style="display:flex;">
+
+                  <div class="Portfolio_box" style="flex: 1"><div class="col-sm-4" >  <img src="{portfolio_img2}" alt=""></div></div>
+                  <div class="col-sm-8" > 
+                    <p>{portfolio_desc2}</p>
+                    <a href="{portfolio_link2}">View My Project</a>
                   </div>
+                  <hr>
                 </li>
+                
+                <li class="w-100 mb-4" style="display:flex;">
+                  <div class="Portfolio_box" style="flex: 1"><div class="col-sm-4" >  <img src="{portfolio_img3}" alt=""></div></div>
+                  <div class="col-sm-8" > 
+                    <p>{portfolio_desc3}</p>
+                    <a href="{portfolio_link3}">View My Project</a>
+                  </div>
+                  <hr>
+                </li>
+               
+                <li class="w-100 mb-4" style="display:flex;">
+                  <div class="Portfolio_box" style="flex: 1"><div class="col-sm-4" >  <img src="{portfolio_img4}" alt=""></div></div>
+                   <div class="col-sm-8" > 
+                    <p>{portfolio_desc1}</p>
+                    <a href="{portfolio_link1}">View My Project</a>
+                  </div>
+                  <hr>
+                </li>
+                
               </ul>
 					<div class="clearfix"></div>
 				</div>
               
-              <p>{microkey_description}</p>
-              <div class="task_info"><h5>Seller Details </h5> 
+             
+             <!--  <div class="task_info"><h5>Seller Details </h5> 
 				  <div class="media"> 
 				  <a class="pull-left" href="#"> <img class="media-object img-circle " src="{user_state}"> </a>
               <div class="media-body">
@@ -82,16 +106,13 @@
 					  	<h3 class="mb-1">$500,00</h3>
 						<p class="small">Earn on Projects</p>
 					  </div>
-				<!--<div class="col-sm-4">
-					  	<h3 class="mb-1"><i class="fa fa-heart mr-1 text-danger"></i>130</h3>
-						<p class="small">People Liked</p>
-					  </div>-->
-			</div>
+			
+			</div> -->
 				  
-				</div>
-              <div class="mt-3">
+			<!-- 	</div> -->
+             <!--  <div class="mt-3">
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-				  </div>
+				  </div> -->
             </div>
             
             
@@ -121,8 +142,8 @@
               <div class="RvwWrapper">
                 <ul class="RvwLists">
                   <?php
-            #changing Abhishek
-            if(!empty($reviews)){
+            
+         if(!empty($reviews)){
               foreach($reviews as $rv){
             ?>
                   <li>
@@ -160,7 +181,27 @@
            
            
             <div class="offerDiv">
-              <h4>Order Details </h4>
+              <h4>Seller Details </h4>
+              <a class="pull-left" href="#"> <img style="width:80px;height:80px;border-radius: 100%;" class="media-object img-circle " src="{user_image}"> </a>
+              <div class="media-body">
+                <h2>{user_name} <span class="float-right w-auto"><a href="#"><i class="fa fa-comment"></i></a></span></h2>
+                <p>{user_city}, {user_state}, {user_country}</p><br>
+               <!--  <li><p>{user_skills}</p></li> -->
+               
+        <li>
+          <div class="row">
+        <div class="col-sm-6">
+              <h3 class="mb-1">{user_projects} Completed Projects</h3>
+            <p class="small"></p>
+            </div>
+        <div class="col-sm-6">
+              <h3 class="mb-1">$500,00 Earn on Projects</h3>
+            <p class="small"></p>
+            </div>
+      
+      </div>
+        </li>
+              </div>
               <ul>
                 <li>
                 	<h3>I need a UI designer for my Mobile app</h3>
