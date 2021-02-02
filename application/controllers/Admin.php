@@ -345,7 +345,52 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/includes/admin_footer_all');
 		
 	}
-	
+	#abhishek Jha
+	public function category_add_skills(){
+		
+		$data['catgory_data'] = $this->Admimodel->get_category_skills();
+		$this->load->view('admin/includes/admin_header_all');
+		$this->load->view('admin/includes/navbar');
+		$this->load->view('admin/pages/category_add_skills',$data);
+		$this->load->view('admin/includes/admin_footer_all');
+		
+	}
+	public function category_skills_add(){
+		$data =  array('category_name' => $this->input->post('category_name'),'parent_id'=>$this->input->post('parent_id'),'status'=>1 );
+		
+		$this->db->insert('skillcategory',$data);
+		redirect('admin/category');
+	}
+	public function cat_id_data($category_id){
+		$s_cat_id=$this->Admimodel->cat_id_data($category_id);
+		return $s_cat_id->category_id;
+
+	}
+	public function category_edit_skills($category_id){
+		
+		$data['catgory_data'] = $this->Admimodel->get_sub_category_single($category_id);
+		$data['skill_catgory_data'] = $this->Admimodel->get_category_skills();
+		$this->load->view('admin/includes/admin_header_all');
+		$this->load->view('admin/includes/navbar');
+		$this->load->view('admin/pages/category_edit_skills',$data);
+		$this->load->view('admin/includes/admin_footer_all');
+		
+	}
+	public function category_skills_update(){
+		$id_data = $this->input->post('category_id');
+		$data =  array('category_name' => $this->input->post('category_name'),'parent_id'=>$this->input->post('parent_id'),'status'=>1 );
+		$this->db->where('category_id', $id_data);
+		$this->db->update('skillcategory',$data);
+		redirect('admin/category');
+	}
+
+	public function delete_catgory($category_id){
+		$data =  array('status'=>0 );
+		$this->db->where('category_id', $category_id);
+		$this->db->update('skillcategory',$data);
+		redirect('admin/category');
+	}
+	#abhishek Jha
 	public function category_edit(){
 		$rowid = ($this->uri->segment(3) !='') ? $this->uri->segment(3) : '';
 		$data['info'] = $this->Admimodel->get_category_info($rowid);
