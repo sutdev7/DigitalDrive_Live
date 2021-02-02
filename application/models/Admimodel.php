@@ -167,25 +167,30 @@ class Admimodel extends CI_Model {
 		}
 	}
 
+	#Abishek
+
 	public function get_category(){
 		$this->db->select('*');
-		$this->db->from('category');
+		$this->db->from('skillcategory');
+		$this->db->where('status','1');
 		$this->db->group_by('category_name');
 		$this->db->order_by('category_name','asc');
 		$result = $this->db->get()->result();
 		return $result;
 		
 	}
+	#abhishek
 	public function get_sub_category($cat_name){
 		
-              $this->db->select('sub_category_name');
-              $this->db->from('category');
-              $this->db->where('category_name',$cat_name);
-              $query = $this->db->get();
-      
-              return $query->num_rows();
+				$this->db->select('category_name');
+				$this->db->from('skillcategory');
+				$this->db->where('category_id',$cat_name);
+				$query = $this->db->get();
+				//  echo	$this->db->last_query();
+				return $query->row();
 		
 	}
+		#Abhishek
 	public function get_sub_category_data($cat_name){
 		
 		$this->db->select('category_name');
