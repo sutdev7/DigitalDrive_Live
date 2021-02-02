@@ -1,6 +1,6 @@
 <!-- Content Wrapper. Contains page content -->
   
-  <?php
+<?php
 	$name = $gender = $dob = $bio = $email = $mobile = $continent = $country = $state = $address = $user_type = $card_no = $exp_m = $exp_y = $url='';
 	
 	if(!empty($info)){ //echo '<pre>'; print_r($info); die; 
@@ -59,13 +59,13 @@
 					<div class="card-header">Basic Info</div>
 					<div class="card-body">
 						<div class="form-group row">
-							<label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
-							<div class="col-sm-8">
+							<label for="inputEmail3" class="col-sm-3 col-form-label">Name</label>
+							<div class="col-sm-9">
 							  <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="<?=$name?>">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="gender" class="col-sm-2 col-form-label">Gender</label>
+							<label for="gender" class="col-sm-3 col-form-label">Gender</label>
 							<label class="radio-inline">
 							  <input type="radio" id="gender" name="gender" value="F" <?= (trim($gender) == 'F') ? 'checked' : '' ?> > Female
 							</label>
@@ -77,14 +77,14 @@
 							</label>
 						</div>
 						<div class="form-group row">
-							<label for="inputEmail3" class="col-sm-2 col-form-label">Date of Birth</label>
-							<div class="col-sm-8">
+							<label for="inputEmail3" class="col-sm-3 col-form-label">Date of Birth</label>
+							<div class="col-sm-9">
 							  <input type="text" name="dob" id="dob" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask value="<?=$dob?>">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="inputEmail3" class="col-sm-2 col-form-label">Bio</label>
-							<div class="col-sm-8">
+							<label for="inputEmail3" class="col-sm-3 col-form-label">Bio</label>
+							<div class="col-sm-9">
 							  <textarea class="form-control" rows="2" placeholder="Enter ..." name="bio"><?=$bio?></textarea>
 							</div>
 						</div>
@@ -103,8 +103,8 @@
 							</div>
 						</div>-->
 						<div class="form-group1 row">
-							<label for="country_id" class="col-sm-2 col-form-label">Country</label>
-							<div class="col-sm-8"> 
+							<label for="country_id" class="col-sm-3 col-form-label">Country</label>
+							<div class="col-sm-9"> 
 								<select class="form-control select2" id="country_id" name="country">
 									<option value="">-Select-</option>
 									<?php
@@ -120,20 +120,20 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="state" class="col-sm-2 col-form-label">State</label>
-							<div class="col-sm-8">
+							<label for="state" class="col-sm-3 col-form-label">State</label>
+							<div class="col-sm-9">
 							  <input type="text" class="form-control" id="state" placeholder="State" name="state" value="<?= $state ?>">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="address" class="col-sm-2 col-form-label">Address</label>
-							<div class="col-sm-8">
+							<label for="address" class="col-sm-3 col-form-label">Address</label>
+							<div class="col-sm-9">
 								<textarea class="form-control" id="address" rows="3" placeholder="Enter ..." name="address"><?= $address ?></textarea>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="inputEmail3" class="col-sm-2 col-form-label">Mobile</label>
-							<div class="col-sm-10">
+							<label for="inputEmail3" class="col-sm-3 col-form-label">Mobile</label>
+							<div class="col-sm-9">
 								<input type="text" class="form-control" id="inputEmail3" placeholder="Mobile" name="mobile" value="<?=$info->phone_no?>">
 							</div>
 						</div>
@@ -162,29 +162,29 @@
 					<div class="card-header">Login Credentials</div>
 					<div class="card-body">
 						<div class="form-group row">
-							<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-							<div class="col-sm-10">
+							<label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+							<div class="col-sm-9">
 								<input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email" value="<?=$email?>" required>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="inputPassword3" class="col-sm-4 col-form-label">Password</label>
-							<div class="col-sm-8">
+							<label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+							<div class="col-sm-9">
 								<input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="password">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="inputPassword3" class="col-sm-4 col-form-label">Confirm Password</label>
-							<div class="col-sm-8">
+							<label for="inputPassword3" class="col-sm-3 col-form-label">Confirm Password</label>
+							<div class="col-sm-9">
 								<input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="cpassword">
 							</div>
 						</div>
-						<div class="form-group row">
-							<label for="inputEmail3" class="col-sm-2 col-form-label">Mobile</label>
-							<div class="col-sm-10">
+						<!-- <div class="form-group row">
+							<label for="inputEmail3" class="col-sm-3 col-form-label">Mobile</label>
+							<div class="col-sm-9">
 								<input type="text" class="form-control" id="inputEmail3" placeholder="Mobile" name="mobile" value="<?=$mobile?>">
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -221,8 +221,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
+
 			<?php $i=1;
 			foreach($portfolioData as $row){
 				
@@ -232,20 +231,20 @@
 					<div class="card-header">Portfolio<?=$i?></div>
 					<div class="card-body">
 						<div class="form-group row">
-							<label for="inputEmail3" class="col-sm-2 col-form-label">Profile Name</label>
-							<div class="col-sm-10">
+							<label for="inputEmail3" class="col-sm-3 col-form-label">Profile Name</label>
+							<div class="col-sm-9">
 								<input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email" value="<?=$row->portfolio_name?>" required>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="inputPassword3" class="col-sm-4 col-form-label">Profile Url</label>
-							<div class="col-sm-8">
+							<label for="inputPassword3" class="col-sm-3 col-form-label">Profile Url</label>
+							<div class="col-sm-9">
 								<input type="text" class="form-control" id="inputPassword3" value="<?=$row->portfolio_url?>" placeholder="Password" name="password">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="inputPassword3" class="col-sm-4 col-form-label">Profile Description</label>
-							<div class="col-sm-8">
+							<label for="inputPassword3" class="col-sm-3 col-form-label">Profile Description</label>
+							<div class="col-sm-9">
 								<input type="text" class="form-control" value="<?=$row->portfolio_desc?>" id="inputPassword3" placeholder="Password" name="cpassword">
 							</div>
 						</div>
@@ -254,22 +253,21 @@
 				</div>
 			</div>
 		<?php $i++;}?>
-			</div>
-			<div class="row">
-			<div class="col-lg-6">
+
+		<div class="col-lg-6">
 				<div class="card card-info card-outline">
 					<div class="card-header">Other Details</div>
 					<div class="card-body">
 						<div class="form-group row">
-							<label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
-							<div class="col-sm-8">
+							<label for="inputEmail3" class="col-sm-3 col-form-label">Title</label>
+							<div class="col-sm-9">
 							  <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="<?=$info->profile_title?>">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="gender" class="col-sm-2 col-form-label">Area / Skill</label>
+							<label for="gender" class="col-sm-3 col-form-label">Area / Skill</label>
 							<?php ?>
-							<div class="col-sm-8">
+							<div class="col-sm-9">
 								<input type="text" class="form-control" value="<?php foreach($taskDetails as $row){echo $row->task_keywords.',';}?>" id="inputPassword3" placeholder="Password" name="cpassword">
 							</div>
 						
@@ -279,6 +277,8 @@
 				</div>
 			</div>
 		</div>
+		
+			
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card card-info card-outline">
