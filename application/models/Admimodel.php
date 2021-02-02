@@ -188,13 +188,14 @@ class Admimodel extends CI_Model {
 	}
 	public function get_sub_category_data($cat_name){
 		
-              $this->db->select('sub_category_name');
-              $this->db->from('category');
-              $this->db->where('category_name',$cat_name);
-              $query = $this->db->get()->result();
-              
-              return $query;
-      
+		$this->db->select('category_name');
+		$this->db->from('skillcategory');
+		$this->db->where('parent_id',$cat_name);
+		$query = $this->db->get();
+		
+		return $query->result();
+
+  
 	}
 	#Abhishek
 	// public function get_category_list(){

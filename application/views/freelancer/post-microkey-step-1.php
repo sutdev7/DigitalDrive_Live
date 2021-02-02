@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     ============================-->
     <?php
 
-#For Find How many micro Abhishek And Below Jquery New Change 
+#For Find How many micro Abhishek 
               $user_id = $this->session->userdata('user_id');
               $this->db->select('*');
               $this->db->from('microkey');
@@ -76,8 +76,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       
               $micro_values= $query->num_rows();
 
-              $this->db->select('category_name');
-    $this->db->from('category');
+              $this->db->select('*');
+    $this->db->from('skillcategory');
+    $this->db->where('status','1');
+    $this->db->where('parent_id','0');
     $this->db->group_by('category_name');
     $this->db->order_by('category_name','asc');
     $category_skills = $this->db->get()->result();
@@ -120,9 +122,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span>
                     <label>Category</label>
                   <div class="select-style">
-                    <select name="fldSelCat" class="category_data" id="fldSelCat">
+                    <select   id="fldSelCat" onchange="myFunction(event)">
                       <?php foreach($category_skills as $row){?>
-                      <option value="<?=$row->category_name?>"><?=$row->category_name?></option>
+                      <option value="<?=$row->category_id?>"><?=$row->category_name?></option>
                     <?php }?>
                      
                     </select>
@@ -133,9 +135,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span>
                     <label>Sub Category</label>
                   <div class="select-style">
-                    <select name="fldSelCatSub" class="subctgeory" id="fldSelCatSub">
+                    <select name="fldSelCatSub"  id="fldSelCatSub">
                      
                     </select>
+                    <input id="myText" name="fldSelCat"  type="hidden" value="colors">
                   </div>
                 </span>
                   </li>
@@ -175,24 +178,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  <script src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 
     <script>
-      $('.subctgeory').click(function(){
-        var cat_val=$('.category_data').val();
-        $.ajax({
-url: "<?php echo base_url()?>admin/subctgeory_data/"+cat_val,
-type: "POST",
-data: {
-cat_val: cat_val
-},
-cache: false,
-success: function(result){
-
-$(".subctgeory").html(result);
-
-
-}
+        $('#fldSelCat').change(function(){
+  var opt = $(this).find('option:selected');
+ 
+  $('#myText').val(opt.html());
 });
+      $('#fldSelCatSub').click(function(){
+        var cat_val=$('#fldSelCat').val();
+      
+            $.ajax({
+              url: "<?php echo base_url()?>admin/subctgeory_data/"+cat_val,
+              success: function(result){
+               
+                $("#fldSelCatSub").html(result);
+              }
+            });
+          //
+          
+
+         
 
       });
+
+     function myFunction(e) {
+    document.getElementById("myText").value = e.target.text
+}
             jQuery(document).ready(function(){
                 // Basic
                jQuery('.dropify').dropify({
