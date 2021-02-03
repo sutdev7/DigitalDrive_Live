@@ -197,6 +197,7 @@ $route['admin/user/edit/(:any)'] = 'Admin/user_edit/$l';
 $route['admin/user/delete/(:any)'] = 'Admin/user_delete/$l';
 
 $route['admin/freelancer-list/(:any)'] = 'Admin/freelancer_list/$1';
+$route['admin/freelancer-micro-list'] = 'Admin/freelancer_micro_list';
 $route['admin/naluacer-lists/(:any)'] = 'Admin/naluacer_detail/$1';
 $route['admin/freelancer-list'] = 'Admin/freelancer_list';
 $route['admin/naluacer-list'] = 'Admin/naluacer_list';
