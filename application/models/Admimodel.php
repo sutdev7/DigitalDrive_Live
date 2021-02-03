@@ -562,6 +562,46 @@ public function get_user_tasko_id($userid = ''){
 		}
 	}
 	
+	#Change Staus Of Micro Freelincer Abhishek 
+	public function get_freelancer_micro_list($usertype ="", $status = ""){
+		
+		$this->db->select('users.name as name,microkey.*,user_login.profile_title_skill as profile_title_skill');
+		$this->db->from('microkey');
+		$this->db->join('users', 'users.user_id = microkey.user_id');
+		$this->db->join('user_login', 'user_login.user_id = microkey.user_id');
+		$this->db->where('user_login.user_type',4);
+		
+		$result = $this->db->get();
+		
+		if($result->num_rows() > 0){
+			return $result->result();
+		}else{
+			return array();
+		}
+	}
+	function update_micro_freelincer_status($id,$selectedData){
+		
+		// $this->db->set('status', $selectedData);
+		// $this->db->where('id', $id);
+		// $this->db->update('microkey');
+		// 
+		$data = array( 
+    		'status'      => $selectedData, 
+   
+		);
+
+		$this->db->where('id', $id);
+
+		$this->db->update('microkey', $data);
+
+		if($this->db->affected_rows() > 0){
+			return 'updated';
+		}else{
+			return 'Error';
+		}
+	}	
+	#Change Staus Of Micro Freelincer Abhishek
+	
 	function get_post_list(){
 		$sql = "select task.*, GROUP_CONCAT(aofi.name SEPARATOR ', ') as skill, task.task_doc, u.name 
 				from `task`as task, `task_requirements` as req , `area_of_interest` as aofi, `users` as u
