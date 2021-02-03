@@ -73,12 +73,12 @@
             </div>
             <h3><?php //echo $this->session->userdata('user_name'); ?><?php echo $otheruserInfo['basic_info']->name; ?></h3>
             <h6 id="lastSeenId">{lastSeen}<!--{user_info} {address} {/user_info}, {user_info} {city} {/user_info}, {user_info} {state} {/user_info}, {user_info} {country} {/user_info}--></h6>
-            <?php if($this->uri->segment(2) != '' && $this->session->userdata('user_type') == 3){?>
+            <?php if($this->uri->segment(2) != '' && $this->session->userdata('user_type') == 3 && $otheruserInfo['basic_info']->user_type != 1){?>
             <div class="btnDiv2">
              <form name="frmMakeOffer" id="frmMakeOffer_<?php echo $this->uri->segment(2);?>" action="" method="post">
               <input type="hidden" name="chkMakeOfferFreelancer" value="<?php echo $this->uri->segment(2);?>" />
               </form>
-              <a href="#" data-formaction="<?php echo base_url(); ?>make-an-offer" data-formid="<?php echo $this->uri->segment(2);?>" class="view-btn1 makeoffer"> Make offer </a> 
+			  <a href="#" data-formaction="<?php echo base_url(); ?>make-an-offer" data-formid="<?php echo $this->uri->segment(2);?>" class="view-btn1 makeoffer"> Make offer </a> 
               <a href="#" data-formaction="<?php echo base_url(); ?>hire-freelancer" data-formid="<?php echo $this->uri->segment(2);?>" class="view-btn2 directhire"> Hire </a> 
             </div>
             <?php } ?>

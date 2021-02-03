@@ -904,7 +904,7 @@ class Users extends CI_Model
         if (empty($aId))
             return FALSE;
         
-        $this->db->select('users.*,user_login.total_points,user_login.total_positive_coins,user_login.total_negative_coins,user_login.total_coins,user_login.profile_id,user_login.profile_image,user_login.is_login,user_login.profile_title,user_login.profile_title_skill,user_login.profile_status,user_login.phone_no');
+        $this->db->select('users.*,user_login.total_points,user_login.total_positive_coins,user_login.total_negative_coins,user_login.total_coins,user_login.profile_id,user_login.profile_image,user_login.is_login,user_login.profile_title,user_login.profile_title_skill,user_login.profile_status,user_login.phone_no,user_login.user_type');
         $this->db->from('users');
         $this->db->join('user_login', 'user_login.user_id = users.user_id');
         $this->db->where('users.user_id', $aId);
