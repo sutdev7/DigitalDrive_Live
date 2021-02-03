@@ -248,7 +248,209 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/pages/user_list',$data);
 		$this->load->view('admin/includes/admin_footer_all');			
 	}
+	#Abhishek
+	public function microkey_details($taskID = ''){
 
+		$CI =& get_instance();
+        $CI->load->model('Microkeys');
+		$CI->load->model('Users');
+		$CI->load->model('Tasks');
+		$CI->load->model('Reviews');
+
+		$userData = $CI->Users->get_user_profile_info_by_id($CI->session->userdata('user_id'));
+		$microkeyData = $CI->Microkeys->get_microkey_info_by_id($taskID);
+
+		$userLoginData = $CI->Users->getUserLoginData('user_id', $CI->session->userdata('user_id'));
+		if(!empty($userLoginData)){
+			$connections = $userLoginData->total_connects;
+			$total_positive_coins = $userLoginData->total_coins;
+			$total_negative_coins = $userLoginData->total_negative_coins;
+		}else{
+			$connections = $total_positive_coins = $total_negative_coins = 0;
+		}
+		
+		$user_profile_image = $CI->session->userdata('user_image');		
+		if(empty($user_profile_image)) {
+			$user_profile_image = base_url('assets/img/no-image.png');
+		}else{
+			$user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);	    	
+		}
+
+		$microkey_image = $microkeyData->image;		
+		if(empty($microkey_image)) {
+			$microkey_image_path = base_url('assets/img/no-image.png');
+		}else{
+			$microkey_image_path = base_url('uploads/user/microkey_files/'.$microkey_image);	    	
+		}
+
+		if(empty($microkeyData->portfolio_img1)) {
+			$microkey_image_path1 = base_url('assets/img/no-image.png');
+		}else{
+			$microkey_image_path1 = base_url('uploads/user/microkey_files/'.$microkeyData->portfolio_img1);	    	
+		}
+		if(empty($microkeyData->portfolio_img2)) {
+			$microkey_image_path2 = base_url('assets/img/no-image.png');
+		}else{
+			$microkey_image_path2 = base_url('uploads/user/microkey_files/'.$microkeyData->portfolio_img2);	    	
+		}
+		if(empty($microkeyData->portfolio_img3)) {
+			$microkey_image_path3 = base_url('assets/img/no-image.png');
+		}else{
+			$microkey_image_path3 = base_url('uploads/user/microkey_files/'.$microkeyData->portfolio_img3);	    	
+		}
+		if(empty($microkeyData->portfolio_img4)) {
+			$microkey_image_path4 = base_url('assets/img/no-image.png');
+		}else{
+			$microkey_image_path4 = base_url('uploads/user/microkey_files/'.$microkeyData->portfolio_img4);	    	
+		}
+
+		$projectdata = $CI->Tasks->project_details($CI->session->userdata('user_id'));
+		if(!empty($projectdata)){
+			$projectCount = count($projectdata);
+		}else{
+			$projectCount = 0;
+		}
+		
+		$user_sel_skills = $userData['user_selected_skills'];
+				
+			
+				$user_skills="";
+				if(!empty($user_sel_skills) && count($user_sel_skills) >0 ){
+					
+					foreach($user_sel_skills as $sk){
+						$user_skills.=$sk['skill_name'].",";
+					}
+					
+				}
+				
+				 $user_skills=rtrim($user_skills,",");
+		
+		
+
+		$condition=array("review_received"=>$CI->session->userdata('user_id'),"show_review"=>1);
+		$reviews_data=$CI->Reviews->get_reviews($condition);
+		 
+		$reviews=array();
+		if(count($reviews_data)>0 ){
+			
+			foreach($reviews_data as $rv){
+				$user_profile_image = $rv->profile_image;
+				if(empty($user_profile_image)) {
+					$user_profile_image = base_url('assets/img/no-image.png');
+				}
+				else {
+					$user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);          
+				}
+
+				$reviews[]=array(
+					
+					'user_id'=>$rv->review_received,
+					'name'=>$rv->name,
+					'review_provided'=>$rv->review_provided,
+					'country'=>$rv->country,
+					'state'=>$rv->state,
+					'city'=>$rv->city,
+					'profile_image'=>$user_profile_image,
+					'profile_id'=>$rv->profile_id,
+					
+					'coins'=>$rv->coins	
+				);
+			}			
+		}
+
+
+                  $useid=$CI->Microkeys->get_microkey_info_by_id($taskID);
+                 
+                  $username = $CI->db->get_where('users',array('user_id'=>$useid->user_id))->row();
+                 $skills=$useid->skills;
+                $b = str_replace( ',', '', $skills );
+                $c = strlen($skills); 
+                $tyy = "";
+                for($i=0;$i<$c;$i++){
+                  $val= $skills[$i];
+                  if($val!==','){
+                   
+                    $skils_name=$CI->db->get_where('area_of_interest',array('area_of_interest_id'=>$val))->row();
+                  
+                    $tyy .= '<a href="#">'.$skils_name->name.'</a>&nbsp;&nbsp;';
+                  }
+                }
+              
+                $data['portfolio_link1'] = $microkeyData->portfolio_link1;   
+                $data['portfolio_link2'] = $microkeyData->portfolio_link2;   
+                $data['portfolio_link3'] = $microkeyData->portfolio_link3;   
+                $data['portfolio_link4'] = $microkeyData->portfolio_link4;   
+                $data['portfolio_desc1'] = $microkeyData->portfolio_desc1;   
+                $data['portfolio_desc2'] = $microkeyData->portfolio_desc2;   
+                $data['portfolio_desc3'] = $microkeyData->portfolio_desc3;   
+                $data['portfolio_desc4'] = $microkeyData->portfolio_desc4; 
+                $data['microkey_freelicer_name']=$username->name;
+                $data['microkey_skills'] = $microkeyData->skills;
+                $data['microkey_id'] = $microkeyData->id;
+                $data['title'] = $microkeyData->title; 
+                $data['microkey_skills1'] = $tyy; 
+				$data['microkey_category'] = $microkeyData->category;
+				$data['microkey_subcategory'] = $microkeyData->subcategory;
+				$data['microkey_description'] = $microkeyData->description;
+				$data['microkey_image'] = $microkey_image_path;
+				$data['portfolio_img1'] = $microkey_image_path1;
+				$data['portfolio_img2'] = $microkey_image_path2;
+				$data['portfolio_img3'] = $microkey_image_path3;
+				$data['portfolio_img4'] = $microkey_image_path4;
+				$data['user_name'] = $userData['basic_info']->name;
+				$data['user_city'] = $userData['basic_info']->city;
+				$data['user_state'] = $userData['basic_info']->state;
+				$data['user_country'] = $userData['basic_info']->country;
+				$data['user_total_positive_coins'] = $total_positive_coins;
+				$data['user_total_negative_coins'] = $total_negative_coins;
+				$data['user_image'] = $user_profile_image;
+				$data['user_skills'] = $user_skills;
+				$data['microkey_image'] = $microkey_image_path;
+				$data['user_projects'] = $projectCount;
+				$data['reviews'] = $reviews;
+				$data['last_login'] = "Last Login 9.08.20, 10.30 P.M";
+
+				
+                #Abhishek
+			
+		
+		$this->load->view('admin/includes/admin_header_all');
+		$this->load->view('admin/includes/navbar');
+		$this->load->view('admin/pages/microkey-details',$data);
+		$this->load->view('admin/includes/admin_footer_all');	
+	
+		
+	} 
+	#Abhishek 
+	#Abhishek 
+	public function freelancer_micro_list($status = ""){
+		$data['userlist'] = $this->Admimodel->get_freelancer_micro_list($usertype = 4, $status);
+		
+		$this->load->view('admin/includes/admin_header_all');
+		$this->load->view('admin/includes/navbar');
+		$this->load->view('admin/pages/user_micro_list',$data);
+		$this->load->view('admin/includes/admin_footer_all');			
+	}
+	#change Micro Status  Abhishek
+		public function change_status_micro_freelincer($id,$selectedData ){
+		//$changeVal = $_POST['action'];
+		//$response=array();
+		$id = $id;
+		
+		$selectedData = $selectedData ; 
+		
+		$return = $this->Admimodel->update_micro_freelincer_status($id,$selectedData);
+		
+		if($return == 'updated'){
+			echo "1";
+			
+		}else{
+			echo "0";
+		}
+		
+		
+	}
+#change Micro Status Abhishek
 	public function naluacer_list(){
 			$data['userlist'] = $this->Admimodel->get_user_list($usertype = 5);
 			
