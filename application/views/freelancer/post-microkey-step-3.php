@@ -62,66 +62,79 @@
               <input type="hidden" name="fldTotalBudget" value="{fldTotalBudget}" />                                            
               <div class="postDiv_BoxFrm">
                 <div class="step_Box">
-                  <h3 class="p-0">Portfolio</h3>
+                <h3 class="p-0">Portfolio</h3>
                   <ul>
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Link 1</label>
+                      <label style="font-size: 14px;"><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Upload Main Image of Your Micro Profile</label>
+                      <input type="file" name="fldMicrokeyDocuments[]" data-show-remove="true" data-errors-position="outside"  class="dropify" />
+                    </li>
+                    <li>
+                      
+                    </li>
+                    
+                  </ul>
+                  <label style="color:#91dbff;"><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Update Main Description of Your Micro Profile</label>
+                  <textarea class="form-control textarea" rows="4" cols="" name="fldMicrokeyDesc"  placeholder="Please add short Discription"></textarea>
+                  <!--Abhishek-->
+                  <ul>
+                    <li>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Link 1</label>
                       <input class="form-control" type="text" name="fldPortflioLink1" id="fldPortflioLink" placeholder="Enter Here"><br>
                     </li>
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Description 1</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Description 1</label>
                       <textarea class="form-control textarea" rows="4" cols="" maxlength="200" name="fldPortflioDesc1"  placeholder="Enter Portfolio"></textarea>
                     </li>
 
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Portfolio Image1</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Portfolio Image1</label>
                       <input type="file" name="fldPortflioImg1" data-show-remove="true" data-errors-position="outside"  class="dropify" />
                     </li>
 
 
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Link 2</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Link 2</label>
                       <input class="form-control" type="text" name="fldPortflioLink2" id="fldPortflioLink" placeholder="Enter Here">
                     </li>
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Description 2</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Description 2</label>
                       <textarea class="form-control textarea" rows="4" cols="" maxlength="200" name="fldPortflioDesc2"  placeholder="Enter Portfolio"></textarea>
                     </li>
 
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Portfolio Image2</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Project Portfolio Image2</label>
                       <input type="file" name="fldPortflioImg2" data-show-remove="true" data-errors-position="outside"  class="dropify" />
                     </li>
 
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Link 3</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Link 3</label>
                       <input class="form-control" type="text" name="fldPortflioLink3" id="fldPortflioLink" placeholder="Enter Here">
                     </li>
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Description 3</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Description 3</label>
                       <textarea class="form-control textarea" rows="4" cols="" maxlength="200" name="fldPortflioDesc3"  placeholder="Enter Portfolio"></textarea>
                     </li>
 
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Portfolio Image3</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Portfolio Image3</label>
                       <input type="file" name="fldPortflioImg3" data-show-remove="true" data-errors-position="outside"  class="dropify" />
                     </li>
 
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Link 4</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Link 4</label>
                       <input class="form-control" type="text" name="fldPortflioLink4" id="fldPortflioLink" placeholder="Enter Here">
                     </li>
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Description 4</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Description 4</label>
                       <textarea class="form-control textarea" rows="4" cols="" maxlength="200" name="fldPortflioDesc4"  placeholder="Enter Portfolio"></textarea>
                     </li>
                     <li>
-                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Portfolio Image4</label>
+                      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Project Portfolio Image4</label>
                       <input type="file" name="fldPortflioImg4" data-show-remove="true" data-errors-position="outside"  class="dropify" />
                     </li>
                   </ul>
-                
-                  <ul>
+                <!--Changes Abhishek-->
+                  <!-- <ul>
                     <li>
                       <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Image</label>
                       <input type="file" name="fldMicrokeyDocuments[]" data-show-remove="true" data-errors-position="outside"  class="dropify" />
@@ -131,7 +144,8 @@
                       <textarea class="form-control textarea" rows="4" cols="" name="fldMicrokeyDesc"  placeholder="Enter Portfolio"></textarea>
                     </li>
                     
-                  </ul>
+                  </ul> -->
+                  <!--Changes Abhishek-->
                 </div>
                 <!--<div class="row">
                   <div class="col-lg-4 col-sm-6 col-12">
