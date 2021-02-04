@@ -701,7 +701,55 @@ class Tasks extends CI_Model {
     
 	}
 
+    #chaning For Error Abhishek
+    public function getJoinDataByConditionByClient($tablename=array(),$jointype=array(),$joincondition=array(),$limit=0,$oderby=''){
 
+    $this->db->select('microkey.*,users.*,user_login.*');
+
+    $this->db->from('microkey');
+    $this->db->join('users','microkey.user_id = users.user_id','left');
+    $this->db->join('user_login','users.user_id = user_login.user_id','left');
+
+
+
+    if($limit!=''){
+
+        if($limit!="all"){
+
+            $this->db->limit($limit);
+
+        }
+
+
+
+        $data	= $this->db->get();
+        //showQuery();die('1');
+        if($data->num_rows() > 0){
+
+            return $data->result();
+
+        }
+
+    }else if($limit==0){
+
+        if($oderby!=''){
+
+            $this->db->order_by($oderby);
+
+        }
+
+        $data	= $this->db->get();
+
+        if($data->num_rows() > 0){
+
+            return $data->row();
+
+        }
+
+    }
+
+    }
+    #chaning For Error Abhishek
     public function get_user_total_spend($userID = null) {
         $total_spend = 0;
         if(empty($userID))
