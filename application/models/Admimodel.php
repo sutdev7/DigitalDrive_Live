@@ -591,6 +591,27 @@ public function get_user_tasko_id($userid = ''){
 			return array();
 		}
 	}
+
+	#Change Staus Of Micro Freelincer Abhishek 
+	function update_micro_client_status($id,$selectedData){
+		
+		
+		$data = array( 
+    		'status'      => $selectedData, 
+   
+		);
+
+		$this->db->where('id', $id);
+
+		$this->db->update('microkey_client', $data);
+
+		if($this->db->affected_rows() > 0){
+			return 'updated';
+		}else{
+			return 'Error';
+		}
+	}	
+	#Change Staus Of Micro Freelincer Abhishek 
 	function update_micro_freelincer_status($id,$selectedData){
 		
 		// $this->db->set('status', $selectedData);
