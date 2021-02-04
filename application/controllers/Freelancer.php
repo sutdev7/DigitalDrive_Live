@@ -33,7 +33,10 @@ class Freelancer extends CI_Controller {
 		if(empty($taskID))
 			redirect('microkey-list-client', 'refresh');
 
-        $content = $this->ltask->microkey_client_details_page($taskID, $this->session->all_userdata());
+        #New Abhishek
+        $content = $this->ltask->microkey_client_details_page_details($taskID, $this->session->all_userdata());
+        #Old
+        // $content = $this->ltask->microkey_client_details_page($taskID, $this->session->all_userdata());
 	    $data = array(
 	        'content' => $content,
 	        'title' => display('Job Details :: Hire-n-Work'),
