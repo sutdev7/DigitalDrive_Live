@@ -15,7 +15,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <?php
   }
   ?>
-
+ <style type="text/css">
+  .ongoing-task .table thead th{
+    color: #808d92 !important;
+  }
+</style>
   <!--==========================
       ConterDiv Section
     ============================-->
@@ -63,14 +67,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tbody>
               {jobs}
               <tr>
-                <td>{title}</td>
+                <td style="padding-left: 0px">
+                  <div class="annadiv">
+                      <div class="caption">
+                        <h3><p> {title}</p></h3>
+                        
+                      </div>
+                    </div>
+                </td>
+               
                 <!--<td><strong> - - </strong></td>
                 <td><strong> - - </strong></td>-->
-                <td>${budget}</td>
-                <td><small> <img src="<?php  echo base_url('assets/img/dot-sec.png'); ?>" alt="">
+                <td><strong> ${budget}</strong></td>
+             
+                  <td><small class="btn btn-danger" > <!-- <img src="<?php  echo base_url('assets/img/dot-sec.png'); ?>" alt=""> -->
+                  Action
                   <ul>
-                    <li><a href="<?php echo base_url(); ?>edit-microkey-client/{id}"> Edit </a> </li>
-					<li> <a href="<?php echo base_url(); ?>microkey-client-details/{id}"> View Details </a></li>
+                   <li><a href="<?php echo base_url(); ?>edit-microkey-client/{id}"> Edit </a> </li>
+          <li> <a href="<?php echo base_url(); ?>microkey-client-details/{id}"> View Details </a></li>
                     <!-- <li><a href="<?php echo base_url(); ?>make-an-offer/{user_task_id}"> Make Offer </a> </li>
                     <li> <a href="#"> Disable Post </a></li>
                     <li> <a href="#"> Cancel </a></li>-->
