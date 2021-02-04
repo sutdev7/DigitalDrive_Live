@@ -86,7 +86,7 @@ class Freelancerearnings extends CI_Controller {
 		$conditions = array(
 			'limit' => $this->perPage
         );
-
+        $conditions['where']['user_login.user_id']=$_SESSION["user_id"];
 
 		$parsedata['posts'] = $this->transaction->getRows($conditions);
 
