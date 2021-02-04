@@ -166,7 +166,19 @@ class Admimodel extends CI_Model {
 			return array();
 		}
 	}
+# Client Data Fatch Abhishek
+	public function get_micro_client_data(){
+		$this->db->select('users.name as name,microkey_client.*');
+		$this->db->from('microkey_client');
+		$this->db->join('users','users.user_id=microkey_client.user_id','left');
+		
+		$this->db->order_by('users.name','asc');
 
+		$result = $this->db->get()->result();
+		return $result;
+		
+	}
+# Client Data Fatch Abhishek
 	#Abishek
 
 	public function get_category(){
