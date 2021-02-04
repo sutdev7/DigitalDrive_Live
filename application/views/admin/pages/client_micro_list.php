@@ -187,7 +187,7 @@
 							  	}
 							  }
 							  ?></td>
-							  <td><?= $row->budget ?> </td>
+							  <td>$ <?= $row->budget ?> </td>
 							  <td><?= $row->duration ?><?= $row->duration_type ?></td>
 							  
 							  <td><div class="btn-group">

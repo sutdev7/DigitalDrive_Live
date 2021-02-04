@@ -526,6 +526,26 @@ class Admin extends CI_Controller {
 		
 	}
 	
+	#change Micro Status Client  Abhishek
+	public function change_status_micro_client($id,$selectedData ){
+		//$changeVal = $_POST['action'];
+		//$response=array();
+		$id = $id;
+		
+		$selectedData = $selectedData ; 
+		
+		$return = $this->Admimodel->update_micro_client_status($id,$selectedData);
+		
+		if($return == 'updated'){
+			echo "1";
+			
+		}else{
+			echo "0";
+		}
+		
+		
+	}
+#change Micro Status Abhishek
 	public function category_add(){
 		
 		if($_SERVER['REQUEST_METHOD'] === 'POST'){
