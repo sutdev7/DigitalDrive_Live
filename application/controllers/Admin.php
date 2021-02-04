@@ -421,6 +421,17 @@ class Admin extends CI_Controller {
 	
 		
 	} 
+	#Client Micro Key Abhishek
+	public function client_micro_list(){
+		
+		$data['categorylist'] = $this->Admimodel->get_micro_client_data();
+		
+		$this->load->view('admin/includes/admin_header_all');
+		$this->load->view('admin/includes/navbar');
+		$this->load->view('admin/pages/client_micro_list',$data);
+		$this->load->view('admin/includes/admin_footer_all');
+	} 
+	#Client Micro Key Abhishek
 	#Abhishek 
 	#Abhishek 
 	public function freelancer_micro_list($status = ""){
