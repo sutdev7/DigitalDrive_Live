@@ -576,7 +576,251 @@ class Ltask {
         return $AccountForm;
 
     }
-	
+    
+    
+    #Change For new details page client This is below function of  microkey_client_details_page sepratied By Abhishek
+    public function microkey_client_details_page_details($taskID = null, $userInfo = null) {
+        $CI =& get_instance();
+        $CI->load->model('Tasks');
+        $CI->load->model('MicrokeyClients');
+        $CI->load->model('Microkeys');
+        $CI->load->model('Hires');
+        $CI->load->model("Users");        
+    
+        $data = $arrTask = $arrOfferSend = $commentArr = array();
+    
+        $task_details = $CI->Tasks->get_microkey_client_info_by_id($taskID);
+            //echo '<pre>'; print_r($task_details);die();
+            if(empty($task_details))
+                redirect('microkey-list-client', 'refresh');
+    
+            $offer_send = $CI->Tasks->offered_task_list_by_user($userInfo['user_id']);
+            foreach($offer_send as $offer) {
+                $user_details = $CI->Users->get_user_profile_info_by_id($offer->receiver_id);
+                $arrOfferSend[] = array('task_name' => $offer->task_name, 'freelancer_name' => $user_details['basic_info']->name);
+            }
+    
+        $offer_send = $CI->Tasks->get_proposal($taskID);
+            foreach($offer_send as $offer) {
+                $user_details = $CI->Users->get_user_profile_info_by_id($offer->user_id);
+            $profile_img=$user_details['basic_info']->profile_image;
+            if( $profile_img != NULL){
+                $img_url = base_url().'uploads/user/profile_image/'.$profile_img;
+            }else{
+                $img_url = base_url().'assets/img/no-image.png';
+            }
+                $arrOfferSend[] = array(
+            'freelancer_id' => $user_details['basic_info']->user_id,
+            'freelancer_name' => $user_details['basic_info']->name,
+            'freelancer_city' => $user_details['basic_info']->city,
+            'freelancer_state' => $user_details['basic_info']->state,
+            'freelancer_country' => $user_details['basic_info']->country,
+            'freelancer_profile_img' => $img_url
+            );
+            }
+    
+            $tablename = array('microkey.*,','users.*,','user_login.*');
+            $jointype = array('left','left');
+            $joincondition = array('microkey.user_id = users.user_id',
+                'users.user_id = user_login.user_id');
+        $condition = 'microkey_client.user_id="'.$task_details->user_id.'"';
+            
+        $limit      = "all";
+            $limit      = 5;
+            //$oderby     = 'users_alias.doc desc';
+    
+    
+        $comment_info = $CI->Tasks->getJoinDataByConditionByClient($tablename,$jointype,$joincondition,$limit);
+            //$comment_info = $CI->Tasks->getFreelancerByMicrokey();
+    
+    
+    
+            //echo "<pre/>";
+        //print_r($comment_info);
+        //exit; 
+        /*$skills = $CI->Skills->get_all_skill_info(); 
+        /* echo "<pre/>";
+        print_r($skills);
+        exit; */
+        if(!empty($comment_info)){
+            foreach($comment_info as $row){
+            //print_r($row);die();
+            if($row->profile_image != NULL){
+                $img_url = base_url().'uploads/user/profile_image/'.$row->profile_image;
+            }else{
+                $img_url = base_url().'assets/img/no-image.png';
+            }
+            $posting_date = date('d/m/Y, h iA',strtotime($row->doc));
+            // if($row->attachments != NULL && $row->attachments !=''){
+            // //  $p_attachments = 'Download Attachment  <a href=""><i class="fa fa-download"></i></a>';
+            //   $p_attachments = $row->proposal_id;
+                
+            // }else{
+            //   $p_attachments = '';
+            // }
+            
+            
+            $rtr_skills = $CI->Skills->get_all_skill_info(); 
+            $user_sel_skills = $CI->Users->get_user_selected_skills_by_id($row->user_id);
+    
+    
+            $user_skills="";
+            if(!empty($user_sel_skills) && count($user_sel_skills) >0 ){
+                
+                foreach($user_sel_skills as $sk){
+                
+                $key = array_search($sk, array_column($rtr_skills, 'area_of_interest_id'));
+                $user_skills.=$rtr_skills[$key]->name.",";
+                }
+                
+            }
+            
+                    $user_skills=rtrim($user_skills,",");
+    
+    
+                    $cpositivecoin=0;      
+                    if($row->total_coins>=0){ $cpositivecoin='+ '.$row->total_coins; }else{ $cpositivecoin=$row->total_coins; }
+    
+                    $commentArr[] = array('user_id' => $row->user_id, 'profile_image' => $img_url, 'name' => $row->name,'posting_date' => $posting_date,'total_positive_coins'=>$cpositivecoin,'total_negative_coins'=>$row->total_negative_coins,'total_coins'=>$row->total_coins,'user_skills'=>$user_skills,'state' => $row->state, 'city' => $row->city,'public_id'=>$row->profile_id
+                );
+                    $commentArr1[] = array('user_id' => $row->user_id, 'profile_image' => $img_url, 'name' => $row->name,'posting_date' => $posting_date,'total_positive_coins'=>$cpositivecoin,'total_negative_coins'=>$row->total_negative_coins,'total_coins'=>$row->total_coins,'user_skills'=>$user_skills,'state' => $row->state, 'city' => $row->city,'public_id'=>$row->profile_id
+                );
+                }
+            }
+    
+        //echo "<pre/>";
+        //print_r($commentArr);
+        //exit;
+                $task_details = $CI->Tasks->get_microkey_client_info_by_id($taskID);
+                
+            $task = $CI->Tasks->task_status_info_by_task_id($task_details->id); 
+            
+        foreach($task as $details) {
+                $continent = $CI->Continent->get_continent_by_id($details['basic_info']['task_origin_location']);
+                $country = $CI->Countries->get_country_by_id($details['basic_info']['task_origin_country']);
+    
+                $user_info = array();
+                if(!empty($details['task_hired']) && count($details['task_hired']) > 0){
+                    foreach($details['task_hired'] as $freelancer_hired){
+                        $user_details = $CI->Users->get_user_profile_info_by_id($freelancer_hired['receiver_id']);
+                        $user_status = $CI->Users->get_user_info_by_id($freelancer_hired['receiver_id']);
+                        $user_profile_image = $user_status->profile_image;
+                        if(empty($user_profile_image)) {
+                            $user_profile_image = base_url('assets/img/no-image.png');
+                        } else {
+                            $user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);          
+                        }
+    
+                        $is_login = $user_status->is_login;               
+                        $positivecoin=0;      
+                        if($user_status->total_coins>=0){ $positivecoin='+ '.$user_status->total_coins;}else{ $positivecoin=$user_status->total_coins;}
+                        $user_info[] = array('freelancer_id' => $user_details['basic_info']->user_id, 'freelancer_name' => $user_details['basic_info']->name, 'freelancer_country' => $user_details['basic_info']->country, 'freelancer_state' => $user_details['basic_info']->state, 'freelancer_city' => $user_details['basic_info']->city, 'user_image' => $user_profile_image, 'total_positive_coins' => $positivecoin,'total_negative_coins' => $user_status->total_negative_coins, 'hired_id'=> base64_encode($freelancer_hired['hired_id']), 'is_online' => (($is_login == '1')?'<span> </span>':'<span class="green"> </span>'));
+    
+                    }
+                } 
+    
+    
+                $microkey_image = $task_details->image;   
+                if(empty($task_details)) {
+                    $microkey_image_path = base_url('assets/img/no-image.png');
+                }else{
+                    $microkey_image_path = base_url('uploads/user/microkey_client_files/'.$microkey_image);       
+                }         
+    
+                $datetime1 = strtotime($task_details->created);
+                $datetime2 = strtotime(date("Y-m-d H:i:s"));
+                $interval  = abs($datetime2 - $datetime1);
+    
+                $years = floor($interval / (365*60*60*24)); 
+    
+                $months = floor(($interval - $years * 365*60*60*24) / (30*60*60*24));    
+    
+                $days = floor(($interval - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+                $hours = floor(($interval - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24) / (60*60)); 
+                $minutes = floor(($interval - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60)/ 60);
+                $seconds = floor(($interval - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60 - $minutes*60));     
+                $minutes   = round($interval / 60);
+    
+    //echo '<pre>'; print_r($details['task_attachments']);die;
+    
+                $tduration="";
+                if($task_details->duration_type=='Hourly')
+                {
+                    $tduration= $task_details->duration.' Hour';
+                }
+                else if($task_details->duration_type=='Daily')
+                {
+                    $tduration= $task_details->duration.' Day';
+                }
+                else if($task_details->duration_type=='Monthly')
+                {
+                    $tduration= $task_details->duration.' Month';
+                }
+                else if($task_details->duration_type=='Yearly')
+                {
+                    $tduration= $task_details->duration.' Year';
+                }
+            
+                $arrTask[] = array('user_task_id' => $details['basic_info']['user_task_id'], 'task_title' => $details['basic_info']['task_name'], 'task_details' => $details['basic_info']['task_details'], 'task_due_date' => $details['basic_info']['task_due_date'], 'task_total_budget' => $details['basic_info']['task_total_budget'], 'task_continent' => $continent->name, 'task_country' => $country->name, 'task_duration' => $minutes, 'task_attachments' => $details['task_attachments'], 'task_requirements' => $details['task_requirements'], 'task_freelancer_hire' => count($details['task_hired']), 'task_freelancer_hired_details' => $user_info, 'offer_send' => $arrOfferSend, 'commentArr' => $commentArr ,'taskDuration' => $tduration);
+    
+    
+    
+            }
+    
+        $data['hire_list'] = $CI->Hires->get_old_hire_list($CI->session->userdata('user_id'));
+            
+    
+            
+    
+            $arrTask[] = array('user_task_id' => $details['basic_info']['user_task_id'], 'task_title' => $details['basic_info']['task_name'], 'task_details' => $details['basic_info']['task_details'], 'task_due_date' => $details['basic_info']['task_due_date'], 'task_total_budget' => $details['basic_info']['task_total_budget'], 'task_continent' => $continent->name, 'task_country' => $country->name, 'task_duration' => $minutes, 'task_attachments' => $details['task_attachments'], 'task_requirements' => $details['task_requirements'], 'task_freelancer_hire' => count($details['task_hired']), 'task_freelancer_hired_details' => $user_info, 'offer_send' => $arrOfferSend, 'commentArr' => $commentArr ,'taskDuration' => $tduration);
+    
+            $skills = $CI->Skills->get_all_skill_info();
+    
+            $user_sel_skills=explode(',',$task_details->skills);
+            $user_skills="";
+            if(!empty($user_sel_skills) && count($user_sel_skills) >0 ){
+    
+                foreach($user_sel_skills as $sk){
+    
+                $key = array_search($sk, array_column($skills, 'area_of_interest_id'));
+                $user_skills.=$skills[$key]->name.",";
+            }
+    
+        }
+        $data['task_info'] = $arrTask;
+        $commentArr = (count($arrTask[0]['commentArr']) );
+        $user_skills=rtrim($user_skills,",");
+            //echo '<pre>'; print_r($user_skills);die();
+    
+        $continent = $CI->Continent->get_continent_by_id($task_details->continent);
+        $country = $CI->Countries->get_country_by_id($task_details->country_id);
+    
+        $arrMicrokeyClients = array('task_duration' => $minutes,
+            'id' => $task_details->id,
+            'user_id' => $task_details->user_id,
+            'title' => $task_details->title,
+            'commentArr' => $commentArr,
+            'addon_file_url' => $task_details->addon_file_url,
+            'skills' => $user_skills,
+            'budget' => $task_details->budget,
+            'continent' => $continent->name,
+            'country' => $country->name,
+            'duration' => $tduration,
+            'description' => $task_details->description,
+            'file_name' => $microkey_image_path,
+            'created' => $task_details->created
+        );
+    
+        $data = $arrMicrokeyClients;
+        $data['freelancer_info'] = $commentArr1;
+            // echo '<pre>'; print_r($data);die();
+    
+        $AccountForm = $CI->parser->parse('task/microkey_client_details',$data,true);
+    
+        return $AccountForm;
+    
+    }
+    #Change For new details page client This is below function of  microkey_client_details_page sepratied By Abhishek
 	public function view_microkey_task($taskID = null)
 	{
 		
