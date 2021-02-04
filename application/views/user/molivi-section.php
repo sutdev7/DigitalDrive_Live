@@ -25,7 +25,7 @@
 	  <ul>
 		<li <?php if($this->uri->segment(1) == 'dashboard'){ echo 'class="active"';} ?> > <a href="<?php echo base_url(); ?>dashboard"> Ongoing Task </a> </li>
 		<li <?php if($this->uri->segment(1) == 'upcoming-projects'){ echo 'class="active"';} ?>> <a href="<?php echo base_url(); ?>upcoming-projects"> Upcoming Projects </a> </li>
-		<!-- <li <?php if($this->uri->segment(1) == 'microkey-list-client'){ echo 'class="active"';} ?>> <a href="<?php echo base_url(); ?>microkey-list-client"> Microkey Projects </a> </li> -->
+		 <li <?php if($this->uri->segment(1) == 'microkey-list-client'){ echo 'class="active"';} ?>> <a href="<?php echo base_url(); ?>microkey-list-client"> Microkey Projects </a> </li> 
 		<li <?php if($this->uri->segment(1) == 'hired'){ echo 'class="active"';} ?>> <a href="<?php echo base_url(); ?>hired"> Hired </a> </li>
 	  </ul>
 	</div>
