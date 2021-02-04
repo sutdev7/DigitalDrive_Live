@@ -245,6 +245,7 @@ $route['post-microkey-Step-3'] = 'Freelancer/past_microkey_page_3';*/
 $route['microkey-list'] = 'Freelancer/microkey_list';
 $route['hire-freelancer1'] = 'Freelancer/hire_freelancer1';
 $route['microkey-details/(:any)'] = 'Freelancer/microkey_details/$l';
+$route['admin/client-micro-list'] = 'admin/client_micro_list';
 $route['post-microkey-step-1'] = 'Freelancer/past_microkey_page_1';
 $route['post-microkey-Step-2'] = 'Freelancer/past_microkey_page_2';
 $route['post-microkey-Step-3'] = 'Freelancer/past_microkey_page_3';
