@@ -19,10 +19,8 @@
 		inEffect: {
 			opacity: 'show'
 		},
-		autoHide: true,
-		 autoHideDelay: 500000000000000000000000000000000000000,
-		inEffectDuration: 1000000000000000000000000000000000000000000,
-		stay: 5000000000000000000000000000000000,
+		inEffectDuration: 180,
+		stay: 18000000,
 		sticky: false,
 		type: 'notice',
 		position: 'top-right',
@@ -75,8 +73,8 @@
 	
 	Notify.prototype.close = function () {
 		var obj = this.itemInner;
-		obj.animate({opacity: '0'}, 600, function() {
-			obj.parent().animate({height: '0px'}, 300, function() {
+		obj.animate({opacity: '0'}, 5000, function() {
+			obj.parent().animate({height: '0px'}, 5000, function() {
 				obj.parent().remove();
 			});
 		});
@@ -84,7 +82,6 @@
 	
 	$.notifySetup = function(options) {
 		$.extend(settings, options);
-
 		if (options['sound']) {
 			if (window.HTMLAudioElement) {
 				audio = new Audio();
@@ -96,23 +93,10 @@
 	$.fn.notify = function(options) {
 		return this.each(function () {
 			if (typeof options == 'string') {
-
 				return new Notify(this, {type: options});
 			}
 			return new Notify(this, options);
 		});
 	};
-	$.notify.defaults=function( options ){
-		{
-  // whether to hide the notification on click
-  clickToHide: true,
-  // whether to auto-hide the notification
-  autoHide: false,
-  // if autoHide, hide after milliseconds
-  autoHideDelay: 5000000,
-  // show the arrow pointing at the element
- 
-}
-	}
 
 }(window.jQuery);
