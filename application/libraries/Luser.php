@@ -712,8 +712,7 @@ exit; */
 
             $condition = array("review_received" => $user_detail->user_id);
 
-           // $reviews_data = $CI->Reviews->get_reviews($condition);
-            print_r($reviews_data);
+            $reviews_data = $CI->Reviews->get_reviewsAdmin($condition);
             // $reviews = array();
             // if (count($reviews_data) > 0) {
 
@@ -745,7 +744,7 @@ exit; */
             //     }
             // }
 
-//$data['reviews']            = $reviews;
+            $data['reviews']            = $reviews_data;
             $data['portfolio']          = $portfolio;
             $data['top_freelancers']    = $top_freelancers;
 
