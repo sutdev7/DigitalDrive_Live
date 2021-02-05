@@ -26,6 +26,28 @@ class Reviews extends CI_Model {
     /*
      * 
      */
+
+      /*
+     * Skill information By ID For Admin Abhishek
+     */
+    public function get_reviewsAdmin($condition){
+        $this->db->select('reviews.*,users.*,user_login.*,country.name as country');
+        $this->db->from('reviews');
+        $this->db->join('users', 'users.user_id = reviews.review_provided_by');
+        $this->db->join('user_login', 'user_login.user_id = reviews.review_provided_by');
+        $this->db->join('country','country.country_id = users.country', 'left');
+        $this->db->where($condition); 
+        $this->db->order_by('review_id','DESC');
+        $query = $this->db->get();
+        $result=$query->result_array();
+     
+        return $result;
+    }
+
+    /*
+     * 
+     */
+    
     public function insert_review($data){
       
 		$this->db->insert("reviews",$data)	;
