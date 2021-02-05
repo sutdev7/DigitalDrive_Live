@@ -411,6 +411,13 @@ class Lfreelancer {
 		$data['task_id'] = $arrTask[0]['task_id'];
 		$data['user_task_id'] = $arrTask[0]['user_task_id'];
 		$data['mnotification_row_id'] = base64_encode($mnotification_row_id);
+		// start by amar
+			// proposal send or not
+			$data['proposal_info_is_already'] = $CI->Freelancers->get_proposal_info($postVal = array('task_id' => $data['task_id'], 'user_id' => $CI->session->userdata('user_id')));
+			$data['proposal_info'] = $CI->Freelancers->get_proposal_info_data($postVal = array('task_id' => $data['task_id'], 'user_id' => $CI->session->userdata('user_id')));
+			
+			// echo '<pre>';print_r($data['proposal_info']);exit;
+		// end by amar
 //		dd($data);	
 		$AccountForm = $CI->parser->parse('freelancer/job-details',$data,true);
 		return $AccountForm;
