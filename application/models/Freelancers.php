@@ -329,9 +329,19 @@ class Freelancers extends CI_Model {
 			return 'no';
 		}
 	}
+
 	
+	public function get_proposal_info_data($searchVal = array()){
+		$query = $this->db->select('*')->from('task_proposal')->join('task_proposal_milestone','task_proposal_milestone.proposal_id=task_proposal.proposal_id')->where('task_id',$searchVal['task_id'])->where('user_id',$searchVal['user_id'])->get();
+		if($query->num_rows() > 0){
+			return $query->result_array();
+		}else{
+			return array();
+		}
+	}
+
 	public function add_proposal($postData = array()){
-		
+		$postValue = $this->input->post();
 		// get connects
 		$total_connects = $this->db->select('user_login.total_connects')->from('user_login')->where('user_id',$this->session->userdata('user_id'))->get()->row()->total_connects;
 		$new_total_connects = ($total_connects-1);
@@ -356,7 +366,56 @@ class Freelancers extends CI_Model {
 			'is_deleted' => 0
 		);
 		
-		$this->db->insert('task_proposal',$insert);
+		// $this->db->insert('task_proposal',$insert);
+			$this->db->insert('task_proposal',$insert);
+			$insert_id = $this->db->insert_id();
+		
+		// start by amar
+		if($postValue['terms'] == 'pay_by_milestone'){
+			if(isset($postValue['milestone_agreed_budget'])){
+		// echo 'hiii'.'<pre>';print_r($postValue);exit;
+
+				foreach($postValue['milestone_agreed_budget'] as $key => $row){		 //echo $key; echo $row;	
+					$date = date_parse_from_format("m-d-Y", $postValue['milestone_end_date'][$key]);
+					$milestone_date=$date['year']."-".$date["month"]."-".$date["day"];
+					$data_milestone = array(
+						'proposal_id' => $insert_id,
+						'milestone_title' => $postValue['milestone_title'][$key],
+						// 'milestone_end_date' => date('Y-m-d H:i:s',strtotime($milestone_date)),
+						'milestone_agreed_budget' => $postValue['milestone_agreed_budget'][$key],
+						'milestone_current_status' => 'FS',
+						'milestone_doc' => $date_of_creation,
+						'milestone_created_by' => $this->session->userdata('user_id')
+					);
+					
+					//echo '<pre>'; print_r($data_milestone);
+					
+					$this->db->insert('task_proposal_milestone',$data_milestone);
+					// echo $this->db->last_query();exit;
+				}
+			}else{
+				return array('status' => FALSE, 'message' => 'Something Wrong');
+			}
+		}else{
+			// echo 'hiii else'.'<pre>';print_r($postValue);exit;
+			
+			$data_milestone = array(
+				'proposal_id' => $insert_id,
+				'milestone_title' => $postValue['contract_title'],
+				// 'milestone_end_date' => $hired_end_date,
+				'milestone_agreed_budget' => $this->input->post('terms_amount_max'), // $postValue['amount'],
+				'milestone_current_status' => 'FS',
+				'milestone_approval_date' => $date_of_creation,
+				'milestone_doc' => $date_of_creation,
+				'milestone_created_by' => $this->session->userdata('user_id')
+			);
+			
+			//echo '<pre>'; print_r($data_milestone);
+			
+			$this->db->insert('task_proposal_milestone',$data_milestone);					
+		}
+		// end by amar
+
 		// get client id from task creadted by
 		$getClientInfo = $this->db->query("select user_task_id,task_name,task_created_by from task where task_id = '".$this->input->post('task_id')."'")->row();
 		if(!empty($getClientInfo)){
