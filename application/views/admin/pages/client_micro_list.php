@@ -158,7 +158,7 @@
 						  
 						  <th>Status</th>
 						
-						 <!--  <th>Action</th> -->
+						  <th>Action</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -200,12 +200,12 @@
 	                              </label>
 								</div></td>
 							 
-							<!--   <td>
-								<div class="btn-group">
-									<a type="button" class="btn btn-info" title="details Info" href="<?= base_url().'admin/microkey_details/'.($row->id) ?>"><i class="fa fa-info"></i></a>
+							  <td>
+							  <div class="btn-group">
+									<a type="button" class="btn btn-info" title="details Info" href="<?= base_url().'admin/microkey_client_details_page_details/'.($row->id).'/'.($row->user_id) ?>"><i class="fa fa-info"></i></a>
 								</div>
 								
-							  </td> -->
+							  </td> 
 							</tr>
 							<?php
 							}
@@ -230,7 +230,7 @@
 						  
 						  <th>Status</th>
 						
-						 <!--  <th>Action</th> -->
+						  <th>Action</th>
 						</tr>
 						</tfoot>
 					  </table>

@@ -1,5 +1,5 @@
 .notify-container {
-	width: 300px;
+	width: auto;
 	z-index: 9999;
 }
 
@@ -10,15 +10,15 @@
 
 .notify-item {
 	height: auto;
-	background: #333;
+	background: red;
     opacity: 0.9;
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	color: #eee;
 	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 6px;
+	padding-bottom: 25px;
+	padding-left: 25px;
 	padding-right: 6px;
 	font-family: lucida Grande;
 	font-size: 14px;
@@ -37,24 +37,38 @@
 }
 
 .notify-item-close {
-    background:url(../img/close.gif);
-    width:22px;
-    height:22px;
+    background:url(../img/close.png);
+    width:31px;
+    height:32px;
     position: absolute;
-    top:7px;
+    top:0px;
     right:7px;
 }
 
 .notify-item-image {
-    width:132px;
-    height: 132px;
+    width:32px;
+    height: 32px;
     position: absolute;
     top: 50%;
     margin-top: -16px;
     left: 10px;
 }
 
+.notify-item-image-notice {
+    background:url(../img/notice.png);
+}
 
+.notify-item-image-success {
+    background:url(../img/success.png);
+}
+
+.notify-item-image-warning {
+    background:url(../img/warning.png);
+}
+
+.notify-item-image-error {
+    background:url(../img/error.png);
+}
 
 
 /**
