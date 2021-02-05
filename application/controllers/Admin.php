@@ -1051,7 +1051,10 @@ class Admin extends CI_Controller {
             $this->load->view('admin/pages/messages_list_ajax',$data);
 	}
 
-	  #Change For new details page client This is below function of  microkey_client_details_page sepratied By Abhishek
+	
+
+	
+    #Change For new details page client This is below function of  microkey_client_details_page sepratied By Abhishek
 public function microkey_client_details_page_details($taskID = null, $user_id = null) {
 	$CI =& get_instance();
 	   $CI->load->model('Tasks');
