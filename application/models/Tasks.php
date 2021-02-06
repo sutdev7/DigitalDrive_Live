@@ -2857,7 +2857,30 @@ class Tasks extends CI_Model {
 		$this->db->where('task_proposal.task_id',$task_id);
 		$query = $this->db->get();
 		return $query->result();
+    }
+    
+
+    // start by amar
+    public function get_proposal_info($task_id = '')
+	{		
+		$this->db->select('*,task_proposal.*','task.task_name');
+		$this->db->from('task_proposal');
+        $this->db->join('task','task.task_id=task_proposal.task_id');
+        $this->db->join('task_proposal_milestone','task_proposal_milestone.proposal_id=task_proposal.proposal_id','left');
+        $this->db->join('user_login','user_login.user_id=task_proposal.user_id','left');
+        //  $this->db->where_in('task_proposal_milestone ', '(SELECT * FROM task_proposal_milestone WHERE task_proposal_milestone.proposal_id=task_proposal.proposal_id)');
+        $this->db->where('task.user_task_id',$task_id);
+		$this->db->where('task.task_created_by',$_SESSION['user_id']);
+        $query = $this->db->get();
+        // echo $this->db->last_query();exit;
+        
+        if($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
 	}
+    //end by amar
 
     public function get_freelancers_proposal($task_id = '')
     {
