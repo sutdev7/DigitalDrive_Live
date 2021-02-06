@@ -2564,9 +2564,11 @@ class Ltask {
         
           $data['hire_list_old'] = $CI->Hires->get_old_hire_list_byskills($main_val,$CI->session->userdata('user_id'),$user_task_id,$tFilter);
        }
+       $data['proposal_info'] = $CI->Tasks->get_proposal_info($taskID); // by amar
+
           #Abhishek Jha 
         $data['task_info'] = $arrTask;
-
+        // echo '<pre>'; print_r($data['proposal_info']); exit;
         $AccountForm = $CI->parser->parse('task/task-details', $data, true);
 
         return $AccountForm;
