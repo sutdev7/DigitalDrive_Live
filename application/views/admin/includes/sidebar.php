@@ -130,14 +130,7 @@
             <li><a href="<?= base_url() . 'admin/category-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'category-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Project Category </a></li>
             <!--Abhishek-->
             <li><a href="<?= base_url() . 'admin/freelancer-micro-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'freelancer-micro-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Freelancer Micro </a></li>
-            <li>
-                     <a href="<?php echo base_url() . 'admin/client-micro-list' ?>" class="nav-link <?php echo ($this->uri->segment(2) == 'client-micro-list') ? 'active' : '' ?>">
-                     <i class="fas fa-bars"></i>
-                        <p>
-                           Client Micro List
-                        </p>
-                     </a>
-                  </li>
+           
             <li><a href="<?= base_url() . 'admin/category' ?>" class="nav-link <?= ($this->uri->segment(2) == 'category') ? 'active' : '' ?>"><i class="fas fa-bars"></i>Skill Category </a></li>
             <li><a href="<?= base_url() . 'admin/task-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'task-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Task </a></li>
             <!-- start Amardeep -->
