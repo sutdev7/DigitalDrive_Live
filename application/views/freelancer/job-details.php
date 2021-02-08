@@ -190,6 +190,7 @@
                        <?php if(trim($proposal_info_is_already) == "yes" ){ ?>
                         <a href="javascript:void(0);" data-toggle="modal" data-target="#myModalview">VIEW PROPOSAL</a>
                         <?php }else{ ?>
+                        <!-- myModal  -->
                           <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal">SUBMIT PROPOSAL</a>
                         <?php } ?>
                         <?php
@@ -326,12 +327,19 @@
                           <ul>
                             <li>
                               <label class="containerdiv newopen1">Amount / Hr
-                                <input type="radio" name="terms" value="pay_whole_amount" checked="checked">
+                                <input type="radio" name="terms" value="pay_hourly_amount" checked="checked">
                                 <span class="checkmark"></span> </label>
                             </li>
+
                             <li>
                               <label class="containerdiv newopen2">Amount by Milestone
                                 <input type="radio" name="terms" value="pay_by_milestone">
+                                <span class="checkmark"></span> </label>
+                            </li>
+
+                            <li>
+                              <label class="containerdiv newopen3">Fixed Payment
+                                <input type="radio" name="terms" value="pay_whole_amount">
                                 <span class="checkmark"></span> </label>
                             </li>
                           </ul>
@@ -341,10 +349,14 @@
                         </div>
 
                       <div class="bidding-amt col-md-4 col-lg-4 col-xl-4">
+                          
                             <div class="portal-text">
                                 <h5>Bidding Amount</h5>
                                 <input type="text" name="terms_amount_max" placeholder="$ 0" id="terms_amount_max" required>
-                                <!-- <span>Amount / hr</span> -->
+                                <div class="opendiv1">
+                                  <span>Amount / hr</span>
+                                </div>
+
                             </div>
                             <div class="portal-text">
                                 <h5>Portal Charges</h5>
@@ -503,71 +515,93 @@
             <input type="hidden" name="user_task_id" value="<?= $user_task_id ?>">
             <div class="modal-content">
                 <div class="header">
-                    <h2>View Job</h2>
+                    <h2>View Proposal</h2>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <div class="body">
-                    <div class="row cover">
+                      <div class="row cover">
 
-                      
-          <div class="mbl-table-nine">
-            <div class="mbldiv-scroll">
-              <table class="table">
-                <thead>
-                  <tr>
-                    
-                    <th>Date</th>
-                    <th>Title</th>
-                    <th>Milestone Budget</th>
-                    <!-- <th>Provided By</th> -->
-                    <!-- <th>Action</th> -->
-                  </tr>
-                </thead>
-                <tbody id="dataList">
-                <!-- Display posts list -->
-			            <?php if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
-                  <tr>
-                  	<td> <?php  echo date('Y-m-d',strtotime($row["milestone_doc"])); ?></td>
-                    <td><?php  echo $row["milestone_title"]; ?></td>
-                    
-                    <td><?php echo $row["milestone_agreed_budget"]; ?></td>
-                    <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
-                    <!-- <td> -->
-                    <!-- <a data-toggle="tooltip" data-placement="top" title="withdraw">
-                    <i class="fa fa-money" style="font-size:24px;"></i></a>  -->
-                        <!-- <a data-toggle="tooltip" data-placement="top" title="Details" href="<?php //echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>"> -->
-                          <!-- <i class="fa fa-eye" style="font-size:24px;" aria-hidden="true"></i> -->
-                          <!-- </a> -->
-                  <!-- </td> -->
-                    
-                  </tr>
-                  <!-- <tr>
-                    <td><img src="img/cal-img.png" alt=""> 10/12/2019 </td>
-                    <td>UI Design</td>
-                    
-                    <td>$50</td>
-                  </tr> -->
-                    <?php } }else{ ?>
-                    <tr><td  colspan="5"><p>Records not found...</p></td></tr>
-                  <?php } ?>
-                      <!-- Render pagination links -->
-                    <tr>
-                    <td  colspan="5">
-                      <?php // echo ($this->ajax_pagination->create_links() !== "") ? $this->ajax_pagination->create_links():""; ?>
-                      
-                    </td>
-                    </tr>
-                  
-                </tbody>
-              </table>
-              
-            </div>
-            
-          </div>
+                      <div class="to-close">
+                                      <h2>Proposal Details</h2>
+                                      <p><i class="fa fa-dollar theme-color"></i> Bidding Amount: $<?php echo isset($proposal_info[0]["terms_amount_max"]) ? $proposal_info[0]["terms_amount_max"] : "";  ?></p>
+                                      <p><i class="fa fa-calendar theme-color"></i> Posting Date: <?php echo isset($proposal_info[0]["doc"]) ? $proposal_info[0]["doc"] : "";  ?></p>
+                                      <p><i class="fa fa-credit-card theme-color"></i> Payment Type: <?php echo isset($proposal_info[0]["milestone_type"]) ? ucwords($proposal_info[0]["milestone_type"]) : "";  ?></p>
+                                      
+                                      <hr/>
+                                      <h2 class="Atta">Download Attachment</h2>
+                                      
+                                      <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>"><img style="padding: 10px; width: 84px; height: 84px;" src="{file_ext_type}" alt=""></a>
+                                      <br/>
+                                      <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>" class="" download><i class="fa fa-download"></i> Download</a>
+                                      <br/>                                     
+                                      <!--<p>{p_attachments}</p> -->
+                                     <!-- <form id="frm_attachment" action="<?php /*echo base_url() */?>download_attachment/{p_attachments}" method="post" style="width:100%;">
+                                          <p id="download_attachment_{p_attachments}" style="cursor: pointer;"><i class="fa fa-download"></i> Download Attachment </p>
+                                      </form>-->
+                                      <hr/>
+                                      <h2>Cover Letter</h2>
+                                      <div class="anyClass black_color proposal-remark"><?php echo isset($proposal_info[0]["cover_letter"]) ? $proposal_info[0]["cover_letter"] : "";  ?></div>
+                                      <hr/>
 
-                    </div>
+                                  </div>
+                        <div class="mbl-table-nine">
+                          <div class="mbldiv-scroll">
+                          <h2>Budget details</h2>
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  
+                                  <th>Date</th>
+                                  <th>Title</th>
+                                  <th>Budget</th>
+                                  <!-- <th>Provided By</th> -->
+                                  <!-- <th>Action</th> -->
+                                </tr>
+                              </thead>
+                              <tbody id="dataList">
+                              <!-- Display posts list -->
+                                <?php if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
+                                <tr>
+                                  <td> <?php  echo date('Y-m-d',strtotime($row["milestone_doc"])); ?></td>
+                                  <td><?php  echo $row["milestone_title"]; ?></td>
+                                  
+                                  <td><?php echo $row["milestone_agreed_budget"]; ?></td>
+                                  <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
+                                  <!-- <td> -->
+                                  <!-- <a data-toggle="tooltip" data-placement="top" title="withdraw">
+                                  <i class="fa fa-money" style="font-size:24px;"></i></a>  -->
+                                      <!-- <a data-toggle="tooltip" data-placement="top" title="Details" href="<?php //echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>"> -->
+                                        <!-- <i class="fa fa-eye" style="font-size:24px;" aria-hidden="true"></i> -->
+                                        <!-- </a> -->
+                                <!-- </td> -->
+                                  
+                                </tr>
+                                <!-- <tr>
+                                  <td><img src="img/cal-img.png" alt=""> 10/12/2019 </td>
+                                  <td>UI Design</td>
+                                  
+                                  <td>$50</td>
+                                </tr> -->
+                                  <?php } }else{ ?>
+                                  <tr><td  colspan="5"><p>Records not found...</p></td></tr>
+                                <?php } ?>
+                                    <!-- Render pagination links -->
+                                  <tr>
+                                  <td  colspan="5">
+                                    <?php // echo ($this->ajax_pagination->create_links() !== "") ? $this->ajax_pagination->create_links():""; ?>
+                                    
+                                  </td>
+                                  </tr>
+                                
+                              </tbody>
+                            </table>
+                            
+                          </div>
+                          
+                        </div>
 
+                      </div>
                 </div>
 
                 <div class="line">
@@ -593,6 +627,7 @@
     </div>
 
 <!-- view proposal Modal end -->
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
  <script src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
@@ -740,6 +775,14 @@
         $(".newopen2").click(function(){
           $(".opendiv2").show();
           $(".opendiv1").hide();
+        });
+
+        
+        $(".newopen3").click(function(){
+          $(".opendiv2").hide();
+          $(".opendiv1").hide();
+          $(".opendiv3").show();
+
         });
 
 
