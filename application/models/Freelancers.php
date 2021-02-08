@@ -376,7 +376,7 @@ class Freelancers extends CI_Model {
 		// echo 'hiii'.'<pre>';print_r($postValue);exit;
 
 				foreach($postValue['milestone_agreed_budget'] as $key => $row){		 //echo $key; echo $row;	
-					$date = date_parse_from_format("m-d-Y", $postValue['milestone_end_date'][$key]);
+					// $date = date_parse_from_format("m-d-Y", $postValue['milestone_end_date'][$key]);
 					$milestone_date=$date['year']."-".$date["month"]."-".$date["day"];
 					$data_milestone = array(
 						'proposal_id' => $insert_id,
@@ -385,7 +385,8 @@ class Freelancers extends CI_Model {
 						'milestone_agreed_budget' => $postValue['milestone_agreed_budget'][$key],
 						'milestone_current_status' => 'FS',
 						'milestone_doc' => $date_of_creation,
-						'milestone_created_by' => $this->session->userdata('user_id')
+						'milestone_created_by' => $this->session->userdata('user_id'),
+						'milestone_type' => 'milestone',
 					);
 					
 					//echo '<pre>'; print_r($data_milestone);
@@ -398,16 +399,27 @@ class Freelancers extends CI_Model {
 			}
 		}else{
 			// echo 'hiii else'.'<pre>';print_r($postValue);exit;
-			
+			if($postValue['terms'] == 'pay_whole_amount') {
+				$milestone_type = 'fixed';
+				$milestone_title = 'fixed';
+				$milestone_agreed_budget = $this->input->post('terms_amount_max');
+			}else if($postValue['terms'] == 'pay_hourly_amount'){
+				$milestone_type = 'hourly';
+				$milestone_title = 'hourly';
+				$milestone_agreed_budget = $this->input->post('terms_amount_max');
+			}else{
+				$milestone_type = '';
+			}
 			$data_milestone = array(
 				'proposal_id' => $insert_id,
-				'milestone_title' => $postValue['contract_title'],
+				'milestone_title' => $milestone_title,
 				// 'milestone_end_date' => $hired_end_date,
-				'milestone_agreed_budget' => $this->input->post('terms_amount_max'), // $postValue['amount'],
+				'milestone_agreed_budget' => $milestone_agreed_budget, // $postValue['amount'],
 				'milestone_current_status' => 'FS',
 				'milestone_approval_date' => $date_of_creation,
 				'milestone_doc' => $date_of_creation,
-				'milestone_created_by' => $this->session->userdata('user_id')
+				'milestone_created_by' => $this->session->userdata('user_id'),
+				'milestone_type' => $milestone_type,
 			);
 			
 			//echo '<pre>'; print_r($data_milestone);
