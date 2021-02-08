@@ -172,9 +172,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                         </div>
                                         <h5 class="card-title text-center"><a href="<?php echo base_url(); ?>view-microkey-task/{task_id}">{post_title}</a></h5>
-                                        <div>
+                                        <!-- <div>
                                             <div class="micro-key">Micro-task</div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="card-footer text-muted d-flex justify-content-between flex-wrap">
                                         <div>
