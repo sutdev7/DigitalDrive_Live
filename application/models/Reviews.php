@@ -27,8 +27,8 @@ class Reviews extends CI_Model {
      * 
      */
 
-      /*
-     * Skill information By ID For Admin Abhishek
+        /*
+     * Review Information Admin Abhishek
      */
     public function get_reviewsAdmin($condition){
         $this->db->select('reviews.*,users.*,user_login.*,country.name as country');
@@ -45,6 +45,27 @@ class Reviews extends CI_Model {
     }
 
     /*
+     * 
+     */
+    
+    /*
+     * Review Count
+     */
+    public function reviewsCount($id){
+        $this->db->select('count(review_id) as total_review');
+        $this->db->from('reviews');
+     
+        $this->db->where('review_received',$id); 
+      
+        $query = $this->db->get()->result();
+        
+        foreach ($query as $key => $value) {
+           return $value->total_review;
+        }
+     
+    }
+
+   /*
      * 
      */
     
