@@ -428,7 +428,7 @@ class Lmicrokey {
 		$CI =& get_instance();
         $CI->load->model('Microkeys');
         $CI->load->model('Tasks');
-
+		$CI->load->model('Reviews');
        // $CI =& get_instance();
 		$CI->load->model('Users');
         //$CI->load->model('Tasks');
@@ -578,7 +578,8 @@ class Lmicrokey {
 		}else{
 			$user_profile_image1 = base_url('uploads/user/profile_image/'.$user_profile_image1);	    	
 		}
-
+		$reviews_frelincer = $CI->Reviews->reviewsCount($row['user_id']);
+        $reviews_frelincer;
 		//echo '<pre>'; print_r($userData1);die();
 				$data['microkey_id']=$row['id'];
 				$microkeyData['dataArr'][] = array(
@@ -596,6 +597,7 @@ class Lmicrokey {
 					'user_image' => $user_profile_image1,
 					'yearly_income_analytics' => $yearly_income_analytics,
                     'total_project_count' => $total_project_count,
+					'reviews_frelincer' => $reviews_frelincer,
 					'last_login' => $userLoginData->last_login
 				);
                 $CI->load->model('Microkeys');
