@@ -80,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <em><i class="fa fa-user" aria-hidden="true"></i> {task_freelancer_hire} Hired</em> </span>
                                 <span>
                                     <h5>Total Proposals</h5>
-                                    <em><i class="fa fa-book" aria-hidden="true"></i><?= count($task_info[0]['commentArr']) ?></em>
+                                        <em><i class="fa fa-book" aria-hidden="true"></i><?= count($task_info[0]['commentArr']) ?></em>
                                 </span>				
                             </div>
                             <!--<h2 class="Atta">Attachment</h2>-->
@@ -332,6 +332,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </section>
 </main>
+
+
 
 
 <script>
