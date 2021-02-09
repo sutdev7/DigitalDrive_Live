@@ -531,7 +531,7 @@
                                       <hr/>
                                       <h2 class="Atta">Download Attachment</h2>
                                       
-                                      <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>"><img style="padding: 10px; width: 84px; height: 84px;" src="{file_ext_type}" alt=""></a>
+                                      <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>"><img style="padding: 10px; width: 84px; height: 84px;" src="<?php echo get_file_ext($proposal_info[0]["attachments"]) ?>" alt=""></a>
                                       <br/>
                                       <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>" class="" download><i class="fa fa-download"></i> Download</a>
                                       <br/>                                     
