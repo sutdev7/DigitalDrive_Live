@@ -269,6 +269,7 @@ $route['save-microkey-job'] = 'Freelancer/save_microkey_job';
 $route['add-microkey-proposal'] = 'Freelancer/add_microkey_proposal';
 
 $route['browse-freelancer'] = 'Task/browse_freelancer';
+$route['browse-freelancer/(:num)'] = 'Task/browse_freelancer/$1';
 $route['linkedinlogin'] = 'Linkedin_login/linkedinlogin';
 /******************18-10-2020*****************************************/
 $route['view-microkey-task/(:any)'] = 'Tasklist/view_microkey_task/$1';//Non LOggedin View of Micro Project

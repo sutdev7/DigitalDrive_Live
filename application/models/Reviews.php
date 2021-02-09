@@ -68,6 +68,48 @@ class Reviews extends CI_Model {
    /*
      * 
      */
+    /*
+     * Project Count
+     */
+    public function reviewsCountTask($id){
+        $this->db->select('count(task_hired.task_id) as total_task');
+        $this->db->from('task_hired');
+        $this->db->join('task','task.task_id=task_hired.task_id');
+        $this->db->where('task_hired.freelancer_id',$id); 
+        $this->db->where('task.task_status',1); 
+      
+        $query = $this->db->get()->result();
+        
+        foreach ($query as $key => $value) {
+           return $value->total_task;
+        }
+     
+    }
+
+    /*
+     * 
+     */
+
+
+     /*
+     * user Count
+     */
+    public function userCount(){
+        
+        $this->db->from('user_login');
+     
+        $this->db->where('user_type',4); 
+      
+        $query = $this->db->get();
+        $rowcount = $query->num_rows();
+        return $rowcount;
+        
+     
+    }
+
+    /*
+     * 
+     */
     
     public function insert_review($data){
       

@@ -590,7 +590,25 @@ class Users extends CI_Model
         );
     }
     
-    
+    #Abhishek 
+    public function get_user_profile_info($limit, $start)
+    {
+        $user_data = $user_languages = $user_skills = array();
+        
+       
+        
+        $this->db->select('users.*,user_login.*,country.name as cname');
+        $this->db->from('users');
+        $this->db->join('user_login', 'user_login.user_id = users.user_id');
+        $this->db->join('country', 'country.country_id = users.country');
+        $this->db->where('user_login.user_type', '4');
+        $this->db->order_by('user_login.total_positive_coins','DESC');
+        $this->db->limit($limit, $start);
+        $query  = $this->db->get();
+        $user_data = $query->result();
+        return $user_data;
+    }
+    #Abhishek
     /*
      * User login information By ID
      */

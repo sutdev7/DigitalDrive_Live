@@ -13,300 +13,86 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                
                     
                     <div class="row" >
+                        <?php 
+                        foreach ($userData as $key => $value) {
+                            # code...
+                        
+                        ?>
+                      
                         <div class="col-sm-4">
                             <div class="mt-5">
                                 <div class="card gigs">
-                                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/img/gig.png" />
+                                    <img class="card-img-top img-circle" src="<?=base_url('uploads/user/profile_image/'.$value->profile_image);?>"  style="width:100px;height:100px;border-radius: 73px;margin: 7px 0px 0px 108px;
+" />
 
                                     <div class="card-body position-relative">
 
                                         <div class="gig-prof">
-                                            <img src="<?php echo base_url(); ?>assets/img/img-profile.jpg" class="user-img" />
-
-                                            <p class="my-2">Don Bros <span class="d-block small"><i
+                                           <!--  <img src="<?php echo base_url(); ?>assets/img/img-profile.jpg" class="user-img" /> -->
+                                            <p class="text-center" style="font-size: 19px;color:black;"><b><?=$value->name?></b> </p>
+                                           <!--  <p class="my-2">Don Bros <span class="d-block small"><i
                                                         class="fa fa-map-marker"></i> Sydney, NSW, Australia</span>
+                                            </p> -->
+                                             <p class="my-2 text-center"><i
+                                                        class="fa fa-map-marker"></i><?=$value->cname?></span></p>
+                                            <p class="my-2 text-center" style="height: 66px"><?= substr($value->bio, 0, 100); ?>
                                             </p>
-                                            <p class="my-2 small"><span class="text-primary"><b>50</b></span>
+                                            <!-- <p class="my-2 small"><span class="text-primary"><b>50</b></span>
                                                 Projects
-                                                Done</p>
+                                                Done</p> -->
+                                             <div style="display: inline-flex;">
+                                                   <div class="text-center" style="background: #0080008f;flex: 1;width: 81px;border-radius: 5px;"><a href="<?=base_url()?>reviews" title="" class="follow"  style="color: white;">
+                                                        <?php 
+                                                        $revie_count = $this->Reviews->reviewsCount($value->user_id);
+                                                        echo $revie_count;
+                                                        ?>
+                                                   Review</a></div>
+                                                    <div class="text-center" style="background: red;width: 81px; margin-left: 33px;border-radius: 5px;"><a href="<?=base_url()?>messages/N4IND81M4L" title="" class="message-us"style="color: white;"><i class="fa fa-envelope"></i></a></div>
+                                                   <div class="text-center" style="background: skyblue;width: 81px; margin-left: 30px;border-radius: 5px;"> <a href="<?=base_url()?>hired" title="" class="hire-us" style="color: white;">Hire</a></div>
+                                              </div>
 
                                         </div>
-                                        <h5 class="card-title text-center"><a href="micro-key-details.html">I need a
-                                                UI
-                                                designer for my Mobile app</a></h5>
-                                                <!-- <h6 class="card-key text-center text-primary font-weight-bold">Micro Key</h6> -->
-
-                                                <div>
+                                        <h5 class="card-title text-center"><a href="micro-key-details.html"></a></h5>
+                                                <!-- <div>
 
                                                     <span class="micro-key">Micro-key</span>
-                                                </div>
+                                                </div> -->
   
+
                                     </div>
                                     <div class="card-footer text-muted d-flex justify-content-between flex-wrap">
                                         <div>
 
-                                            <span class="coin-tag">5 Coins</span>
+                                            <span class="coin-tag"><?=$value->total_positive_coins?> Coins</span>
                                         </div>
-                                        <div class="pull-right" style="margin-top: 6px;">
-                                            <span class="text-primary">$ 430</span>
-                                        </div>
-                                        <div class="w-100 border-top mt-3">
-                                            <p class="text-center text-muted small mt-2 mb-0"
-                                                style="font-size: 12px">
-                                                Last Login 9.08.20, 10.30 P.M</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="mt-5">
-                                <div class="card gigs">
-                                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/img/gig.png" />
-
-                                    <div class="card-body position-relative">
-
-                                        <div class="gig-prof">
-                                            <img src="<?php echo base_url(); ?>assets/img/img-profile.jpg" class="user-img" />
-
-                                            <p class="my-2">Don Bros <span class="d-block small"><i
-                                                        class="fa fa-map-marker"></i> Sydney, NSW, Australia</span>
-                                            </p>
-                                            <p class="my-2 small"><span class="text-primary"><b>50</b></span>
+                                        <p class="my-2 small"><span class="text-primary"><b>
+                                            <?php $task_com=$this->Reviews->reviewsCountTask($value->user_id);
+                                            echo $task_com;
+                                            ?>
+                                       </b></span>
                                                 Projects
                                                 Done</p>
-
-                                        </div>
-                                        <h5 class="card-title text-center"><a href="micro-key-details.html">I need a
-                                                UI
-                                                designer for my Mobile app</a></h5>
-
-                                                <div>
-
-                                                    <span class="micro-key">Micro-key</span>
-                                                </div>
-  
-
-                                    </div>
-                                    <div class="card-footer text-muted d-flex justify-content-between flex-wrap">
-                                        <div>
-
-                                            <span class="coin-tag">5 Coins</span>
-                                        </div>
-                                        <div class="pull-right" style="margin-top: 6px;">
-                                            <span class="text-primary">$ 430</span>
-                                        </div>
-                                        <div class="w-100 border-top mt-3">
+                                                <p class="text-center text-muted small mt-2 mb-0"
+                                                style="font-size: 12px">
+                                                Last Login: <?=$value->last_login?></p>
+                                        
+                                        <div class="w-100 text-center mt-3"><a href="<?=base_url()?>freelancer/details_project/<?=$value->user_id?>" title="" class="view-more-pro"><b>View Profile </b></a></div>
+                                        <!-- <div class="w-100 border-top mt-3">
                                             <p class="text-center text-muted small mt-2 mb-0"
                                                 style="font-size: 12px">
                                                 Last Login 9.08.20, 10.30 P.M</p>
-                                        </div>
+                                        </div> -->
 
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
-
-                        <div class="col-sm-4">
-                            <div class="mt-5">
-                                <div class="card gigs">
-                                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/img/gig.png" />
-
-                                    <div class="card-body position-relative">
-
-                                        <div class="gig-prof">
-                                            <img src="<?php echo base_url(); ?>assets/img/img-profile.jpg" class="user-img" />
-
-                                            <p class="my-2">Don Bros <span class="d-block small"><i
-                                                        class="fa fa-map-marker"></i> Sydney, NSW, Australia</span>
-                                            </p>
-                                            <p class="my-2 small"><span class="text-primary"><b>50</b></span>
-                                                Projects
-                                                Done</p>
-
-                                        </div>
-                                        <h5 class="card-title text-center"><a href="micro-key-details.html">I need a
-                                                UI
-                                                designer for my Mobile app</a></h5>
-                                                <div>
-
-                                                    <span class="key"></span>
-                                                </div>
-  
-
-                                    </div>
-                                    <div class="card-footer text-muted d-flex justify-content-between flex-wrap">
-                                        <div>
-
-                                            <span class="coin-tag">5 Coins</span>
-                                        </div>
-                                        <div class="pull-right" style="margin-top: 6px;">
-                                            <span class="text-primary">$ 430</span>
-                                        </div>
-                                        <div class="w-100 border-top mt-3">
-                                            <p class="text-center text-muted small mt-2 mb-0"
-                                                style="font-size: 12px">
-                                                Last Login 9.08.20, 10.30 P.M</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="mt-5">
-                                <div class="card gigs">
-                                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/img/gig.png" />
-
-                                    <div class="card-body position-relative">
-
-                                        <div class="gig-prof">
-                                            <img src="<?php echo base_url(); ?>assets/img/img-profile.jpg" class="user-img" />
-
-                                            <p class="my-2">Don Bros <span class="d-block small"><i
-                                                        class="fa fa-map-marker"></i> Sydney, NSW, Australia</span>
-                                            </p>
-                                            <p class="my-2 small"><span class="text-primary"><b>50</b></span>
-                                                Projects
-                                                Done</p>
-
-                                        </div>
-                                        <h5 class="card-title text-center"><a href="micro-key-details.html">I need a
-                                                UI
-                                                designer for my Mobile app</a></h5>
-                                                <div>
-
-                                                    <span class="key"></span>
-                                                </div>
-  
-
-                                    </div>
-                                    <div class="card-footer text-muted d-flex justify-content-between flex-wrap">
-                                        <div>
-
-                                            <span class="coin-tag">5 Coins</span>
-                                        </div>
-                                        <div class="pull-right" style="margin-top: 6px;">
-                                            <span class="text-primary">$ 430</span>
-                                        </div>
-                                        <div class="w-100 border-top mt-3">
-                                            <p class="text-center text-muted small mt-2 mb-0"
-                                                style="font-size: 12px">
-                                                Last Login 9.08.20, 10.30 P.M</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="mt-5">
-                                <div class="card gigs">
-                                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/img/gig.png" />
-
-                                    <div class="card-body position-relative">
-
-                                        <div class="gig-prof">
-                                            <img src="<?php echo base_url(); ?>assets/img/img-profile.jpg" class="user-img" />
-
-                                            <p class="my-2">Don Bros <span class="d-block small"><i
-                                                        class="fa fa-map-marker"></i> Sydney, NSW, Australia</span>
-                                            </p>
-                                            <p class="my-2 small"><span class="text-primary"><b>50</b></span>
-                                                Projects
-                                                Done</p>
-
-                                        </div>
-                                        <h5 class="card-title text-center"><a href="micro-key-details.html">I need a
-                                                UI
-                                                designer for my Mobile app</a></h5>
-                                                <div>
-
-                                                    <span class="micro-key">Micro-key</span>
-                                                </div>
-  
-
-                                    </div>
-                                    <div class="card-footer text-muted d-flex justify-content-between flex-wrap">
-                                        <div>
-
-                                            <span class="coin-tag">5 Coins</span>
-                                        </div>
-                                        <div class="pull-right" style="margin-top: 6px;">
-                                            <span class="text-primary">$ 430</span>
-                                        </div>
-                                        <div class="w-100 border-top mt-3">
-                                            <p class="text-center text-muted small mt-2 mb-0"
-                                                style="font-size: 12px">
-                                                Last Login 9.08.20, 10.30 P.M</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="mt-5">
-                                <div class="card gigs">
-                                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/img/gig.png" />
-
-                                    <div class="card-body position-relative">
-
-                                        <div class="gig-prof">
-                                            <img src="<?php echo base_url(); ?>assets/img/img-profile.jpg" class="user-img" />
-
-                                            <p class="my-2">Don Bros <span class="d-block small"><i
-                                                        class="fa fa-map-marker"></i> Sydney, NSW, Australia</span>
-                                            </p>
-                                            <p class="my-2 small"><span class="text-primary"><b>50</b></span>
-                                                Projects
-                                                Done</p>
-
-                                        </div>
-                                        <h5 class="card-title text-center"><a href="micro-key-details.html">I need a
-                                                UI
-                                                designer for my Mobile app</a></h5>
-                                                <div>
-
-                                                    <span class="key"></span>
-                                                </div>
-  
-
-                                    </div>
-                                    <div class="card-footer text-muted d-flex justify-content-between flex-wrap">
-                                        <div>
-
-                                            <span class="coin-tag">5 Coins</span>
-                                        </div>
-                                        <div class="pull-right" style="margin-top: 6px;">
-                                            <span class="text-primary">$ 430</span>
-                                        </div>
-                                        <div class="w-100 border-top mt-3">
-                                            <p class="text-center text-muted small mt-2 mb-0"
-                                                style="font-size: 12px">
-                                                Last Login 9.08.20, 10.30 P.M</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php }?>
 
                         <div class="pag">
-                            <ul class="pagination" style="margin-top:20px;">
-                              <li class="previous"><a href="#">Previous</a></li>
-                              <li class="active"><a href="#">1</a></li>
-                              <li><a href="#">2</a></li>
-                              <li><a href="#">3</a></li>
-                              <li><a href="#">4</a></li>
-                              <li><a href="#">5</a></li>
-                              <li><a href="#">6</a></li>
-                              <li class="next"><a href="#">Next</a></li>
-                            </ul>
+                            <?=$links?>
                           </div>
                         
 
