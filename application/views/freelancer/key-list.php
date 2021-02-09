@@ -62,7 +62,12 @@ if(!empty($frmValidationMsg)) {
                         </div>
                         <div class="key-l-right">
                             <div class="view-box-two-box-rht">
-                                <a href="<?= base_url().'job-details/{user_task_id}' ?>" class="view-btn">Send Proposal</a>
+                            {send_sent_proposal_link}
+                               <?php// if(trim($proposal_info_is_already) == "yes" ){ ?>
+                                    <!-- <a href="javascript:void(0);" >Sent PROPOSAL</a> -->
+                                <?php// }else{ ?> 
+                                    <!-- <a href="<?= base_url().'job-details/{user_task_id}' ?>" class="view-btn">Send Proposal</a> -->
+                                <?php // } ?>
                             </div>
                         </div>
                     </div>
