@@ -2640,8 +2640,6 @@ class Ltask {
         
           $data['hire_list_old'] = $CI->Hires->get_old_hire_list_byskills($main_val,$CI->session->userdata('user_id'),$user_task_id,$tFilter);
        }
-       $data['proposal_info'] = $CI->Tasks->get_proposal_info($taskID); // by amar
-
           #Abhishek Jha 
         $data['task_info'] = $arrTask;
         // echo '<pre>'; print_r($data['proposal_info']); exit;
@@ -3851,15 +3849,17 @@ public function sent_offer_page_new($userInfo = null, $type) {
                 'posting_date' => $posting_date,
                 'p_attachments' => $job->proposal_id,
                 'attachments' => $task_attachments,
-                'job_doc' => isset($job->doc) ?  get_time_ago($job->doc) : ''
+                'job_doc' => isset($job->doc) ?  get_time_ago($job->doc) : '',
+               'proposal_info' => $CI->Tasks->get_proposal_info($user_task_id), // by amar
+
             );
 
             //$arrJobs[] = array('task_id' => $job['basic_info']['task_doc'], 'user_task_id' => $job['basic_info']['user_task_id'], 'task_name' => $job['basic_info']['task_name'], 'task_details' => $job['basic_info']['task_details'], 'task_due_date' => $job['basic_info']['task_due_date'], 'task_origin_location' => $job['basic_info']['task_origin_location'], 'task_origin_country' => $job['basic_info']['task_origin_country'], 'task_total_budget' => $job['basic_info']['task_total_budget'], 'task_history' =>$job['basic_info']['task_history'], 'task_created_by' => $job['basic_info']['task_created_by'], 'task_doc' => $job['basic_info']['task_doc'], 'task_post_duration' => $minutes, 'freelancer_offer' => $arrUserDetailList, 'waiting_for_response' => $job['offer_send_wait_count'], 'refused' => $job['offer_send_refuse_count'], 'responded' => $job['offer_send_response_count']);
 
         }
 
-        //pre($a_attachments);die;
         $data["jobs"] = $arrJobs;
+        // echo"<pre>";print_r($data["jobs"]);die;
         $AccountForm = $CI->parser->parse('task/received-offers',$data,true);
         return $AccountForm;
 
