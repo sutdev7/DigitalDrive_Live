@@ -171,12 +171,18 @@
           
                     ?>
                                  <div class="chat_msg incoming_msg" rel="<?php echo $row->id; ?>">
+                                  
                                     <div class="Profile-pic"> 
                                        <a href="<?php echo base_url()."/public-profile/".$row->profile_id ?>"><img src="<?php echo $user_profile_image; ?>" alt="<?= $row->name ?>"></a>
                                     </div>
                                     <span class="custom-tooltip">View profile Details</span>
                            <p class='single_name'><?= $row->name ?></p>                                    
                                     <div class="message-wrap received_msg deleted_message<?php echo $row->deleted ?>" rel="message-<?php echo $row->id; ?>">
+                                      <div class="action-option">
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                      </div>
                            <!-- <p class='single_name'><?= $row->name ?></p> -->                           
                                        <div class="received_withd_msg">
                                           <p class="Message-Deleted"><?= trim(($row->deleted == 1) ? "Message Deleted" : $row->message_content); ?>
@@ -193,7 +199,7 @@
 
                     <?php }else{ $current_user_name = $row->name; ?>
 
-                        <div class="chat_msg outgoing_msg chat_message_<?= $row->id ?>" rel="<?php echo $row->id; ?>">
+                        <div class="chat_msg outgoing_msg chat_message_<?= $row->id ?> removedv_message<?php echo $row->deleted ?>" rel="<?php echo $row->id; ?> ">
 						<div class="action-option">
                             <i></i>
                             <i></i>
@@ -615,7 +621,7 @@ $user_msg_html = "<div class='outgoing_msg'><div class='action-option'><i></i><i
     align-content: space-between;
 }
 .messaging .inbox_msg .mesgs .msg_history {
-    height: 100%;
+    height: 100vh;
     max-height: 550px;
     overflow: auto;
     padding-right: 25px;
@@ -688,7 +694,7 @@ $user_msg_html = "<div class='outgoing_msg'><div class='action-option'><i></i><i
     background: #46b4e7;
     padding: 15px;
     text-align: left;
-    border-radius: 20px 20px 0px 20px;
+    border-radius: 10px 10px 0px 10px;
     max-width: 400px;
     width: auto;
 }
@@ -764,7 +770,8 @@ $user_msg_html = "<div class='outgoing_msg'><div class='action-option'><i></i><i
 }
 .messaging .inbox_msg .mesgs .msg_history .chat_msg.incoming_msg .message-wrap.received_msg {
     background: #f0f1f6;
-    border-radius: 20px 20px 20px 0px;
+    border-radius: 10px ​10px 10px 0px;
+    position: relative;
 }
 .messaging .inbox_msg .mesgs .msg_history .chat_msg.incoming_msg {
     padding-left: 55px;
@@ -911,6 +918,35 @@ span.custom-tooltip:before {
     border-radius: 5px;
 }
 
+.messaging .inbox_msg .mesgs .msg_history .chat_msg.incoming_msg .action-option {
+    position: absolute;
+    top: 0px;
+    width: 10px;
+    height: 20px;
+    cursor: pointer;
+    right: -12px;
+    transition: all .1s;
+    opacity: 0;
+}
+.messaging .inbox_msg .mesgs .msg_history .chat_msg.incoming_msg:hover .action-option{
+  opacity: 1;
+}
+.messaging .inbox_msg .mesgs .msg_history .chat_msg.incoming_msg .action-option i {
+    width: 3px;
+    height: 3px;
+    display: block;
+    background: #999;
+    margin: 3px 0px 0 4px;
+    border-radius: 5px;
+}
+
+.sent_msg div[contenteditable="false"]
+{
+    color: #fff;
+}
+
+.removedv_message1 .action-option,.deleted_message1 .action-option{display:none;}
+
 
 </style>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.visible.min.js"></script>
@@ -995,7 +1031,7 @@ $(".msg_history").mCustomScrollbar({
 });
 
 
-$('.msg_history').on('click','.action-option',function(){ 
+$('.msg_history').on('click','.outgoing_msg .action-option',function(){ 
   // Avoid the real one
     if(!$(this).closest('.chat_msg').find('.sent_msg').hasClass('deleted_message1'))
   { 
@@ -1031,6 +1067,26 @@ $('.msg_history').on('click','.action-option',function(){
         left: event.pageX + "px"
     });
 	}
+});
+
+
+$('.msg_history').on('click','.incoming_msg .action-option',function(){ 
+  // Avoid the real one
+    if(!$(this).closest('.chat_msg').find('.received_msg').hasClass('deleted_message1'))
+  { 
+  event.preventDefault();
+	$('.custom-left-menu').attr('rel',$(this).closest('.chat_msg').find('.received_msg').attr('rel'));
+	//alert($(".custom-right-menu").attr('data-attr'));
+    // Show contextmenu
+    $(".custom-left-menu").finish().toggle(100).
+    
+    // In the right position (the mouse)
+    css({
+        top: event.pageY + "px",
+        left: event.pageX + "px"
+    });
+  }
+
 });
 
 // If the document is clicked somewhere
@@ -1397,6 +1453,7 @@ $(".custom-right-menu li").click(function(){
 			 $("#mCSB_1_container").html(html_msg);  
 			  $("#currently_typing").attr('rel',0);
 			 }
+			 
 		    for(var i=0;i<d.status.length;i++)
 			{
 			  var cls = d.status[i];

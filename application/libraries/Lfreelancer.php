@@ -145,6 +145,8 @@ class Lfreelancer {
 		
 		if(!empty($taskList)){
 			foreach($taskList as $row){ 
+				// proposal send or not // by ak
+				$send_sent_proposal_link = ( $CI->Freelancers->get_proposal_info($postVal = array('task_id' => $row['basic_info']['task_id'], 'user_id' => $CI->session->userdata('user_id'))) == "yes") ? '<a href="'.base_url().'job-details/'.$row['basic_info']['user_task_id'].'" class="view-btn">Sent Proposal</a>': '<a href="'.base_url().'job-details/'.$row['basic_info']['user_task_id'].'" class="view-btn">Send Proposal</a>';
 				$skillsArr['skill_name_show'] = array();
 				
 				$jobsData[] = array(
@@ -157,7 +159,9 @@ class Lfreelancer {
 					'task_origin_location' => $row['basic_info']['task_origin_location'],
 					'task_origin_country' => $row['basic_info']['task_origin_country'],
 					'task_doc' => date('d M Y',strtotime($row['basic_info']['task_doc'])),
-					'offer_count' => $row['basic_info']['offer_count']
+					'offer_count' => $row['basic_info']['offer_count'],
+					'send_sent_proposal_link' => $send_sent_proposal_link,
+		
 				);
 			}
 		}
@@ -196,12 +200,8 @@ class Lfreelancer {
 		$data["jobs"] = $jobsData;
 		$data['row'] = $rowno;
 		$data['search'] = $searchValue;
-
-
-
-
-
-		// echo '<pre>'; print_r($data["jobs"]);die;
+			
+		//  echo '<pre>'; print_r($data["jobs"]);die;
 		
 		$AccountForm = $CI->parser->parse('freelancer/key-list',$data,true);
 		return $AccountForm;

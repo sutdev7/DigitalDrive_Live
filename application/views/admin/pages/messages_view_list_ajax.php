@@ -77,6 +77,11 @@
 	                                    <span class="custom-tooltip">View profile Details</span>
 										<p class='single_name'><?= $row->name ?></p>
 	                                    <div class="message-wrap received_msg deleted_message<?php echo $row->deleted ?>" rel="message-<?php echo $row->id; ?>">
+	                                    	<div class="action-option">
+		                                        <i></i>
+		                                        <i></i>
+		                                        <i></i>
+		                                      </div>
 	                                       <div class="received_withd_msg">
 	                                          <p class="Message-Deleted"><?= trim(($row->deleted == 1) ? "Message Deleted" : $row->message_content); ?>
 	                                          </p>
@@ -85,8 +90,7 @@
 										     <i class="fas fa-check"></i>
 										   <?php endif; **/?></div></a>
 											  <?php endif; ?>
-	                                          <p class='single_date' style="display:none"><?php echo date("F j, Y", strtotime($row->date_time)) ;?></p>
-	                                          <span class="time_date"> <?php echo date("h:i a", strtotime($row->date_time)) ;?> |  <?php echo date("F j, Y", strtotime($row->date_time)) ;?> </span>
+	                                          
 	                                       </div>
 	                                    </div>
 	                                    <p class='single_date' style="display:none"><?php echo date("F j, Y", strtotime($row->date_time)) ;?></p>
@@ -95,7 +99,7 @@
 
 									<?php }else{ ?>
 
-									<div class="chat_msg outgoing_msg chat_message_<?= $row->id ?>" rel="<?= $row->id ?>">
+									<div class="chat_msg outgoing_msg chat_message_<?= $row->id ?>" rel="<?= $row->id ?> removedv_message<?php echo $row->deleted ?>">
 										<div class='action-option'><i></i><i></i><i></i></div>
 										<div class="Profile-pic">
 	                                    	<a href="<?php echo base_url()."/public-profile/".$row->profile_id ?>"><img src="<?php echo $user_profile_image; ?>" alt="<?= $row->name ?>"> </a>
