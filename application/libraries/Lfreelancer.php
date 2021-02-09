@@ -230,10 +230,10 @@ class Lfreelancer {
 		
 		$savedcheck = $CI->Freelancers->check_saved_task($task_id, $CI->session->userdata('user_id'));
 		if($savedcheck){
-			$data['savetext'] = '<span id="">Already Saved</span>';
+			$data['savetext'] = '<a href="javascript:void(0)"><span>Already Saved</span></a><br/> <span id="savedJob"> View Wishlist</span>';
 			$data['savetextclass'] = 'HireBtn';
 		}else{
-			$data['savetext'] = '<span id="txtShow">Save This Job</span>';
+			$data['savetext'] = ' <a href="javascript:void(0)"><span id="savejob">Save This Job</span></a>';
 			$data['savetextclass'] = 'HireBtn saveBtn';
 		}
 		
@@ -427,7 +427,8 @@ class Lfreelancer {
 	function ajax_save_job($task_user_id = ''){ 
 		$CI =& get_instance();
 		$CI->load->model("Freelancers"); 
-		$CI->Freelancers->save_user_jobs($task_user_id);
+		$sts = $CI->Freelancers->save_user_jobs($task_user_id);
+		return $sts;
 	}
 	
 	public function freelancer_proposal(){

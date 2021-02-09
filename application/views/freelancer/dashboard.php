@@ -59,6 +59,7 @@ if(!empty($msg)) {
 		  
 		  -->
 		  
+		  
         </div>
         
        <?php $this->load->view('freelancer/freelancer-molivi-section.php') ?>

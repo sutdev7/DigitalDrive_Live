@@ -751,6 +751,7 @@ class Freelancers extends CI_Model {
 			return false;
 		}
 	}
+
 	public function save_user_jobs($task_user_id){
 		$task_id = $this->db->select('task_id')->from('task')->where('user_task_id',$task_user_id)->get()->row()->task_id;
 		$user_id = $this->session->userdata('user_id');		
@@ -763,6 +764,7 @@ class Freelancers extends CI_Model {
 			'dom' => date('Y-m-d H:i:s'),
 			'status' => 1
 		);
+		//print_r($inarr); exit();
 		// check already exist or not
 		$this->db->select('id')->from('task_saved')->where('task_id',$task_id)->where('user_id',$user_id);
 		$check = $this->db->get();

@@ -216,7 +216,7 @@
                         <a href="<?= base_url() . 'problem-ticket' ?>">CANCEL</a>
                         <?php
                     } else {?>
-                        <a href="javascript:void(0)" id="txtShow" >{savetext}</a>
+                       {savetext}
                     <?php }?>
             </div>
 
@@ -509,8 +509,8 @@
 
             <!-- Modal content-->
             <form action="<?= base_url().'freelancer/submit_proposal' ?>" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="task_id" value="<?= $task_id ?>">
-            <input type="hidden" name="user_task_id" value="<?= $user_task_id ?>">
+            <input type="hidden" name="task_id" value="<?= $task_id ?>" id="task_id">
+            <input type="hidden" name="user_task_id" value="<?= $user_task_id ?>" id="user_task_id">
             <div class="modal-content">
                 <div class="header">
                     <h2>View Proposal</h2>
@@ -635,7 +635,7 @@
         $('.dropify').dropify();
 
         $("#terms_amount_max").on('input', function(e) {
-            console.log("In");
+            //console.log("In");
           var gross_total = $(this).val();
           if(isNaN(gross_total) || gross_total < 0) {
             $("#portal_charges").val(0);
@@ -698,6 +698,30 @@
         // }
             
         // });
+
+        $("#savejob").click(function(){
+          $userTaskId = $("#user_task_id").val();
+            //console.log($taskid);
+            if($userTaskId !=""){
+              $.ajax({
+                url: '<?php echo base_url();?>save-job',
+                method:'post',
+                data:{"userTaskId":$userTaskId},
+                dataType: 'json',
+                success: function (res) {
+                  if(res['status']=='200'){
+                    location.reload();  
+                  }
+                  
+                }
+              });
+            }
+        });
+
+        $("#savedJob").click(function(){
+          
+          window.open('<?php echo base_url();?>my-jobs', '_blank');
+        })
     });
 	
     function copyToClipboard(element) {

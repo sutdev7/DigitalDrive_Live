@@ -21,8 +21,7 @@ class Client extends CI_Controller {
 
     
 
-	public function index(){
-		
+	public function index(){		
 		$content = $this->luser->dashboard_page();
 		$data = array(
 		'content' => $content,

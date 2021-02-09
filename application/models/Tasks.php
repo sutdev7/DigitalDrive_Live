@@ -536,10 +536,7 @@ class Tasks extends CI_Model {
     public function get_task_info_by_user_task_id($user_task_id = null){
 
         if(empty($user_task_id))
-
             return FALSE;
-
-
 
         $this->db->select('*');
 

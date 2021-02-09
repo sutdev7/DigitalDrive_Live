@@ -70,7 +70,6 @@ $route['forgot-password'] = 'Account/forgot_password';
 $route['logout'] = 'Account/logout';
 $route['login'] = 'Linkedin_login/login';
 
-
 $route['dashboard'] = 'user';
 $route['dashboard/(:any)'] = 'user/index/$1';
 $route['client-dashboard'] = 'Client';

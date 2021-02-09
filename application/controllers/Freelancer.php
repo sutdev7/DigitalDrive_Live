@@ -367,9 +367,15 @@ class Freelancer extends CI_Controller {
 	}
 	
 	public function save_job(){
-		$task_user_id = $_POST['taskId']; 
-		$this->lfreelancer->ajax_save_job($task_user_id);
+		$task_user_id = $_POST['userTaskId']; 
+		$sts = $this->lfreelancer->ajax_save_job($task_user_id);
+		if($sts){
+			echo json_encode(['status'=>'200', 'msg'=>'Job Saved Sucessfully']);
+		} else{
+			echo json_encode(['status'=>'203', 'msg'=>'Job not Saved Sucessfully']);
+		}
 	}
+
 	public function save_inappropriate(){
 		$this->load->model("Freelancers"); 
 		$task_user_id = $_POST['taskId']; 
