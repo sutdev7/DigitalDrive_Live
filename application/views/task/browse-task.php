@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <main id="main">
 
-    <?php 
+   <!--  <?php 
   $msg = $this->session->flashdata('msg'); 
   if(!empty($msg)) {
   ?>
@@ -15,7 +15,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php
   }
   ?>
+ -->
+ <style type="text/css">
 
+  .ongoing-task .table thead th{
+
+    color: #808d92 !important;
+
+  }
+  p{
+  	color: #808d92 !important;	
+  }
+  .task_name {
+  	color: #808d92 !important;	
+  	font-size: 14px;
+  }
+  a{color:white;}
+
+</style>
     <!--==========================
       ConterDiv Section
     ============================-->
@@ -102,17 +119,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-lg-12">
                 <div id="searchResult">
                     <div class="row">
-                        {jobs}
-							<div class="col-xl-4">
+                        
+							<!-- <div class="col-xl-4">
 							  <div class="mt-5">
-								<div class="card gigs-task"> 
+								<div class="card gigs-task">  -->
 								  <!-- <img class="card-img-top" src="img/gig.png" /> -->
-								  <div class="card-body position-relative">
-									<div class="gig-task-prof"> 
-                                    <!-- <img src="{user_image}" class="user-img"> -->
-                                    <img class="card-img-top img-circle" src="{user_image}"  style="width:100px;height:100px;border-radius: 73px;margin: 7px 0px 0px 108px;
-" />																						   
-									  <p class="my-2 ">{task_created_by} <span class="d-block small"><i class="fa fa-map-marker"></i> {user_city}, {user_state}, {user_country}</span> </p>
+								 <!--  <div class="card-body position-relative">
+									<div class="gig-task-prof"> <!-- <img src="{user_image}" class="user-img"> -->
+										 <!--<img class="card-img-top img-circle" src="{user_image}"  style="width:100px;height:100px;border-radius: 73px;margin: 5px 129px 15px 92px;
+" />
+
+																																			   
+									  <p class="my-2 ">{task_created_by} <span class="d-block small"><i class="fa fa-map-marker"></i> &nbsp;{user_country}</span> </p>
 												
 																												  
 											  
@@ -123,27 +141,85 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										<div class=" col my-2 small "><span class="text-primary"><b>{total_hired_freelancer}</b></span> Freelancer</div>
 									  </div>
 									</div>
-									<h5 class="card-title text-center"><a href="<?php echo base_url(); ?>view-task-details/{user_task_id}">{task_name}</a></h5>
+									<h5 class="card-title text-center"><a href="<?=base_url()?>User/profile_vistorAll/<?=$value->user_id?>">{task_name}</a></h5>
 											 
-								  </div>
+								  </div> -->
 											  
 										  
-								  <div class="card-footer text-muted d-flex justify-content-between flex-wrap">
+								<!--   <div class="card-footer text-muted d-flex justify-content-between flex-wrap">
 											 
 									<div> <span class="coin-tag">{total_coins}</span> </div>
 											  
 																						 
-									<!-- <div class="pull-right" style="margin-top: 6px;"> <span class="text-gray mr-2 font-weight-bold">Spent</span> <span class="text-primary">$ {total_money_spent}</span> </div>
-																				    -->
+									<div class="pull-right" style="margin-top: 6px;"> <span class="text-gray mr-2 font-weight-bold">Spent</span> <span class="text-primary">$ {total_money_spent}</span> </div>
+																				   
 											  
 									<div class="w-100 border-top mt-3">
-									  <p class="text-center text-muted small mt-2 mb-0" style="font-size: 12px">Last Login:{last_login}</p>
+									  <p class="text-center text-muted small mt-3 mb-0" style="font-size: 12px">Last Login:  {last_login}</p>
 									</div>
-								  </div>
-								</div>
+								  </div> -->
+
+
+								  	<div class="ongoing-task">
+							          <table class="table">
+
+							            <thead>
+
+							              <tr>
+
+							                <th>Project Title</th>
+
+							                <th>By</th>
+
+							                <th>Posted Date</th>
+							                <th>Budget</th>
+
+							                <th></th>
+
+							              </tr>
+
+							            </thead>
+
+							            <tbody>
+
+							              {jobs}
+
+							              <tr>
+							                <td style="padding-left: 0px">
+							                  <img class="card-img-top img-circle" src="{user_image}"  style="width:50px;height:50px;border-radius: 73px;margin: 5px 45px 0px 12px;" /><span class="task_name">{task_name}</span>
+							                </td>
+							               <!--  <td >
+
+							                  
+
+							                </td> -->
+
+							                <td><p> {task_created_by} </p></td>
+
+							                <td><p> {doc}</p></td>
+
+							                <td>{task_total_budget}</td>
+
+							                <td><small class="btn btn-danger"> 
+
+							                  
+							                  <a href="<?=base_url()?>sign-in"> Apply </a>
+
+
+							                  </small></td>
+
+							              </tr>
+							              {/jobs}
+							            </tbody>
+
+							          </table>
+
+							         </div>
+
+								<!-- </div>
 							  </div>
-							</div>
-                        {/jobs}
+							</div> -->
+                        
                         
                         <!--</div>
                         <div class="pag">
@@ -154,48 +230,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <div class="col-lg-12">
                     <div class="row">-->
-					{MicroClientJobs}
-                        <div class="col-xl-4">
-                            <div class="mt-5">
-                                <div class="card gigs-task">
-                                    <!-- <img class="card-img-top" src="img/gig.png" /> -->
-                                    <div class="card-body position-relative">
-                                        <div class="gig-task-prof">
-                                            <!-- <img src="{profile_image}" class="user-img"> -->
-                                            <img class="card-img-top img-circle" src="{profile_image}"  style="width:100px;height:100px;border-radius: 73px;margin: 7px 0px 0px 108px;
-" />
-                                            <p class="my-2 ">{username} <span class="d-block small"><i class="fa fa-map-marker"></i> {client_address}</span>
-                                            </p>
-                                            <!-- <p class="my-2 small"><span class="text-primary"><b>50</b></span>
-                                      Projects
-                                      Done</p> -->
-                                            <div class="row">
-                                                <div class=" col  my-2 small "><span class="text-primary"><b>{m_total_project_completed}</b></span> Projects Done
-                                                </div>
-                                                <div class=" col my-2 small "><span class="text-primary"><b>{m_total_hired_freelancer}</b></span> Freelancer</div>
-                                            </div>
-                                        </div>
-                                        <h5 class="card-title text-center"><a href="<?php echo base_url(); ?>view-microkey-task/{task_id}">{post_title}</a></h5>
-                                        <!-- <div>
-                                            <div class="micro-key">Micro-task</div>
-                                        </div> -->
-                                    </div>
-                                    <div class="card-footer text-muted d-flex justify-content-between flex-wrap">
-                                        <div>
-                                            <span class="coin-tag">{total_coins}</span>
-                                        </div>
-                                        <!-- <div class="pull-right" style="margin-top: 6px;">
-                                            <span class="text-gray mr-2 font-weight-bold">Spent</span>
-                                            <span class="text-primary">$ {m_total_money_spent}</span>
-                                        </div> -->
-                                        <div class="w-100 border-top mt-3">
-                                            <p class="text-center text-muted small mt-2 mb-0" style="font-size: 12px">Last Login: {last_login}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-						{/MicroClientJobs}
+					
 											  
 															
 																														 

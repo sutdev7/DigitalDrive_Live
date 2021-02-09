@@ -2028,8 +2028,10 @@ class Ltask {
 			if($userData['basic_info']->total_coins==null || $userData['basic_info']->total_coins==""){
 				$userData['basic_info']->total_coins=0;
 			}
-        	$arrJobs[] = array('task_id' => $job->task_id, 'user_task_id' => $job->user_task_id, 'task_name' => $job->task_name, 'task_details' => $job->task_details, 'task_total_budget' => $job->task_total_budget, 'task_created_by' => $userData['basic_info']->name, 'user_country' => $userData['basic_info']->country,'total_coins' => $userData['basic_info']->total_coins, 'user_state' => $userData['basic_info']->state, 'last_login' => $userData['basic_info']->last_login, 'user_city' => $userData['basic_info']->city, 'user_is_online' => $user_is_login, 'task_skill_requirements' => $arrTaskSkills, 'task_post_duration' => $minutes, 'task_offers' => $task_offers_count, 'user_image' => $user_profile_image,'total_project_completed'=>$allanalytics['yearly_projects'],'total_money_spent'=>$allanalytics['yearly_income'],'total_hired_freelancer'=> $hired_freelancer);        	
-
+            $date=date_create($job->task_doc);
+            $created_date = date_format($date,"d M Y ");
+            $task_name = substr($job->task_name, 0, 30).'....';
+        	$arrJobs[] = array('task_id' => $job->task_id, 'user_task_id' => $job->user_task_id,'doc' => $created_date, 'task_name' => $task_name, 'task_details' => $job->task_details, 'task_total_budget' => $job->task_total_budget, 'task_created_by' => $userData['basic_info']->name, 'user_country' => $userData['basic_info']->country,'total_coins' => $userData['basic_info']->total_coins, 'user_state' => $userData['basic_info']->state, 'last_login' => $userData['basic_info']->last_login, 'user_city' => $userData['basic_info']->city, 'user_is_online' => $user_is_login, 'task_skill_requirements' => $arrTaskSkills, 'task_post_duration' => $minutes, 'task_offers' => $task_offers_count, 'user_image' => $user_profile_image,'total_project_completed'=>$allanalytics['yearly_projects'],'total_money_spent'=>$allanalytics['yearly_income'],'total_hired_freelancer'=> $hired_freelancer);  
         }
 		//print_r($arrJobs);
 		// fetch micro client posts
