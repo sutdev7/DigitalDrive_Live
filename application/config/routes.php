@@ -136,9 +136,6 @@ $route['admin/wallet'] = 'earning/coins_wallet'; // by amardeep
 $route['admin/earning'] = 'earning'; // by amardeep
 $route['admin/transaction-list'] = 'admin/transaction_list'; // by amardeep
 
-
-
-
 $route['analytics'] = 'Freelancer/analytics';
 $route['problem-ticket'] = 'Freelancer/problem_ticket';
 $route['problem-ticket'] = 'Freelancer/problem_ticket';
