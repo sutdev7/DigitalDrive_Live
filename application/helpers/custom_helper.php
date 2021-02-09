@@ -92,7 +92,8 @@ if(!function_exists('get_file_ext')){
             $audioImg = 'http://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/audio-x-pn-realaudio-plugin.png';
             $videoImg = 'http://cdn4.iconfinder.com/data/icons/Pretty_office_icon_part_2/128/video-file.png';
             $htmlImg = 'http://cdn1.iconfinder.com/data/icons/nuove/128x128/mimetypes/html.png';
-            $fileImg = 'http://cdn3.iconfinder.com/data/icons/musthave/128/New.png';
+            // $fileImg = 'http://cdn3.iconfinder.com/data/icons/musthave/128/New.png';
+            $fileImg = base_url().'assets/image/File_Image.png';
             switch (get_file_extension($file)) {
                 case 'pdf':
                     $img = $pdfImg;
@@ -144,6 +145,7 @@ if(!function_exists('get_file_ext')){
         return $img;
     }
 }
+
 if(!function_exists('get_file_extension')){
     function get_file_extension($f) {
         $ftype = pathinfo($f);
