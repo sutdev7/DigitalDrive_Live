@@ -108,8 +108,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<div class="card gigs-task"> 
 								  <!-- <img class="card-img-top" src="img/gig.png" /> -->
 								  <div class="card-body position-relative">
-									<div class="gig-task-prof"> <img src="{user_image}" class="user-img">
-																																			   
+									<div class="gig-task-prof"> 
+                                    <!-- <img src="{user_image}" class="user-img"> -->
+                                    <img class="card-img-top img-circle" src="{user_image}"  style="width:100px;height:100px;border-radius: 73px;margin: 7px 0px 0px 108px;
+" />																						   
 									  <p class="my-2 ">{task_created_by} <span class="d-block small"><i class="fa fa-map-marker"></i> {user_city}, {user_state}, {user_country}</span> </p>
 												
 																												  
@@ -131,11 +133,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<div> <span class="coin-tag">{total_coins}</span> </div>
 											  
 																						 
-									<div class="pull-right" style="margin-top: 6px;"> <span class="text-gray mr-2 font-weight-bold">Spent</span> <span class="text-primary">$ {total_money_spent}</span> </div>
-																				   
+									<!-- <div class="pull-right" style="margin-top: 6px;"> <span class="text-gray mr-2 font-weight-bold">Spent</span> <span class="text-primary">$ {total_money_spent}</span> </div>
+																				    -->
 											  
 									<div class="w-100 border-top mt-3">
-									  <p class="text-center text-muted small mt-2 mb-0" style="font-size: 12px">{last_login}</p>
+									  <p class="text-center text-muted small mt-2 mb-0" style="font-size: 12px">Last Login:{last_login}</p>
 									</div>
 								  </div>
 								</div>
@@ -159,7 +161,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <!-- <img class="card-img-top" src="img/gig.png" /> -->
                                     <div class="card-body position-relative">
                                         <div class="gig-task-prof">
-                                            <img src="{profile_image}" class="user-img">
+                                            <!-- <img src="{profile_image}" class="user-img"> -->
+                                            <img class="card-img-top img-circle" src="{profile_image}"  style="width:100px;height:100px;border-radius: 73px;margin: 7px 0px 0px 108px;
+" />
                                             <p class="my-2 ">{username} <span class="d-block small"><i class="fa fa-map-marker"></i> {client_address}</span>
                                             </p>
                                             <!-- <p class="my-2 small"><span class="text-primary"><b>50</b></span>
@@ -180,12 +184,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div>
                                             <span class="coin-tag">{total_coins}</span>
                                         </div>
-                                        <div class="pull-right" style="margin-top: 6px;">
+                                        <!-- <div class="pull-right" style="margin-top: 6px;">
                                             <span class="text-gray mr-2 font-weight-bold">Spent</span>
                                             <span class="text-primary">$ {m_total_money_spent}</span>
-                                        </div>
+                                        </div> -->
                                         <div class="w-100 border-top mt-3">
-                                            <p class="text-center text-muted small mt-2 mb-0" style="font-size: 12px">{last_login}</p>
+                                            <p class="text-center text-muted small mt-2 mb-0" style="font-size: 12px">Last Login: {last_login}</p>
                                         </div>
                                     </div>
                                 </div>
