@@ -95,12 +95,13 @@
                           <div class="chat-back-img"> <!--<span style="background:url({profileImage}) no-repeat center top; background-size:cover;"></span>-->
                           <a href="<?php echo base_url() ?>public-profile/{profile_id}">
                           <img src="{profileImage}" class="profile_image" /></a>
-                          <div class="action-option">
-                            <i></i>
-                            <i></i>
-                            <i></i>
-                          </div>
+                          
                           <div class="chat-back-sec">
+                            <div class="action-option deleted_dots{deleted}">
+                              <i></i>
+                              <i></i>
+                              <i></i>
+                            </div>
                             <p class="single_name">{name}</p>
                             <span class='single_date' style='display:none'>{date_time}</span>
                             <div class="cap deleted_message{deleted}" rel="message-{id}">
@@ -421,7 +422,12 @@ setInterval(frndlist_ajax_call, 8000, '<?php echo $user_id_to;?>');
 			  $('.'+cls).find('.submit_wrap').html(c);
 			}
 			
-			
+			for(var i=0;i<d.deleted.length;i++)
+			{
+			  var cls = d.deleted_class[i];
+			  $('.'+cls).find('.message_content').html('Message Deleted');
+			  $('.'+cls).find('.submit_wrap').remove();
+			}
 			
 		  }			  
 
@@ -458,7 +464,7 @@ setInterval(frndlist_ajax_call, 8000, '<?php echo $user_id_to;?>');
 });
 
 
-$('#msgID').on('click','.action-option',function(){ 
+$('#msgID').on('click','.chat-rht-other .action-option,.chat-rht-other-remove .action-option',function(){ 
   // Avoid the real one
     if(!$(this).closest('.chat-rht-sec').find('.cap').hasClass('deleted_message1'))
   { 
@@ -495,6 +501,25 @@ $('.ChatPanel').on("contextmenu", '.chat-rht-sec:not(.chat-rht-other) .cap',func
         left: event.pageX + "px"
     });
   }
+});
+
+$('#msgID').on('click','.chat-rht-sec:not(.chat-rht-other) .action-option',function(){ 
+  // Avoid the real one
+     if(!$(this).hasClass('deleted_message1') && !$(this).closest('.chat-rht-sec').hasClass('chat-rht-other-remove'))
+  {  
+  event.preventDefault();
+  $('.custom-left-menu').attr('rel',$(this).closest('.chat-rht-sec').find('.cap').attr('rel'));
+  //alert($(".custom-right-menu").attr('data-attr'));
+    // Show contextmenu
+    $(".custom-left-menu").finish().toggle(100).
+    
+    // In the right position (the mouse)
+    css({
+        top: event.pageY + "px",
+        left: event.pageX + "px"
+    });
+  }
+
 });
 
 // If the document is clicked somewhere

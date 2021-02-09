@@ -429,7 +429,7 @@ class Messages extends CI_Model {
 	/** function to check message visibility **/
 	public function check_messages_visibility($user_from_id,$user_to_id)
 	{
-	  $this->db->select('id,is_read,message_content,date_time,user_id_from,user_id_to,attachment_download_status,updated_status');
+	  $this->db->select('id,is_read,message_content,date_time,user_id_from,user_id_to,attachment_download_status,updated_status,deleted');
       $this->db->from('user_messages');
 	  $where = "((user_id_from = '$user_to_id' and user_id_to = '$user_from_id') or (user_id_from = '$user_from_id' and user_id_to = '$user_to_id'))";
       //$this->db->where('user_id_from', $user_to_id);
@@ -445,7 +445,7 @@ class Messages extends CI_Model {
 	  $downloaded = array();
 	  $updated = array();
 	  $updated_class = array();
-	  
+	  $messages = array();
 	  foreach($results as $result)
 	  {
 		 if($result->is_read == "Y" && $result->user_id_from == $user_from_id) {
@@ -462,8 +462,13 @@ class Messages extends CI_Model {
 		 $updated_class[] = 'chat_message_'.$result->id;
 		 }
 		 
+		 if($result->deleted == 1 && $result->user_id_to == $user_from_id) {
+		 $deleted[] = "Message Deleted";
+		 $deleted_class[] = 'chat_message_'.$result->id;
+		 }
+		 
 	  }
-	  $data = json_encode(array('status'=>$messages,'dates'=>$dates,'downloaded'=>$downloaded,'updated'=>$updated,'updated_class'=>$updated_class,'count'=>$query->num_rows()));
+	  $data = json_encode(array('status'=>$messages,'dates'=>$dates,'downloaded'=>$downloaded,'updated'=>$updated,'updated_class'=>$updated_class,'count'=>$query->num_rows(),'deleted'=>$deleted,'deleted_class'=>$deleted_class));
       //echo $this->db->last_query();
           return $data;
 	}
