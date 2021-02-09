@@ -9,7 +9,7 @@
 
 <td><?php echo $row["amount"]; ?></td>
 <td><?php echo $row["payment_status"]; ?></td>
-<td><?php echo $row["withdrawal_status"]; ?></td>
+<td><?php echo isset($row["withdrawal_status"]) ? $row["withdrawal_status"] : ''; ?></td>
 <td>
 <a data-toggle="tooltip" onclick="confirmreq('<?php echo base_url(); ?>razorpay/refund_request/<?php echo $row['id'] ;?>')" data-placement="top" title="request for withdraw" 
 href="javascript:void(0);">
