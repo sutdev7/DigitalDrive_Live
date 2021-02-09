@@ -32,78 +32,78 @@ class Ltask {
     #Abhishek
     public function browse_freelancer_page($pageIndex = null) {
         $CI =& get_instance();
-            $CI->load->model('Microkeys');
-            $CI->load->model('Tasks');
-            $CI->load->model('Reviews');
+              
+              $CI->load->model('Tasks');
+               $CI->load->model('Reviews');
             
-            $CI->load->model('Users');
-            
-            $CI->load->model('Microkeys');
-            $CI->load->library("pagination");
+              $CI->load->model('Users');
+             
+              
+              $CI->load->library("pagination");
+         
+         
+          $searchValue = "";
+           $searchValue = $CI->input->post('search');
         
-        
-        $searchValue = "";
-        $searchValue = $CI->input->post('search');
-        
-        $rowperpage = PER_PAGE;
-        
-        
-        if($CI->uri->segment(2)){
+          $rowperpage = PER_PAGE;
+          
+          
+          if($CI->uri->segment(2)){
             $rowno = ($CI->uri->segment(2));
-        }
-        else{
+          }
+          else{
             $rowno = 1;
-        }
-        
-        if($rowno != 0){
+          }
+          
+          if($rowno != 0){
             $rowno = ($rowno-1) * $rowperpage;
-        }
-        
-        // Pagination Configuration
-        $config['base_url'] = base_url().'browse-freelancer';
-        $config['full_tag_open'] = '<ul class="pagination" style="margin-top:20px;">';
-        $config['full_tag_close'] = '</ul>';
-        $config['first_link'] = true;
-        $config['first_tag_open'] = '<li class="previous">';
-        $config['first_tag_close'] = '</li>';  
-        $config['last_link'] = true;
-        $config['first_tag_open'] = '<li class="next">';
-        $config['first_tag_close'] = '</li>'; 
-        $config['next_link'] = 'Next';
-        $config['next_tag_open'] = '<li class="next">';
-        $config['next_tag_close'] = '</li>';  
-        $config['prev_link'] = 'Previous';
-        $config['prev_tag_open'] = '<li class="previous">';
-        $config['prev_tag_close'] = '</li>'; 
-        $config['cur_tag_open'] = '<li class="active"><a href="#">';
-        $config['cur_tag_close'] = '</a></li>'; 
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_close'] = '</li>';
-        
-        
-        $config['use_page_numbers'] = TRUE;
-        $config['total_rows'] = $CI->Reviews->userCount();
-    
-            
-        $config['per_page'] = 5;
-        
-        $page = ($CI->uri->segment(2)) ? $CI->uri->segment(2) : 0;
-        $CI->pagination->initialize($config);
-        
-        $data['links'] = $CI->pagination->create_links();
-        #changes Uniue Value Abhishek
-        
-            #change count Abhishek 
-            
-        
-        $data['userData'] = $CI->Users->get_user_profile_info($config["per_page"], $page);
-        
-        
-        
-    
+          }
+          
+          // Pagination Configuration
+          $config['base_url'] = base_url().'browse-freelancer';
+          $config['full_tag_open'] = '<ul class="pagination" style="margin-top:20px;">';
+          $config['full_tag_close'] = '</ul>';
+          $config['first_link'] = true;
+          $config['first_tag_open'] = '<li class="previous">';
+          $config['first_tag_close'] = '</li>';  
+          $config['last_link'] = true;
+          $config['first_tag_open'] = '<li class="next">';
+          $config['first_tag_close'] = '</li>'; 
+          $config['next_link'] = 'Next';
+          $config['next_tag_open'] = '<li class="next">';
+          $config['next_tag_close'] = '</li>';  
+          $config['prev_link'] = 'Previous';
+          $config['prev_tag_open'] = '<li class="previous">';
+          $config['prev_tag_close'] = '</li>'; 
+          $config['cur_tag_open'] = '<li class="active"><a href="#">';
+          $config['cur_tag_close'] = '</a></li>'; 
+          $config['num_tag_open'] = '<li>';
+          $config['num_tag_close'] = '</li>';
+          
+          
+          $config['use_page_numbers'] = TRUE;
+          $config['total_rows'] = $CI->Tasks->userCount();
+      
+              
+          $config['per_page'] = 5;
+          
+          $page = ($CI->uri->segment(2)) ? $CI->uri->segment(2) : 0;
+          $CI->pagination->initialize($config);
+          
+          $data['links'] = $CI->pagination->create_links();
+          #changes Uniue Value Abhishek
+         
+              #change count Abhishek 
+              
+          
+          $data['userData'] = $CI->Tasks->get_user_profile_info($config["per_page"], $page);
+           
+          
+          
+      
         $AccountForm = $CI->parser->parse('task/browse-freelancer',$data,true);
         return $AccountForm;
-   }
+       }
    #Abhishek
 	public function browse_freelancer_page1($pageIndex = null) {
 

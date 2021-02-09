@@ -772,7 +772,63 @@ class Tasks extends CI_Model {
 
     }
 
+#Abhishek 
+public function reviewsCountTask($id){
+       
+    $this->db->from('task_hired');
+    $this->db->join('task','task.task_id=task_hired.task_id');
+   $this->db->where('task_hired.freelancer_id',$id); 
+    $this->db->where('task.task_status',1); 
+  
+    $query = $this->db->get();
+    
+  $rowcount = $query->num_rows();
+    return $rowcount;
+}
+ public function reviewsCount($id){
+    $this->db->select('count(review_id) as total_review');
+    $this->db->from('reviews');
+ 
+    $this->db->where('review_received',$id); 
+  
+    $query = $this->db->get();
+    
+  $rowcount = $query->num_rows();
+    return $rowcount;
+ 
+}
+public function userCount(){
+    
+    $this->db->from('user_login');
+ 
+    $this->db->where('user_type',4); 
+  
+    $query = $this->db->get();
+    $rowcount = $query->num_rows();
+    return $rowcount;
+    
+ 
+}
 
+
+ public function get_user_profile_info($limit, $start)
+{
+    $user_data = $user_languages = $user_skills = array();
+    
+   
+    
+    $this->db->select('users.*,user_login.*,country.name as cname');
+    $this->db->from('users');
+    $this->db->join('user_login', 'user_login.user_id = users.user_id');
+    $this->db->join('country', 'country.country_id = users.country');
+    $this->db->where('user_login.user_type', '4');
+    $this->db->order_by('user_login.total_positive_coins','DESC');
+    $this->db->limit($limit, $start);
+    $query  = $this->db->get();
+    $user_data = $query->result();
+    return $user_data;
+}
+#Abhishek
 
     public function get_all_upcoming_tasks($limit = 10, $start = 1,$searchCriteria="") {
 

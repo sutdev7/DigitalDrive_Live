@@ -35,15 +35,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </p> -->
                                              <p class="my-2 text-center"><i
                                                         class="fa fa-map-marker"></i><?=$value->cname?></span></p>
-                                            <p class="my-2 text-center" style="height: 66px"><?= substr($value->bio, 0, 100); ?>
+                                            <p class="my-2 text-center" style="height: 66px"><?= substr($value->bio, 0, 60); ?>
                                             </p>
                                             <!-- <p class="my-2 small"><span class="text-primary"><b>50</b></span>
                                                 Projects
                                                 Done</p> -->
+
                                              <div style="display: inline-flex;">
                                                    <div class="text-center" style="background: #0080008f;flex: 1;width: 81px;border-radius: 5px;"><a href="<?=base_url()?>reviews" title="" class="follow"  style="color: white;">
-                                                        <?php 
-                                                        $revie_count = $this->Reviews->reviewsCount($value->user_id);
+                                                       <?php 
+                                                        $revie_count = $this->Tasks->reviewsCount($value->user_id);
                                                         echo $revie_count;
                                                         ?>
                                                    Review</a></div>
@@ -66,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <span class="coin-tag"><?=$value->total_positive_coins?> Coins</span>
                                         </div>
                                         <p class="my-2 small"><span class="text-primary"><b>
-                                            <?php $task_com=$this->Reviews->reviewsCountTask($value->user_id);
+                                            <?php $task_com=$this->Tasks->reviewsCountTask($value->user_id);
                                             echo $task_com;
                                             ?>
                                        </b></span>
