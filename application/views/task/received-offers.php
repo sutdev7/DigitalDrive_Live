@@ -117,11 +117,74 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <h2>Cover Letter</h2>
                                       <div class="anyClass black_color proposal-remark">{remarks}</div>
                                       <hr/>
+                                      <h2>Budget Details</h2>
+                                            
+                                      <div class="mbl-table-nine">
+                                        <div class="mbldiv-scroll">
+                                          <table class="table">
+                                            <thead>
+                                              <tr>
+                                                
+                                                <th>Date</th>
+                                                <th>Title</th>
+                                                <th>Milestone</th>
+                                                <!-- <th>send by</th> -->
+
+
+                                                <!-- <th>Provided By</th> -->
+                                                <!-- <th>Action</th> -->
+                                              </tr>
+                                            </thead>
+                                            <tbody id="dataList">
+                                            <!-- Display posts list -->
+                                              <?php if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
+                                              <tr>
+                                                <td> <?php  echo date('Y-m-d',strtotime($row["doc"])); ?></td>
+                                                <td><?php  echo $row["milestone_title"]; ?></td>
+                                                
+                                                <td><?php echo $row["milestone_agreed_budget"]; ?></td>
+                                                <!-- <td><?php echo $row["unique_id"]; ?></td> -->
+                                                
+                                                <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
+                                                <!-- <td> -->
+                                                <!-- <a data-toggle="tooltip" data-placement="top" title="withdraw">
+                                                <i class="fa fa-money" style="font-size:24px;"></i></a>  -->
+                                                    <!-- <a data-toggle="tooltip" data-placement="top" title="Details" href="<?php //echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>"> -->
+                                                      <!-- <i class="fa fa-eye" style="font-size:24px;" aria-hidden="true"></i> -->
+                                                      <!-- </a> -->
+                                              <!-- </td> -->
+                                                
+                                              </tr>
+                                              <!-- <tr>
+                                                <td><img src="img/cal-img.png" alt=""> 10/12/2019 </td>
+                                                <td>UI Design</td>
+                                                
+                                                <td>$50</td>
+                                              </tr> -->
+                                                <?php } }else{ ?>
+                                                <tr><td  colspan="5"><p>Records not found...</p></td></tr>
+                                              <?php } ?>
+                                                  <!-- Render pagination links -->
+                                                <tr>
+                                                <td  colspan="5">
+                                                  <?php // echo ($this->ajax_pagination->create_links() !== "") ? $this->ajax_pagination->create_links():""; ?>
+                                                  
+                                                </td>
+                                                </tr>
+                                              
+                                            </tbody>
+                                          </table>
+                                          
+                                        </div>
+                                        
+                                      </div>
+                                      
+                                      <hr/>
                                       <h2>Message</h2>
                                   </div>
                                   <!-- <textarea id="message_{p_attachments}" class="form-controll"></textarea>-->
                                   <textarea id="message_{p_attachments}" class="form-control"/></textarea>
-
+                                  
 
                                   <div class="caption">
                                       <div class="btnDiv2">
