@@ -11,7 +11,7 @@
                 <li><a href="<?= base_url().'key-list' ?>" class="<?php echo ($this->uri->segment(1) == 'key-list') ? "active" : '' ?> ">Key</a></li>
 
 
-                <li class="nav-item dropdown drop-menu">
+               <!--  <li class="nav-item dropdown drop-menu">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Micro Profile</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <div class="dropdown-item">
@@ -21,7 +21,7 @@
                             <a href="<?= base_url().'post-microkey-step-1' ?>" class="<?php echo ($this->uri->segment(1) == '/post-microkey-step-1') ? "active" : '' ?> ">Post Micro Key</a>
                         </div>
                     </div>
-                </li>
+                </li> -->
 
                 <li><a href="<?= base_url().'offer-jobs' ?>" class="<?php echo ($this->uri->segment(1) == 'offer-jobs') ? "active" : '' ?> ">My Offers</a></li>
                 <li><a href="<?= base_url().'earnings' ?>" class="<?php echo ($this->uri->segment(1) == 'earnings') ? "active" : '' ?> ">My Earnings</a></li>
@@ -64,6 +64,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>dashboard">Dashboard</a></li>
                     <li><a href="<?php echo base_url(); ?>public-profile">Public Profile</a></li>
+                    <li><a href="<?php echo base_url(); ?>microkey-list" >My Micro Profile</a></li>
                     <li><a href="<?php echo base_url(); ?>user-bio">Freelancer Bio</a></li>
                     <li><a href="<?php echo base_url(); ?>settings">Settings</a></li>
                     <li><a href="<?php echo base_url(); ?>reviews">Reviews</a></li>

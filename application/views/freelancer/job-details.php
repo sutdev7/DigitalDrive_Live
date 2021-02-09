@@ -326,7 +326,7 @@
                         <div class="radiodiv" style="padding-top:0;">
                           <ul>
                             <li>
-                              <label class="containerdiv newopen1">Amount / Hr
+                              <label class="containerdiv newopen1">Amount / Hour
                                 <input type="radio" name="terms" value="pay_hourly_amount" checked="checked">
                                 <span class="checkmark"></span> </label>
                             </li>
@@ -353,9 +353,7 @@
                             <div class="portal-text">
                                 <h5>Bidding Amount</h5>
                                 <input type="text" name="terms_amount_max" placeholder="$ 0" id="terms_amount_max" required>
-                                <div class="opendiv1">
-                                  <span>Amount / hr</span>
-                                </div>
+                                <div class="opendiv1" style="display: inline;"><strong>/Hour</strong></div>
 
                             </div>
                             <div class="portal-text">
@@ -418,15 +416,15 @@
                           </div>
                       </div>
                       <!-- end by amar -->
-                        <div class="col-md-8 col-lg-8 col-xl-8">
+                        <div class="col-md-10 col-lg-10 col-xl-10">
                             <div class="cover-letter">
                                 <h4>Cover letter</h4>
-                                <div id="the-count">
+                                <!-- <div id="the-count">
                                     <span id="current">0</span>
                                     <span id="maximum">/ 700</span>
-                                </div>
+                                </div> -->
                             </div>
-                            <textarea name="cover_letter" id="the-textarea" required maxlength="700" placeholder="Type here" autofocus></textarea>
+                            <textarea name="cover_letter" id="the-textarea" required placeholder="Type here" autofocus></textarea>
                         </div>
 
                         <!-- <div class="proposal text-center col-md-4 col-lg-4 col-xl-4">

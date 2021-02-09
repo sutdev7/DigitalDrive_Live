@@ -54,6 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
           </div>
           <span> <a href="#TaskFilter" data-toggle="modal" class="Filter-open"> <img src="<?php  echo base_url('assets/img/filter-img.png'); ?>" alt="img">Filter</a></span> </div> -->
+          
         <div class="clearfix"></div>
           <h3>Upcoming Projects</h3>
         <div class="mbl-table">
@@ -85,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   Action
                   <ul>
                     <li><a href="<?php echo base_url(); ?>edit-task-step-1/{user_task_id}"> Edit </a> </li>
-					<li> <a href="<?php echo base_url(); ?>task-details/{user_task_id}"> View Details </a></li>
+					          <li> <a href="<?php echo base_url(); ?>task-details/{user_task_id}"> View Details </a></li>
                     <!-- <li><a href="<?php echo base_url(); ?>make-an-offer/{user_task_id}"> Make Offer </a> </li>
                     <li> <a href="#"> Disable Post </a></li>
                     <li> <a href="#"> Cancel </a></li>-->

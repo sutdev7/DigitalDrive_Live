@@ -65,7 +65,6 @@ function hashpassword($password) {
 	}
 #For Admin View User Data 
 
-
 	public function upcoming_projects($pageIndex = 0){
 		$content = $this->luser->upcoming_projects_page();
 		$data = array(

@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <input type="hidden" name="uploadFiles[]" value="{fname}" /> 
             {/uploadFiles}                      
             <div class="step_Box step_Box2">
-              <h3>Location</h3>
+              <h3>Freelancing Location</h3>
               <ul>
                 <li>
                   <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Select Continent</label>

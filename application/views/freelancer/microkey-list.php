@@ -23,7 +23,12 @@ if(!empty($frmValidationMsg)) {
 <section id="postDiv">
     <div class="container">
     <div class="p-3">
-      <h3 class="mt-3 mb-0">Popular Projects<span><a href="#" class="small btn btn-sm btn-primary float-right">Show More</a></span></h3>
+      <h3 class="mt-3 mb-0">Popular Projects
+        <span>
+          <a href="#" class="small btn btn-sm btn-primary float-right"  style="margin-left: 10px;">Show More</a>
+          <a href="<?= base_url().'post-microkey-step-1' ?>" class="small btn btn-sm btn-primary float-right" style="margin-left: 10px;">Post Micro Key</a>
+
+        </span></h3>
 
             <div class="row">
               {dataArr}

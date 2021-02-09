@@ -263,7 +263,7 @@ exit; */
 	}
 
 	public function upcoming_projects_page($pageIndex = 0){
-
+		
 		$CI =& get_instance();
 		$data = $userInfo = $userData = array();
 		$CI->load->model('Users');
