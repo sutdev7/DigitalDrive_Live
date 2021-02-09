@@ -75,7 +75,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 Done</p>
                                                 <p class="text-center text-muted small mt-2 mb-0"
                                                 style="font-size: 12px">
-                                                Last Login: <?=$value->last_login?></p>
+                                                Last Login: <?php
+                                                if(!empty($value->last_login)){
+                                                    echo $value->last_login;
+                                                }else{
+                                                    echo "0000-00-00 00:00:00";
+                                                }
+                                                ?></p>
                                         
                                         <div class="w-100 text-center mt-3"><a href="<?=base_url()?>freelancer/details_project/<?=$value->user_id?>" title="" class="view-more-pro"><b>View Profile </b></a></div>
                                         <!-- <div class="w-100 border-top mt-3">
