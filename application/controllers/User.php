@@ -81,6 +81,16 @@ function hashpassword($password) {
 		);
 		$this->template->full_customer_html_view($data);
 	}
+	
+	public function completed($pageIndex = 0){
+		$content = $this->luser->completed();
+		$data = array(
+			'content' => $content,
+			'title' => display('completed :: Hire-n-Work'),
+		);
+		$this->template->full_customer_html_view($data);
+	}
+
 	public function search_freelancer(){
         $content = $this->luser->search_freelancer_page();
 		$data = array(
