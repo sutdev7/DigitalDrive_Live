@@ -1863,7 +1863,67 @@ class Ltask {
         }
         $data["jobs"] = $arrJobs; 
         return $data;
+    }
+
+    public function get_user_completed_job_list($userInfo = null, $pageIndex = null) {
+
+        $CI =& get_instance();
+        $CI->load->model('Tasks');
+        $CI->load->model('Users');        
+        $CI->load->library("pagination");
+
+        $config = $data = $arrJobs = array();
+        $config["base_url"] = base_url() . "completed";
+        $config["total_rows"] = $CI->Tasks->count_user_all_completed_tasks($userInfo['user_id']);
+        $config["per_page"] = 10;
+        $config["uri_segment"] = 2;
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="previous">';
+        $config['first_tag_close'] = '</li>';  
+        $config['last_link'] = 'Last';
+        $config['first_tag_open'] = '<li class="next">';
+        $config['first_tag_close'] = '</li>'; 
+        $config['next_link'] = 'Next';
+        $config['next_tag_open'] = '<li class="next">';
+        $config['next_tag_close'] = '</li>';  
+        $config['prev_link'] = 'Previous';
+        $config['prev_tag_open'] = '<li class="previous">';
+        $config['prev_tag_close'] = '</li>'; 
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>'; 
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';                                       
+
+        $CI->pagination->initialize($config);
+        $page = ($CI->uri->segment(2)) ? $CI->uri->segment(2) : 0;        
+
+        $data["links"] = $CI->pagination->create_links();
+        $jobs = $CI->Tasks->list_user_all_completed_tasks($userInfo['user_id'], $config["per_page"], $page); 
+        foreach($jobs as $job) {
+            $freelancer_id = $CI->Tasks->get_freelancer_completed_for_task($userInfo['user_id'], $job->task_id); 
+            if(empty($freelancer_id))
+                continue;
+            $user_details = $CI->Users->get_user_profile_info_by_id($freelancer_id);
+            $user_status = $CI->Users->get_user_info_by_id($freelancer_id);
+
+            $user_profile_image = $user_status->profile_image;
+            if(empty($user_profile_image)) {
+                $user_profile_image = base_url('assets/img/no-image.png');
+            } else {
+                $user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);          
+            }
+            $is_login = $user_status->is_login;
+            $offer_count = $CI->Tasks->count_all_task_offers($job->task_id);               
+
+            $arrJobs[] = array('hired_id'=> base64_encode($job->hired_id),'task_id' => $job->task_id, 'user_task_id' => $job->user_task_id, 'task_name' => $job->task_name, 'task_total_budget' => $job->task_total_budget, 'task_due_date' => ($job->hired_end_date ? date("d/m/Y", strtotime($job->hired_end_date)) : ''),'freelancer_id' =>$user_details['basic_info']->user_id, 'freelancer_name' => $user_details['basic_info']->name, 'freelancer_country' => $user_details['basic_info']->country, 'freelancer_state' => $user_details['basic_info']->state, 'freelancer_city' => $user_details['basic_info']->city, 'user_image' => $user_profile_image, 'is_online' => (($is_login == '1')?'<div class="green-tb"></div>':'<div class="gray-tb"></div>'), 'offer_cnt' => $offer_count);
+
+        }
+        $data["jobs"] = $arrJobs; 
+        return $data;
     }       
+
 
 	public function get_user_hired_task($userInfo = null, $pageIndex = null) {
 
@@ -3852,7 +3912,7 @@ public function sent_offer_page_new($userInfo = null, $type) {
                 'p_attachments' => $job->proposal_id,
                 'attachments' => $task_attachments,
                 'job_doc' => isset($job->doc) ?  get_time_ago($job->doc) : '',
-               'proposal_info' => $CI->Tasks->get_proposal_info($user_task_id), // by amar
+               'proposal_info' => $CI->Tasks->get_proposal_info($user_task_id,$job->proposal_id), // by amar
 
             );
 
@@ -3861,7 +3921,7 @@ public function sent_offer_page_new($userInfo = null, $type) {
         }
 
         $data["jobs"] = $arrJobs;
-        // echo"<pre>";print_r($data["jobs"]);die;
+        //  echo"<pre>";print_r($data["jobs"]);die;
         $AccountForm = $CI->parser->parse('task/received-offers',$data,true);
         return $AccountForm;
 
