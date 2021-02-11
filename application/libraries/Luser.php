@@ -263,7 +263,6 @@ exit; */
 	}
 
 	public function upcoming_projects_page($pageIndex = 0){
-		
 		$CI =& get_instance();
 		$data = $userInfo = $userData = array();
 		$CI->load->model('Users');
@@ -320,6 +319,37 @@ exit; */
 		$data['user_info'][] = $userInfo;        
         $data = array_merge($data, $user_hired_jobs);
 		$AccountForm = $CI->parser->parse('user/hired',$data,true);
+		return $AccountForm;
+	}
+    public function completed($pageIndex = 0){
+		$CI =& get_instance();
+		$data = $userInfo = array();
+		$CI->load->model('Users');
+		$CI->load->library('Ltask');		
+
+        $user_hired_jobs = $CI->ltask->get_user_completed_job_list($CI->session->all_userdata());
+        
+		//echo '<pre>'; print_r($user_hired_jobs); die;
+		
+		$userData = $CI->Users->get_user_profile_info_by_id($CI->session->userdata('user_id'));
+	    $user_profile_image = $CI->session->userdata('user_image');
+	    if(empty($user_profile_image)) {
+	    	$user_profile_image = base_url('assets/img/no-image.png');
+	    } else {
+	    	$user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);	    	
+	    }
+        
+        if(!empty($userData)) {
+        	$spend_by_user = $CI->Tasks->get_user_total_spend($CI->session->userdata('user_id'));
+            $positivecoin=0;			
+            if($userData['basic_info']->total_coins>=0){ $positivecoin='+ '.$userData['basic_info']->total_coins;}else{ $positivecoin=$userData['basic_info']->total_coins;}
+            $userInfo = array('id' => $userData['basic_info']->user_id, 'name' => $userData['basic_info']->name, 'country' => $userData['basic_info']->country, 'gender' => $userData['basic_info']->gender, 'date_of_birth' => $userData['basic_info']->date_of_birth, 'bio' => $userData['basic_info']->bio, 'address' => $userData['basic_info']->address, 'state' => $userData['basic_info']->state, 'city' => $userData['basic_info']->city, 'vat' => $userData['basic_info']->vat, 'user_languages' => implode(', ', $userData['user_selected_languages']), 'user_skills' => $userData['user_selected_skills'], 'user_image' => $user_profile_image, 'spend_by_user' => $spend_by_user,'total_positive_coins' => $positivecoin, 'total_negative_coins'=> $userData['basic_info']->total_negative_coins);
+
+        }
+
+		$data['user_info'][] = $userInfo;        
+        $data = array_merge($data, $user_hired_jobs);
+		$AccountForm = $CI->parser->parse('user/completed',$data,true);
 		return $AccountForm;
 	}
 

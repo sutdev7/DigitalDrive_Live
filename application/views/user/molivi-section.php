@@ -35,6 +35,7 @@
 		<li <?php if($this->uri->segment(1) == 'hired'){ echo 'class="active"';} ?>> 
 			<a href="<?php echo base_url(); ?>hired"> Hired </a> 
 		</li>
+		<li <?php if($this->uri->segment(1) == 'completed'){ echo 'class="active"';} ?>> <a href="<?php echo base_url(); ?>completed"> Completed </a> </li>
 	  </ul>
 	</div>
 </div>

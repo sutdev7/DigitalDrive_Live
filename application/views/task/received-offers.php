@@ -137,13 +137,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </thead>
                                             <tbody id="dataList">
                                             <!-- Display posts list -->
-                                              <?php if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
+                                            {proposal_info}
+                                              <?php //if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
                                               <tr>
-                                                <td> <?php  echo date('Y-m-d',strtotime($row["doc"])); ?></td>
-                                                <td><?php  echo $row["milestone_title"]; ?></td>
+                                                <td> <?php  echo date('Y-m-d',strtotime("{doc}")); ?></td>
+                                                <td>{milestone_title}<?php  //echo $row["milestone_title"]; ?></td>
                                                 
-                                                <td><?php echo $row["milestone_agreed_budget"]; ?></td>
-                                                <!-- <td><?php echo $row["unique_id"]; ?></td> -->
+                                                <td>${milestone_agreed_budget}<?php //echo $row["milestone_agreed_budget"]; ?></td>
+                                                <!-- <td><?php //echo $row["unique_id"]; ?></td> -->
                                                 
                                                 <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
                                                 <!-- <td> -->
@@ -161,9 +162,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 
                                                 <td>$50</td>
                                               </tr> -->
-                                                <?php } }else{ ?>
-                                                <tr><td  colspan="5"><p>Records not found...</p></td></tr>
-                                              <?php } ?>
+                                                <?php  //} }else{ ?>
+                                                  {/proposal_info}
+                                                <!-- <tr><td  colspan="5"><p>Records not found...</p></td></tr> -->
+                                              <?php //} ?>
                                                   <!-- Render pagination links -->
                                                 <tr>
                                                 <td  colspan="5">
@@ -201,9 +203,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div class="col-sm-4">
                                           <a href="#" data-formaction="<?php echo base_url(); ?>hire-freelancer" data-formid="{user_id}" class="view-btn2 directhire"> Hire </a>
                                       </div>
-                                      <!-- <div class="col-sm-4">
+                                      <div class="col-sm-4">
                                           <a href="#" data-formaction="<?php echo base_url(); ?>make-an-offer" data-formid="{user_id}" class="view-btn1 makeoffer"> Make offer </a>
-                                      </div> -->
+                                      </div>
 
                                   </div>
                               </div>

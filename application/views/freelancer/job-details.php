@@ -564,7 +564,7 @@
                                   <td> <?php  echo date('Y-m-d',strtotime($row["milestone_doc"])); ?></td>
                                   <td><?php  echo $row["milestone_title"]; ?></td>
                                   
-                                  <td><?php echo $row["milestone_agreed_budget"]; ?></td>
+                                  <td>$<?php echo $row["milestone_agreed_budget"]; ?></td>
                                   <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
                                   <!-- <td> -->
                                   <!-- <a data-toggle="tooltip" data-placement="top" title="withdraw">
