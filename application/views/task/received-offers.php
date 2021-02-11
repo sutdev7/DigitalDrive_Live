@@ -203,9 +203,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div class="col-sm-4">
                                           <a href="#" data-formaction="<?php echo base_url(); ?>hire-freelancer" data-formid="{user_id}" class="view-btn2 directhire"> Hire </a>
                                       </div>
-                                      <div class="col-sm-4">
-                                          <a href="#" data-formaction="<?php echo base_url(); ?>make-an-offer" data-formid="{user_id}" class="view-btn1 makeoffer"> Make offer </a>
-                                      </div>
+                                     <!--  <div class="col-sm-4">
+                                          <a href="#" data-formaction="<?php //echo base_url(); ?>make-an-offer" data-formid="{user_id}" class="view-btn1 makeoffer"> Make offer </a>
+                                      </div> -->
 
                                   </div>
                               </div>
