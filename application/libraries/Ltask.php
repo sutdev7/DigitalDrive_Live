@@ -1703,7 +1703,8 @@ class Ltask {
 	
         foreach($jobs as $job) {
             $total_proposal = $CI->Freelancers->proposal_count($job->task_id, $count = '');
-        	$arrJobs[] = array('task_id' => $job->task_id, 'user_task_id' => $job->user_task_id, 'task_name' => $job->task_name, 'task_total_budget' => $job->task_total_budget,'total_proposal'=>$total_proposal);
+            $task_doc = date('d/M/Y',strtotime($job->task_doc));
+        	$arrJobs[] = array('task_id' => $job->task_id, 'user_task_id' => $job->user_task_id, 'task_name' => $job->task_name, 'task_total_budget' => $job->task_total_budget,'total_proposal'=>$total_proposal,'task_doc'=>$task_doc);
 
         }
 

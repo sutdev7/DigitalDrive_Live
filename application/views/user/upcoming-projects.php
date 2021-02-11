@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>Title</th>
                 <th>No. Of Proposal</th>
                 <!-- <th>Offers</th> -->
-                <th>Published Date</th>
+                <th>Published&nbsp;Date</th>
                 <th>Budget</th>
                 <th>Action</th>
               </tr>
@@ -80,8 +80,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </div>
                     </div>
                 </td>
-                <td><strong> - - </strong></td>
-                 <td>--/--/----</td>
+                <td>{total_proposal}</td>
+                 <td>{task_doc}</td>
                 <td><strong>${task_total_budget}</strong></td>
                 <!-- <td>${task_total_budget}</td> -->
                

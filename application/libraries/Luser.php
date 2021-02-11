@@ -269,6 +269,7 @@ exit; */
 		$CI->load->library('Ltask');		
 
         $user_upcoming_jobs = $CI->ltask->get_user_upcoming_task($CI->session->all_userdata());
+         //echo "<pre>";print_r($user_upcoming_jobs); exit();
         $userData = $CI->Users->get_user_profile_info_by_id($CI->session->userdata('user_id'));
 	    $user_profile_image = $CI->session->userdata('user_image');
 	    if(empty($user_profile_image)) {
@@ -286,6 +287,7 @@ exit; */
 
 		$data['user_info'][] = $userInfo;        
         $data = array_merge($data, $user_upcoming_jobs);
+        //echo "<pre>";print_r($data); exit();
 		$AccountForm = $CI->parser->parse('user/upcoming-projects',$data,true);
 		return $AccountForm;
 	}	
