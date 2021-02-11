@@ -33,7 +33,7 @@
 		</li>
 		 <!-- <li <?php if($this->uri->segment(1) == 'microkey-list-client'){ echo 'class="active"';} ?>> <a href="<?php echo base_url(); ?>microkey-list-client"> Microkey Projects </a> </li>  -->
 		<li <?php if($this->uri->segment(1) == 'hired'){ echo 'class="active"';} ?>> 
-			<a href="<?php echo base_url(); ?>hired"> No. of Proposal </a> 
+			<a href="<?php echo base_url(); ?>hired"> Hired </a> 
 		</li>
 	  </ul>
 	</div>
