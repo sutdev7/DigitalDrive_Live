@@ -59,6 +59,8 @@
                     </li>
                 </ul>
             </li>
+            <li id="wishliast" title="Saved Jobs"> <a href="<?php echo base_url(); ?>my-jobs" class="noti" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-heart" aria-hidden="true"></i></a> </li>
+
             <li class="dropdown user user-menu d-none d-sm-block"> <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src="<?php echo $this->session->userdata('user_site_image'); ?>" style="width:40px;height:40px;border-radius: 100%;" class="img-circle" alt="User Image">
                     <!--<span>Paul Molive</span>--> </a>
                 <ul class="dropdown-menu">

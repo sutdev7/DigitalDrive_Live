@@ -6,7 +6,7 @@
       <section id="profile_section">
         <div class="profile PublicProfile">
           <div class="container">
-<!--
+
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -14,9 +14,9 @@
             <li class="breadcrumb-item active" aria-current="page">Public Profile</li>
           </ol>
         </nav>
-      -->
+      
       <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
           <div class="pro_info">
             <div class="CandidatePublicPfl">
               <ul class="RvwLists">
@@ -27,8 +27,8 @@
                   <div class="Txthldr">
                     <h2>{user_info}{name}{/user_info}<!--<span class="text-muted ml-3" style="font-size: 14px">4 +</span>--></h2>
                     <ul class="CanditateDtls">
-                      <li><img src="<?= base_url().'assets/img/round-img1.png' ?>" alt=""/>{user_info}{address}{/user_info}, {user_info}{city}{/user_info}, {user_info}{state}{/user_info},{user_info}{country}{/user_info}</li>
-                      <!--                        <li><img src="img/genderIcon.png" alt=""/> Male</li>-->
+                      <li><img src="<?= base_url().'assets/img/round-img1.png' ?>" alt=""/>{user_info}{country}{/user_info}</li>
+                      <!-- <li><img src="img/genderIcon.png" alt=""/> Male</li> -->
                     </ul>
                     <span class="plus"> {user_info}{total_positive_coins}{/user_info} Coins</span>
                     <span class="plus plus2"> {user_info}{total_negative_coins}{/user_info} Coins</span>

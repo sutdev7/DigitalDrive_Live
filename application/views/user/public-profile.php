@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </ol>
         </nav>
         <div class="row">
-          <div class="col-lg-8">
+          <div class="col-lg-12">
             <div class="pro_info">
               <div class="CandidatePublicPfl">
                 <ul class="RvwLists">
@@ -58,18 +58,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </li>
                 </ul>
               </div>
-              <!--<a class="EditButton" data-toggle="modal" href="#EditReview10"><i class="fa fa-pencil" aria-hidden="true"></i></a>--> </div>
-			  <!--
+              <!--<a class="EditButton" data-toggle="modal" href="#EditReview10"><i class="fa fa-pencil" aria-hidden="true"></i></a>--> 
+            </div>
+  			  <!--
             <div class="pro_info">
               <h4>Area</h4>
               {user_info}
               <ul class="AreaOption">
                 {user_skills} 
-                <li><span>{skill_name} <!-- <a href="#"><img src="<?php  //echo base_url('assets/img/removeIcon.png'); ?>" alt=""/></a> --></span></li>
+                <li><span>{skill_name} <a href="#"><img src="<?php  //echo base_url('assets/img/removeIcon.png'); ?>" alt=""/></a> </span></li>
                 {/user_skills} 
               </ul>
-              {/user_info}
-              <a class="EditButton" data-toggle="modal" href="#EditArea"><i class="fa fa-pencil" aria-hidden="true"></i></a> </div>-->
+              {/user_info} -->
+              <a class="EditButton" data-toggle="modal" href="#EditArea"><i class="fa fa-pencil" aria-hidden="true"></i></a> </div>
             <div class="pro_info">
               <h4>Reviews</h4>
               <div class="RvwWrapper">
@@ -81,11 +82,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							foreach($reviews as $rv){
 						?>
 
-                  <li>
+          <li>
 
-                    <div class="PflImgHldrWrpr">
-								<div class="Imghldr" style="background:url(img/img-profile.jpg) no-repeat center center; background-size:cover;"></div>
-								
+          <div class="PflImgHldrWrpr">
+								<div class="Imghldr" style="background:url(img/img-profile.jpg) no-repeat center center; background-size:cover;"></div>								
 								<a class="pull-left" href="<?php echo base_url().'public-profile/'.$rv['profile_id']; ?>" target="_blank"> <img class="media-object img-circle " src="<?php echo $rv['profile_image']; ?>" style="width:69px;height:69px;"> </a>								
 					</div> 
 
@@ -98,7 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<!--<span class="TimeStamp">2 Days ago</span>	-->					
 						</div>
 
-                  </li>
+          </li>
 
                  		<?php	} ?>
 						
@@ -228,7 +228,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 </div> 
             
-                <div class="RvwWrapper">
+                 <div class="RvwWrapper">
                     <h3>Top Freelancer</h3>
                     <ul class="RvwLists">
                         <?php if (isset($top_freelancers) && !empty($top_freelancers)) { ?>
@@ -241,7 +241,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <?php } ?>
                                     <div class="Txthldr">
                                         <h2><?php echo $fRow->name; ?></h2>
-                                        <h5><?php echo $fRow->city . ', ' . $fRow->state . ', '. $fRow->country; ?></h5>
+                                        <h5><?php echo '<img src="http://localhost/DigitalDrive_Live/assets/img/round-img1.png" alt="location"> '.$fRow->country; ?></h5>
                                         <span class="plus">+ <?php echo $fRow->total_positive_coins; ?> Coins</span>
                                         <span class="plus"> <?php echo $fRow->total_negative_coins; ?> Coins</span>
                                     </div>
@@ -250,6 +250,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php } ?>
                     </ul>
                 </div>
+
+
             </div>
           </div>
         </div>
