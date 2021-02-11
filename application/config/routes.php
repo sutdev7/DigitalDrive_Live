@@ -70,7 +70,6 @@ $route['forgot-password'] = 'Account/forgot_password';
 $route['logout'] = 'Account/logout';
 $route['login'] = 'Linkedin_login/login';
 
-
 $route['dashboard'] = 'user';
 $route['dashboard/(:any)'] = 'user/index/$1';
 $route['client-dashboard'] = 'Client';
@@ -92,7 +91,6 @@ $route['public-profile/(:any)'] = 'User/public_profile/$l';
 $route['reviews'] = 'review';
 $route['givereview/(:any)'] = 'review/give_review/$1';
 
-
 $route['settings'] = 'User/settings';
 $route['messages'] = 'User/messages';
 $route['messages/(:any)'] = 'User/messages/$1';
@@ -112,6 +110,8 @@ $route['upcoming-projects'] = 'User/upcoming_projects';
 $route['upcoming-projects/(:num)'] = 'User/upcoming_projects/$1';
 $route['hired'] = 'User/hired';
 $route['hired/(:num)'] = 'User/hired/$1';
+$route['completed'] = 'User/completed';// by ak
+$route['completed/(:num)'] = 'User/completed/$1';// by ak
 $route['search-freelancer'] = 'User/search_freelancer';
 $route['search-freelancer/(:any)'] = 'User/search_freelancer/$1';
 $route['make-an-offer'] = 'Task/make_an_offer';
@@ -137,9 +137,6 @@ $route['wallets'] = 'coins_wallet'; // by amardeep
 $route['admin/wallet'] = 'earning/coins_wallet'; // by amardeep
 $route['admin/earning'] = 'earning'; // by amardeep
 $route['admin/transaction-list'] = 'admin/transaction_list'; // by amardeep
-
-
-
 
 $route['analytics'] = 'Freelancer/analytics';
 $route['problem-ticket'] = 'Freelancer/problem_ticket';

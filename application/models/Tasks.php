@@ -536,10 +536,7 @@ class Tasks extends CI_Model {
     public function get_task_info_by_user_task_id($user_task_id = null){
 
         if(empty($user_task_id))
-
             return FALSE;
-
-
 
         $this->db->select('*');
 
@@ -597,7 +594,31 @@ class Tasks extends CI_Model {
 
             return FALSE;
 
-    }     
+    }
+    // start by ak
+    public function get_freelancer_completed_for_task($userID = null, $task_id = null){
+        if(empty($task_id) || empty($userID))
+            return FALSE;
+        $this->db->select('*');
+        //$this->db->from('offer_task');
+		$this->db->from('task_hired');
+        $this->db->where('task_id', $task_id);
+        $this->db->where('hired_status', 1);        
+        $query = $this->db->get();
+        $result = $query->row();
+
+        if($result) {
+            if($result->freelancer_id == $userID) {
+                return $result->offer_send_by;
+           }
+            else {
+                return $result->freelancer_id;
+            }
+        }
+        else
+            return FALSE;
+    }
+    //end  by ak
 
 
 
@@ -1820,6 +1841,26 @@ public function userCount(){
         return $task_count;     
 
     }
+    public function count_user_all_completed_tasks($userID = null) {
+        $task_count = 0;
+        if(empty($userID))
+            return $task_count;
+
+        $this->db->where('task.task_status', 1);
+        $this->db->where('task.task_is_complete', 1); 
+        $this->db->where('task.task_is_ongoing', 1); 
+        $this->db->where('task_hired.hired_status', 1);                         
+        $this->db->where('(task.task_is_deleted IS NULL OR task.task_is_deleted=0)');
+        $this->db->where('task.task_created_by', $userID);        
+        //$this->db->where('task.task_due_date > NOW()');
+        $this->db->join('task_hired', 'task_hired.task_id = task.task_id');          
+        $this->db->from('task');
+        $task_count = $this->db->count_all_results();
+        //echo $this->db->last_query();
+
+        return $task_count;     
+
+    }
 
     public function list_user_all_hired_tasks($userID = null, $limit = 10, $start = 1) {
         $task_list = array();
@@ -1846,7 +1887,33 @@ public function userCount(){
 		//echo '<pre>'; print_r($task_list); die;
 		
         return $task_list;        
-    }       
+    }    
+    public function list_user_all_completed_tasks($userID = null, $limit = 10, $start = 1) {
+        $task_list = array();
+        if(empty($userID))
+            return $task_list;
+
+        $this->db->select('task.*,task_hired.hired_id, task_hired.hired_end_date');
+        $this->db->from('task');
+        //$this->db->join('offer_task', 'offer_task.task_id = task.task_id'); 
+		$this->db->join('task_hired', 'task_hired.task_id = task.task_id'); 
+        $this->db->where('task.task_status', 1);
+        $this->db->where('task.task_is_complete', 1); 
+        $this->db->where('task.task_is_ongoing', 1);  
+        $this->db->where('task_hired.hired_status', 1);                 
+        $this->db->where('(task.task_is_deleted IS NULL OR task.task_is_deleted=0)');
+        $this->db->where('task.task_created_by', $userID);        
+        //$this->db->where('task.task_due_date > NOW()'); 
+        $this->db->limit($limit, $start);       
+        $query = $this->db->get();
+        foreach ($query->result() as $row){
+            $task_list[] = $row;
+        }
+		
+		//echo '<pre>'; print_r($task_list); die;
+		
+        return $task_list;        
+    } 
     public function get_user_hired_task($user_task_id) {
         $task_list = array();
         $this->db->select('task_hired.hired_id');
@@ -2917,7 +2984,7 @@ public function userCount(){
     
 
     // start by amar
-    public function get_proposal_info($task_id = '')
+    public function get_proposal_info($task_id = '', $proposal_id ='')
 	{		
 		$this->db->select('*,task_proposal.*','task.task_name');
 		$this->db->from('task_proposal');
@@ -2927,6 +2994,7 @@ public function userCount(){
         //  $this->db->where_in('task_proposal_milestone ', '(SELECT * FROM task_proposal_milestone WHERE task_proposal_milestone.proposal_id=task_proposal.proposal_id)');
         $this->db->where('task.user_task_id',$task_id);
 		$this->db->where('task.task_created_by',$_SESSION['user_id']);
+		$this->db->where('task_proposal_milestone.proposal_id',$proposal_id);
         $query = $this->db->get();
         // echo $this->db->last_query();exit;
         
