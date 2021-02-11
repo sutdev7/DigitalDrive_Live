@@ -64,7 +64,241 @@ $unactiveFreelancer=$query_unactive_freelancers->result();
   .notify-item-wrapper{
     width:200px;
   }
+
+
+
+
+.text-muted {
+    color: #8898aa !important;
+}
+.text-uppercase {
+    text-transform: uppercase !important;
+}
+.mb-0, .my-0 {
+    margin-bottom: 0 !important;
+}
+.card-title {
+    margin-bottom: 1.25rem;
+    float:none;
+}
+h5, .h5 {
+    font-size: .8125rem;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: inherit;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: .5rem;
+    color: #32325d;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.text-white {
+    color: #fff !important;
+}
+[class*='shadow'] {
+    transition: all .15s ease;
+}
+.bg-gradient-red {
+    background: linear-gradient(
+87deg
+, #f5365c 0, #f56036 100%) !important;
+}
+.icon-shape {
+    display: inline-flex;
+    padding: 12px;
+    text-align: center;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+.icon {
+    width: 3rem;
+    height: 3rem;
+}
+.text-white {
+    color: #fff !important;
+}
+.text-white {
+    color: #fff !important;
+}
+.shadow {
+    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, .15) !important;
+}
+.rounded-circle, .avatar.rounded-circle img {
+    border-radius: 50% !important;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+user agent stylesheet
+div {
+    display: block;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: .375rem;
+    background-color: #fff;
+    background-clip: border-box;
+}
+:root {
+   
+    --gray-dark: #32325d;
+    --light: #ced4da;
+    --lighter: #e9ecef;
+    --primary: #5e72e4;
+    --secondary: #f7fafc;
+    --success: #2dce89;
+    --info: #11cdef;
+    --warning: #fb6340;
+    --danger: #f5365c;
+    --light: #adb5bd;
+    --dark: #212529;
+    --default: #172b4d;
+    --white: #fff;
+    --neutral: #fff;
+    --darker: black;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: Open Sans, sans-serif;
+    /* --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; */
+}
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.col {
+    max-width: 100%;
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.card {
+    margin-bottom: 30px;
+    border: 0;
+    box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: .375rem;
+    background-color: #fff;
+    background-clip: border-box;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+user agent stylesheet
+div {
+    display: block;
+}
+
+:root {
+ 
+    --gray-dark: #32325d;
+    --light: #ced4da;
+    --lighter: #e9ecef;
+    --primary: #5e72e4;
+    --secondary: #f7fafc;
+    --success: #2dce89;
+    --info: #11cdef;
+    --warning: #fb6340;
+    --danger: #f5365c;
+    --light: #adb5bd;
+    --dark: #212529;
+    --default: #172b4d;
+    --white: #fff;
+    --neutral: #fff;
+    --darker: black;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: Open Sans, sans-serif;
+    /* --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; */
+}
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+
+.col-xl-10, .col-xl-11, .col-xl-12, .col-xl, .col-xl-auto {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+.text-sm{
+background: orange;;
+    width: 251px;
+    margin-left: -18px;
+    height: 34px;
+ 
+    margin-bottom: -19px;
+    border-radius: 5px;
+    color:white;
+}
+.text-sm a{
+  color:white;
+}
+.fa-arrow-up{
+  margin: 7px 2px 11px 13px;
+}
+
+.bg-gradient-orange {
+    background: linear-gradient(
+87deg
+, #fb6340 0, #fbb140 100%) !important;
+}
+.bg-gradient-warning{
+   background: linear-gradient( 
+87deg
+ , #fb6340 0, #1e5040 100%)!important;
+}
 </style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+<link rel="stylesheet" href="<?php echo base_url()?>/assets/admin/nucleo.css" type="text/css">
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -91,7 +325,122 @@ $unactiveFreelancer=$query_unactive_freelancers->result();
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+
+                      <h5 class="card-title text-uppercase text-muted mb-0"style="height: 35px;">Clients</h5>
+                     <h3 class="h2 font-weight-bold mb-0"><?php echo isset($client_count) ? $client_count : "0"; ?>
+                    
+                  </h3>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                       <i class="fas fa-user-tie text-center" style="color: white;font-size: 20px;border-radius: 3px;"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3  text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> </span>
+                    <span class="text-nowrap"><a href="<?php echo base_url().'admin/client-list' ?>" class="small-box-footer">More info</a></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0" style="height: 35px;">Freelancers</h5>
+                       <h3 class="h2 font-weight-bold mb-0" ><?php echo isset($freelancer_count) ? $freelancer_count : "0"; ?></h3>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="ion ion-stats-bars" ></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3  text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> </span>
+                    <span class="text-nowrap"><a href="<?php echo base_url().'admin/freelancer-list' ?>" class="small-box-footer">More info <!-- <i class="fas fa-arrow-circle-right"></i> --></a></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0" style="height: 35px;">Naluacers</h5>
+                      
+                      <h3 class="h2 font-weight-bold mb-0" ><?php echo isset($naluacer_count) ? $naluacer_count : "0"; ?></h3>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="ion ion-stats-bars" ></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3  text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+                    <span class="text-nowrap"><a href="<?php echo base_url().'admin/freelancer-list' ?>"  class="small-box-footer">More info</a></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0" style="height: 35px;">Problem Unsolved Tickets</h5>
+                      <span class="h2 font-weight-bold mb-0"><?php echo isset($problem_ticket_count) ? $problem_ticket_count : "0"; ?></span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <i class="ion ion-pie-graph" ></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3  text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+                    <span class="text-nowrap"><a href="<?php echo base_url().'admin/problem-ticket/unsolved' ?>" class="small-box-footer" >More info</a></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+             <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0" style="height: 35px;">Inactive Freelancers</h5>
+                      <span class="h2 font-weight-bold mb-0"><?php echo count($unactiveFreelancer); ?></span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-warning text-white rounded-circle shadow">
+                        <i class="fas fa-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3  text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+                    <span class="text-nowrap"><a href="<?php echo base_url().'admin/problem-ticket/unsolved' ?>" class="small-box-footer" >More info</a></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+        <!-- <div class="col-lg-4 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
@@ -184,7 +533,7 @@ $unactiveFreelancer=$query_unactive_freelancers->result();
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           <!-- <div class="col-lg-3 col-6"> -->
             <!-- small box -->
             <!-- <div class="small-box bg-info">
