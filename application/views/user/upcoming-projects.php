@@ -62,8 +62,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <thead>
               <tr>
                 <th>Title</th>
-                <th>Hired</th>
+                <th>No. Of Proposal</th>
                 <!-- <th>Offers</th> -->
+                <th>Published Date</th>
                 <th>Budget</th>
                 <th>Action</th>
               </tr>
@@ -80,8 +81,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </td>
                 <td><strong> - - </strong></td>
+                 <td>--/--/----</td>
                 <td><strong>${task_total_budget}</strong></td>
                 <!-- <td>${task_total_budget}</td> -->
+               
                 <td><small class="btn btn-danger" > <!-- <img src="<?php  echo base_url('assets/img/dot-sec.png'); ?>" alt=""> -->
                   Action
                   <ul>
