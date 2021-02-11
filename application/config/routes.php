@@ -148,6 +148,7 @@ $route['ticket_send_email'] = 'Freelancer/ticket_send_email';
 $route['direct-hire'] = 'Hire/direct_hire';
 $route['direct-hire/step-2/(:any)'] = 'Hire/direct_hire_step2/$l';
 $route['hire-freelancer'] = 'Hire/hire_freelancer';
+$route['hire-freelancer/(:any)'] = 'Hire/hire_freelancer/$1';
 $route['job-details/(:any)'] = 'Freelancer/freelancer_job_details/$l';
 $route['hired-job-details/(:any)'] = 'Freelancer/hired_job_details/$l';
 $route['freelancer-direct-action/(:any)/(:any)'] = 'Freelancer/freelancer_direct_action/$l/$l';
