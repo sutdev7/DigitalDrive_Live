@@ -143,7 +143,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <td> <?php  echo date('Y-m-d',strtotime("{doc}")); ?></td>
                                                 <td>{milestone_title}<?php  //echo $row["milestone_title"]; ?></td>
                                                 
-                                                <td>{milestone_agreed_budget}<?php //echo $row["milestone_agreed_budget"]; ?></td>
+                                                <td>${milestone_agreed_budget}<?php //echo $row["milestone_agreed_budget"]; ?></td>
                                                 <!-- <td><?php //echo $row["unique_id"]; ?></td> -->
                                                 
                                                 <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
