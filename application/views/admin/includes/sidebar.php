@@ -19,8 +19,11 @@
             </li>
             <li class="nav-item has-treeview <?= ($this->uri->segment(2) == 'client-list') ? 'menu-open' : '' ?> ">
                <a href="<?= base_url() . 'admin/client-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'client-list') ? 'active' : '' ?> ">
-               <i class="fas fa-user-tie"></i> Client <i class="right fas fa-angle-left"></i>
-               <span class="sidebar_badge"><?php echo !empty(count_inactive_client())?count_inactive_client():'0'; ?></span></a>
+               <i class="fas fa-user-tie"></i> Client 
+               <!-- <i class="right fas fa-angle-left"></i>
+               <span class="sidebar_badge"><?php //echo !empty(count_inactive_client())?count_inactive_client():'0'; ?></span>
+                -->
+               </a>
                <?Php
                   $sql1 = "SELECT count(*) as total FROM user_login where profile_status=1 AND  user_type=3 ";
                   $query = $this->db->query($sql1);
@@ -36,8 +39,9 @@
                      <a href="<?php echo base_url() . 'admin/client-list/active' ?>" class="nav-link <?php echo ($this->uri->segment(2) == 'client-list' && $this->uri->segment(3) == 'active') ? 'active' : '' ?>">
                         <i class="far fa-circle nav-icon"></i>
                         <p>
-                           All Client<?php //if ($count1->total > 0)  ?> <span class="sidebar_badge"><?php echo !empty(count_inactive_client())?count_inactive_client():'0'; ?></span>
-                           <!--  <span class="countinactive"><?= isset($count1->total) ? $count1->total : '' ?></span>-->
+                           All Client<?php //if ($count1->total > 0)  ?> 
+                           <!-- <span class="sidebar_badge"><?php //echo !empty(count_inactive_client())?count_inactive_client():'0'; ?></span> -->
+                           <!--  <span class="countinactive"><?php //echo isset($count1->total) ? $count1->total : ''; ?></span>-->
                         </p>
                      </a>
                   </li>
@@ -65,7 +69,8 @@
                   $count = $query->row();
                   ?>
                <a href="<?= base_url() . 'admin/freelancer-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'freelancer-list') ? 'active' : '' ?>">
-               <i class="fas fa-users"></i> Freelancer   <span class="sidebar_badge"><?php echo count_inactive_freelance(); ?></span><i class="right fas fa-angle-left"></i>
+               <i class="fas fa-users"></i> Freelancer  
+                <!-- <span class="sidebar_badge"><?php //echo count_inactive_freelance(); ?></span><i class="right fas fa-angle-left"></i> -->
                </a> 
                <ul class="nav nav-treeview">
                   <!--                        <li class="nav-item">
@@ -85,7 +90,7 @@
                      <a href="<?php echo base_url() . 'admin/freelancer-list/inactive' ?>" class="nav-link <?php echo ($this->uri->segment(2) == 'freelancer-list' && $this->uri->segment(3) == 'inactive') ? 'active' : '' ?>">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Inactive Freelancer</p>
-                        <span class="sidebar_badge"><?php echo count_inactive_freelance(); ?></span>
+                        <!-- <span class="sidebar_badge"><?php// echo count_inactive_freelance(); ?></span> -->
                      </a>
                   </li>
                   <li class="nav-item">
@@ -104,7 +109,9 @@
             </li>
             <li class="nav-item has-treeview <?= ($this->uri->segment(2) == 'naluacer-lists') ? 'menu-open' : '' ?> ">
                <a href="<?= base_url() . 'admin/naluacer-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'naluacer-list') ? 'active' : '' ?>">
-               <i class="fas fa-users"></i> Room <i class="right fas fa-angle-left"></i><span class="sidebar_badge"><?php echo count_inactive_room(); ?></span>
+               <i class="fas fa-users"></i> Room 
+               <!-- <i class="right fas fa-angle-left"></i>
+               <span class="sidebar_badge"><?php //echo count_inactive_room(); ?></span> -->
                </a>
                <ul class="nav nav-treeview">
                   <li class="nav-item">
@@ -116,7 +123,9 @@
                   <li class="nav-item">
                      <a href="<?php echo base_url() . 'admin/naluacer-lists/freelancer' ?>" class="nav-link <?php echo ($this->uri->segment(2) == 'naluacer-lists' && $this->uri->segment(3) == 'freelancer') ? 'active' : '' ?>">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Room Freelancer <span class="sidebar_badge"><?php echo count_inactive_room(); ?></span></p>
+                        <p>Room Freelancer 
+                        <!-- <span class="sidebar_badge"><?php// echo count_inactive_room(); ?></span> -->
+                        </p>
                      </a>
                   </li>
                   <!-- <li class="nav-item">
@@ -141,7 +150,7 @@
             <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'problem-ticket') ? 'menu-open' : '' ?> ">
                <a href="javascript:void(0);" class="nav-link <?= ($this->uri->segment(2) == 'problem-ticket') ? 'active' : '' ?> ">
                <i class="fas fa-user-tie"></i> Problem Ticket <i class="right fas fa-angle-left"></i>
-               <span class="sidebar_badge"><?php echo count_unsolved_ticket(); ?></span> </a>
+               <!-- <span class="sidebar_badge"><?php //echo count_unsolved_ticket(); ?></span> </a> -->
                <ul class="nav nav-treeview">
                   <li class="nav-item">
                      <a href="<?php echo base_url() . 'admin/problem-ticket/solved'; ?>" class="nav-link <?php echo ($this->uri->segment(3) == 'solved') ? 'active' : '' ?>">
@@ -151,8 +160,9 @@
                   </li>
                   <li class="nav-item">
                      <a href="<?php echo base_url() . 'admin/problem-ticket/unsolved'; ?>" class="nav-link <?php echo ($this->uri->segment(3) == 'unsolved') ? 'active' : '' ?> ">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Unsolved <span class="sidebar_badge"><?php echo count_unsolved_ticket(); ?></span></p>
+                        <!-- <i class="far fa-circle nav-icon"></i>
+                        <p>Unsolved <span class="sidebar_badge"><?php //echo count_unsolved_ticket(); ?></span> -->
+                        </p>
                      </a>
                   </li>
                </ul>
