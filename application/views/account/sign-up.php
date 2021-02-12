@@ -209,79 +209,136 @@ if(empty(fldName)){
 
       });
 
- $(document).ready(function() {  
-            $("#fldName").focusout(function() {  
-                if($(this).val()=='') {  
-                    $(this).css('border', 'solid 2px red');  
-                } 
-                else { 
+//  $(document).ready(function() {  
+//             $("#fldName").focusout(function() {  
+//                 if($(this).val()=='') {  
+//                     $(this).css('border', 'solid 2px red');  
+//                 } 
+//                 else { 
                       
-                    // If it is not blank. 
-                    $(this).css('border', 'solid 2px green');     
-                }     
+//                     // If it is not blank. 
+//                     $(this).css('border', 'solid 2px green');     
+//                 }     
+//             }) .trigger("focusout"); 
+
+//             $("#username").focusout(function() {  
+//                 if($(this).val()=='') {  
+//                     $(this).css('border', 'solid 2px red');  
+//                 } 
+//                 else { 
+                      
+//                     // If it is not blank. 
+//                     $(this).css('border', 'solid 2px green');     
+//                 }     
+//             }) .trigger("focusout");
+//             $("#fldCountry").focusout(function() {  
+//                 if($(this).val()=='') {  
+//                     $(this).css('border', 'solid 2px red');  
+//                 } 
+//                 else { 
+                      
+//                     // If it is not blank. 
+//                     $(this).css('border', 'solid 2px green');     
+//                 }     
+//             }) .trigger("focusout");   
+
+//             $("#fldEmail").focusout(function() {  
+//                 if($(this).val()=='') {  
+//                     $(this).css('border', 'solid 2px red');  
+//                 } 
+//                 else { 
+                      
+//                     // If it is not blank. 
+//                     $(this).css('border', 'solid 2px green');     
+//                 }     
+//             }) .trigger("focusout"); 
+//             $("#fldPassword").focusout(function() {  
+//                 if($(this).val()=='') {  
+//                     $(this).css('border', 'solid 2px red');  
+//                 } 
+//                 else { 
+                      
+//                     // If it is not blank. 
+//                     $(this).css('border', 'solid 2px green');     
+//                 }     
+//             }) .trigger("focusout");  
+//             $("#phone").focusout(function() {  
+//                 if($(this).val()=='') {  
+//                     $(this).css('border', 'solid 2px red');  
+//                 } 
+//                 else { 
+                      
+//                     // If it is not blank. 
+//                     $(this).css('border', 'solid 2px green');     
+//                 }     
+//             }) .trigger("focusout");   
+//             $(".file-upload-field").focusout(function() {  
+
+//                 if($(this)[0].files.length==0) {  
+//                     $('.file-upload-wrapper').css('border', 'solid 2px red');  
+//                 } 
+//                 else { 
+                      
+//                     // If it is not blank. 
+//                     $('.file-upload-wrapper').css('border', 'solid 2px green');     
+//                 }     
+//             }) .trigger("focusout");  
+//              }); 
+         
+//          $('#fldCountry').change(function () {
+//     var countryCode = $(this).val();
+//     var countryFlag = $(this).text();
+
+//     if (countryCode) {
+//         $('#phone').val("+"+countryCode);
+       
+//     }
+//     if (countryFlag) {
+        
+//         $('.iti-flag').val("+"+countryCode);
+//     }
+// });
+
+$(document).ready(function() {  
+            $("#fldName").focusout(function() {  
+                if($(this).val()!='') {  
+                     $(this).css('border', 'solid 2px green'); 
+                } 
+                   
             }) .trigger("focusout"); 
 
             $("#username").focusout(function() {  
-                if($(this).val()=='') {  
-                    $(this).css('border', 'solid 2px red');  
-                } 
-                else { 
-                      
-                    // If it is not blank. 
-                    $(this).css('border', 'solid 2px green');     
-                }     
+               if($(this).val()!='') {  
+                     $(this).css('border', 'solid 2px green'); 
+                }      
             }) .trigger("focusout");
             $("#fldCountry").focusout(function() {  
-                if($(this).val()=='') {  
-                    $(this).css('border', 'solid 2px red');  
-                } 
-                else { 
-                      
-                    // If it is not blank. 
-                    $(this).css('border', 'solid 2px green');     
-                }     
+                if($(this).val()!='') {  
+                     $(this).css('border', 'solid 2px green'); 
+                }    
             }) .trigger("focusout");   
 
             $("#fldEmail").focusout(function() {  
-                if($(this).val()=='') {  
-                    $(this).css('border', 'solid 2px red');  
-                } 
-                else { 
-                      
-                    // If it is not blank. 
-                    $(this).css('border', 'solid 2px green');     
-                }     
+               if($(this).val()!='') {  
+                     $(this).css('border', 'solid 2px green'); 
+                }      
             }) .trigger("focusout"); 
             $("#fldPassword").focusout(function() {  
-                if($(this).val()=='') {  
-                    $(this).css('border', 'solid 2px red');  
-                } 
-                else { 
-                      
-                    // If it is not blank. 
-                    $(this).css('border', 'solid 2px green');     
+               if($(this).val()!='') {  
+                     $(this).css('border', 'solid 2px green'); 
                 }     
             }) .trigger("focusout");  
             $("#phone").focusout(function() {  
-                if($(this).val()=='') {  
-                    $(this).css('border', 'solid 2px red');  
-                } 
-                else { 
-                      
-                    // If it is not blank. 
-                    $(this).css('border', 'solid 2px green');     
-                }     
+                if($(this).val()!='') {  
+                     $(this).css('border', 'solid 2px green'); 
+                }      
             }) .trigger("focusout");   
             $(".file-upload-field").focusout(function() {  
 
-                if($(this)[0].files.length==0) {  
-                    $('.file-upload-wrapper').css('border', 'solid 2px red');  
+                if($(this)[0].files.length!==0) {  
+                   $('.file-upload-wrapper').css('border', 'solid 2px green');  
                 } 
-                else { 
-                      
-                    // If it is not blank. 
-                    $('.file-upload-wrapper').css('border', 'solid 2px green');     
-                }     
+                   
             }) .trigger("focusout");  
              }); 
          
