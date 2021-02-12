@@ -33,18 +33,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                            <!--  <p class="my-2">Don Bros <span class="d-block small"><i
                                                         class="fa fa-map-marker"></i> Sydney, NSW, Australia</span>
                                             </p> -->
-                                             <p class="my-2 text-center"><i
-                                                        class="fa fa-map-marker"></i><?=$value->cname?></span></p>
-                                            <p class="my-2 text-center" style="height: 66px"><?= substr($value->bio, 0, 60); ?>
+                                             <p class="my-2 text-center "><i
+                                                        class="fa fa-map-marker text-info"></i> &nbsp;&nbsp;<?=$value->cname?></span></p>
+                                            <p class="my-2 text-center" style="height: 66px"><?= substr($value->bio, 0, 100); ?>
                                             </p>
                                             <!-- <p class="my-2 small"><span class="text-primary"><b>50</b></span>
                                                 Projects
                                                 Done</p> -->
-
                                              <div style="display: inline-flex;">
                                                    <div class="text-center" style="background: #0080008f;flex: 1;width: 81px;border-radius: 5px;"><a href="<?=base_url()?>reviews" title="" class="follow"  style="color: white;">
-                                                       <?php 
-                                                        $revie_count = $this->Tasks->reviewsCount($value->user_id);
+                                                        <?php 
+                                                        $revie_count = $this->Reviews->reviewsCount($value->user_id);
                                                         echo $revie_count;
                                                         ?>
                                                    Review</a></div>
@@ -67,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <span class="coin-tag"><?=$value->total_positive_coins?> Coins</span>
                                         </div>
                                         <p class="my-2 small"><span class="text-primary"><b>
-                                            <?php $task_com=$this->Tasks->reviewsCountTask($value->user_id);
+                                            <?php $task_com=$this->Reviews->reviewsCountTask($value->user_id);
                                             echo $task_com;
                                             ?>
                                        </b></span>
@@ -75,15 +74,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 Done</p>
                                                 <p class="text-center text-muted small mt-2 mb-0"
                                                 style="font-size: 12px">
-                                                Last Login: <?php
-                                                if(!empty($value->last_login)){
-                                                    echo $value->last_login;
-                                                }else{
-                                                    echo "0000-00-00 00:00:00";
-                                                }
-                                                ?></p>
+                                                Last Login: <?=$value->last_login?></p>
                                         
-                                        <div class="w-100 text-center mt-3"><a href="<?=base_url()?>freelancer/details_project/<?=$value->user_id?>" title="" class="view-more-pro"><b>View Profile </b></a></div>
+                                        <div class="w-100 text-center mt-3"><a href="<?=base_url()?>User/admin_profile_vistorAll/<?=$value->user_id?>" title="" class="view-more-pro"><b>View Profile </b></a></div>
                                         <!-- <div class="w-100 border-top mt-3">
                                             <p class="text-center text-muted small mt-2 mb-0"
                                                 style="font-size: 12px">
