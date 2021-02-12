@@ -55,6 +55,60 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/includes/admin_footer_all');
 	}
 	
+
+	#abhishek
+	public  function count_inactive_freelance_admin() {
+		
+		$usertype=4;
+		$count = 0;
+		
+		$this->db->join('user_login', 'user_login.user_id = users.user_id');
+		$this->db->where('user_type',$usertype);
+		$this->db->where('users.status',1);
+		$this->db->where('user_login.profile_status',0);
+		$count = $this->db->count_all_results('users');
+
+		echo $count;
+    }
+
+     public function count_inactive_client() {
+		$count = 0;
+		$CI =& get_instance();
+		$usertype=3;
+		$CI->db->join('user_login', 'user_login.user_id = users.user_id');
+		$CI->db->where('user_type',$usertype);
+		$CI->db->where('users.status',1);
+		$CI->db->where('user_login.admin_read',0);
+		$count = $CI->db->count_all_results('users');
+		echo $count;
+    }
+
+    public function count_inactive_room() {
+		$CI =& get_instance();
+		$usertype=5;
+		$count = 0;
+		$CI->db->join('user_login', 'user_login.user_id = users.user_id');
+		$CI->db->where('user_type',$usertype);
+		$CI->db->where('users.status',1);
+		$CI->db->where('user_login.profile_status',0);
+		$count = $CI->db->count_all_results('users');
+		echo $count;
+    }
+
+    public  function count_unsolved_ticket() {
+		$count = 0;
+		$CI =& get_instance();
+		$problem_status="unsolved";
+		$CI->db->join('grievance',  'grievance.fid = user_grievance.grievance_id');
+		$CI->db->where('user_grievance.problem_status',$problem_status);
+		//$CI->db->where('user_grievance.admin_read',0);
+		$count = $CI->db->count_all_results('user_grievance');
+
+		echo $count;
+    }
+
+#abhishek
+
 	public function client_list($status = ""){
 		$data['userlist'] = $this->Admimodel->get_client_list($usertype = 3, $status);
 		 $this->Admimodel->Update_read_status($usertype = 3, '1');

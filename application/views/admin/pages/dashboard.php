@@ -626,18 +626,64 @@ background: orange;;
     <!-- /.content -->
   </div>
 
-   <div class="notify" data-notify-type="notice">
-     <a href="<?php echo base_url()?>admin/freelancer-list" style="color: white;">Freelancer (<b><?php echo count_inactive_freelance(); ?></b>)</a>
+  <div class="notify" data-notify-type="notice">
+     <a href="<?php echo base_url()?>admin/freelancer-list" style="color: white;">Freelancer (<b id="div1"></b>)</a>
    </div>
 <div class="notify" data-notify-type="notice">
-  <a href="<?php echo base_url()?>admin/client-list" style="color: white;">Client (<b><?php echo count_inactive_client(); ?></b>)</a>
+  <a href="<?php echo base_url()?>admin/client-list" style="color: white;">Client (<b id="div2"></b>)</a>
 </div>
 <div class="notify" data-notify-type="notice">
-  <a href="<?= base_url()?>admin/naluacer-lists/client" style="color: white;" >Room (<b><?php echo count_inactive_room(); ?></b>)</a>
+  <a href="<?= base_url()?>admin/naluacer-lists/client" style="color: white;" >Room (<b id="div3"></b>)</a>
 </div>
 <div class="notify" data-notify-type="notice">
-  <a href="<?= base_url() ?>" style="color: white;">Ticket (<b><?php echo count_unsolved_ticket(); ?></b>)</a>
+  <a href="<?= base_url() ?>" style="color: white;">Ticket (<b id="div4"></b>)</a>
 </div>
+    
+  <script src="<?php echo base_url()?>assets/jquery.notify.js"></script>
+  <script type="text/javascript">
+    setInterval(function(){auto_refresh_functionFreelincer();}, 500);
+     function auto_refresh_functionFreelincer(){
+   $.ajax({
+    type:"post",
+     url:"<?=base_url()?>admin/count_inactive_freelance_admin",
+ datatype:"html",
+     success:function(data)
+      {
+       $('#div1').html(data);
+      }
+     });
+    $.ajax({
+    type:"post",
+     url:"<?=base_url()?>admin/count_inactive_client",
+ datatype:"html",
+     success:function(data)
+      {
+       $('#div2').html(data);
+      }
+     });
+    $.ajax({
+    type:"post",
+     url:"<?=base_url()?>admin/count_inactive_room",
+ datatype:"html",
+     success:function(data)
+      {
+       $('#div3').html(data);
+      }
+     });
+     $.ajax({
+    type:"post",
+     url:"<?=base_url()?>admin/count_unsolved_ticket",
+ datatype:"html",
+     success:function(data)
+      {
+       $('#div4').html(data);
+      }
+     });
+ }
+
+
+
+  </script>
     
   <script src="<?php echo base_url()?>assets/jquery.notify.js"></script>
     <script type="text/javascript"><!--
@@ -650,25 +696,6 @@ background: orange;;
 </script>
   <!-- /.content-wrapper -->
   <script type="text/javascript">
-    setInterval(function(){
-  load_last_notification();
- }, 1000);
-
- function load_last_notification()
- {
-    var data_Freelancer = '<a href="<?php echo base_url()?>admin/freelancer-list" style="color: white;">Freelancer (<b><?php echo count_inactive_freelance(); ?></b>)</a>';
-    var data_Client = '<a href="<?php echo base_url()?>admin/client-list" style="color: white;">Client (<b><?php echo count_inactive_client(); ?></b>)</a>';
-    var data_Room = '<a href="<?= base_url()?>admin/naluacer-lists/client" style="color: white;" >Room (<b><?php echo count_inactive_room(); ?></b>)</a>';
-    var data_Ticket = '<a href="<?= base_url() ?>" style="color: white;">Ticket (<b><?php echo count_unsolved_ticket(); ?></b>)</a>';
-    $('#notification_content_Freelancer').html(data_Freelancer);
-    $('#notification_content_Client').html(data_Client);
-    $('#notification_content_Room').html(data_Room);
-    $('#notification_content_Ticket').html(data_Ticket);
-
- }
-
-
-
 $(document).ready(function(){
   $("button").click(function(){
     $("#alert_popover").css({"display": "none"});
@@ -678,7 +705,7 @@ $(document).ready(function(){
   </script>
 
   <script>
-$.notifySetup({sound: '<?php base_url()?>assets/audio/notify.wav'});
+$.notifySetup({sound: '<?php echo base_url()?>assets/notify.wav'});
 $('.notify').notify();
 </script>
 <script type="text/javascript">
