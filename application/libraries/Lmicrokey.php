@@ -60,6 +60,33 @@ class Lmicrokey {
     }
 
     #Abhishek
+
+	 #Abhishek 
+     public function microkey_project_list_freelincer_page($id){
+        
+        $CI =& get_instance();
+         $CI->load->model('Microkeys');
+        $CI->load->model('Tasks');
+
+       // $CI =& get_instance();
+        $CI->load->model('Users');
+        //$CI->load->model('Tasks');
+        //$CI->load->model('Freelancers');
+        $CI->load->model('Microkeys');
+        
+        $data['microkey_array'] = $CI->Microkeys->get_microkey_data_freelanceAllprojectByid($id);
+        $microkeyData['microkey_array'] = $CI->Microkeys->get_microkey_data_freelanceAllprojectByid($id);
+       
+        
+        $userData = $CI->Microkeys->get_user_profile_info_by_id($id);
+         $microkeyData['user_array'] = $CI->Microkeys->get_user_profile_info_by_id($id);
+     
+        
+       
+        $MicrokeyDataok  = $CI->parser->parse('freelancer/micro_procect_freelicer_list',$microkeyData,true);
+        return $MicrokeyDataok;
+    }
+#Abhishek
 	public function microkey_list_client_page($pageIndex = 0){
 
 		$CI =& get_instance();
