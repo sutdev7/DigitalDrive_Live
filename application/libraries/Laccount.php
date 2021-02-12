@@ -248,7 +248,7 @@ function imageResize($imageResourceId,$width,$height) {
 		
         $username = $user->username;
 		$data['username'] = $username;
-		$data['username'] = "jhaabhishek@gmail.com";
+		$data['username'] = "hirenwork.com@gmail.com";
 
 		if($result) {
 
@@ -286,7 +286,7 @@ function imageResize($imageResourceId,$width,$height) {
 		
         $username = $user->username;
 		$data['username'] = $username;
-		$data['username'] = "jhaabhishek@gmail.com";
+		$data['username'] = "hirenwork.com@gmail.com";
 
 		if($result) {
 
@@ -295,7 +295,7 @@ function imageResize($imageResourceId,$width,$height) {
 		        $CI->load->library('email');
 		        $CI->email->set_newline("\r\n");
 		        $CI->email->from("admin@hirenwork.com");
-		        $CI->email->to("jha98451@gmail.com");
+		        $CI->email->to("hirenwork.com@gmail.com");
 		        $CI->email->subject('Account activated');
 		        $CI->email->message($body);
 		        $CI->email->send(); 
