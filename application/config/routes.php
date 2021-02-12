@@ -169,7 +169,6 @@ $route['save-inappropriate'] = 'Freelancer/save_inappropriate';
 $route['my-jobs'] = 'Freelancer/save_job_list';
 $route['my-jobs/(:num)'] = 'Freelancer/save_job_list/$1';
 
-
 $route['offer-jobs'] = 'Freelancer/offer_jobs';
 
 

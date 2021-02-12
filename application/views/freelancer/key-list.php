@@ -2,32 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $msg = $this->session->flashdata('msg'); 
-if(!empty($msg)) {
-  ?>
-  <div class="container">
-      <br/>
-    <section style="padding-top: 10%;">
-        <?php echo $msg; ?>
-    </section>
-    </div>
-<?php
-}
- 
 $frmValidationMsg = validation_errors(); 
-if(!empty($frmValidationMsg)) {
-  ?>
-  <div class="container">
-  <br/>
-<section style="padding-top: 7%;">
-    <?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
-</section>
-</div>
-<?php
-}
- ?>
-
-<div class="browser-taskDiv pt-0">
+?>
+<div class="browser-taskDiv pt-4">
     <div class="container">
+        <?php 
+        if(!empty($msg)) { ?> <section> <?php echo $msg; ?> </section> <?php }
+        if(!empty($frmValidationMsg)) { ?> <section> <?php echo $frmValidationMsg; ?> </section> <?php } ?>
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="browser-top">
@@ -37,7 +19,7 @@ if(!empty($frmValidationMsg)) {
                     <div class="browser-rht frm-search">
                         <form class="border-readyDiv" action="<?= base_url().'key-list' ?>" method="POST">
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend"> <span class="input-group-text"> <img src="<?= base_url().'assets/img/address.png'?>" alt="img"> &nbsp;&nbsp; Anywhere </span> </div>
+                                <div class="input-group-prepend"> <span class="input-group-text"> <img src="<?= base_url().'assets/img/round-img1.png'?>" alt="img"> &nbsp;&nbsp; Anywhere </span> </div>
                                 <input type="text" class="form-control" name="searchValue" placeholder="Seacrh by Skill" value="{search}" style="width:45%">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
@@ -57,7 +39,7 @@ if(!empty($frmValidationMsg)) {
                             </a>
                             <small>
                                 <span class="mr-3">Posted on {task_doc}</span>
-                                <span><i class="fa fa-map-marker mr-2"></i>{task_origin_country}, {task_origin_location}</span>
+                                <span><i style="color:#b93f3f;" class="fa fa-map-marker mr-2"></i>{task_origin_country}</span>
                             </small>
                         </div>
                         <div class="key-l-right">

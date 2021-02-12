@@ -152,16 +152,7 @@ class Freelancers extends CI_Model {
 		// make join query with skill table and country table
 		
 		if($searchValue !=''){ 
-			$sql = "select distinct(main.task_id) as task_id
-					from (
-						select tr.area_of_interest_id, t.task_id, t.task_name, ari.name as skill_name,conti.name as continent_name, count.name as country_name
-						from task_requirements tr
-						join task t on t.task_id = tr.task_id
-						left join area_of_interest ari on ari.area_of_interest_id = tr.area_of_interest_id
-						left join continent conti on conti.continent_id = t.task_origin_location
-						left join country count on count.country_id = t.task_origin_country
-						where (tr.deleted = 0 or tr.deleted is null) and ( t.task_name like '%".addslashes($searchValue)."%' or ari.name like '".addslashes($searchValue)."%' or conti.name like '".addslashes($searchValue)."%' or count.name like '".addslashes($searchValue)."%' or t.task_total_budget = '".addslashes($searchValue)."' )
-					) main ";
+			$sql = "select distinct(main.task_id) as task_id from ( select tr.area_of_interest_id, t.task_id, t.task_name, ari.name as skill_name,conti.name as continent_name, count.name as country_name from task_requirements tr join task t on t.task_id = tr.task_id  left join area_of_interest ari on ari.area_of_interest_id = tr.area_of_interest_id left join continent conti on conti.continent_id = t.task_origin_location left join country count on count.country_id = t.task_origin_country where (tr.deleted = 0 or tr.deleted is null) and (t.task_id='".$searchValue."' OR t.task_name like '%".addslashes($searchValue)."%' or ari.name like '".addslashes($searchValue)."%' or conti.name like '".addslashes($searchValue)."%' or count.name like '".addslashes($searchValue)."%' or t.task_total_budget = '".addslashes($searchValue)."' ) ) main ";
 			
 			$searchresult = $this->db->query($sql);
 			//echo $this->db->last_query(); 
@@ -806,10 +797,14 @@ class Freelancers extends CI_Model {
 	public function saved_job_list_count(){
 		$user_id = $this->session->userdata('user_id');
 		
-		$this->db->select('task_saved.*, task.*');
-		$this->db->from('task_saved');
-		$this->db->join('task','task.task_id = task_saved.task_id');
-		$this->db->where('user_id',$user_id);
+		$this->db->select('ts.task_id');
+		$this->db->from('task_saved ts');
+		$this->db->join('task tsk','tsk.task_id = ts.task_id');
+		$this->db->join('task_requirements tr','tr.task_id = ts.task_id');
+
+		$this->db->where('ts.user_id',$user_id);
+
+		$this->db->group_by('ts.task_id');
 		$query = $this->db->get();
 		return $query->num_rows();
 		
@@ -818,17 +813,41 @@ class Freelancers extends CI_Model {
 	public function saved_job_list($rowperpage,$rowno){
 		$user_id = $this->session->userdata('user_id');
 		
-		$this->db->select('task_saved.*, task.*, DATE_FORMAT(task.task_due_date, "%d/%m/%Y") as task_due_date,');
-		$this->db->from('task_saved');
-		$this->db->join('task','task.task_id = task_saved.task_id');
-		$this->db->where('user_id',$user_id);
+		$this->db->select('ts.*, tsk.*, DATE_FORMAT(tsk.task_due_date, "%d/%m/%Y") as task_due_date,cry.name AS task_origin_country');
+		$this->db->from('task_saved ts');
+		$this->db->join('task tsk','tsk.task_id = ts.task_id');		
+		$this->db->join('country cry','cry.country_id = tsk.task_origin_location');
+		$this->db->where('ts.user_id',$user_id);
 		$this->db->limit($rowperpage,$rowno);
+		$this->db->group_by('ts.task_id');
 		$query = $this->db->get();
+		 //echo $this->db->last_query(); exit;
 		if($query->num_rows() > 0){
 			return $query->result_array();
 		}else{
 			return array();
 		}
+	}
+	public function getSkillList($taskid){
+		$task_requirements=[];
+		$this->db->select('tr.area_of_interest_id,ari.name,tr.task_id');
+        $this->db->from('task_requirements tr');
+        $this->db->join('area_of_interest ari', 'ari.area_of_interest_id = tr.area_of_interest_id');
+        $this->db->where('tr.task_id', $taskid);
+		$this->db->where('tr.deleted',0);			
+		$query = $this->db->get();
+		//echo $this->db->last_query(); exit;
+		if($query->num_rows() > 0){
+			$skills = $query->result_array();
+			foreach ($skills as $key => $value) {
+				$task_requirements[] = ['skill_id' => $value['area_of_interest_id'], 'skill_name' => $value['name'], 'task_id' => $value['task_id']];
+			}
+		}else{
+			$task_requirements = [];
+		}
+		//print_r($task_requirements); exit();
+		return $task_requirements;
+
 	}
 	
 	public function get_user_basic_info($user_id = ''){

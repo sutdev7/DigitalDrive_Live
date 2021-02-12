@@ -1014,12 +1014,12 @@ class Lfreelancer {
 	}
 	
 	public function saved_job_list(){
+
 		$CI =& get_instance();
 		$CI->load->model('Freelancers');
 		$CI->load->model('Tasks');
 		$CI->load->model('Users');
 		$CI->load->library('pagination');
-		
 		// Pagination Configuration
 		$config['base_url'] = base_url().'save-job-list';
 		$config['full_tag_open'] = '<ul class="pagination" style="margin-top:20px;">';
@@ -1041,7 +1041,6 @@ class Lfreelancer {
         $config['num_tag_open'] = '<li>';
         $config['num_tag_close'] = '</li>';
 		$config["per_page"] = PER_PAGE;	
-
 		
         $CI->pagination->initialize($config);
         $page = ($CI->uri->segment(2)) ? $CI->uri->segment(2) : 0;        
@@ -1061,9 +1060,35 @@ class Lfreelancer {
             $userInfo = array('id' => $userData['basic_info']->user_id, 'name' => $userData['basic_info']->name, 'country' => $userData['basic_info']->country, 'gender' => $userData['basic_info']->gender, 'date_of_birth' => $userData['basic_info']->date_of_birth, 'bio' => $userData['basic_info']->bio, 'address' => $userData['basic_info']->address, 'state' => $userData['basic_info']->state, 'city' => $userData['basic_info']->city, 'vat' => $userData['basic_info']->vat, 'user_languages' => implode(', ', $userData['user_selected_languages']), 'user_skills' => $userData['user_selected_skills'], 'user_image' => $user_profile_image, 'spend_by_user' => $spend_by_user);
         }
 		$data['user_info'][] = $userInfo;
-		$data['job_array'] = $CI->Freelancers->saved_job_list($config["per_page"],$page);
-		$AccountForm = $CI->parser->parse('freelancer/save_job_list_page',$data,true);
+		$taskList = $CI->Freelancers->saved_job_list($config["per_page"],$page);
+		//echo "<pre>"; print_r($taskList); //exit();
+		$jobsData = [];
+		if(!empty($taskList)){
+			foreach($taskList as $row){ 
+				// proposal send or not // by ak
+				$send_sent_proposal_link = ( $CI->Freelancers->get_proposal_info( $postVal = array('task_id' => $row['task_id'], 'user_id' => $CI->session->userdata('user_id')) ) == "yes") ? '<a href="'.base_url().'job-details/'.$row['user_task_id'].'" class="view-btn">Sent Proposal</a>': '<a href="'.base_url().'job-details/'.$row['user_task_id'].'" class="view-btn">Send Proposal</a>';
 
+				$skillsArr['skill_name_show'] = array();
+				
+				$jobsData[] = array(
+					'task_id' => $row['task_id'],
+					'user_task_id' => $row['user_task_id'],
+					'task_name' => ucfirst($row['task_name']),
+					'task_details' => $row['task_details'],
+					'task_total_budget' => $row['task_total_budget'],
+					'task_requirements' => $CI->Freelancers->getSkillList($row['task_id']),
+					'task_origin_country' => $row['task_origin_country'],
+					'task_doc' => date('d M Y',strtotime($row['task_doc'])),
+					'offer_count' => $CI->Freelancers->get_number_proposal($row['task_id']),
+					'send_sent_proposal_link' => $send_sent_proposal_link,
+		
+				);
+			}
+		}
+		$data["jobs"] = $jobsData;
+		//echo "<pre>";print_r($data["jobs"]); exit();
+		
+		$AccountForm = $CI->parser->parse('freelancer/save_job_list_page',$data,true);
 		return $AccountForm;
 	}
 	

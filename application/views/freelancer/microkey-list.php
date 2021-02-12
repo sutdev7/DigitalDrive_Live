@@ -42,7 +42,7 @@ if(!empty($frmValidationMsg)) {
     <div class="gig-prof">
       <img src="{user_image}" class="user-img" style="width:60px;height:50px;">
       
-      <p class="my-2">{user_name} <span class="d-block small"><i class="fa fa-map-marker"></i> {user_city}, {user_state}, {user_country}</span></p>
+      <p class="my-2">{user_name} <span class="d-block small"><i class="fa fa-map-marker"></i> {user_country}</span></p>
       <p class="my-2 small"><span class="text-primary"><b>{user_projects}</b></span> Projects Done</p>
       
     </div>

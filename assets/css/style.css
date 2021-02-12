@@ -6861,7 +6861,7 @@ ul.nav-right_Div li .dropdown-menu li a, .drop-menu .dropdown-menu a {
 .border-readyDiv { width: 100%; float: left; padding: 0px; border: 1px solid #e6e9ed; border-radius: 90px; }
 .input-group-prepend { border:none !important; }
 .input-group-prepend { border:none !important; }
-.browser-top { width:100%; float:left; margin-bottom:30px; }  
+.browser-top { width:100%; float:left; margin-bottom:12px; }  
 .browser-top .form-control { border:none;  border-left: 1px solid #e6eaef; } 
 .task_Left_Div-new h3 { font-size: 24px; margin-top: 0;	margin-bottom:0; }
 .task_Left_Div-new small { color:#a2acb5; font-size:14px; }   

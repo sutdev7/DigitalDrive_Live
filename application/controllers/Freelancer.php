@@ -398,6 +398,7 @@ class Freelancer extends CI_Controller {
 					'title' => display('Freelancer Job List :: Hire-n-Work'),
 				);		
 		$this->template->full_freelancer_html_view($data);
+		
 	}
 	
 	public function proposal(){
