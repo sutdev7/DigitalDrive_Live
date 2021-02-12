@@ -7,7 +7,7 @@
         <div id="logo" class="pull-left"> <a href="<?php echo base_url(); ?>" class="scrollto"> <img src="<?php  echo base_url('assets/img/logo.png'); ?>" alt="" /> </a> </div>
         <nav id="nav-menu-container">
             <ul class="nav-menu">
-                <li><a href="<?= base_url().'microkey-list-clientpanel' ?>" class="<?php echo ($this->uri->segment(1) == 'microkey-list-clientpanel') ? "active" : '' ?> ">Micro Key</a></li>
+                <!-- <li><a href="<?= base_url().'microkey-list-clientpanel' ?>" class="<?php echo ($this->uri->segment(1) == 'microkey-list-clientpanel') ? "active" : '' ?> ">Micro Key</a></li> -->
                 <li><a href="<?= base_url().'key-list' ?>" class="<?php echo ($this->uri->segment(1) == 'key-list') ? "active" : '' ?> ">Key</a></li>
 
 
@@ -66,7 +66,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url(); ?>dashboard">Dashboard</a></li>
                     <li><a href="<?php echo base_url(); ?>public-profile">Public Profile</a></li>
-                    <li><a href="<?php echo base_url(); ?>microkey-list" >My Micro Profile</a></li>
+                    <li><a href="<?php echo base_url(); ?>freelancer/details_projectFreelincer/<?=$this->session->userdata('user_id')?>" >My Micro Profile</a></li>
                     <li><a href="<?php echo base_url(); ?>user-bio">Freelancer Bio</a></li>
                     <li><a href="<?php echo base_url(); ?>settings">Settings</a></li>
                     <li><a href="<?php echo base_url(); ?>reviews">Reviews</a></li>
