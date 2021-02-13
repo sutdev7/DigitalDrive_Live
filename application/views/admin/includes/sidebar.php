@@ -137,6 +137,7 @@
                </ul>
             </li>
             <li><a href="<?= base_url() . 'admin/category-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'category-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Project Category </a></li>
+            <li><a href="<?= base_url() . 'admin/issue-category-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'issue-category-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Issue Category </a></li>
             <!--Abhishek-->
             <li><a href="<?= base_url() . 'admin/freelancer-micro-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'freelancer-micro-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Freelancer Micro </a></li>
            

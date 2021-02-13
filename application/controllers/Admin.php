@@ -1323,4 +1323,93 @@ public function microkey_client_details_page_details($taskID = null, $user_id = 
    
    }
    #Change For new details page client This is below function of  microkey_client_details_page sepratied By Abhishek
+#Abhishek
+public function issue_category_list(){
+		
+	$data['issuecategorylist'] = $this->Admimodel->get_issue_category_list();
+	
+	$this->load->view('admin/includes/admin_header_all');
+	$this->load->view('admin/includes/navbar');
+	$this->load->view('admin/pages/issue_category_list',$data);
+	$this->load->view('admin/includes/admin_footer_all');
+}
+
+public function issue_change_status(){
+	//$changeVal = $_POST['action'];
+	//$response=array();
+	$row_id = $_POST['pk'];
+	$selectedData = $_POST['selectedData']; 
+	
+	$return = $this->Admimodel->update_issue_status($row_id,$selectedData);
+	
+	if($return == 'updated'){
+		echo "1";
+		
+	}else{
+		echo "0";
+	}
+	
+	
+}
+
+	public function issue_category_add(){
+	
+	if($_SERVER['REQUEST_METHOD'] === 'POST'){
+		$this->form_validation->set_rules('name','Category Name', 'required');
+		
+		$submitData = array(
+			'user_type' => $this->input->post('user_type'),
+			'problem_type' => $this->input->post('problem_type'),
+			'status' => 1,
+			'dom' => date('Y-m-d H:i:s'),
+			
+		);   
+		
+		
+			$return = $this->Admimodel->insert_data('grievance',$submitData); 
+			$this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> Issue Added successfully.
+</div>');
+			redirect('admin/issue-category-list');
+		
+	}
+		
+	
+	$this->load->view('admin/includes/admin_header_all');
+	$this->load->view('admin/includes/navbar');
+	$this->load->view('admin/pages/issue_category_add');
+	$this->load->view('admin/includes/admin_footer_all');
+	
+}
+
+
+public function issuecategory_edit(){
+	$rowid = ($this->uri->segment(3) !='') ? $this->uri->segment(3) : '';
+
+	$data['info'] = $this->Admimodel->get_issue_category_info($rowid);
+	
+	if($_SERVER['REQUEST_METHOD'] === 'POST'){
+		
+		$submitData = array(
+			'user_type' => $this->input->post('user_type'),
+			'problem_type' => $this->input->post('problem_type'),
+			'status' => 1,
+			'dom' => date('Y-m-d H:i:s'),
+			
+		);   
+		
+		$rowid = $this->input->post('row_id');
+			$return = $this->Admimodel->update_issue('grievance',$submitData,$rowid); 
+			$this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong>Issue Category update successfully.
+</div>');
+			redirect('admin/issue-category-list');
+		
+	}
+		
+	
+	$this->load->view('admin/includes/admin_header_all');
+	$this->load->view('admin/includes/navbar');
+	$this->load->view('admin/pages/issue_category_edit',$data);
+	$this->load->view('admin/includes/admin_footer_all');
+	
+}
 }
