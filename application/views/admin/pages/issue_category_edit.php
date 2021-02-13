@@ -48,8 +48,8 @@
 							<label for="status" class="col-sm-2 col-form-label">User Type</label>
 							<div class="col-sm-8">
 							  <select class="form-control" name="user_type" id="user_type">
-								<option value="3" <?= ($status ==1) ? 'selected' : '' ?> >Client</option>
-								<option value="4" <?= ($status ==0) ? 'selected' : '' ?> >Freelincer</option>
+								<option value="3" <?= ($name ==1) ? 'selected' : '' ?> >Client</option>
+								<option value="4" <?= ($name ==0) ? 'selected' : '' ?> >Freelincer</option>
 							  </select>
 							</div>
 						</div>
