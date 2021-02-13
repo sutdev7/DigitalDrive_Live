@@ -1064,5 +1064,64 @@ $result = $query->result();
         return $result;
 
     }	
+
+	#Abhishek
+	public function get_issue_category_list(){
+		$this->db->select('');
+		$this->db->from('grievance');
+		
+		$this->db->order_by('problem_type','asc');
+		$result = $this->db->get();
+		if($result->num_rows() > 0){
+			return $result->result();
+		}else{
+			return array();
+		}
+	}
+	function update_issue_status($row_id,$selectedData){
+		
+		$this->db->set('status', $selectedData);
+		$this->db->where('fid', $row_id);
+		$this->db->update('grievance');
+		if($this->db->affected_rows() > 0){
+			return 'updated';
+		}else{
+			return 'Error';
+		}
+	}
+
+	public function issue_insert_data($tableName,$data) { 
+		if ($this->db->insert($tableName, $data)) {
+			$query = $this->db->query('SELECT LAST_INSERT_ID()');
+			$row = $query->row_array();
+			$LastIdInserted = $row['LAST_INSERT_ID()'];
+			return $LastIdInserted; 
+		}else{
+			return 0;
+		} 
+	} 
+
+	public function get_issue_category_info($rowid = ''){
+		$this->db->select('*');
+		$this->db->from('grievance');
+		$this->db->where('fid',$rowid);
+		$result = $this->db->get(); 
+		if($result->num_rows() > 0){
+			return $result->row();
+		}else{
+			return array();
+		}
+	}
+	public function update_issue($tableName='',$data=array(),$rowId='') {
+		$this->db->where('fid', $rowId); 
+		$return	= $this->db->update('grievance', $data); 
+		
+		if ($return) { 
+			return true; 
+		}else{
+			return false;
+		} 
+	}
+	#ABHISHEK
 	
 }

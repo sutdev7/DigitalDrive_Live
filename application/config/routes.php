@@ -273,6 +273,8 @@ $route['linkedinlogin'] = 'Linkedin_login/linkedinlogin';
 $route['view-microkey-task/(:any)'] = 'Tasklist/view_microkey_task/$1';//Non LOggedin View of Micro Project
 $route['view-task-details/(:any)'] = 'Tasklist/view_task_details/$1';//Non LOggedin View of TAsk
 
+$route['admin/issue-category-list'] = 'Admin/issue_category_list';//New Issue Menu
+
 
 
 
