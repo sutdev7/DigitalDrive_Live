@@ -251,7 +251,113 @@ class Lhire {
 		$AccountForm = $CI->parser->parse('hire/hire_freelancer',$data,true);
 		return $AccountForm;
 	}
-	
+	#Abhishek
+	public function hire_freelancers_rehire($freelancer_id){
+		$CI =& get_instance();
+        $CI->load->model('Tasks');
+        $CI->load->model("Users");  
+		$CI->load->model("Hires"); 
+		
+		$data = $selectedFreelancer = $arrFreelancer = $arrJobs = $arrCountry = $arrContinent = $arrSkills = array();
+        $post_data = $freelancer_id; 
+		//print_r($post_data);die();
+		$jobs = $CI->Hires->get_task_data_by_user();
+		
+        
+        if(!empty($post_data)) {
+            if(!empty($post_data['fldSelectedFreelancer']) && is_array($post_data['fldSelectedFreelancer'])) {
+               $selectedFreelancer = $post_data['fldSelectedFreelancer'];
+            } else if(isset($post_data) && $post_data !=''){
+				//echo $post_data['fldFreelancerID'];die;
+				
+				
+				$selectedFreelancer[] = $freelancer_id;
+			} else {
+            	$selectedFreelancer[] = $freelancer_id;
+            }
+        } else {
+            $CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Please select a freelancer for sending offer.</div>');
+            redirect('search-freelancer', 'refresh');
+        }
+        $freeLancerID = 0;
+        $freelancers_list = $CI->Users->get_freelancers_profile_info_by_id($selectedFreelancer);
+        if(!empty($freelancers_list)) {
+            foreach($freelancers_list as $row) {
+                $freeLancerID = $row['basic_info']->user_id;
+                $user_status = $CI->Users->get_user_info_by_id($row['basic_info']->user_id);
+				if(!empty($user_status)){	
+                    if($user_status->total_coins>=0){ $total_positive_coins='+ '.$user_status->total_coins;}else{ $total_positive_coins=$user_status->total_coins;}
+					//$total_positive_coins = $user_status->total_positive_coins;
+					$total_negative_coins = $user_status->total_negative_coins;
+					$total_connects = $user_status->total_connects;
+				}else{
+					$total_positive_coins = $total_negative_coins = $total_connects = 0;
+				}
+				
+				
+                $user_profile_image = $user_status->profile_image;
+                if(empty($user_profile_image)) {
+                    $user_profile_image = base_url('assets/img/no-image.png');
+                } else {
+                    $user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);          
+                }
+                $is_login = $user_status->is_login;
+                $arrFreelancer[] = array(
+					'freelancer_id' => $row['basic_info']->user_id, 
+					'freelancer_name' => $row['basic_info']->name, 
+					'freelancer_country' => $row['basic_info']->country, 
+					'freelancer_state' => $row['basic_info']->state, 
+					'freelancer_city' => $row['basic_info']->city, 
+					'freelancer_address' => $row['basic_info']->address, 
+					'user_image' => $user_profile_image, 
+					'is_online' => (($is_login == '1')?'<div class="round"> </div>':''),
+					'freelancer_public_id' =>$user_status->profile_id,
+					'total_positive_coins' => $total_positive_coins,
+					'total_negative_coins' => $total_negative_coins,
+					'total_connects' => $total_connects
+				);
+
+            }
+        }
+
+        $continents = $CI->Continent->get_all_continent_info();
+        if(!empty($continents)) {
+            foreach($continents as $continent) {
+                $arrContinent[] = array('key' => $continent->continent_id, 'value' => $continent->name, 'currentselection' => '');
+            }
+        }
+
+        $countries = $CI->Countries->get_all_country_info();
+        if(!empty($countries)) {
+            foreach($countries as $countrie) {
+                $arrCountry[] = array('key' => $countrie->country_id, 'value' => $countrie->name, 'currentselection' => '');
+            }
+        }
+
+        if(!empty($jobs)) {
+
+            foreach($jobs as $row) {
+
+                $arrJobs[] = array('task_id' => $row->task_id, 'user_task_id' => $row->user_task_id, 'task_name' => $row->task_name, 'task_total_budget' => $row->task_total_budget);
+
+            }
+
+        } 
+		
+        $data['freelancerInfo'] = $arrFreelancer;
+        $data['jobs'] = $arrJobs;
+        if($skills = $CI->Skills->get_user_skills($freeLancerID)) {
+            $data['skills'] = implode(", ", $skills);
+        }
+        $data['countries'] = $arrCountry;  
+        $data['continents'] = $arrContinent; 
+		
+		//echo '<pre>'; print_r($arrFreelancer);die;
+		
+		$AccountForm = $CI->parser->parse('hire/hire_freelancer',$data,true);
+		return $AccountForm;
+	}
+	#Abhishek
 	public function rehire_freelancers($userInfo = null){
 		$CI =& get_instance();
         //$CI->load->model('Tasks');

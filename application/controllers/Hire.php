@@ -164,5 +164,15 @@ class Hire extends CI_Controller {
 	public function submit_close_contract(){
 		$this->lhire->submit_close_contract();
 	}
+
+	#Abhishek
+	public function hire_freelancer_rehire($freelancer_id){
+		$content = $this->lhire->hire_freelancers_rehire($freelancer_id,$this->session->all_userdata());
+		$data = array(
+					'content' => $content,
+					'title' => display('Direct Hire :: Hire-n-Work'),
+				);		
+		$this->template->full_customer_html_view($data);
+	}
 	
 }

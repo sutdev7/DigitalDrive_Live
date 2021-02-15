@@ -31,22 +31,38 @@
 					<span class="checkmark"></span>
 					</label>
 				</div>
-				<div class="anaaDiv-top"> <span> <img src="img/pro-box1.jpg" alt="img"> </span>
+				<div class="anaaDiv-top"> <span>
+          <script type="text/javascript">
+            var img_f = "{profile_image}";
+            if(img_f){
+              document.write('<img src="<?=base_url()?>uploads/user/profile_image/'+img_f+'" style="width:40px;height:40px;border-radius: 100%;" class="img-circle">');
+            }else{
+              document.write('<img src="<?=base_url()?>assets/img/no-image.png" style="width:40px;height:40px;border-radius: 100%;" class="img-circle"> ');
+            }
+          </script>
+         </span>
 					<div class="round"> </div>
 					<div class="caption">
 						<h3> {name} </h3>
-						<p> {address}, {city}, {state}, {country} </p>
-						<small> + 10 Coins </small>
-						<em> - 10 Coins </em> 
-						<div class="btnDiv2"> <a href="make-an-offer.html" class="view-btn1"> Make offer </a> <a href="direct-hire.html" class="view-btn2"> Rehire </a> </div>
-					</div>
+						<p> <img src="https://www.drivedigitally.com/live/assets/img/round-img1.png">{country} </p>
+						<small> + {total_positive_coins} Coins </small>
+						<em>  {total_negative_coins} Coins </em> 
+            <div class="btnDiv2"> <a href="<?=base_url()?>task/make_an_offer_rehire/{freelancer_id}" class="view-btn1"> Make offer </a> <a href="<?=base_url()?>Hire/hire_freelancer_rehire/{freelancer_id}" class="view-btn2"> Rehire </a> </div>
 					<div class="caption-bottom">
 						<div class="borderdiv-part">
 							<button class="accordion"> Contracts </button>
 							<div class="panel">
 								<div class="big-text">
-									<div class="big-text-part"> <big> Doveloper for IOS App </big> <span> Active </span> </div>
-									<div class="big-text-part"> <big> Need a worrpress Developer </big> <span> Closed on jan2, 2010 </span> </div>
+					 				<div class="big-text-part"> <big> {hired_title} </big> <span> <script type="text/javascript">
+                      var staus = "{hired_is_open}";
+                      if(staus==0){
+                        document.write("Active");
+                      }
+                        else{
+                          document.write("Close");
+                        }         
+                  </script>  </span> </div>
+									<div class="big-text-part"> <big> {hired_details} </big> <span> Closed on {hired_dom} </span> </div>
 								</div>
 							</div>
 						</div>
