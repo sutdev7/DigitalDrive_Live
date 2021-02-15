@@ -628,9 +628,7 @@ class Lfreelancer {
 		}else{
 			$month['February']=0;
 		}
-		
-		
-		
+
 		$q=$CI->db->query("SELECT MONTHNAME(hired_doc) as mon, SUM(agreed_budget) as earned FROM task_hired WHERE freelancer_id='".$CI->session->userdata('user_id')."' AND month(hired_doc)= 3 AND hire_is_completed=1 GROUP BY mon");
 		$result =$q->result();
 		
@@ -736,21 +734,20 @@ class Lfreelancer {
 		}else{
 			$month['December']=0;
 		}
-		 
-		 
-		
+		 		
 		// Revenue Sources
 		$offer_q=$CI->db->query("SELECT task_id FROM task_notification WHERE notification_from='".$CI->session->userdata('user_id')."' AND notification_master_id=12");
 		$offer_result=$offer_q->result_array();
 		$hired_q=$CI->db->query("SELECT task_id FROM task_notification WHERE notification_from='".$CI->session->userdata('user_id')."' AND notification_master_id=14");
-		$hired_result=$hired_q->result_array();
-		$offerArray = array_map('current', $offer_result);
-		$hireArray = array_map('current', $hired_result);
-		$refferal=array_diff($hireArray,$offerArray);
+
+		$hired_result = $hired_q->result_array();
+		$offerArray   = array_map('current', $offer_result);
+		$hireArray 	  = array_map('current', $hired_result);
+		$refferal 	  = array_diff($hireArray,$offerArray);
 		
 		//Projects
-		$task_q=$CI->db->query("SELECT * FROM task_hired WHERE freelancer_id='".$CI->session->userdata('user_id')."' AND hire_is_completed=1");
-		$task_result=$task_q->result();
+		$task_q = $CI->db->query("SELECT * FROM task_hired WHERE freelancer_id='".$CI->session->userdata('user_id')."' AND hire_is_completed=1");
+		$task_result = $task_q->result();
 		$no_web=0;
 		$no_php=0;
 		$no_cms=0;
@@ -758,19 +755,18 @@ class Lfreelancer {
 		
 		foreach($task_result as $t){
 			
-			$skill_q=$CI->db->query("SELECT task_id FROM task_requirements WHERE area_of_interest_id IN(1,9,10,11,12,19) AND task_id='".$t->task_id."'");
-			$no_web=$no_web+$skill_q->num_rows();
+			$skill_q = $CI->db->query("SELECT task_id FROM task_requirements WHERE area_of_interest_id IN(1,9,10,11,12,19) AND task_id='".$t->task_id."'");
+			$no_web = $no_web+$skill_q->num_rows();
 			
-			$skill_q=$CI->db->query("SELECT task_id FROM task_requirements WHERE area_of_interest_id IN(3,5,6) AND task_id='".$t->task_id."'");
-			$no_php=$no_php+$skill_q->num_rows();
+			$skill_q = $CI->db->query("SELECT task_id FROM task_requirements WHERE area_of_interest_id IN(3,5,6) AND task_id='".$t->task_id."'");
+			$no_php  = $no_php+$skill_q->num_rows();
 			
-			$skill_q=$CI->db->query("SELECT task_id FROM task_requirements WHERE area_of_interest_id IN(2,4) AND task_id='".$t->task_id."'");
-			$no_cms=$no_cms+$skill_q->num_rows();
+			$skill_q = $CI->db->query("SELECT task_id FROM task_requirements WHERE area_of_interest_id IN(2,4) AND task_id='".$t->task_id."'");
+			$no_cms = $no_cms+$skill_q->num_rows();
 			
-			$skill_q=$CI->db->query("SELECT task_id FROM task_requirements WHERE area_of_interest_id IN(8,13,14,15,16,17) AND task_id='".$t->task_id."'");
-			$no_design=$no_design+$skill_q->num_rows();
-			
-			
+			$skill_q = $CI->db->query("SELECT task_id FROM task_requirements WHERE area_of_interest_id IN(8,13,14,15,16,17) AND task_id='".$t->task_id."'");
+			$no_design = $no_design+$skill_q->num_rows();
+
 		}
 
 		$monthly_projects_arr=$CI->db->query("SELECT * FROM task_hired WHERE freelancer_id='".$CI->session->userdata('user_id')."' AND hire_is_completed=1 AND MONTH(hired_doc) = MONTH(CURRENT_DATE())");
@@ -784,13 +780,9 @@ class Lfreelancer {
 
 		$total_microkey_projects_arr=$CI->db->query("SELECT * FROM microkey WHERE user_id='".$CI->session->userdata('user_id')."'");
 			$total_microkey_projects=$total_microkey_projects_arr->num_rows();
-
-			//echo $count11;
+			//echo $count11;		
 		
 		$current_month = date('F');
-
-
-		
 		$data['month']=$month;
 		//echo $data['month'][$current_mpnth];
 		$data['yearly_income'] = array_sum($data['month']);
@@ -799,7 +791,6 @@ class Lfreelancer {
 		$data['yearly_projects'] = $yearly_projects;
 		$data['monthly_projects'] = $monthly_projects;
 		$data['pending_projects'] = $pending_projects;
-
 		//echo '<pre>'; print_r($data['month']);die();
 	
 	 	$data['total_offer']=count($offerArray);
@@ -810,14 +801,13 @@ class Lfreelancer {
 		$data['no_php']=$no_php;
 		$data['no_cms']=$no_cms;
 		$data['no_design']=$no_design;
-		
 
-		
 		$CI->load->model('Tasks');
 		$data['analytics'] = $CI->Tasks->project_details($CI->session->userdata('user_id'));
 		
 		$AccountForm = $CI->parser->parse('freelancer/analytics',$data,true);
 		return $AccountForm;
+
 	}
 
 	public function problem_ticket($userInfo = array()){
