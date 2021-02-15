@@ -16,7 +16,7 @@ $frmValidationMsg = validation_errors();
                     <div class="browser-lft">
                         <h2> All Jobs </h2>
                     </div>
-                    <div class="browser-rht frm-search">
+                    <div class="browser-rht frm-search" style="margin-top:10px; ">
                         <form class="border-readyDiv" action="<?= base_url().'key-list' ?>" method="POST">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend"> <span class="input-group-text"> <img src="<?= base_url().'assets/img/round-img1.png'?>" alt="img"> &nbsp;&nbsp; Anywhere </span> </div>

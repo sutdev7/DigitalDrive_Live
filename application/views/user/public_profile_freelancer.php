@@ -13,8 +13,7 @@
             <li class="breadcrumb-item"><a href="#">My Profile</a></li>
             <li class="breadcrumb-item active" aria-current="page">Public Profile</li>
           </ol>
-        </nav> 
-      -->
+        </nav>       -->
 
       <h4>Public Profile</h4>
       <div class="row">
