@@ -47,8 +47,7 @@
 						<p> <img src="https://www.drivedigitally.com/live/assets/img/round-img1.png">{country} </p>
 						<small> + {total_positive_coins} Coins </small>
 						<em>  {total_negative_coins} Coins </em> 
-						<div class="btnDiv2"> <a href="<?=base_url()?>make-an-offer" class="view-btn1"> Make offer </a> <a href="<?=base_url()?>hire-freelancer" class="view-btn2"> Rehire </a> </div>
-					</div>
+            <div class="btnDiv2"> <a href="<?=base_url()?>task/make_an_offer_rehire/{freelancer_id}" class="view-btn1"> Make offer </a> <a href="<?=base_url()?>Hire/hire_freelancer_rehire/{freelancer_id}" class="view-btn2"> Rehire </a> </div>
 					<div class="caption-bottom">
 						<div class="borderdiv-part">
 							<button class="accordion"> Contracts </button>

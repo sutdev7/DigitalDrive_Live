@@ -4115,5 +4115,236 @@ public function sent_offer_page_new($userInfo = null, $type) {
 		}
 	}
 
+    #Abhishek
+public function make_an_offer_page_rehire($freelancer_id,$userInfo = null) {
+
+
+
+    $CI =& get_instance();
+
+        $CI->load->model('Tasks');
+
+        $CI->load->model("Users");        
+
+
+
+    $data = $selectedFreelancer = $arrFreelancer = $arrJobs = $arrCountry = $arrContinent = $arrSkills = array();
+
+        $post_data = $CI->input->post();               
+
+        $jobs = $CI->Tasks->list_user_all_unhired_tasks($userInfo['user_id']);  
+
+
+
+        //print_r($post_data);
+
+        if(!empty($freelancer_id)) {
+
+            if(!empty($freelancer_id) && is_array($freelancer_id)) {
+
+               $selectedFreelancer = $freelancer_id;
+
+            } else {
+
+               $selectedFreelancer[] = $freelancer_id;
+
+            }
+
+        } else {
+
+            $CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Please select a freelancer for sending offer.</div>');
+
+            redirect('search-freelancer', 'refresh');
+
+        }
+
+        $positivecoin=0;        
+
+        $freelancers_list = $CI->Users->get_freelancers_profile_info_by_id($selectedFreelancer);
+
+        if(!empty($freelancers_list)) {
+
+            foreach($freelancers_list as $row) {
+
+      
+
+        if($row['basic_info']->total_coins>=0){ $positivecoin='+ '.$row['basic_info']->total_coins;}else{ $positivecoin=$row['basic_info']->total_coins;}
+
+                $user_status = $CI->Users->get_user_info_by_id($row['basic_info']->user_id);
+
+                $user_profile_image = $user_status->profile_image;
+
+                if(empty($user_profile_image)) {
+
+                    $user_profile_image = base_url('assets/img/no-image.png');
+
+                } else {
+
+                    $user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);          
+
+                }
+
+                $is_login = $user_status->is_login;               
+
+
+
+                $arrFreelancer[] = array('freelancer_id' => $row['basic_info']->user_id, 'freelancer_name' => $row['basic_info']->name, 'freelancer_country' => $row['basic_info']->country, 'freelancer_state' => $row['basic_info']->state, 'freelancer_city' => $row['basic_info']->city, 'user_image' => $user_profile_image, 'total_positive_coins'=>$positivecoin,'total_negative_coins'=> $row['basic_info']->total_negative_coins, 'is_online' => (($is_login == '1')?'<div class="round"> </div>':''));
+
+
+
+            }
+
+        }
+
+
+
+        $continents = $CI->Continent->get_all_continent_info();
+
+
+
+        if(!empty($continents)) {
+
+
+
+            foreach($continents as $continent) {
+
+
+
+                $arrContinent[] = array('key' => $continent->continent_id, 'value' => $continent->name, 'currentselection' => '');
+
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+        $countries = $CI->Countries->get_all_country_info();
+
+
+
+        if(!empty($countries)) {
+
+
+
+            foreach($countries as $countrie) {
+
+
+
+                $arrCountry[] = array('key' => $countrie->country_id, 'value' => $countrie->name, 'currentselection' => '');
+
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+        $skills = $CI->Skills->get_all_skill_info();
+
+
+
+        if(!empty($skills)) {
+
+
+
+            foreach($skills as $skill) {
+
+
+
+                $arrSkills[] = array('key' => $skill->area_of_interest_id, 'value' => $skill->name, 'currentselection' => '');
+
+
+
+            }
+
+
+
+        }         
+
+
+
+
+
+
+
+        //print_r($jobs);
+
+
+
+        if(!empty($jobs)) {
+
+
+
+            foreach($jobs as $row) {
+
+
+
+                $arrJobs[] = array('task_id' => $row->task_id, 'user_task_id' => $row->user_task_id, 'task_name' => $row->task_name, 'task_total_budget' => $row->task_total_budget);
+
+
+
+            }
+
+
+
+        }        
+
+
+
+
+
+
+
+        $data['freelancerInfo'] = $arrFreelancer;
+
+
+
+        $data['jobs'] = $arrJobs;
+
+
+
+        $data['skills'] = $arrSkills;
+
+
+
+        $data['countries'] = $arrCountry;  
+
+
+
+        $data['continents'] = $arrContinent;                         
+
+
+
+
+
+
+
+    $AccountForm = $CI->parser->parse('task/make-an-offer',$data,true);
+
+
+
+    return $AccountForm;
+
+
+
+  }
+
+#Abhishek
+
 }
 

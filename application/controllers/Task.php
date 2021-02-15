@@ -492,6 +492,16 @@ class Task extends CI_Controller {
 		$this->ltask->send_offer($user_id);
 	}
 
-
+	#Abhishek
+	public function make_an_offer_rehire($freelancer_id){
+        $content = $this->ltask->make_an_offer_page_rehire($freelancer_id,$this->session->all_userdata());
+       
+	    $data = array(
+	        'content' => $content,
+	        'title' => display('Make An Offer :: Hire-n-Work'),
+	    );
+		$this->template->full_customer_html_view($data);
+	}
+	#Abhishek
 }
 
