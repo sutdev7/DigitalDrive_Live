@@ -345,8 +345,7 @@ class Freelancer extends CI_Controller {
 		$this->template->full_freelancer_html_view($data);
 	}
 
-	public function index(){
-		
+	public function index(){		
 		$content = $this->lfreelancer->dashboard_page();
 		$data = array(
 			'content' => $content,

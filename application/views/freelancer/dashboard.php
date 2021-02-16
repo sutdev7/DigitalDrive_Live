@@ -24,7 +24,7 @@ if(!empty($msg)) {
 			<div class="col-md-5">
 				<div class="molivi-sec-box"> <span> <img src="{user_info}{user_image}{/user_info}" alt="<?php echo $this->session->userdata('user_name'); ?>" style="width:120px;height:120px;"> </span>
 				  <h3><?php echo $this->session->userdata('user_name'); ?></h3>
-				  <p>  {user_info} {city} {/user_info}, {user_info} {state} {/user_info}, {user_info} {country} {/user_info}  </p>
+				  <p> {user_info} {country} {/user_info}  </p>
 				</div>
 			</div>
 			<div class="col-md-7">
@@ -66,7 +66,7 @@ if(!empty($msg)) {
       
       </div>
       <div class="ongoing-task">
-        <div class="ongoing-task-lft">
+        <!-- <div class="ongoing-task-lft">
             <label>Sort by Status</label>
             <div class="select-style">
               <select>
@@ -78,7 +78,7 @@ if(!empty($msg)) {
                 <option>Freelancer</option>
               </select>
             </div>
-          </div>
+          </div> -->
         <div class="ongoing-task-rht">
 			<form action="<?= base_url().'freelancer-dashboard' ?>" method="POST">
 			<div class="input-group-sec mr-0 float-right">

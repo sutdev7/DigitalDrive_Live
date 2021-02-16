@@ -92,6 +92,7 @@ $route['public-profile/(:any)'] = 'User/public_profile/$l';
 $route['reviews'] = 'review';
 $route['givereview/(:any)'] = 'review/give_review/$1';
 
+
 $route['settings'] = 'User/settings';
 $route['messages'] = 'User/messages';
 $route['messages/(:any)'] = 'User/messages/$1';

@@ -130,15 +130,7 @@ class Freelancers extends CI_Model {
 	}
 	
 	public function search_jobs_by_keyword_count($searchValue = ''){
-		$sql = "select distinct(main.task_id) as task_id
-				from (
-					select tr.area_of_interest_id, t.task_id, t.task_name, ari.name as skill_name,conti.name as continent_name, count.name as country_name
-					from task_requirements tr
-					join task t on t.task_id = tr.task_id
-					left join area_of_interest ari on ari.area_of_interest_id = tr.area_of_interest_id
-					left join continent conti on conti.continent_id = t.task_origin_location
-					left join country count on count.country_id = t.task_origin_country
-					where (tr.deleted = 0 or tr.deleted is null) and ( t.task_name like '%".addslashes($searchValue)."%' or ari.name like '".addslashes($searchValue)."%' or conti.name like '".addslashes($searchValue)."%' or count.name like '".addslashes($searchValue)."%' or t.task_total_budget = '".addslashes($searchValue)."' )
+		$sql = "select distinct(main.task_id) as task_id  from ( select tr.area_of_interest_id, t.task_id, t.task_name, ari.name as skill_name,conti.name as continent_name, count.name as country_name from task_requirements tr join task t on t.task_id = tr.task_id left join area_of_interest ari on ari.area_of_interest_id = tr.area_of_interest_id left join continent conti on conti.continent_id = t.task_origin_location left join country count on count.country_id = t.task_origin_country where (tr.deleted = 0 or tr.deleted is null) and t.task_is_complete=0 AND ( t.task_name like '%".addslashes($searchValue)."%' or ari.name like '".addslashes($searchValue)."%' or conti.name like '".addslashes($searchValue)."%' or count.name like '".addslashes($searchValue)."%' or t.task_total_budget = '".addslashes($searchValue)."' )
 				) main";
 		
 		$searchresult = $this->db->query($sql);
@@ -152,7 +144,7 @@ class Freelancers extends CI_Model {
 		// make join query with skill table and country table
 		
 		if($searchValue !=''){ 
-			$sql = "select distinct(main.task_id) as task_id from ( select tr.area_of_interest_id, t.task_id, t.task_name, ari.name as skill_name,conti.name as continent_name, count.name as country_name from task_requirements tr join task t on t.task_id = tr.task_id  left join area_of_interest ari on ari.area_of_interest_id = tr.area_of_interest_id left join continent conti on conti.continent_id = t.task_origin_location left join country count on count.country_id = t.task_origin_country where (tr.deleted = 0 or tr.deleted is null) and (t.task_id='".$searchValue."' OR t.task_name like '%".addslashes($searchValue)."%' or ari.name like '".addslashes($searchValue)."%' or conti.name like '".addslashes($searchValue)."%' or count.name like '".addslashes($searchValue)."%' or t.task_total_budget = '".addslashes($searchValue)."' ) ) main ";
+			$sql = "select distinct(main.task_id) as task_id from ( select tr.area_of_interest_id, t.task_id, t.task_name, ari.name as skill_name,conti.name as continent_name, count.name as country_name from task_requirements tr join task t on t.task_id = tr.task_id  left join area_of_interest ari on ari.area_of_interest_id = tr.area_of_interest_id left join continent conti on conti.continent_id = t.task_origin_location left join country count on count.country_id = t.task_origin_country where (tr.deleted = 0 or tr.deleted is null) and t.task_is_complete=0 (t.task_id='".$searchValue."' OR t.task_name like '%".addslashes($searchValue)."%' or ari.name like '".addslashes($searchValue)."%' or conti.name like '".addslashes($searchValue)."%' or count.name like '".addslashes($searchValue)."%' or t.task_total_budget = '".addslashes($searchValue)."' ) ) main ";
 			
 			$searchresult = $this->db->query($sql);
 			//echo $this->db->last_query(); 
