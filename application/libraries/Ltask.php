@@ -2679,8 +2679,9 @@ class Ltask {
           $user_task_id= $details['basic_info']['user_task_id'];
           $task_name = $CI->Users->get_task_name($user_task_id);
           $titleName='';
-          foreach($task_name as $k => $v)
-          {
+          
+          foreach($task_name as $k => $v) {
+
             if(!empty($v['task_keywords'])) {
             
               if( strpos($v['task_keywords'], ',') !== true ) {
@@ -2695,13 +2696,15 @@ class Ltask {
                $titleName=$titleName . "'".$m."',";
              }
             }
-            
+  
+          
           $main_val = rtrim($titleName, ',');
           
-           $data['top_freelancers'] = $CI->Users->get_top_freelancers_profile_info_new_freelincer($tFilter,$main_val);
-        
-          $data['hire_list_old'] = $CI->Hires->get_old_hire_list_byskills($main_val,$CI->session->userdata('user_id'),$user_task_id,$tFilter);
+          $data['top_freelancers'] = $CI->Users->get_top_freelancers_profile_info_new_freelincer($tFilter,$main_val);
+          $data['hire_list_old'] = $CI->Hires->get_old_hire_list_byskills($main_val,$CI->session->userdata('user_id'),$user_task_id,$tFilter);  
        }
+              
+        
           #Abhishek Jha 
         $data['task_info'] = $arrTask;
         // echo '<pre>'; print_r($data['proposal_info']); exit;

@@ -105,7 +105,7 @@ else{
                                 <a href="#">{skill_name}</a>
                                 {/task_requirements}
                             </span>
-                            <h4>{task_country}, {task_continent}</h4>
+                            <h4>{task_country}</h4>
                             <p>{task_details}</p>
                             <div class="task_info"> <span>
                                     <h5>Budget</h5>
@@ -175,28 +175,29 @@ else{
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="offerDiv">
+                   
                        
-                    </div>
-                    <div >
+                
                         <!--Changes By Abhishek Chandra Jha FOr Freelincer List-->
-                      <div class="card text-center" >
-                          <div class="card-header">  <h3>
-                        <?php 
-
-                                                    $a_freelancers = array();
-                                                    if(isset($top_freelancers) && $hire_list_old){
-                                                        $a_freelancers = $hire_list_old;
-                                                        $heading="Hired Freelancers";
-                                                       
-                                                    } else {
-                                                        $a_freelancers = $top_freelancers;
-                                                        $heading="Top Freelancers";
-                                                    }
-                        ?>
-                        </h3></div></div>
-                        <ul class="RvwLists">
+                      <!-- <div class="card text-center" >
+                          <div class="card-header"><h3>
+                       
+                        </h3>
+                    </div>
+                </div> -->
+                        <ul class="RvwLists" style="margin-top: 1.5rem !important;">
                             <?php
+
+                             $a_freelancers = array();
+                            if(isset($top_freelancers) && $hire_list_old){
+                                $a_freelancers = $hire_list_old;
+                                $heading="Hired Freelancers";
+                               
+                            } else {
+                                $a_freelancers = $top_freelancers;
+                                $heading="Top Freelancers";
+                            }
+
                             $a_freelancers = array();
                             if(isset($hire_list) && $hire_list_old){
                                 $a_freelancers = $hire_list_old;
@@ -232,9 +233,9 @@ else{
                                         </p>
                                     
                                     
-                                    <div class="" style="display: flex;"> 
+                                    <div class="" style="display: flex;padding: 4px 0px 9px 7px;"> 
                                         <span class="plus" style="flex:1;margin-top: 21px;margin-right: 122px;">+ <?php echo $fRow->total_positive_coins; ?> Coins</span>
-                                                                                <span id="negetive_coin"> <?php echo $fRow->total_negative_coins; ?> Coins</span>
+                                        <span id="negetive_coin"> <?php echo $fRow->total_negative_coins; ?> Coins</span>
                                                                             </div>
                                     </div>
                                     
@@ -250,7 +251,7 @@ else{
                             }
                             ?>
                         </ul>
-                    </div>
+                   
                     <?php
                     if(count($proposals) > 0) {
                         ?>

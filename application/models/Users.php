@@ -1919,8 +1919,8 @@ class Users extends CI_Model
   
       }
       ## This Is For Fatching New Freelincer Abhishek##
-       public function get_top_freelancers_profile_info_new_freelincer($filter = array(),$user_id = '')
-      {
+       public function get_top_freelancers_profile_info_new_freelincer($filter = array(),$profile_title_skill = '') {
+        
           $freelancerList = array();
           
           $this->db->select('users.*,user_login.*, country.name as country');
@@ -1930,7 +1930,7 @@ class Users extends CI_Model
           $this->db->join('country', 'country.country_id = users.country', 'left');
           $this->db->where('user_login.total_positive_coins >', 0);
           $this->db->where('user_login.user_type', 4);
-          $this->db->where('user_login.profile_title_skill='.$user_id.'');
+          $this->db->where('user_login.profile_title_skill='.$profile_title_skill.'');
           $this->db->where('user_login.status', 1);
           if (isset($filter['not_user_id'])) {
               //                $this->db->where('user_id !=', $filter['not_user_id']);
