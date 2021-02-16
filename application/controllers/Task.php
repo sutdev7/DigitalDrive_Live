@@ -223,7 +223,6 @@ class Task extends CI_Controller {
 	public function task_details($taskID = null){
 		if(empty($taskID))
 			redirect('upcoming-projects', 'refresh');
-
         $content = $this->ltask->task_details_page($taskID, $this->session->all_userdata());
 	    $data = array(
 	        'content' => $content,

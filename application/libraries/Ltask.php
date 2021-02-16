@@ -2695,8 +2695,7 @@ class Ltask {
                $titleName=$titleName . "'".$m."',";
              }
             }
-  
-          
+            
           $main_val = rtrim($titleName, ',');
           
            $data['top_freelancers'] = $CI->Users->get_top_freelancers_profile_info_new_freelincer($tFilter,$main_val);
