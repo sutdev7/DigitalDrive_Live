@@ -319,42 +319,52 @@
                     <div class="row cover">
                       <!-- added by amar -->
                       
-                      <div class="col-md-12 col-lg-12 col-xl-12">
+                        <div class="col-md-12 col-lg-12 col-xl-12">
 
-                      <!-- <h3>Terms</h3> -->
-                      <div class="frmList">
-                        <div class="radiodiv" style="padding-top:0;">
-                          <ul>
-                            <li>
-                              <label class="containerdiv newopen1">Amount / Hour
-                                <input type="radio" name="terms" value="pay_hourly_amount" checked="checked">
-                                <span class="checkmark"></span> </label>
-                            </li>
+                          <!-- <h3>Terms</h3> -->
+                          <div class="frmList">
+                            <div class="radiodiv" style="padding-top:0;">
+                              <ul>
+                                <li>
+                                  <label class="containerdiv newopen1">Amount / Hour
+                                    <input type="radio" name="terms" value="pay_hourly_amount" <?php echo isset($task_info[0]['milestone_type']) &&  ($task_info[0]['milestone_type'] == "hourly" ) ? "checked": "" ?>>
+                                    <span class="checkmark"></span> </label>
+                                </li>
+                                <!-- 
+                                <li>
+                                  <label class="containerdiv newopen2">Amount by Milestone
+                                    <input type="radio" name="terms" value="pay_by_milestone">
+                                    <span class="checkmark"></span> </label>
+                                </li> -->
 
-                            <li>
-                              <label class="containerdiv newopen2">Amount by Milestone
-                                <input type="radio" name="terms" value="pay_by_milestone">
-                                <span class="checkmark"></span> </label>
-                            </li>
-
-                            <li>
-                              <label class="containerdiv newopen3">Fixed Payment
-                                <input type="radio" name="terms" value="pay_whole_amount">
-                                <span class="checkmark"></span> </label>
-                            </li>
-                          </ul>
+                                <li>
+                                  <label class="containerdiv newopen3">Fixed Payment
+                                    <input type="radio" name="terms" value="pay_whole_amount" <?php echo isset($task_info[0]['milestone_type']) &&  ($task_info[0]['milestone_type'] == "fixed" ) ? "checked": "" ?>>
+                                    <span class="checkmark"></span> </label>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
                         </div>
 
+                        <div class="opendiv1  col-md-12 col-lg-12 col-xl-12">
+                            
+                            <div class="portal-text ">
+                                <h5>Amount / Hour</h5>
+                                <input type="text" name="" placeholder="$ 0" id="">
+                            </div>
+                            <div class="portal-text">
+                                <h5>No of hour</h5>
+                                <input type="text" placeholder="$ 0"  id="" name="">
+                            </div>
                         </div>
-                        </div>
+                        
 
-                      <div class="bidding-amt col-md-4 col-lg-4 col-xl-4">
-                          
+                        <div class="bidding-amt col-md-4 col-lg-4 col-xl-4">
                             <div class="portal-text">
                                 <h5>Bidding Amount</h5>
                                 <input type="text" name="terms_amount_max" placeholder="$ 0" id="terms_amount_max" required>
-                                <div class="opendiv1" style="display: inline;"><strong>/Hour</strong></div>
-
+                                <!-- <div class="opendiv1" style="display: inline;"><strong>/Hour</strong></div> -->
                             </div>
                             <div class="portal-text">
                                 <h5>Portal Charges</h5>
@@ -380,7 +390,9 @@
                         </div>
 
                       <div class="col-md-12 col-lg-12 col-xl-12">
-
+                                <label class="containerdiv opendiv3">Go with Milestone
+                                    <input type="checkbox" name="terms" class="newopen2" value="pay_by_milestone">
+                                    <span class="checkmark"></span> </label>
                           <div class="opendiv2" style="display:none;">
                                   <ul>
                                     <li class="row after-add-more">
@@ -415,6 +427,8 @@
                                   </ul>
                           </div>
                       </div>
+
+
                       <!-- end by amar -->
                         <div class="col-md-10 col-lg-10 col-xl-10">
                             <div class="cover-letter">
@@ -543,61 +557,61 @@
                                       <hr/>
 
                                   </div>
-                        <div class="mbl-table-nine">
-                          <div class="mbldiv-scroll">
-                          <h2>Budget details</h2>
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  
-                                  <th>Date</th>
-                                  <th>Title</th>
-                                  <th>Budget</th>
-                                  <!-- <th>Provided By</th> -->
-                                  <!-- <th>Action</th> -->
-                                </tr>
-                              </thead>
-                              <tbody id="dataList">
-                              <!-- Display posts list -->
-                                <?php if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
-                                <tr>
-                                  <td> <?php  echo date('Y-m-d',strtotime($row["milestone_doc"])); ?></td>
-                                  <td><?php  echo $row["milestone_title"]; ?></td>
-                                  
-                                  <td>$<?php echo $row["milestone_agreed_budget"]; ?></td>
-                                  <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
-                                  <!-- <td> -->
-                                  <!-- <a data-toggle="tooltip" data-placement="top" title="withdraw">
-                                  <i class="fa fa-money" style="font-size:24px;"></i></a>  -->
-                                      <!-- <a data-toggle="tooltip" data-placement="top" title="Details" href="<?php //echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>"> -->
-                                        <!-- <i class="fa fa-eye" style="font-size:24px;" aria-hidden="true"></i> -->
-                                        <!-- </a> -->
-                                <!-- </td> -->
-                                  
-                                </tr>
-                                <!-- <tr>
-                                  <td><img src="img/cal-img.png" alt=""> 10/12/2019 </td>
-                                  <td>UI Design</td>
-                                  
-                                  <td>$50</td>
-                                </tr> -->
-                                  <?php } }else{ ?>
-                                  <tr><td  colspan="5"><p>Records not found...</p></td></tr>
-                                <?php } ?>
-                                    <!-- Render pagination links -->
-                                  <tr>
-                                  <td  colspan="5">
-                                    <?php // echo ($this->ajax_pagination->create_links() !== "") ? $this->ajax_pagination->create_links():""; ?>
+                                <div class="mbl-table-nine">
+                                  <div class="mbldiv-scroll">
+                                  <h2>Budget details</h2>
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          
+                                          <th>Date</th>
+                                          <th>Title</th>
+                                          <th>Budget</th>
+                                          <!-- <th>Provided By</th> -->
+                                          <!-- <th>Action</th> -->
+                                        </tr>
+                                      </thead>
+                                      <tbody id="dataList">
+                                      <!-- Display posts list -->
+                                        <?php if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
+                                        <tr>
+                                          <td> <?php  echo date('Y-m-d',strtotime($row["milestone_doc"])); ?></td>
+                                          <td><?php  echo $row["milestone_title"]; ?></td>
+                                          
+                                          <td>$<?php echo $row["milestone_agreed_budget"]; ?></td>
+                                          <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
+                                          <!-- <td> -->
+                                          <!-- <a data-toggle="tooltip" data-placement="top" title="withdraw">
+                                          <i class="fa fa-money" style="font-size:24px;"></i></a>  -->
+                                              <!-- <a data-toggle="tooltip" data-placement="top" title="Details" href="<?php //echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>"> -->
+                                                <!-- <i class="fa fa-eye" style="font-size:24px;" aria-hidden="true"></i> -->
+                                                <!-- </a> -->
+                                        <!-- </td> -->
+                                          
+                                        </tr>
+                                        <!-- <tr>
+                                          <td><img src="img/cal-img.png" alt=""> 10/12/2019 </td>
+                                          <td>UI Design</td>
+                                          
+                                          <td>$50</td>
+                                        </tr> -->
+                                          <?php } }else{ ?>
+                                          <tr><td  colspan="5"><p>Records not found...</p></td></tr>
+                                        <?php } ?>
+                                            <!-- Render pagination links -->
+                                          <tr>
+                                          <td  colspan="5">
+                                            <?php // echo ($this->ajax_pagination->create_links() !== "") ? $this->ajax_pagination->create_links():""; ?>
+                                            
+                                          </td>
+                                          </tr>
+                                        
+                                      </tbody>
+                                    </table>
                                     
-                                  </td>
-                                  </tr>
-                                
-                              </tbody>
-                            </table>
-                            
-                          </div>
-                          
-                        </div>
+                                  </div>
+                                  
+                                </div>
 
                       </div>
                 </div>
@@ -789,13 +803,21 @@
 
         $(".opendiv1").show();
         $(".opendiv2").hide();
+        $(".opendiv3").hide();
         $(".newopen1").click(function(){
           $(".opendiv1").show();
           $(".opendiv2").hide();
+          $(".opendiv3").hide();
+
         });
         
         $(".newopen2").click(function(){
+          //alert($(this).is(":checked"));
+          if($(this).is(":checked")){
           $(".opendiv2").show();
+          }else{
+          $(".opendiv2").hide();
+          }
           $(".opendiv1").hide();
         });
 

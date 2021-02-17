@@ -1200,7 +1200,7 @@ class Ltask {
         	//print_r($arrDateParts);
         	//$table_data['task'] = array('task_name' => $submitData['fldTaskTitle'], 'task_details' => $submitData['fldTaskDescription'], 'task_due_date' => date("Y-m-d H:i:s", mktime(date("H"), date("i"), date("s"), (int)$arrDateParts[0], (int)$arrDateParts[1], (int)$arrDateParts[2])), 'task_origin_location' => $submitData['fldSelContinent'], 'task_origin_country' => $submitData['fldSelCountry'], 'task_total_budget' => $submitData['fldTotalBudget'], 'task_status' => 1,'task_keywords' =>$submitData['fldTaskKeywords']);  
 
-            $table_data['task'] = array('task_name' => $submitData['fldTaskTitle'], 'task_details' => $submitData['fldTaskDescription'], 'task_due_date' => $submitData['flddurationfield'], 'task_origin_location' => $submitData['fldSelContinent'], 'task_origin_country' => $submitData['fldSelCountry'], 'task_total_budget' => $submitData['fldTotalBudget'], 'task_status' => 1,'task_keywords' =>$submitData['fldTaskKeywords'],'task_duration_type' =>$submitData['flddurationtype']); 			
+            $table_data['task'] = array('task_name' => $submitData['fldTaskTitle'], 'task_details' => $submitData['fldTaskDescription'], 'task_due_date' => $submitData['flddurationfield'], 'task_origin_location' => $submitData['fldSelContinent'], 'task_origin_country' => $submitData['fldSelCountry'], 'task_total_budget' => $submitData['fldTotalBudget'], 'milestone_type' => $submitData['milestone_type'], 'task_status' => 1,'task_keywords' =>$submitData['fldTaskKeywords'],'task_duration_type' =>$submitData['flddurationtype']); 			
 
             if(is_array($submitData['fldSkillRequired'])) {
                 foreach($submitData['fldSkillRequired'] as $val) {

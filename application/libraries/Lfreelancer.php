@@ -342,6 +342,7 @@ class Lfreelancer {
 				'tasktime_duration' => $tduration, 
 				'task_duration_type' => $details['basic_info']['task_duration_type'],
 				'task_total_budget' => $details['basic_info']['task_total_budget'], 
+				'milestone_type' => isset($details['basic_info']['milestone_type']) ? $details['basic_info']['milestone_type'] : "",
 				'task_keywords' => $details['basic_info']['task_keywords'], 
 				'task_doc' => date('d M Y', strtotime($details['basic_info']['task_doc'])), 
 				'task_continent' => $continent->name, 
@@ -416,7 +417,7 @@ class Lfreelancer {
 			$data['proposal_info_is_already'] = $CI->Freelancers->get_proposal_info($postVal = array('task_id' => $data['task_id'], 'user_id' => $CI->session->userdata('user_id')));
 			$data['proposal_info'] = $CI->Freelancers->get_proposal_info_data($postVal = array('task_id' => $data['task_id'], 'user_id' => $CI->session->userdata('user_id')));
 			
-			//  echo '<pre>';print_r($data['proposal_info']);exit;
+			//  echo '<pre>';print_r($data);exit;
 		// end by amar
 //		dd($data);	
 		$AccountForm = $CI->parser->parse('freelancer/job-details',$data,true);
@@ -1256,8 +1257,8 @@ class Lfreelancer {
 		
 		 
         $data['task_info'] = $arrTask;
-        $data['notification_row_id'] = base64_encode($notification_row_id);
-		$data['notification_master_id'] = base64_encode($notification_master_id);
+        $data['notification_row_id'] = isset($notification_row_id)? base64_encode($notification_row_id) : "";
+		$data['notification_master_id'] = isset($$notification_master_id) ? base64_encode($notification_master_id) : "";
         //$data['notification_action_id'] = base64_encode('13');
 		
 		//$data['task_reject']="<a href=".base_url().'take-action/'.base64_encode($notification_row_id).'/'.base64_encode('13')."class=view-btn2 reject>Reject/Cancel</a>";

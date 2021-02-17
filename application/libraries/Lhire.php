@@ -238,15 +238,16 @@ class Lhire {
 
         } 
 		
+		$data['task_details'] = $CI->Hires->get_task_data_by_usertaskid($CI->uri->segment(2));
+		$data['proposal_info'] = $CI->Hires->get_proposal_info_data($postVal = array('task_id' => $data['task_details'][0]['basic_info']['task_id']));
         $data['freelancerInfo'] = $arrFreelancer;
         $data['jobs'] = $arrJobs;
         if($skills = $CI->Skills->get_user_skills($freeLancerID)) {
             $data['skills'] = implode(", ", $skills);
         }
         $data['countries'] = $arrCountry;  
-        $data['continents'] = $arrContinent; 
-		
-		//echo '<pre>'; print_r($arrFreelancer);die;
+        $data['continents'] = $arrContinent;
+		// echo '<pre>'; print_r($data);die;
 		
 		$AccountForm = $CI->parser->parse('hire/hire_freelancer',$data,true);
 		return $AccountForm;
