@@ -8,7 +8,7 @@
   <section style="padding-top: 7%;">
     <?php echo $msg; ?>
   </section>
-  <?php
+  <?php 
   }
 ?>
 <style type="text/css">
@@ -65,9 +65,11 @@
 							
 							<select name="fldJobTitle" id="fldJobTitle" required>
 								<option value="">Select Post</option>
-								{jobs}
-								<option value="{user_task_id}">{task_name}</option>
-								{/jobs}
+								<!-- {jobs} -->
+								<?php foreach($jobs as $row){ ?>
+								<option value="<?php echo $row['user_task_id'] ; ?>" <?php echo (isset($task_details[0]['basic_info']["user_task_id"]) && ($task_details[0]['basic_info']["user_task_id"] == $row['user_task_id']) )? 'selected':''; ?>><?php echo $row['task_name'] ?></option>
+								<?php } ?>
+								<!-- {/jobs} -->
 								<option value="new_post">Add New Post</option>
 							</select>
                         </div>  
@@ -76,7 +78,7 @@
 					   <li class="row">
                         <div class="w-100 mt-3">
                           <label>Project Description</label>
-                          <input type="text" id="contract_title" name="contract_title" class="form-control" placeholder="Contract Title" required>
+                          <input type="text" id="contract_title" name="contract_title" value="<?php echo isset($task_details[0]['basic_info']['task_details']) ? $task_details[0]['basic_info']['task_details'] : "" ; ?>" class="form-control" placeholder="Contract Title" required>
                         </div>
                       </li>
 					  
@@ -87,7 +89,7 @@
             </div>
             <div class="task_Left_Div task-Full">
               <div class="bluediv">
-                <h2 id="showBudget">$0</h2>
+                <h2 id="showBudget">$<?php echo isset($task_details[0]['basic_info']['task_total_budget']) ? $task_details[0]['basic_info']['task_total_budget'] : "" ; ?></h2>
                 <span class="budget">Budget</span> <a href="#ChangeBudget" class="Terms_Btn" data-toggle="modal">Change Budget</a> 
 			  </div>
 			  <h3>Breakup</h3>
@@ -152,18 +154,18 @@
 					</div>
 				</div>
 			  
-              <h3>Terms</h3>
+              <h3>Freelancer Terms</h3>
               <div class="frmList">
                 <div class="radiodiv" style="padding-top:0;">
                   <ul>
                     <li>
                       <label class="containerdiv newopen1">Pay the whole ammount at a time
-                        <input type="radio" name="terms" value="pay_whole_amount" checked="checked">
+                        <input type="radio" name="terms" value="pay_whole_amount" <?php echo (isset($task_details[0]['basic_info']["milestone_type"]) && ($task_details[0]['basic_info']["milestone_type"] == "hourly") )? 'checked':''; ?>>
                         <span class="checkmark"></span> </label>
                     </li>
                     <li>
                       <label class="containerdiv newopen2">Pay by Milestone
-                        <input type="radio" name="terms" value="pay_by_milestone">
+                        <input type="radio" name="terms" value="pay_by_milestone" <?php echo (isset($task_details[0]['basic_info']["milestone_type"]) && ($task_details[0]['basic_info']["milestone_type"] == "fixed") )? 'checked':''; ?>>
                         <span class="checkmark"></span> </label>
                     </li>
                   </ul>
@@ -193,7 +195,7 @@
                       </div>
                     </li>
                   </ul>
-                  <h3>Deposit</h3>
+                  <!-- <h3>Deposit</h3>
                   <div class="radiodiv" style="padding-top:0;">
                     <ul>
                       <li>
@@ -207,11 +209,11 @@
                           <span class="checkmark"></span> </label>
                       </li>
                     </ul>
-                  </div>
+                  </div> -->
                 </div>
 				
-				
-                <div class="opendiv2" style="display:none;">
+				<!-- class= opendiv2 style="display:none;"-->
+                <div class="" >
 					<ul>
 						<li class="row after-add-more">
 						<div class="col-lg-4 col-md-12 col-xs-12">
@@ -282,7 +284,68 @@
                   </div>
                 </div>
               </div>
+
+			  <div class="mbl-table-nine">
+                                  <div class="mbldiv-scroll">
+                                  <h2>Budget details</h2>
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          
+                                          <th>Date</th>
+                                          <th>Title</th>
+                                          <th>Budget</th>
+                                          <th>Pay Now</th>
+                                          <!-- <th>Provided By</th> -->
+                                          <!-- <th>Action</th> -->
+                                        </tr>
+                                      </thead>
+                                      <tbody id="dataList">
+                                      <!-- Display posts list -->
+                                        <?php if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
+                                        <tr>
+                                          <td> <?php  echo date('Y-m-d',strtotime($row["milestone_doc"])); ?></td>
+                                          <td><?php  echo $row["milestone_title"]; ?></td>
+                                          
+                                          <td>$<?php echo $row["milestone_agreed_budget"]; ?></td>
+										  <td><input type="checkbox" name="milestone_amount[]" value="<?php echo $row["milestone_agreed_budget"]; ?>"></td>
+                                          <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
+                                          <!-- <td> -->
+                                          <!-- <a data-toggle="tooltip" data-placement="top" title="withdraw">
+                                          <i class="fa fa-money" style="font-size:24px;"></i></a>  -->
+                                              <!-- <a data-toggle="tooltip" data-placement="top" title="Details" href="<?php //echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>"> -->
+                                                <!-- <i class="fa fa-eye" style="font-size:24px;" aria-hidden="true"></i> -->
+                                                <!-- </a> -->
+                                        <!-- </td> -->
+                                          
+                                        </tr>
+
+                                        <!-- <tr>
+                                          <td><img src="img/cal-img.png" alt=""> 10/12/2019 </td>
+                                          <td>UI Design</td>
+                                          
+                                          <td>$50</td>
+                                        </tr> -->
+                                          <?php } }else{ ?>
+                                          <tr><td  colspan="5"><p>Records not found...</p></td></tr>
+                                        <?php } ?>
+                                            <!-- Render pagination links -->
+                                          <tr>
+                                          <td  colspan="5">
+                                            <?php // echo ($this->ajax_pagination->create_links() !== "") ? $this->ajax_pagination->create_links():""; ?>
+                                            
+                                          </td>
+                                          </tr>
+                                        
+                                      </tbody>
+                                    </table>
+                                    
+                                  </div>
+                                  
+                                </div>
             </div>
+			
+			
             <div class="task_Left_Div task-Full">
               <h3>Message</h3>
               <ul class="frmList">
@@ -319,8 +382,8 @@
       <div class="modal-body">
         <ul class="frmList">
           <li>
-            <label>Estimated Budget</label>for the task <span id="task_name_span"></span>
-			<input type="hidden" name="task_id" value="" id="task_name_id">
+            <label>Estimated Budget</label>for the task <span id="task_name_span"><?php echo isset($task_details[0]['basic_info']['task_name']) ? $task_details[0]['basic_info']['task_name'] : "" ; ?></span>
+			<input type="hidden" name="task_id" value="<?php echo isset($task_details[0]['basic_info']['task_id']) ? $task_details[0]['basic_info']['task_id'] : "" ; ?>" id="task_name_id">
             <input type="text" name="estimated_budget" class="form-control" placeholder="Enter Here">
           </li>
         </ul>
@@ -370,10 +433,11 @@ $(document).ready(function(){
 	$("#DueDate").on('change', function() {
 		countEndDate();
 	});
-	
-	$('#fldJobTitle').change(function() {      
+	$(window).on('load',function(){
+		$('#fldJobTitle').change();
+	});
+	$('#fldJobTitle').on('change',function() {      
       var postId = $(this).val();
-     
       if(postId == '') {
         alert('Please select a job post for sending offer to freelancer.')
       }else {

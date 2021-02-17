@@ -377,7 +377,7 @@ class Freelancers extends CI_Model {
 
 				foreach($postValue['milestone_agreed_budget'] as $key => $row){		 //echo $key; echo $row;	
 					// $date = date_parse_from_format("m-d-Y", $postValue['milestone_end_date'][$key]);
-					$milestone_date=$date['year']."-".$date["month"]."-".$date["day"];
+					// $milestone_date=$date['year']."-".$date["month"]."-".$date["day"];
 					$data_milestone = array(
 						'proposal_id' => $insert_id,
 						'milestone_title' => $postValue['milestone_title'][$key],

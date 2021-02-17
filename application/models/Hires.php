@@ -30,9 +30,94 @@ class Hires extends CI_Model {
 		}
 	}
 
+	public function get_task_data_by_usertaskid($usertaskid){
+		$user_id = $this->session->userdata('user_id');
+		$this->db->select('*');
+		$this->db->from('task');
+		$this->db->where('task_created_by',$user_id);
+		$this->db->where('user_task_id',$usertaskid);
+		// $this->db->where('task_is_ongoing',0);
+		// $this->db->where('task_status',1);
+		$query = $this->db->get();
+		// echo $this->db->last_query();exit;
+		if($query->num_rows() >0){
+			 //return $query->result_array();
+			 
+			 foreach ($query->result() as $row){
+
+				$task_attachments = $task_requirements = array();
+	
+	
+				$this->db->select('task_attachments.*');
+	
+				$this->db->from('task_attachments');
+	
+				$this->db->where('task_attachments.task_id', $row->task_id);
+	
+				$this->db->where('task_attachments.is_deleted',0);
+	
+				$query_task_attach = $this->db->get();
+	
+				//echo $this->db->last_query();
+	
+				foreach ($query_task_attach->result() as $row_task_attach){
+	
+					//$arrFileName = explode('_', $row_task_attach->task_attach_filename);
+					//$arrFileName = $row_task_attach->task_attach_filename;
+					
+					$arrFileName = explode('_', $row_task_attach->task_attach_filename);
+					
+					$task_attachments[] = array('file_name' => $row_task_attach->task_attach_filename, 'file_display_name' => end($arrFileName) , 'task_attachment_id' => $row_task_attach->task_attachment_id);
+	
+				} 
+	
+				 
+				$c=count($query_task_attach->result());
+				$t=4-$c;
+				$new_attachment="";
+				for($i=0;$i<$t;$i++){
+					 $new_attachment.='<div class="col-sm-3"><input type="file" name="fldTaskDocuments[]"  class="dropify" multiple /></div>';
+				}
+				
+	
+	 
+				$this->db->select('task_requirements.area_of_interest_id,area_of_interest.name,task_requirements.task_id');
+	
+				$this->db->from('task_requirements');
+	
+				$this->db->join('area_of_interest', 'area_of_interest.area_of_interest_id = task_requirements.area_of_interest_id');
+	
+				$this->db->where('task_requirements.task_id', $row->task_id);
+	
+				$this->db->where('task_requirements.deleted',0);
+	
+				$query_task_requirements = $this->db->get();
+	
+				//echo $this->db->last_query();
+	
+				foreach ($query_task_requirements->result() as $row_task_requirement){
+	
+					$task_requirements[] = array('skill_id' => $row_task_requirement->area_of_interest_id, 'skill_name' => $row_task_requirement->name, 'task_id' => $row_task_requirement->task_id);
+	
+				}
+	
+				$basic_info = array('task_name'=> $row->task_name, 'task_id' => $row->task_id, 'user_task_id' => $row->user_task_id, 'task_keywords' => $row->task_keywords,'task_details' => $row->task_details, 'task_due_date' => date('m-d-Y', strtotime($row->task_due_date)), 'task_origin_location' => $row->task_origin_location, 'task_origin_country' => $row->task_origin_country, 'task_total_budget' => $row->task_total_budget,'milestone_type' => $row->milestone_type,'task_hired'=>$row->task_hired,'task_is_ongoing'=>$row->task_is_ongoing,'task_status'=>$row->task_status, "task_duration" => $row->task_duration, "task_duration_type" => $row->task_duration_type);
+	
+	
+	
+				$task_details[] = array('basic_info' => $basic_info, 'task_attachments' => $task_attachments,'new_attachment'=>$new_attachment, 'task_requirements' => $task_requirements);
+	
+			}
+
+			return $task_details;
+		}else{
+			return array();
+		}
+	}
+
 	public function hire_data_insert($postValue = array()){
         
-		// echo '<pre>';	print_r($postValue['milestone_end_date']);
+		// echo '<pre>';	print_r($postValue);exit;
 		  
 		//echo date('Y-m-d H:i:s',strtotime($postValue['milestone_end_date'][2]));
 	/* 	 $date = date_parse_from_format("m-d-Y", $postValue['milestone_end_date'][1]);
@@ -689,4 +774,15 @@ class Hires extends CI_Model {
 		}	
 		
 	}
+
+	// added by ak
+	public function get_proposal_info_data($searchVal = array()){
+		$query = $this->db->select('*')->from('task_proposal')->join('task_proposal_milestone','task_proposal_milestone.proposal_id=task_proposal.proposal_id')->where('task_id',$searchVal['task_id'])->get();
+		if($query->num_rows() > 0){
+			return $query->result_array();
+		}else{
+			return array();
+		}
+	}
+	// end by ak
 }
