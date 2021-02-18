@@ -52,33 +52,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <input type="hidden" name="fldSelCountry" value="{fldSelCountry}" />                                            
               <div class="postDiv_BoxFrm">
                 <h3 class="p-0">Budget</h3>
-                <div class="col-md-12 col-lg-12 col-xl-12">
+                  <div class="col-md-12 col-lg-12 col-xl-12">
 
-                  <!-- <h3>milestone_type</h3> -->
-                  <div class="frmList">
-                    <div class="radiodiv" style="padding-top:0;">
-                      <ul>
-                        <li>
-                          <label class="containerdiv newopen1">Amount / Hour
-                            <input type="radio" name="milestone_type" value="hourly" checked="checked">
-                            <span class="checkmark"></span> </label>
-                        </li>
+                    <!-- <h3>milestone_type</h3> -->
+                    <div class="frmList">
+                      <div class="radiodiv" style="padding-top:0;">
+                        <ul>
+                          <li>
+                            <label class="containerdiv newopen1">Amount / Hour
+                              <input type="radio" name="milestone_type" value="hourly" checked="checked">
+                              <span class="checkmark"></span> </label>
+                          </li>
 
-                        <!-- <li>
-                          <label class="containerdiv newopen2">Amount by Milestone
-                            <input type="radio" name="milestone_type" value="pay_by_milestone">
-                            <span class="checkmark"></span> </label>
-                        </li> -->
+                          <!-- <li>
+                            <label class="containerdiv newopen2">Amount by Milestone
+                              <input type="radio" name="milestone_type" value="pay_by_milestone">
+                              <span class="checkmark"></span> </label>
+                          </li> -->
 
-                        <li>
-                          <label class="containerdiv newopen3">Fixed Payment
-                            <input type="radio" name="milestone_type" value="fixed">
-                            <span class="checkmark"></span> </label>
-                        </li>
-                      </ul>
+                          <li>
+                            <label class="containerdiv newopen3">Fixed Payment
+                              <input type="radio" name="milestone_type" value="fixed">
+                              <span class="checkmark"></span> </label>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
-                  </div>
+
+                    <div class="col-md-12 col-lg-12 col-xl-12">
+
+                      <!-- <h3>milestone_type</h3> -->
+                      <div class="frmList">
+                        <div class="radiodiv" style="padding-top:0;">
+                          <ul>
+                            <li>
+                              <label class="containerdiv newopen1">Pay with One time
+                                <input type="radio" name="milestone_subtype" value="onetime" checked="checked">
+                                <span class="checkmark"></span> </label>
+                            </li>
+
+                            <li>
+                              <label class="containerdiv newopen3">Go with Milestone
+                                <input type="radio" name="milestone_subtype" value="milestone">
+                                <span class="checkmark"></span> </label>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
                 <ul>
                   <li>
                     <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Total Amount</label>
