@@ -87,13 +87,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="radiodiv" style="padding-top:0;">
                           <ul>
                             <li>
-                              <label class="containerdiv newopen1">Pay with One time
+                              <label class="containerdiv newopen1">Yes
                                 <input type="radio" name="milestone_subtype" value="onetime" checked="checked">
                                 <span class="checkmark"></span> </label>
                             </li>
 
                             <li>
-                              <label class="containerdiv newopen3">Go with Milestone
+                              <label class="containerdiv newopen3">No
                                 <input type="radio" name="milestone_subtype" value="milestone">
                                 <span class="checkmark"></span> </label>
                             </li>
