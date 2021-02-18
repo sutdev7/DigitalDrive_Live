@@ -212,8 +212,8 @@
                   </div> -->
                 </div>
 				
-				<!-- class= opendiv2 style="display:none;"-->
-                <div class="" >
+				
+                <div class="opendiv2" style="display:none;">
 					<ul>
 						<li class="row after-add-more">
 						<div class="col-lg-4 col-md-12 col-xs-12">
