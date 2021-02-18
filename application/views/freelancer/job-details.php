@@ -339,7 +339,7 @@
 
                                 <li>
                                   <label class="containerdiv newopen3">Fixed Payment
-                                    <input type="radio" name="terms" value="pay_whole_amount" <?php echo isset($task_info[0]['milestone_type']) &&  ($task_info[0]['milestone_type'] == "fixed" ) ? "checked": "" ?>>
+                                    <input type="radio" name="terms" value="pay_whole_amount" <?php echo isset($task_info[0]['milestone_type']) &&  ($task_info[0]['milestone_type'] == "fixed" || $task_info[0]['milestone_type'] == "milestone" ) ? "checked": "" ?>>
                                     <span class="checkmark"></span> </label>
                                 </li>
                               </ul>
@@ -391,7 +391,7 @@
 
                       <div class="col-md-12 col-lg-12 col-xl-12">
                                 <label class="containerdiv opendiv3">Go with Milestone
-                                    <input type="checkbox" name="terms" class="newopen2" value="pay_by_milestone">
+                                    <input type="checkbox" name="terms" class="newopen2" value="pay_by_milestone" <?php echo isset($task_info[0]['milestone_type']) &&  ($task_info[0]['milestone_type'] == "milestone" ) ? "checked": "" ?>>
                                     <span class="checkmark"></span> </label>
                           <div class="opendiv2" style="display:none;">
                                   <ul>
