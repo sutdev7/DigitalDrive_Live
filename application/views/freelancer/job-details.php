@@ -541,10 +541,9 @@
                                       <p><i class="fa fa-credit-card theme-color"></i> Payment Type: <?php echo isset($proposal_info[0]["milestone_type"]) ? ucwords($proposal_info[0]["milestone_type"]) : "";  ?></p>
                                       <?php if(isset($proposal_info[0]["milestone_type"]) && ($proposal_info[0]["milestone_type"] == "hourly")){ ?>
                                       <p><i class="fa fa-clock-o theme-color"></i> 
-                                      Total no. of hour:   <?php echo isset($proposal_info[0]["no_of_hr"]) ? ucwords($proposal_info[0]["no_of_hr"]) : "";  ?>
-                                      &nbsp Amount / hour: <?php echo isset($proposal_info[0]["amount_per_hr"]) ? ucwords($proposal_info[0]["amount_per_hr"]) : "";  ?>
+                                      Total no. of hour:   <?php echo isset($proposal_info[0]["no_of_hr"]) ? $proposal_info[0]["no_of_hr"] : "";  ?>
+                                      &nbsp Amount / hour: <?php echo isset($proposal_info[0]["amount_per_hr"]) ? '$'.$proposal_info[0]["amount_per_hr"] : "";  ?>
                                       </p>
-                                      
                                       <?php } ?>
                                       <hr/>
                                       <h2 class="Atta">Download Attachment</h2>
