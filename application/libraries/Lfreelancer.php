@@ -496,7 +496,7 @@ class Lfreelancer {
 		
 		$CI->load->model('Freelancers');
 		$CI->load->model('Users');
-		
+		$postData = array();
 		// proposal send or not
 		$proposal_info = $CI->Freelancers->get_proposal_info($postVal = array('task_id' => $CI->input->post('task_id'), 'user_id' => $CI->session->userdata('user_id')));
 		if(trim($proposal_info) == 'yes'){
