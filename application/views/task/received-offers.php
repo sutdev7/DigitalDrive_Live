@@ -101,6 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <h2>Proposal Details</h2>
                                       <p><i class="fa fa-dollar theme-color"></i> Bidding Amount: ${terms_amount_max}</p>
                                       <p><i class="fa fa-calendar theme-color"></i> Posting Date: {posting_date}</p>
+                                      {amoutperhr_details}
                                       <hr/>
                                       <h2 class="Atta">Download Attachment</h2>
                                       {attachments}
@@ -118,7 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div class="anyClass black_color proposal-remark">{remarks}</div>
                                       <hr/>
                                       <h2>Budget Details</h2>
-                                            
+                                      
                                       <div class="mbl-table-nine">
                                         <div class="mbldiv-scroll">
                                           <table class="table">
