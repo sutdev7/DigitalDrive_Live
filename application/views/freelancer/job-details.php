@@ -539,14 +539,24 @@
                                       <p><i class="fa fa-dollar theme-color"></i> Bidding Amount: $<?php echo isset($proposal_info[0]["terms_amount_max"]) ? $proposal_info[0]["terms_amount_max"] : "";  ?></p>
                                       <p><i class="fa fa-calendar theme-color"></i> Posting Date: <?php echo isset($proposal_info[0]["doc"]) ? $proposal_info[0]["doc"] : "";  ?></p>
                                       <p><i class="fa fa-credit-card theme-color"></i> Payment Type: <?php echo isset($proposal_info[0]["milestone_type"]) ? ucwords($proposal_info[0]["milestone_type"]) : "";  ?></p>
+                                      <?php if(isset($proposal_info[0]["milestone_type"]) && ($proposal_info[0]["milestone_type"] == "hourly")){ ?>
+                                      <p><i class="fa fa-clock-o theme-color"></i> 
+                                      Total no. of hour:   <?php echo isset($proposal_info[0]["no_of_hr"]) ? ucwords($proposal_info[0]["no_of_hr"]) : "";  ?>
+                                      &nbsp Amount / hour: <?php echo isset($proposal_info[0]["amount_per_hr"]) ? ucwords($proposal_info[0]["amount_per_hr"]) : "";  ?>
+                                      </p>
                                       
+                                      <?php } ?>
                                       <hr/>
                                       <h2 class="Atta">Download Attachment</h2>
-                                      
+                                      <?php if("" != $proposal_info[0]["attachments"]){ ?>
                                       <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>"><img style="padding: 10px; width: 84px; height: 84px;" src="<?php echo get_file_ext($proposal_info[0]["attachments"]) ?>" alt=""></a>
                                       <br/>
                                       <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>" class="" download><i class="fa fa-download"></i> Download</a>
-                                      <br/>                                     
+                                      <?php }else{ ?>
+                                        <p>No Attachment</p>
+                                      <?php } ?>
+                                      <br/> 
+
                                       <!--<p>{p_attachments}</p> -->
                                      <!-- <form id="frm_attachment" action="<?php /*echo base_url() */?>download_attachment/{p_attachments}" method="post" style="width:100%;">
                                           <p id="download_attachment_{p_attachments}" style="cursor: pointer;"><i class="fa fa-download"></i> Download Attachment </p>
@@ -648,8 +658,9 @@
         // Basic
         $('.dropify').dropify();
 
-        $("#terms_amount_max").on('input', function(e) {
+        $("#terms_amount_max").on('change input', function(e) {
             //console.log("In");
+          // $(".newopen2").prop('checked', true);
           var gross_total = $(this).val();
           if(isNaN(gross_total) || gross_total < 0) {
             $("#portal_charges").val(0);
@@ -810,6 +821,11 @@
           $(".opendiv2").hide();
           $(".opendiv3").hide();
 
+          $("#terms_amount_max").val("");
+          $("#portal_charges").val("");
+          $("#3rd_party_charges").val("");
+          $("#earn_amount").val("");
+
         });
         
         $(".newopen2").click(function(){
@@ -830,6 +846,10 @@
           $("#no_of_hr").val("");
           $("#amount_per_hr").val("");
           $("#terms_amount_max").val("");
+          $("#portal_charges").val("");
+          $("#3rd_party_charges").val("");
+          $("#earn_amount").val("");
+          $(".newopen2").prop('checked', false);
 
         });
 
@@ -847,6 +867,7 @@
           if(noofhr != "" && amountperhr != ""){
             var termsamountmax = (noofhr * amountperhr);
             $("#terms_amount_max").val(termsamountmax);
+          $("#terms_amount_max").trigger("change");
           }
         }
 
