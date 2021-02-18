@@ -1501,10 +1501,35 @@ public function userCount(){
             //echo $this->db->last_query();
 
             foreach ($query_task_hired_freelancer->result() as $row_freelancer_hired){
-                $task_hired_freelancer[] = array('hired_id' => $row_freelancer_hired->hired_id, 'task_id' => $row_freelancer_hired->task_id, 'receiver_id' => $row_freelancer_hired->freelancer_id, 'hired_status' => $row_freelancer_hired->hired_status, 'hire_date' => ($row_freelancer_hired->hire_date != NULL) ? date('d/m/Y',strtotime($row_freelancer_hired->hire_date)) : '',  'offer_send_by' => $row_freelancer_hired->offer_send_by, 'hired_doc' => $row_freelancer_hired->hired_doc);
-            } //'offer_status' => $row_freelancer_hired->offer_status,           
+                $task_hired_freelancer[] = array(                	
+                	'hired_id' => $row_freelancer_hired->hired_id, 
+                	'task_id' => $row_freelancer_hired->task_id, 
+                	'receiver_id' => $row_freelancer_hired->freelancer_id, 
+                	'hired_status' => $row_freelancer_hired->hired_status, 
+                	'hire_date' => ($row_freelancer_hired->hire_date != NULL) ? date('d/m/Y',strtotime($row_freelancer_hired->hire_date)):'',  
+                	'offer_send_by' => $row_freelancer_hired->offer_send_by, 
+                	'hired_doc' => $row_freelancer_hired->hired_doc,
 
-            $basic_info = array('user_task_id' => $row->user_task_id, 'task_name' => $row->task_name, 'task_keywords' => $row->task_keywords, 'task_details' => $row->task_details, 'task_due_date' => $row->task_due_date, 'task_origin_location' => $row->task_origin_location, 'task_origin_country' => $row->task_origin_country, 'task_total_budget' => $row->task_total_budget, 'milestone_type' => $row->milestone_type, 'task_doc' => $row->task_doc,'task_duration' => $row->task_duration ,'task_duration_type' => $row->task_duration_type,'task_completed_by_owner' => $row->task_completed_by_owner );
+                );
+            } 
+            //'offer_status' => $row_freelancer_hired->offer_status,           
+
+            $basic_info = array(
+            	
+            	'user_task_id' => $row->user_task_id, 
+            	'task_name' => $row->task_name, 
+            	'task_keywords' => $row->task_keywords, 
+            	'task_details' => $row->task_details, 
+            	'task_due_date' => $row->task_due_date, 
+            	'task_origin_location' => $row->task_origin_location, 
+            	'task_origin_country' => $row->task_origin_country, 
+            	'task_total_budget' => $row->task_total_budget, 
+            	'milestone_type' => $row->milestone_type, 
+            	'task_doc' => $row->task_doc,
+            	'task_duration' => $row->task_duration,
+            	'task_duration_type' => $row->task_duration_type,
+            	'task_completed_by_owner' => $row->task_completed_by_owner 
+            );
 
             $task_details[] = array('basic_info' => $basic_info, 'task_attachments' => $task_attachments, 'task_requirements' => $task_requirements, 'task_hired' => $task_hired_freelancer);
         }

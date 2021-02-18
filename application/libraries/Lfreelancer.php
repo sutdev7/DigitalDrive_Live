@@ -299,7 +299,6 @@ class Lfreelancer {
 
                 }
             }
-
             
 
             $datetime1 = strtotime($details['basic_info']['task_doc']);

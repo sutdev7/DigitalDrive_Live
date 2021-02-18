@@ -324,10 +324,27 @@
                           <!-- <h3>Terms</h3> -->
                           <div class="frmList">
                             <div class="radiodiv" style="padding-top:0;">
+                              <?php  
+                              if(isset($task_info[0]['milestone_type']) &&  $task_info[0]['milestone_type'] == "hourly" ){
+                                  $hourly = "checked";
+                                  $displayH="";
+                                  $DisplayM="display: none;";
+                              } else  if(isset($task_info[0]['milestone_type']) &&  $task_info[0]['milestone_type'] == "milestone" ){
+                                $milestone ="checked";
+                                $displayH="display: none;";
+                                $DisplayM = "";
+                              } else{
+                                $hourly ="";
+                                $milestone ="checked";
+                                $displayH="display: none;";
+                                $DisplayM="";
+                              }
+
+                               ?>
                               <ul>
                                 <li>
                                   <label class="containerdiv newopen1">Amount / Hour
-                                    <input type="radio" name="terms" value="pay_hourly_amount" <?php echo isset($task_info[0]['milestone_type']) &&  ($task_info[0]['milestone_type'] == "hourly" ) ? "checked": "" ?>>
+                                    <input type="radio" name="terms" value="pay_hourly_amount" <?php echo $hourly;?> >
                                     <span class="checkmark"></span> </label>
                                 </li>
                                 <!-- 
@@ -339,58 +356,61 @@
 
                                 <li>
                                   <label class="containerdiv newopen3">Fixed Payment
-                                    <input type="radio" name="terms" value="pay_whole_amount" <?php echo isset($task_info[0]['milestone_type']) &&  ($task_info[0]['milestone_type'] == "fixed" || $task_info[0]['milestone_type'] == "milestone" ) ? "checked": "" ?>>
+                                    <input type="radio" name="terms" value="pay_whole_amount" <?php echo $milestone; ?>>
                                     <span class="checkmark"></span> </label>
                                 </li>
                               </ul>
                             </div>
                           </div>
                         </div>
+                       
 
-                        <div class="opendiv1  col-md-12 col-lg-12 col-xl-12">
+                        <div class="opendiv1 col-md-6 col-lg-6 col-xl-6" style="<?php echo $displayH;?>">
                             
-                            <div class="portal-text ">
+                            <div class="portal-text" style="float: left;">
                                 <h5>Amount / Hour</h5>
                                 <input type="text" name="amount_per_hr" placeholder="$ 0" id="amount_per_hr">
                             </div>
-                            <div class="portal-text">
+                            <div class="portal-text" style="float: left; margin-left: 5px;">
                                 <h5>No of hour</h5>
                                 <input type="text" placeholder="$ 0"  id="no_of_hr" name="no_of_hr">
                             </div>
+                            
                         </div>
                         
 
-                        <div class="bidding-amt col-md-4 col-lg-4 col-xl-4">
-                            <div class="portal-text">
+                        <div class="bidding-amt col-md-6 col-lg-6 col-xl-6">
+                            <div class="portal-text" style="float: left;">
                                 <h5>Bidding Amount</h5>
                                 <input type="text" name="terms_amount_max" placeholder="$ 0" id="terms_amount_max" required>
                                 <!-- <div class="opendiv1" style="display: inline;"><strong>/Hour</strong></div> -->
                             </div>
-                            <div class="portal-text">
+                            <div class="portal-text" style="float: left; margin-left: 5px;">
                                 <h5>Portal Charges</h5>
                                 <input type="text" placeholder="$ 0" disabled="" id="portal_charges" name="portal_charges">
                             </div>
+                            
                         </div>
 
-                        <div class="portal-charges col-md-3 col-lg-3 col-xl-3">
-                            <div class="portal-text">
+                        <div class="portal-charges col-md-6 col-lg-6 col-xl-6">
+                            <div class="portal-text" style="float: left;">
                                 <h5>3rd Party Charges</h5>
                                 <input type="text" placeholder="$ 0" disabled="" name="3rd_party_charges" id="3rd_party_charges">
                             </div>
-                            <div class="portal-text">
+                            <div class="portal-text" style="float: left; margin-left: 5px;">
                                 <h5>Earn Amount</h5>
                                 <input type="text" placeholder="$ 0" name="earn_amount" disabled="" id="earn_amount">
                             </div>
 
                         </div>
 
-                        <div class="proposal text-center col-md-4 col-lg-4 col-xl-4">
-                            <p>Required Key to submit this proposal 1</p>
+                        <div class="proposal col-md-6 col-lg-6 col-xl-6">
+                            <span>Required Key to submit this proposal 1</span>
                             <h4>Available Key {connection}</h4>
                         </div>
 
-                      <div class="col-md-12 col-lg-12 col-xl-12">
-                                <label class="containerdiv opendiv3">Go with Milestone
+                      <div class="col-md-12 col-lg-12 col-xl-12" >
+                                <label class="containerdiv opendiv3" style="<?php echo $DisplayM;?>" >Go with Milestone
                                     <input type="checkbox" name="terms" class="newopen2" value="pay_by_milestone" <?php echo isset($task_info[0]['milestone_type']) &&  ($task_info[0]['milestone_type'] == "milestone" ) ? "checked": "" ?>>
                                     <span class="checkmark"></span> </label>
                           <div class="opendiv2" style="display:none;">
@@ -811,9 +831,9 @@
             
         });
 
-        $(".opendiv1").show();
-        $(".opendiv2").hide();
-        $(".opendiv3").hide();
+       // $(".opendiv1").show();
+        //$(".opendiv2").hide();
+        //$(".opendiv3").hide();
 
         $(".newopen1").click(function(){
           $(".opendiv1").show();
