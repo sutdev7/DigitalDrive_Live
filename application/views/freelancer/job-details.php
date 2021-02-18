@@ -833,8 +833,9 @@
 
 
 
-        $(".cancelBtn").on("click",function(e){ 
-          e.preventDefault();
+        $(".cancelBtn").on("click",function(){ 
+          //e.preventDefault();
+
           var total_element = $(".after-add-more").length;
           //alert(total_element);
 
