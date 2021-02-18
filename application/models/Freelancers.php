@@ -324,6 +324,7 @@ class Freelancers extends CI_Model {
 
 	public function add_proposal($postData = array()){
 		$postValue = $this->input->post();
+		// echo 'hiii'.'<pre>';print_r($postValue);exit;
 		// get connects
 		$total_connects = $this->db->select('user_login.total_connects')->from('user_login')->where('user_id',$this->session->userdata('user_id'))->get()->row()->total_connects;
 		$new_total_connects = ($total_connects-1);
@@ -334,11 +335,14 @@ class Freelancers extends CI_Model {
 			$str = ''; 
 		}
 		$date_of_creation = date("Y-m-d H:i:s");
-		
+		$amount_per_hr = ("" != $this->input->post('amount_per_hr')) ? $this->input->post('amount_per_hr') : "";
+		$no_of_hr = ("" != $this->input->post('no_of_hr')) ? $this->input->post('no_of_hr') : "";
 		$insert = array(
 			'task_id' => $this->input->post('task_id'),
 			'user_id' => $this->session->userdata('user_id'),
 			'terms_amount_max' => $this->input->post('terms_amount_max'),
+			'amount_per_hr' => $amount_per_hr,
+			'no_of_hr' => $no_of_hr,
 			'terms_amount_min' => 0,
 			'cover_letter' => $this->input->post('cover_letter'),
 			'attachments' => $str,
@@ -389,6 +393,8 @@ class Freelancers extends CI_Model {
 				$milestone_type = 'hourly';
 				$milestone_title = 'hourly';
 				$milestone_agreed_budget = $this->input->post('terms_amount_max');
+
+
 			}else{
 				$milestone_type = '';
 			}
