@@ -1193,15 +1193,22 @@ class Ltask {
 
         $table_data = array('task' => array(), 'task_requirements' => array(), 'task_attachments' => array());
         $submitData = $CI->input->post(); 
+        if($submitData["milestone_subtype"] == "yes" && $submitData["milestone_type"] == "fixed"){
+            $milestone_type = "fixed";
+        }else if($submitData["milestone_subtype"] == "no" && $submitData["milestone_type"] == "fixed"){
+            $milestone_type = "milestone";
+        }else if($submitData["milestone_type"] == "hourly"){
+            $milestone_type = "hourly";
 
+        }
        
         if(!empty($submitData)) {
         	//$arrDateParts = explode('-', $submitData['fldDueDate']);
         	//print_r($arrDateParts);
         	//$table_data['task'] = array('task_name' => $submitData['fldTaskTitle'], 'task_details' => $submitData['fldTaskDescription'], 'task_due_date' => date("Y-m-d H:i:s", mktime(date("H"), date("i"), date("s"), (int)$arrDateParts[0], (int)$arrDateParts[1], (int)$arrDateParts[2])), 'task_origin_location' => $submitData['fldSelContinent'], 'task_origin_country' => $submitData['fldSelCountry'], 'task_total_budget' => $submitData['fldTotalBudget'], 'task_status' => 1,'task_keywords' =>$submitData['fldTaskKeywords']);  
 
-            $table_data['task'] = array('task_name' => $submitData['fldTaskTitle'], 'task_details' => $submitData['fldTaskDescription'], 'task_due_date' => $submitData['flddurationfield'], 'task_origin_location' => $submitData['fldSelContinent'], 'task_origin_country' => $submitData['fldSelCountry'], 'task_total_budget' => $submitData['fldTotalBudget'], 'milestone_type' => $submitData['milestone_type'], 'task_status' => 1,'task_keywords' =>$submitData['fldTaskKeywords'],'task_duration_type' =>$submitData['flddurationtype']); 			
-
+            $table_data['task'] = array('task_name' => $submitData['fldTaskTitle'], 'task_details' => $submitData['fldTaskDescription'], 'task_due_date' => $submitData['flddurationfield'], 'task_origin_location' => $submitData['fldSelContinent'], 'task_origin_country' => $submitData['fldSelCountry'], 'task_total_budget' => $submitData['fldTotalBudget'], 'milestone_type' => $milestone_type, 'task_status' => 1,'task_keywords' =>$submitData['fldTaskKeywords'],'task_duration_type' =>$submitData['flddurationtype']); 			
+            
             if(is_array($submitData['fldSkillRequired'])) {
                 foreach($submitData['fldSkillRequired'] as $val) {
                 	$table_data['task_requirements'][] = $val;
@@ -1222,7 +1229,7 @@ class Ltask {
 				}
 			}
 
-			//echo '<pre>'; print_r($submitData); echo '<br/>'; print_r($table_data); die;
+			// echo '<br/>'; print_r($table_data); die;
 
             $result = $CI->Tasks->add_new_task($userInfo['user_id'], $table_data); 
             if($result) {
