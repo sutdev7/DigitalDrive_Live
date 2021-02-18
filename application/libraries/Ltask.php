@@ -3890,7 +3890,14 @@ public function sent_offer_page_new($userInfo = null, $type) {
                 $jobInfo = array();
                 $task_name = '';
             }
-
+                $proposal_info = $CI->Tasks->get_proposal_info($user_task_id,$job->proposal_id); // by amar
+                $no_of_hr = isset($proposal_info[0]["no_of_hr"]) ? $proposal_info[0]["no_of_hr"] : "";
+                $amount_per_hr = isset($proposal_info[0]["amount_per_hr"]) ? '$'.$proposal_info[0]["amount_per_hr"] : "";
+                $amoutperhr_details = "";
+                 if(isset($proposal_info[0]["milestone_type"]) && ($proposal_info[0]["milestone_type"] == "hourly")){
+                    $amoutperhr_details .= '<p><i class="fa fa-clock-o theme-color"></i> 
+                    Total no. of hour: '. $no_of_hr. '&nbsp Amount / hour: '. $amount_per_hr .'</p>';
+                 }
             $arrJobs[] = array(
                 'user_task_id' => $user_task_id, 
                 'task_name' => $task_name,                
@@ -3915,7 +3922,8 @@ public function sent_offer_page_new($userInfo = null, $type) {
                 'p_attachments' => $job->proposal_id,
                 'attachments' => $task_attachments,
                 'job_doc' => isset($job->doc) ?  get_time_ago($job->doc) : '',
-               'proposal_info' => $CI->Tasks->get_proposal_info($user_task_id,$job->proposal_id), // by amar
+               'proposal_info' => $proposal_info,
+               'amoutperhr_details' => $amoutperhr_details,
 
             );
 
@@ -3924,7 +3932,7 @@ public function sent_offer_page_new($userInfo = null, $type) {
         }
 
         $data["jobs"] = $arrJobs;
-        //  echo"<pre>";print_r($data["jobs"]);die;
+        //  echo"<pre>";print_r($data);die;
         $AccountForm = $CI->parser->parse('task/received-offers',$data,true);
         return $AccountForm;
 
