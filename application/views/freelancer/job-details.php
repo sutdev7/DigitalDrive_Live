@@ -351,11 +351,11 @@
                             
                             <div class="portal-text ">
                                 <h5>Amount / Hour</h5>
-                                <input type="text" name="" placeholder="$ 0" id="">
+                                <input type="text" name="amount_per_hr" placeholder="$ 0" id="amount_per_hr">
                             </div>
                             <div class="portal-text">
                                 <h5>No of hour</h5>
-                                <input type="text" placeholder="$ 0"  id="" name="">
+                                <input type="text" placeholder="$ 0"  id="no_of_hr" name="no_of_hr">
                             </div>
                         </div>
                         
@@ -804,6 +804,7 @@
         $(".opendiv1").show();
         $(".opendiv2").hide();
         $(".opendiv3").hide();
+
         $(".newopen1").click(function(){
           $(".opendiv1").show();
           $(".opendiv2").hide();
@@ -826,8 +827,29 @@
           $(".opendiv2").hide();
           $(".opendiv1").hide();
           $(".opendiv3").show();
+          $("#no_of_hr").val("");
+          $("#amount_per_hr").val("");
+          $("#terms_amount_max").val("");
 
         });
+
+        $("#amount_per_hr").on('input', function(){
+          hourlyamount();
+        });
+
+        $("#no_of_hr").on('input', function(){
+          hourlyamount();
+        });
+
+        function hourlyamount(){
+          var noofhr = $("#no_of_hr").val();
+          var amountperhr = $("#amount_per_hr").val();
+          if(noofhr != "" && amountperhr != ""){
+            var termsamountmax = (noofhr * amountperhr);
+            $("#terms_amount_max").val(termsamountmax);
+          }
+        }
+
 
 
         $(function (){
