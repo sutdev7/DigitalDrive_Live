@@ -429,7 +429,7 @@
                                     <div class="col-lg-4 col-md-12 col-xs-12">
                                       <label>Amount</label>
                                       <div class="input-group amt"> <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                      <input class="form-control milestone_amount" id="" type="text" name="milestone_agreed_budget[]" value="" placeholder="00">
+                                      <input class="form-control milestone_amount" id="" type="number" name="milestone_agreed_budget[]" value="" placeholder="00">
                                       </div>
                                     </div>
                                     <div class="col-lg-4 col-md-12 col-xs-12">
@@ -438,9 +438,7 @@
                                       </div>
                                     </div>
                                     </li>
-                                  
-                                                    
-                                          
+
                                     <li class="row" style="padding:40px 0; border:none;"> 
                                       <a href="#" class="plus_btn" id="addMore"><i class="fa fa-plus"></i> Add Another</a> <span class="optionalSpan"></span> 
                                     </li>
@@ -712,7 +710,7 @@
             commision=(gross_total*20)/100;
             percentage="20%";
           }
-          console.log(percentage);
+          //console.log(percentage);
 
           var freelancer_amount = gross_total - commision;
           var thired_party_commision = (gross_total*2)/100;
@@ -779,55 +777,71 @@
 
         var currentamount = 0;
         var wholeamount = 0;
-        
-        $("#addMore").on("click",function(e){ 
-          // alert('hii');
-        e.preventDefault();
-            var html = $(".after-add-more").first().clone();
-        var total_element = $(".after-add-more").length;
-        var total_element = total_element +1;
-        
+    
+    function CalculateMS(){
+      var sumtotal=0;
+      wholeamount = $("#terms_amount_max").val();
+     var lastval = $(".milestone_amount").last().val();
+      $(".milestone_amount").each(function(){
+        sumtotal = sumtotal + Number($(this).val());
+      });
+      $restamount = wholeamount-sumtotal;
+      $balance = parseInt($restamount) + parseInt(lastval);
+     // alert($balance);
+      $(".milestone_amount").last().val($balance);
 
-        var firstval = $(".milestone_amount").first().val();
-        var lastval = $(".milestone_amount").last().val();
-
-        // alert("firstval" + firstval);
-        // alert("lastval" + lastval);
-
-
-        wholeamount = $("#terms_amount_max").val();
-        if(wholeamount <= 0){
-          alert("please select the bidding amount");
-        }else{
-
-        var sumtotal = 0;
-
-        // alert(wholeamount);
-        $(".milestone_amount").each(function(){
-          sumtotal = sumtotal + Number($(this).val());
-          // alert("currentval" + $(this).val());;
-        });
-        // alert("sumtotal" + sumtotal);
-        if( sumtotal >= wholeamount ){
-          alert("please reduce milestone amount to add different milestone")
-        }else{
-         $(".milestone_amount").first().val(wholeamount- sumtotal );
-
-          $(".after-add-more").last().after(html);
-          $("#noofmilestone").html(total_element);
-      }
     }
-            
-        });
+
+        
+  $("#addMore").on("click",function(e){ 
+                  // alert('hii');
+          e.preventDefault();
+          var html = $(".after-add-more").first().clone();
+          var total_element = $(".after-add-more").length;
+          var total_element = total_element +1;          
+
+          var firstval = $(".milestone_amount").first().val();
+          var lastval = $(".milestone_amount").last().val();
+
+          // alert("firstval" + firstval);
+          // alert("lastval" + lastval);
+          wholeamount = $("#terms_amount_max").val();
+          if(wholeamount <= 0){
+            alert("please select the bidding amount");
+          }else{
+
+              var sumtotal = 0;
+
+              // alert(wholeamount);
+              $(".milestone_amount").each(function(){
+                sumtotal = sumtotal + Number($(this).val());
+                // alert("currentval" + $(this).val());;
+              });
+              // alert("sumtotal" + sumtotal);
+              if( sumtotal >= wholeamount ){
+                alert("please reduce milestone amount to add different milestone");
+
+              }else{
+               
+               $(".milestone_amount").first().val(wholeamount- sumtotal );
+                $(".after-add-more").last().after(html);
+                $("#noofmilestone").html(total_element);
+            }
+          }
+      
+  });
+
+
 
         $(".cancelBtn").on("click",function(e){ 
-        e.preventDefault();
-        var total_element = $(".after-add-more").length;
-        alert(total_element);
+          e.preventDefault();
+          var total_element = $(".after-add-more").length;
+          //alert(total_element);
 
-        if(total_element >= 2){
-          $(this).parents(".after-add-more").remove();
-        }
+          if(total_element > 1){
+            $(this).parents(".after-add-more").remove();
+             CalculateMS();
+          }
             
         });
 
@@ -840,6 +854,8 @@
           $(".opendiv2").hide();
           $(".opendiv3").hide();
 
+         
+
           $("#terms_amount_max").val("");
           $("#portal_charges").val("");
           $("#3rd_party_charges").val("");
@@ -849,11 +865,15 @@
         
         $(".newopen2").click(function(){
           //alert($(this).is(":checked"));
-          if($(this).is(":checked")){
-          $(".opendiv2").show();
-          }else{
-          $(".opendiv2").hide();
-          }
+            if($(this).is(":checked")){
+              $(".opendiv2").show();
+              wholeamount = $("#terms_amount_max").val();
+              $(".milestone_amount").first().val(wholeamount);
+            
+            }else{
+              $(".opendiv2").hide();
+              
+            }
           $(".opendiv1").hide();
         });
 
