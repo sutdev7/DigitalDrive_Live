@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <ul>
                           <li>
                             <label class="containerdiv newopen1">Amount / Hour
-                              <input type="radio" name="milestone_type" value="hourly" checked="checked">
+                              <input type="radio" name="milestone_type" id="amount_per_hr" value="hourly" checked="checked">
                               <span class="checkmark"></span> </label>
                           </li>
 
@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                           <li>
                             <label class="containerdiv newopen3">Fixed Payment
-                              <input type="radio" name="milestone_type" value="fixed">
+                              <input type="radio" name="milestone_type" id="fixed" value="fixed">
                               <span class="checkmark"></span> </label>
                           </li>
                         </ul>
@@ -80,21 +80,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                   </div>
 
-                    <div class="col-md-12 col-lg-12 col-xl-12">
+                    <div class="col-md-12 col-lg-12 col-xl-12" id="fixeddiv">
 
                       <!-- <h3>milestone_type</h3> -->
                       <div class="frmList">
                         <div class="radiodiv" style="padding-top:0;">
                           <ul>
                             <li>
-                              <label class="containerdiv newopen1">Yes
-                                <input type="radio" name="milestone_subtype" value="onetime" checked="checked">
+                              <label class="containerdiv">Yes
+                                <input type="radio" name="milestone_subtype" value="yes" checked="checked">
                                 <span class="checkmark"></span> </label>
                             </li>
 
                             <li>
-                              <label class="containerdiv newopen3">No
-                                <input type="radio" name="milestone_subtype" value="milestone">
+                              <label class="containerdiv">No
+                                <input type="radio" name="milestone_subtype" value="no">
                                 <span class="checkmark"></span> </label>
                             </li>
                           </ul>
@@ -144,6 +144,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <script> 
   $(document).ready(function() { 
+    $("#fixeddiv").hide();
+    $("#amount_per_hr").on('click',function(){
+      $("#fixeddiv").hide();
+    });
+
+    $("#fixed").on('click',function(){
+      $("#fixeddiv").show();
+    });
+
     $('#fldTotalBudget').keyup(function() {
       //alert( "Handler for .keyup() called." );
       var gross_total = $(this).val();
