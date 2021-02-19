@@ -48,12 +48,31 @@ class Hire extends CI_Controller {
 	        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">'.validation_errors().'</div>');
 		 	redirect('search-freelancer');
 		}else{      	
-        	$this->lhire->add_new_hire($submitData);
+        	$this->lhire->add_direct_hire($submitData);
 	    }
 		
 	}
 	
+	public function add_hire_step1(){
+
+		$data = array();
+        		
+		$this->form_validation->set_rules('contract_title','Contract Title','required');
+	//	$this->form_validation->set_rules('fldJobTitle','Select Task','required');
+		$this->form_validation->set_rules('terms','Hired Terms','required');
+		// $this->form_validation->set_rules('deposite_milestone','Deposit','required');
+	//	$this->form_validation->set_rules('fldJobTitle', 'Job Title','required', 'callback_jobtitle_check['.$_REQUEST['fldJobTitle'],$_REQUEST['freelancer_id'].']');
+	 	$this->form_validation->set_rules('fldJobTitle', 'Job Title', 'required|callback_jobtitle_check[' .$_REQUEST['fldJobTitle']. ']');
+		$submitData = $this->input->post(); 
 	
+        if($this->form_validation->run() == false){ 
+	        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">'.validation_errors().'</div>');
+		 	redirect('search-freelancer');
+		}else{      	
+        	$this->lhire->add_hire($submitData);
+	    }
+		
+	}
 	
 	public function jobtitle_check($fldJobTitle)
 	{
@@ -85,7 +104,7 @@ class Hire extends CI_Controller {
 	
 	public function direct_hire_step2($pageIndex = 0){
 		
-    	$content = $this->lhire->hire_step2($this->session->all_userdata());
+    	$content = $this->lhire->direct_hire_step2($this->session->all_userdata());
 		$data = array(
 					'content' => $content,
 					'title' => display('Direct Hire :: Hire-n-Work'),
@@ -93,8 +112,27 @@ class Hire extends CI_Controller {
 		$this->template->full_customer_html_view($data);
     }
 	
+	public function hire_step2($pageIndex = 0){
+		
+    	$content = $this->lhire->hire_step2($this->session->all_userdata());
+		$data = array(
+					'content' => $content,
+					'title' => display('Direct Hire :: Hire-n-Work'),
+				);		
+		$this->template->full_customer_html_view($data);
+    }
+
 	public function hire_freelancer(){
 		$content = $this->lhire->hire_freelancers($this->session->all_userdata());
+		$data = array(
+					'content' => $content,
+					'title' => display('Direct Hire :: Hire-n-Work'),
+				);		
+		$this->template->full_customer_html_view($data);
+	}
+
+	public function direct_hire_freelancer(){
+		$content = $this->lhire->direct_hire_freelancers($this->session->all_userdata());
 		$data = array(
 					'content' => $content,
 					'title' => display('Direct Hire :: Hire-n-Work'),
