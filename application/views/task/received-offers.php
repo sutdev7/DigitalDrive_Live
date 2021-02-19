@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <div class="Txthldr">
                           <h2>{name}</h2>
                           <h6 class="mb-3"><span class="designation">{profile_title_skill}</span></h6>
-                          <h6 class="mb-3"><span class="designation"><i class="fa fa-map-marker"></i>  {country}</span></h6>
+                          <h6 class="mb-3"><span class="designation" style="background: url(../assets/img/round-img1.png) no-repeat left;padding-left: 36px;font-size: 16px; color: #808d92;">  {country}</span></h6>
                           <!--<h6>{profile_title}</h6>-->
                           <span class="plus">+ {total_positive_coins} Coins</span>
                           <span class="minus"> {total_negative_coins} Coins</span>
