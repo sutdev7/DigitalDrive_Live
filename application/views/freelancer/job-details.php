@@ -334,7 +334,7 @@
                                 $hourly ="";
                                 $milestone ="checked";
                                 $displayH="display: none;";
-                                $DisplayM = "";
+                                $DisplayM = "display: block";
                               } else{
                                 $hourly ="";
                                 $milestone ="checked";
@@ -413,9 +413,9 @@
 
                       <div class="col-md-12 col-lg-12 col-xl-12" >
                                 <label class="containerdiv opendiv3" style="<?php echo $DisplayM;?>" >Go with Milestone
-                                    <input type="checkbox" name="terms" class="newopen2" value="pay_by_milestone" <?php echo isset($task_info[0]['milestone_type']) &&  ($task_info[0]['milestone_type'] == "milestone" ) ? "checked": "" ?>>
+                                    <input type="checkbox" name="terms" class="newopen2" value="pay_by_milestone" <?php echo $milestone; ?>>
                                     <span class="checkmark"></span> </label>
-                          <div class="opendiv2" style="display:none;">
+                          <div class="opendiv2" style="<?php echo $DisplayM;?>">
                                   <ul>
                                     <li class="row after-add-more">
                                     <div class="col-lg-4 col-md-12 col-xs-12">
