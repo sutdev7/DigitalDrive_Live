@@ -327,9 +327,11 @@
                               <?php  
                               if(isset($task_info[0]['milestone_type']) &&  $task_info[0]['milestone_type'] == "hourly" ){
                                   $hourly = "checked";
+                                  $milestone = "";
                                   $displayH="";
                                   $DisplayM="display: none;";
                               } else  if(isset($task_info[0]['milestone_type']) &&  $task_info[0]['milestone_type'] == "milestone" ){
+                                $hourly ="";
                                 $milestone ="checked";
                                 $displayH="display: none;";
                                 $DisplayM = "";
