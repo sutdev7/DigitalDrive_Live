@@ -4552,8 +4552,8 @@ input[type="button"].btn-block {
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
-  padding: 0.75rem 0rem 0.5rem 0.75rem;
-  margin-bottom: 1rem;
+  padding: 0.75rem 1rem 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
   list-style: none;
   /*background-color: #46b4e7;*/
   border-radius: 0.35rem;

@@ -6,18 +6,19 @@ $frmValidationMsg = validation_errors();
 ?>
 <div class="browser-taskDiv pt-4">
     <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Saved Jobs List</a></li>
+          </ol>
+        </nav>  
         <?php 
         if(!empty($msg)) { ?> <section> <?php echo $msg; ?> </section> <?php }
         if(!empty($frmValidationMsg)) { ?> <section> <?php echo $frmValidationMsg; ?> </section> <?php } ?>
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="browser-top">
-                    <div class="browser-lft">
-                        <h2> My Saved Jobs List </h2>
-                    </div>
-                    
-                </div>
+                
                 {jobs}
                 <div class="task_Left_Div task_Left_Div-new">
                     <div class="key-list-main">

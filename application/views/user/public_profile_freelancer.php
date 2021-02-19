@@ -4,18 +4,16 @@
       ConterDiv Section
       ============================-->
       <section id="profile_section">
-        <div class="profile PublicProfile" style="padding-top: 10px !important;">
+        <div class="profile PublicProfile">
           <div class="container">
-      <!-- 
+      
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">My Profile</a></li>
             <li class="breadcrumb-item active" aria-current="page">Public Profile</li>
           </ol>
-        </nav>       -->
-
-      <h4>Public Profile</h4>
+        </nav>     
       <div class="row">
         <div class="col-lg-12">
 
