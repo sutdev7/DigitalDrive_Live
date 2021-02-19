@@ -20,8 +20,14 @@
   <!--==========================
       ConterDiv Section
     ============================-->
-    <form action="<?= base_url().'hire/add_direct_hire_step1' ?>" method="post">
-	<input type="hidden" value="{freelancerInfo}{freelancer_id}{/freelancerInfo}" name="freelancer_id">
+    <form action="<?= base_url().'hire/add_hire_step1' ?>" method="post">
+	<input type="hidden" value="{freelancerInfo}{freelancer_id}{/freelancerInfo}" name="freelancer_id" id="freelancer_id">
+	<input type="hidden" value="{proposal_info}{proposal_id}{/proposal_info}" name="proposal_id" id="proposal_id">
+	<input type="hidden" name="task_duration" id="task_duration">
+    	<input type="hidden" name="task_duration_type" id="task_duration_type">
+	<input type="hidden" name="amount" id="whole_hiring_amount">
+
+
   <section id="postDiv">
     <div class="container">
       <div class="row">
@@ -63,7 +69,7 @@
 						<label>Project Title</label>
 						<div class="select-style" >
 							
-							<select name="fldJobTitle" id="fldJobTitle" required>
+							<select name="fldJobTitle" id="fldJobTitle" >
 								<option value="">Select Post</option>
 								<!-- {jobs} -->
 								<?php foreach($jobs as $row){ ?>
@@ -90,7 +96,11 @@
             <div class="task_Left_Div task-Full">
               <div class="bluediv">
                 <h2 id="showBudget">$<?php echo isset($task_details[0]['basic_info']['task_total_budget']) ? $task_details[0]['basic_info']['task_total_budget'] : "" ; ?></h2>
-                <span class="budget">Budget</span> <a href="#ChangeBudget" class="Terms_Btn" data-toggle="modal">Change Budget</a> 
+                <span class="budget">Proposed Budget</span>
+				<div style="float:right">
+                <h2 id="show_client_budget" ></h2><span class="budget">My Budget</span> 
+				</div>
+				<!-- <a href="#ChangeBudget" class="Terms_Btn" data-toggle="modal">Change Budget</a>  -->
 			  </div>
 			  <h3>Breakup</h3>
 			    <div class="frmList">
@@ -98,33 +108,28 @@
 							    <ul>
 									<li class="row">
 									
-									<div class="col-lg-4 col-md-12 col-xs-12">
+									<div class="col-lg-3 col-md-12 col-xs-12">
 										<label>Portal Charges(%)</label>
 										<div class="input-group amt"> <span class="input-group-addon"><i class="fa fa-percentage"></i></span>
 										  <input id="portal_charges_percentage" class="form-control" type="text" name="portal_charges_percentage"  placeholder="">
 										</div>
 									</div>
 									
-									<div class="col-lg-4 col-md-12 col-xs-12">
+									<div class="col-lg-3 col-md-12 col-xs-12">
 										<label>Portal Charges Amount</label>
 										<div class="input-group amt"> <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 										  <input id="portal_charges" class="form-control" type="text" name="portal_charges"  placeholder="50">
 										</div>
 									</div>
 									
-									  
-									</li>
-									
-									<li class="row">
-									
-									<div class="col-lg-4 col-md-12 col-xs-12">
+									<div class="col-lg-3 col-md-12 col-xs-12">
 										<label>3rd Party Charges(%)</label>
 										<div class="input-group amt"> <span class="input-group-addon"><i class="fa fa-percentage"></i></span>
 										  <input id="3rd_party_percentage" class="form-control" type="text" name="3rd_party_percentage"  placeholder="" value="2%" >
 										</div>
 									</div>
 									
-									<div class="col-lg-4 col-md-12 col-xs-12">
+									<div class="col-lg-3 col-md-12 col-xs-12">
 										<label>3rd Party Charges Amount</label>
 										<div class="input-group amt"> <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 										  <input id="3rd_party_charges" class="form-control" type="text" name="3rd_party_charges"  placeholder="50">
@@ -153,96 +158,61 @@
 								</ul>
 					</div>
 				</div>
-			  
+				<?php  
+					if(isset($task_details[0]['basic_info']["milestone_type"]) && ( $task_details[0]['basic_info']["milestone_type"] == "hourly")){
+						$hourly = "checked";
+						$milestone = false;
+						$displayH="";
+						$DisplayM="display: none;";
+					} else  if(isset($task_details[0]['basic_info']["milestone_type"]) && ( $task_details[0]['basic_info']["milestone_type"] == "milestone")){
+					$hourly ="";
+					$milestone =true;
+					$displayH="display: none;";
+					$DisplayM = "display: block";
+					} else{
+					$hourly ="";
+					$milestone =false;
+					$displayH="display: none;";
+					$DisplayM="";
+					}
+
+				?>
               <h3>Freelancer Terms</h3>
               <div class="frmList">
                 <div class="radiodiv" style="padding-top:0;">
                   <ul>
+				  <?php if(isset($proposal_info[0]["milestone_type"]) && ( $proposal_info[0]["milestone_type"] == "fixed")) { ?>
                     <li>
                       <label class="containerdiv newopen1">Pay the whole ammount at a time
-                        <input type="radio" name="terms" value="pay_whole_amount" <?php echo (isset($task_details[0]['basic_info']["milestone_type"]) && ($task_details[0]['basic_info']["milestone_type"] == "hourly") )? 'checked':''; ?>>
+                        <input type="radio" name="terms" value="fixed" <?php echo (isset($proposal_info[0]["milestone_type"]) && ($proposal_info[0]["milestone_type"] == "hourly") )? 'checked':''; ?>>
                         <span class="checkmark"></span> </label>
                     </li>
+					<?php }else if(isset($proposal_info[0]["milestone_type"]) && ($proposal_info[0]["milestone_type"] == "milestone")){ ?>
                     <li>
                       <label class="containerdiv newopen2">Pay by Milestone
-                        <input type="radio" name="terms" value="pay_by_milestone" <?php echo (isset($task_details[0]['basic_info']["milestone_type"]) && ($task_details[0]['basic_info']["milestone_type"] == "fixed") )? 'checked':''; ?>>
+                        <input type="radio" name="terms" value="milestone" <?php echo (isset($task_details[0]['basic_info']["milestone_type"]) && ($task_details[0]['basic_info']["milestone_type"] == "fixed") )? 'checked':''; ?>>
                         <span class="checkmark"></span> </label>
                     </li>
-                  </ul>
-                </div>
-                <div class="opendiv1">
-                  <ul>
-                    <li class="row">
-                      <div class="col-lg-4 col-md-12 col-xs-12">
-                        <label>Hire Date</label>
-                        <div id="DueDate" class="input-group date" data-date-format="dd-mm-yyyy">
-                          <input class="form-control" type="text" name="hire_date" id="hire_date" value="" readonly />
-                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span> </div>
-                          <input type="hidden" name="task_duration" id="task_duration">
-                          <input type="hidden" name="task_duration_type" id="task_duration_type">
-                      </div>
-                      <div class="col-lg-4 col-md-12 col-xs-12">
-                        <label>Hire End Date</label>
-                        <div id="FDueDate" class="input-group date" data-date-format="dd-mm-yyyy">
-                          <input class="form-control" type="text" name="m_hire_end_date" id="m_hire_end_date" value="" disabled />
-                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span> </div>
-                      </div>
-                      <div class="col-lg-4 col-md-12 col-xs-12">
-                        <label>Amount</label>
-                        <div class="input-group amt"> <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-						<input class="form-control" type="text" name="amount" id="whole_hiring_amount" value="" placeholder="00" required>
-                        </div>
-                      </div>
+					<?php }else if(isset($proposal_info[0]["milestone_type"]) && ( $proposal_info[0]["milestone_type"] == "hourly")){ ?>
+					<li>
+                      <label class="containerdiv newopen2">Pay hourly
+                        <input type="radio" name="terms" value="hourly" <?php echo (isset($task_details[0]['basic_info']["milestone_type"]) && ($task_details[0]['basic_info']["milestone_type"] == "hourly") )? 'checked':''; ?>>
+                        <span class="checkmark"></span> </label>
                     </li>
+					<!-- <li>
+									<p><i class="fa fa-clock-o theme-color"></i> 
+                                      Total no. of hour:   <?php echo isset($proposal_info[0]["no_of_hr"]) ? $proposal_info[0]["no_of_hr"] : "";  ?>
+                                      &nbsp Amount / hour: <?php echo isset($proposal_info[0]["amount_per_hr"]) ? '$'.$proposal_info[0]["amount_per_hr"] : "";  ?>
+                                      </p>
+					</li>        -->
+                        
+					<?php } ?>
                   </ul>
-                  <!-- <h3>Deposit</h3>
-                  <div class="radiodiv" style="padding-top:0;">
-                    <ul>
-                      <li>
-                        <label class="containerdiv">Deposit fund now
-                          <input type="radio" name="deposit" value="deposit_fund_now" checked>
-                          <span class="checkmark"></span> </label>
-                      </li>
-                      <li>
-                        <label class="containerdiv">Deposit later
-                          <input type="radio" name="deposit" value="deposit_fund_later">
-                          <span class="checkmark"></span> </label>
-                      </li>
-                    </ul>
-                  </div> -->
                 </div>
 				
 				
-                <div class="opendiv2" style="display:none;">
+                <div class="" style="">
 					<ul>
-						<li class="row after-add-more">
-						<div class="col-lg-4 col-md-12 col-xs-12">
-						  <label>Title</label>
-						  <input type="text" name="milestone_title[]" class="form-control" placeholder="Title">
-						</div>
-						<div class="col-lg-4 col-md-12 col-xs-12">
-						  <label>Hire Date</label>
-						  <div id="datepicker" class="input-group date milestone_end_date" data-date-format="mm-dd-yyyy">
-							<input class="form-control" type="text" name="milestone_end_date[]" value="" />
-							<span class="input-group-addon"><i class="fa fa-calendar"></i></span> </div>
-						</div>
-						<div class="col-lg-4 col-md-12 col-xs-12">
-						  <label>Amount</label>
-						  <div class="input-group amt"> <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-						  <input class="form-control milestone_amount" id="" type="text" name="milestone_agreed_budget[]" value="" placeholder="00">
-						  </div>
-						</div>
-						<div> 
-							<a href="#" class="cancelBtn"><i class="fa fa-times" aria-hidden="true"></i></a>
-						</div>
-						</li>
-				  
-						                 
-                  
-						<li class="row" style="padding:40px 0; border:none;"> 
-							<a href="#" class="plus_btn" id="addMore"><i class="fa fa-plus"></i> Add Another</a> <span class="optionalSpan">( Optional You can do it later )</span> 
-						</li>
-						
 						<li class="row">
 						<div class="col-lg-4 col-md-12 col-xs-12 col-lg-Total">
 						  <div class="grayBox">
@@ -250,6 +220,7 @@
 							<h5 id="showBudget2">$0</h5>
 						  </div>
 						</div>
+						<?php if(isset($proposal_info[0]["milestone_type"]) && ($proposal_info[0]["milestone_type"] == "milestone")){ ?>
 						<div class="col-lg-4 col-md-12 col-xs-12 col-lg-Total">
 						  <div class="grayBox">
 							<label>Remaining</label>
@@ -262,12 +233,27 @@
 							<h5 id="noofmilestone">1</h5>
 						  </div>
 						</div>
+						<?php }else if(isset($proposal_info[0]["milestone_type"]) && ( $proposal_info[0]["milestone_type"] == "hourly")){ ?>
+						
+							<div class="col-lg-4 col-md-12 col-xs-12 col-lg-Total">
+						  <div class="grayBox">
+							<label><i class="fa fa-clock-o theme-color"></i> Total no. of hour</label>
+							<h5><?php echo isset($proposal_info[0]["no_of_hr"]) ? $proposal_info[0]["no_of_hr"] : 0;  ?></h5>
+						  </div>
+						</div>
+						<div class="col-lg-4 col-md-12 col-xs-12 col-lg-Total">
+						  <div class="grayBox">
+							<label>Amount / hour</label>
+							<h5 id="noofmilestone"><?php echo isset($proposal_info[0]["amount_per_hr"]) ? '$'.$proposal_info[0]["amount_per_hr"] : 0;  ?></h5>
+						  </div>
+						</div>
+						<?php } ?>
 						</li>
 					</ul>
 				  
 				  
 				  
-                  <h3>Deposit</h3>
+                  <!-- <h3>Deposit</h3>
                   <div class="radiodiv" style="padding-top:0;">
                     <ul>
                       <li>
@@ -281,7 +267,24 @@
                           <span class="checkmark"></span> </label>
                       </li>
                     </ul>
+                  </div> -->
+
+				  <h3>Deposit</h3>
+                  <div class="radiodiv" style="padding-top:0;">
+                    <ul>
+                      <li>
+                        <label class="containerdiv">Deposit fund now
+                          <input type="radio" name="deposit" value="deposit_fund_now" checked>
+                          <span class="checkmark"></span> </label>
+                      </li>
+                      <li>
+                        <label class="containerdiv">Deposit later
+                          <input type="radio" name="deposit" value="deposit_fund_later">
+                          <span class="checkmark"></span> </label>
+                      </li>
+                    </ul>
                   </div>
+
                 </div>
               </div>
 
@@ -419,16 +422,16 @@ function countEndDate() {
 }
 $(document).ready(function(){
 	$(".milestone_end_date").datepicker();
-	$(".opendiv1").show();
-	$(".newopen1").click(function(){
-		$(".opendiv1").show();
-		$(".opendiv2").hide();
-	});
+	// $(".opendiv1").show();
+	// $(".newopen1").click(function(){
+	// 	$(".opendiv1").show();
+	// 	$(".opendiv2").hide();
+	// });
 	
-	$(".newopen2").click(function(){
-		$(".opendiv2").show();
-		$(".opendiv1").hide();
-	});
+	// $(".newopen2").click(function(){
+	// 	$(".opendiv2").show();
+	// 	$(".opendiv1").hide();
+	// });
 
 	$("#DueDate").on('change', function() {
 		countEndDate();
@@ -438,6 +441,7 @@ $(document).ready(function(){
 	});
 	$('#fldJobTitle').on('change',function() {      
       var postId = $(this).val();
+	  var freelancer_id = $("#freelancer_id").val();
       if(postId == '') {
         alert('Please select a job post for sending offer to freelancer.')
       }else {
@@ -445,13 +449,15 @@ $(document).ready(function(){
         $.ajax({
           method: "POST",
           url: "<?php echo base_url(); ?>Task/ajax_get_task_details",
-          data: { task_id: postId }
+          data: { task_id: postId, freelancer_id : freelancer_id }
         })
         .done(function( msg ) {
           var obj = jQuery.parseJSON(msg);
           //alert(obj.task_details[0].basic_info.task_due_date);
           if(obj.status == 1) {
-            var gross_total = obj.task_details[0].basic_info.task_total_budget;
+			  var freelancer_proposed_budget = obj.proposal_info[0].terms_amount_max;
+			  var client_budget = obj.task_details[0].basic_info.task_total_budget;
+            var gross_total = freelancer_proposed_budget; //obj.task_details[0].basic_info.task_total_budget;
             var task_details = obj.task_details[0].basic_info.task_details;
 			$("#whole_hiring_amount").val(gross_total);
 			var commision=0;
@@ -493,6 +499,8 @@ $(document).ready(function(){
 						
 			$("#total_budget").val(gross_total);
 			
+            $("#show_client_budget").html('$' + client_budget);
+
             $("#showBudget").html('$' + gross_total);
             $("#contract_title").val(task_details);
 			$("#showBudget2").html('$' + gross_total);
