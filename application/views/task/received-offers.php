@@ -29,8 +29,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="breadcrumb-item active" aria-current="page">Received Offers</li>
             </ol>
           </nav>
-          <div class="top-offer">
-            <h2> Received Offers </h2>
+          <!--<div class="top-offer">
+             <h2> Received Offers </h2> -->
             <!--<div class="input-group mb-3">
               <div class="input-group-prepend"> <span class="input-group-text">
                 <img src="<?php /*echo base_url(); */?>assets/img/search.png" alt="search">
@@ -52,11 +52,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
             </div>
             
-            <div class="short-date"> Sort By Date </div>-->
-          </div>
+            <div class="short-date"> Sort By Date </div>
+          </div>-->
           {jobs}
           <div class="my-mbl-app" id="searchResult">
-            <div class="my-mbl-app-lft"> <small>  {job_doc} </small>
+            
+            <div class="my-mbl-app-lft"> 
+
               <div class="freelancerDiv">
                 <ul class="RvwLists">
                   <li>
@@ -74,6 +76,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </div>
                   </li>
                   <!--<li> <img src="img/box-gray.png" alt="img"> <big> 2 More </big> </li>-->
+                  <small style="float: right;color: #46b4e7;font-weight: normal;margin-right: 3rem;"> {job_doc} </small>
                 </ul>
               </div>
             </div>

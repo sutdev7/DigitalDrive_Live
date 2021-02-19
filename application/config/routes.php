@@ -26,7 +26,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | -------------------------------------------------------------------------
 |
 | There are three reserved routes:
-
 |
 |	$route['default_controller'] = 'welcome';
 |
