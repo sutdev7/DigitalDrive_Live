@@ -115,12 +115,12 @@ class Hires extends CI_Model {
 		}
 	}
 
-	public function hire_data_insert($postValue = array()){
+	public function hire_direct_data_insert($postValue = array()){
         
 		// echo '<pre>';	print_r($postValue);exit;
 		  
 		//echo date('Y-m-d H:i:s',strtotime($postValue['milestone_end_date'][2]));
-	/* 	 $date = date_parse_from_format("m-d-Y", $postValue['milestone_end_date'][1]);
+		/* 	 $date = date_parse_from_format("m-d-Y", $postValue['milestone_end_date'][1]);
 		 
 		 $m= $date['year']."-".$date["month"]."-".$date["day"];
 		 
@@ -258,6 +258,150 @@ class Hires extends CI_Model {
 			}
 		}
     } 
+
+	public function hire_data_new_insert($postValue = array()){
+        
+		// echo '<pre>';	print_r($postValue);exit;
+		  
+		//echo date('Y-m-d H:i:s',strtotime($postValue['milestone_end_date'][2]));
+		/* 	 $date = date_parse_from_format("m-d-Y", $postValue['milestone_end_date'][1]);
+		 
+		 $m= $date['year']."-".$date["month"]."-".$date["day"];
+		 
+		 echo date('Y-m-d H:i:s',strtotime($m));
+
+		 echo "<pre/>";
+		 print_r($date);
+		 die('model'); */
+		
+		if(empty($postValue)){
+        	return array('status' => FALSE, 'message' => 'invalid_data');
+		}else{
+			// get task_id by user_task_id
+			$get_info = $this->Tasks->get_task_info_by_user_task_id($user_task_id = $postValue['fldJobTitle']);
+			if(!empty($get_info)){
+				$task_id = $get_info->task_id;
+				$task_budget = $get_info->task_total_budget;
+			}
+			
+			// check already hired
+			$checkData = $this->db->select('hired_id')->from('task_hired')->where('task_id',$task_id)->where('freelancer_id',$postValue['freelancer_id'])->get();
+			
+			if($checkData->num_rows() == 0){
+				$date_of_creation = date("Y-m-d H:i:s");
+
+				if($postValue['task_duration_type'] == "Hourly") {
+					$madu = "hours";
+				} else if($postValue['task_duration_type'] == "Daily") {
+					$madu = "days";
+				} else if($postValue['task_duration_type'] == "Monthly"){
+					$madu = "months";
+				} else {
+					$madu = "years";
+				}
+
+				$his = date("H:i:s");
+				$hire_start_date = date("Y-m-d $his", strtotime($date_of_creation)); // $postValue['hire_date']
+				$mdur = "+".$postValue['task_duration']." ".$madu;
+				$hired_end_date = date("Y-m-d H:i:s", strtotime($mdur, strtotime($hire_start_date)));				
+
+				$data = array(
+					'task_id' => $task_id,
+					'user_task_id' => $postValue['fldJobTitle'],
+					'freelancer_id' => $postValue['freelancer_id'],
+					'hired_title' => $postValue['contract_title'],
+					'agreed_term' => $postValue['terms'],
+					'agreed_budget' => $task_budget,
+					'term_amount' => $postValue['amount'],
+					'deposit' => $postValue['deposit'],
+					'proposal_id' => $postValue['proposal_id'],
+					// 'hired_end_date' => date('Y-m-d H:i:s',strtotime($postValue['due_date'])),
+					'hire_date' => $hire_start_date,
+					'hired_end_date' => $hired_end_date,
+					'hired_details' => $postValue['hire_details'],
+					'hired_doc' => $date_of_creation,
+					'hired_dom' => $date_of_creation,
+				);
+		// echo '<pre>';	print_r($data);exit;
+
+				$this->db->insert('task_hired',$data);
+					$insert_id = $this->db->insert_id();
+				
+				// if($postValue['terms'] == 'pay_by_milestone'){
+				// 	if(isset($postValue['milestone_title'])){
+				// 		$this->db->insert('task_hired',$data);
+				// 		$insert_id = $this->db->insert_id();
+						
+				// 		foreach($postValue['milestone_title'] as $key => $row){		 //echo $key; echo $row;	
+				// 			$date = date_parse_from_format("m-d-Y", $postValue['milestone_end_date'][$key]);
+				// 			$milestone_date=$date['year']."-".$date["month"]."-".$date["day"];
+				// 			$data_milestone = array(
+				// 				'hired_id' => $insert_id,
+				// 				'milestone_title' => $postValue['milestone_title'][$key],
+				// 				'milestone_end_date' => date('Y-m-d H:i:s',strtotime($milestone_date)),
+				// 				'milestone_agreed_budget' => $postValue['milestone_agreed_budget'][$key],
+				// 				'milestone_doc' => $date_of_creation,
+				// 				'milestone_created_by' => $this->session->userdata('user_id')
+				// 			);
+							
+				// 			//echo '<pre>'; print_r($data_milestone);
+							
+				// 			$this->db->insert('task_hired_milestone',$data_milestone);
+				// 		}
+				// 	}else{
+				// 		return array('status' => FALSE, 'message' => 'Something Wrong');
+				// 	}
+				// }else{
+				// 	$this->db->insert('task_hired',$data);
+				// 	$insert_id = $this->db->insert_id();
+					
+				// 	$data_milestone = array(
+				// 		'hired_id' => $insert_id,
+				// 		'milestone_title' => $postValue['contract_title'],
+				// 		'milestone_end_date' => $hired_end_date,
+				// 		'milestone_agreed_budget' => $postValue['amount'],
+						
+				// 		'milestone_approval_date' => $date_of_creation,
+				// 		'milestone_doc' => $date_of_creation,
+				// 		'milestone_created_by' => $this->session->userdata('user_id')
+				// 	);
+					
+				// 	//echo '<pre>'; print_r($data_milestone);
+					
+				// 	$this->db->insert('task_hired_milestone',$data_milestone);					
+				// }
+				
+				// project title
+				$task_query = $this->db->select('task.*')->from('task')->where('task_id',$task_id)->get();
+				if($task_query->num_rows() >0){
+					$task_info = $task_query->row();
+					$task_name = $task_info->task_name;
+					$user_task_id = $task_info->user_task_id;
+				}else{
+					$task_name = $user_task_id = '';
+				}
+				
+				// $job_details_link = '<a href="'.base_url().'hired-job-details/'.$user_task_id.'">'.$task_name.'</a>';
+				
+				// // insert notification
+				// $notidata = array(
+				// 	'task_id' => $task_id,
+				// 	'offer_id' => 0,
+				// 	'notification_master_id' => 11,
+				// 	'notification_from' => $this->session->userdata('user_id'),
+				// 	'notification_to' => $postValue['freelancer_id'],
+				// 	'notification_details' => 'SEND HIRED ',
+				// 	'notification_message' => '<strong>'.'<a href="'.base_url().'public-profile/'.$this->session->userdata('profile_id').'">'.$this->session->userdata('user_name').'</a></strong> wants to hire you for <strong> '.$job_details_link.' </strong>',
+				// 	'notification_doc' => date('Y-m-d H:i:s')
+				// );
+				// $this->db->insert('task_notification',$notidata);
+				
+				return array('status' => TRUE, 'message' => 'Hire request has been sent successfully.');
+			}else{
+				return array('status' => FALSE, 'message' => 'Request has been sent already.');
+			}
+		}
+    }
 	
 	
 	public function get_freelancer_info_by_id($freelancer_id = 0) {
@@ -777,7 +921,8 @@ class Hires extends CI_Model {
 
 	// added by ak
 	public function get_proposal_info_data($searchVal = array()){
-		$query = $this->db->select('*')->from('task_proposal')->join('task_proposal_milestone','task_proposal_milestone.proposal_id=task_proposal.proposal_id')->where('task_id',$searchVal['task_id'])->get();
+		$query = $this->db->select('*')->from('task_proposal')->join('task_proposal_milestone','task_proposal_milestone.proposal_id=task_proposal.proposal_id')->where(['task_id' => $searchVal['task_id'],'user_id' => $searchVal['freelancer_id']])->get();
+		// echo $this->db->last_query();exit;
 		if($query->num_rows() > 0){
 			return $query->result_array();
 		}else{
