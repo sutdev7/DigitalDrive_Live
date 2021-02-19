@@ -13,10 +13,12 @@ class Users extends CI_Model {
 
         $area_of_interest_id='';
 
-        if(empty($user_data))
+        if(empty($user_data)){
         	return array('status' => FALSE, 'message' => 'invalid_data');
+        }
 
         $account_exists = $this->db->select('*')->from('user_login')->where('email',$user_data['fldEmail'])->get()->num_rows();
+
         if ($account_exists > 0) {
             return array('status' => FALSE, 'message' => 'account_already_exists');
         }else{

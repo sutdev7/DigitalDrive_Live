@@ -56,7 +56,6 @@ class Laccount {
         $CI->load->model('Skills');
 		$arrCountry = array();
 		$skills = $CI->Skills->get_all_skill_info();
-
         $countries = $CI->Countries->get_all_country_info();
         //echo '<pre>';
         //print_r($countries);
@@ -78,8 +77,7 @@ class Laccount {
 		return $AccountForm;
 	}	
 
-		public function confirm_sign_up()
-	{
+	public function confirm_sign_up() {
 		$CI =& get_instance();
         $CI->load->model('Users');
 
@@ -95,77 +93,64 @@ class Laccount {
                     // $filename = time() .  '.' . $path_parts['extension'];
                     // //print_r($path_parts);
 
-					$sourcePath = $_FILES['userImage']['tmp_name'];
-                    $targetPath = "./uploads/user/profile_image/".$filename;
+					//$sourcePath = $_FILES['userImage']['tmp_name'];
+                   // $targetPath = "./uploads/user/profile_image/".$filename;
 
                     $file = $_FILES['userImage']['tmp_name']; 
 			        $sourceProperties = getimagesize($file);
-			        $fileNewName = time();
-			        $folderPath = "uploads/user/profile_image/";
+			        $fileNewName = time();			        
 			        $ext = pathinfo($_FILES['userImage']['name'], PATHINFO_EXTENSION);
 			        $imageType = $sourceProperties[2];
+			        $user_image = $fileNewName. "_thump.". $ext;
+			        $folderPath = "uploads/user/profile_image/".$user_image;
+			        $data['user_image'] = $user_image;
 
 			        switch ($imageType) {
-
 
 			            case IMAGETYPE_PNG:
 			                $imageResourceId = imagecreatefrompng($file); 
 			                $targetLayer = $this->imageResize($imageResourceId,$sourceProperties[0],$sourceProperties[1]);
-			                imagepng($targetLayer,$folderPath. $fileNewName. "_thump.". $ext);
-			                $data['user_image'] =$fileNewName. "_thump.". $ext;
+			                imagepng($targetLayer,$folderPath);			                
 			                break;
-
 
 			            case IMAGETYPE_GIF:
 			                $imageResourceId = imagecreatefromgif($file); 
 			                $targetLayer =$this->imageResize($imageResourceId,$sourceProperties[0],$sourceProperties[1]);
-			                imagegif($targetLayer,$folderPath. $fileNewName. "_thump.". $ext);
-			                $data['user_image'] =$fileNewName. "_thump.". $ext;
+			                imagegif($targetLayer,$folderPath);
 			                break;
-
 
 			            case IMAGETYPE_JPEG:
 			                $imageResourceId = imagecreatefromjpeg($file); 
 			                $targetLayer = $this->imageResize($imageResourceId,$sourceProperties[0],$sourceProperties[1]);
-			                imagejpeg($targetLayer,$folderPath. $fileNewName. "_thump.". $ext);
-			                $data['user_image'] =$fileNewName. "_thump.". $ext;
+			                imagejpeg($targetLayer,$folderPath);
 			                break;
-
 
 			            default:
 			                echo "Invalid Image type.";
 			                exit;
 			                break;
 			        }
-			      
 
-              //       if(move_uploaded_file($file,$folderPath)) {
-              //       	$existing_data = $CI->session->userdata('user_image');
-              //       	if(!empty($existing_data)) {
-              //       		unlink("./uploads/user/profile_image/".$existing_data);
-              //       	}
+			        /*if(move_uploaded_file($file,$folderPath)) {
+                     	$existing_data = $CI->session->userdata('user_image');
+                     	if(!empty($existing_data)) {
+                     		unlink("./uploads/user/profile_image/".$existing_data);
+                     	}
+                     }*/
+                }
 
-              //           $data['user_image'] = $file;
-		    			    		                           
-              //       } else {
-              //           $CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Unable to update user profile image.</div>');
-              //            redirect('sign-up-as', 'refresh');
-		            // }
-          //       } else {
-          //           $CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Unable to update user profile image.</div>');
-          //            redirect('sign-up-as', 'refresh');
-		        // }                
-            } 
-			//echo "<pre>";print_r($data);echo "<pre>";print_r($_FILES);die;
+                //echo "<pre>";print_r($data);echo "<pre>";print_r($_FILES);die;
 		$result = $CI->Users->register_user($data);
 
 		if($result['status']) {
 			if(!empty($result['email_flag'])) {
+
 	            if($CI->auth->sendVerificatinEmail( $CI->input->post('fldEmail'), $CI->input->post('fldUserType'))) {
 					$AccountForm = $CI->parser->parse('account/confirm-sign-up',array('uid' => $result['userId']),true);
 					redirect('subscription/payment/'.$data['subscription_plan'].'/'.$result['userId'], 'refresh'); // by amardeep
 			        return $AccountForm;
 	            }
+
 			} else {
 				$AccountForm = $CI->parser->parse('account/confirm-sign-up-room',array('uid' => $result['userId']),true);
 			    return $AccountForm;
@@ -187,15 +172,10 @@ class Laccount {
 
 function imageResize($imageResourceId,$width,$height) {
 
-
     $targetWidth =200;
     $targetHeight =200;
-
-
     $targetLayer=imagecreatetruecolor($targetWidth,$targetHeight);
     imagecopyresampled($targetLayer,$imageResourceId,0,0,0,0,$targetWidth,$targetHeight, $width,$height);
-
-
     return $targetLayer;
 }
 

@@ -151,11 +151,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <button type="submit" name="btnSubmit" id="btnSubmit" class="btn btn-primary" >Sign up</button>
             </form>
-            <div class="withdiv"> 
-            <!-- <h4>Or Sign in with</h4> -->
-            </div>
+            <!-- <div class="withdiv"> 
+            <h4>Or Sign in with</h4>
+            </div> -->
             
-            <div class="alink2"> 
+            <div class="alink2" style="margin-top: 1rem;"> 
               <!--<a href="#" class="facebookLink"><i class="fa fa-facebook"></i> Facebook</a>--> 
                <a href="<?=base_url()?>googlelogin/login/<?=$sign_up_as?>" class="googleLink"><i class="fa fa-google-plus"></i> Google +</a> 
               <!-- <a href="#" class="linkedinLink"><i class="fa fa-linkedin"></i> Linkedin</a>  -->

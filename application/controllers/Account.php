@@ -104,9 +104,8 @@ class Account extends CI_Controller {
 			        );		
 			$this->template->full_website_html_view($data);
 
-		}
-		else{
-			$user_name="Jha Abhishek";
+		} else{
+			$user_name="Digital Drive Live";
             $content = $this->laccount->confirm_sign_up();
             $content = $this->laccount->confirm_email_admin_singhup($user_name);	
 					// data insert into task_interested table

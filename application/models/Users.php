@@ -90,6 +90,9 @@ class Users extends CI_Model
                 $unique_id        = '';
                 $unique_user_key  = '';
                 $notification_msg = "";
+                $status           = '';
+                $notif ="";
+
                 if ($user_data['fldUserType'] == 'client') {
                     $user_type    = 3;
                     $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%CL%' ORDER BY unique_id DESC");
@@ -143,8 +146,7 @@ class Users extends CI_Model
                     $numbers = array(
                         $Fr_uniquefr
                     );
-                    
-                    
+                                        
                     
                     $missing = array();
                     for ($i = 1; $i < max($Fr_uniquefr); $i++) {
@@ -252,7 +254,8 @@ class Users extends CI_Model
                     $unique_user_key  = $last_id;
                     $notification_msg = $user_data['username'] . " New Room Client Register";
                     $notif            = "NC";
-                }                
+                }  
+
                 //  echo $unique_id; 
                 //$string1 = "tarunmodi";
                 
