@@ -2369,15 +2369,17 @@ class Ltask {
 
         $CI =& get_instance();
         $CI->load->model('Tasks');
+        $CI->load->model('Hires');
         $data = array();                   
         $data = $CI->input->post();  
         $task_id = (!empty($data['task_id']))?$data['task_id']:null;    
         if(!empty($task_id)) {
-            $task = $CI->Tasks->task_details_by_user_task_id($task_id); 
-            //print_r($task);
-            $data = array('task_details' => $task, 'status' => 1, 'message' => 'successful');
+            $task = $CI->Tasks->task_details_by_user_task_id($task_id);
+		    $data['proposal_info'] = $CI->Hires->get_proposal_info_data($postVal = array('task_id' => $task[0]['basic_info']['task_id'],'freelancer_id' => $data['freelancer_id']));
+            // print_r($task);
+            $data = array('task_details' => $task, 'proposal_info' => $data['proposal_info'], 'status' => 1, 'message' => 'successful');
         } else {
-            $data = array('task_details' => null, 'status' => 0, 'message' => 'error');
+            $data = array('task_details' => null, 'proposal_info' => null, 'status' => 0, 'message' => 'error');
         }
         return json_encode($data);
     } 
