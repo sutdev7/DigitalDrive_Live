@@ -100,14 +100,14 @@ class Lhire {
 
 	}
 	
-	public function add_new_hire($post_data = null){
+	public function add_direct_hire($post_data = null){
 		$CI =& get_instance();
         $CI->load->model('Tasks');
 		$CI->load->model('Hires');
 		
 		$post_data = $CI->input->post(); 
 		
-		$return = $CI->Hires->hire_data_insert($post_data);
+		$return = $CI->Hires->hire_direct_data_insert($post_data);
 		
 		if($return){
         ///	$CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">'.$return['message'].'</div>');
@@ -124,8 +124,55 @@ class Lhire {
 		}
 		
 	}
+
+	public function add_hire($post_data = null){
+		$CI =& get_instance();
+        $CI->load->model('Tasks');
+		$CI->load->model('Hires');
+		
+		$post_data = $CI->input->post(); 
+		
+		$return = $CI->Hires->hire_data_new_insert($post_data);
+		// print_r($post_data);exit;
+		
+		if($return){
+        ///	$CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">'.$return['message'].'</div>');
+        } else {
+            $CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Unable to send hire request.</div>');
+		}
+		
+		//echo '<pre>'; print_r($CI->input->post()); die;
+		
+		if(trim($CI->input->post('deposit')) == 'deposit_fund_now'){
+			redirect('hire/step-2/'.$CI->input->post('fldJobTitle'), 'refresh');
+		}else{
+			redirect('search-freelancer', 'refresh');
+		}
+		
+	}
 	
 	public function hire_step2($userInfo = null){
+		$CI =& get_instance();
+        $CI->load->model('Tasks');
+        $CI->load->model("Users");  
+		
+		$get_info = $CI->Tasks->get_task_info_by_user_task_id($user_task_id = $CI->uri->segment(3));
+		
+		
+		
+		if(!empty($get_info)){
+			$taskArr[] = array('task_id' => $get_info->task_id, 'user_task_id' => $get_info->user_task_id,  'task_name' => $get_info->task_name, 'task_total_budget' => $get_info->task_total_budget );
+		}
+		
+		$data['taskinfo'] = $taskArr;
+		
+		//echo '<pre>'; print_r($data); die;
+		
+		$AccountForm = $CI->parser->parse('hire/hire_step2',$data,true);
+		return $AccountForm;
+	}
+
+	public function direct_hire_step2($userInfo = null){
 		$CI =& get_instance();
         $CI->load->model('Tasks');
         $CI->load->model("Users");  
@@ -238,9 +285,11 @@ class Lhire {
 
         } 
 		
-		$data['task_details'] = $CI->Hires->get_task_data_by_usertaskid($CI->uri->segment(2));
-		$data['proposal_info'] = $CI->Hires->get_proposal_info_data($postVal = array('task_id' => $data['task_details'][0]['basic_info']['task_id']));
         $data['freelancerInfo'] = $arrFreelancer;
+		if("" != $CI->uri->segment(2)){
+		$data['task_details'] = $CI->Hires->get_task_data_by_usertaskid($CI->uri->segment(2));
+		$data['proposal_info'] = $CI->Hires->get_proposal_info_data($postVal = array('task_id' => $data['task_details'][0]['basic_info']['task_id'] ,'freelancer_id'=> $data['freelancerInfo'][0]['freelancer_id'] ));
+		}
         $data['jobs'] = $arrJobs;
         if($skills = $CI->Skills->get_user_skills($freeLancerID)) {
             $data['skills'] = implode(", ", $skills);
@@ -250,6 +299,115 @@ class Lhire {
 		// echo '<pre>'; print_r($data);die;
 		
 		$AccountForm = $CI->parser->parse('hire/hire_freelancer',$data,true);
+		return $AccountForm;
+	}
+
+	public function direct_hire_freelancers(){
+		$CI =& get_instance();
+        $CI->load->model('Tasks');
+        $CI->load->model("Users");  
+		$CI->load->model("Hires"); 
+		
+		$data = $selectedFreelancer = $arrFreelancer = $arrJobs = $arrCountry = $arrContinent = $arrSkills = array();
+        $post_data = $CI->input->post(); 
+		
+		$jobs = $CI->Hires->get_task_data_by_user();
+		
+        
+        if(!empty($post_data)) {
+            if(!empty($post_data['fldSelectedFreelancer']) && is_array($post_data['fldSelectedFreelancer'])) {
+               $selectedFreelancer = $post_data['fldSelectedFreelancer'];
+            } else if(isset($post_data['fldFreelancerID']) && $post_data['fldFreelancerID'] !=''){
+				//echo $post_data['fldFreelancerID'];die;
+				
+				
+				$selectedFreelancer[] = $post_data['fldFreelancerID'];
+			} else {
+            	$selectedFreelancer[] = $post_data['chkMakeOfferFreelancer'];
+            }
+        } else {
+            $CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Please select a freelancer for sending offer.</div>');
+            redirect('search-freelancer', 'refresh');
+        }
+        $freeLancerID = 0;
+        $freelancers_list = $CI->Users->get_freelancers_profile_info_by_id($selectedFreelancer);
+        if(!empty($freelancers_list)) {
+            foreach($freelancers_list as $row) {
+                $freeLancerID = $row['basic_info']->user_id;
+                $user_status = $CI->Users->get_user_info_by_id($row['basic_info']->user_id);
+				if(!empty($user_status)){	
+                    if($user_status->total_coins>=0){ $total_positive_coins='+ '.$user_status->total_coins;}else{ $total_positive_coins=$user_status->total_coins;}
+					//$total_positive_coins = $user_status->total_positive_coins;
+					$total_negative_coins = $user_status->total_negative_coins;
+					$total_connects = $user_status->total_connects;
+				}else{
+					$total_positive_coins = $total_negative_coins = $total_connects = 0;
+				}
+				
+				
+                $user_profile_image = $user_status->profile_image;
+                if(empty($user_profile_image)) {
+                    $user_profile_image = base_url('assets/img/no-image.png');
+                } else {
+                    $user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);          
+                }
+                $is_login = $user_status->is_login;
+                $arrFreelancer[] = array(
+					'freelancer_id' => $row['basic_info']->user_id, 
+					'freelancer_name' => $row['basic_info']->name, 
+					'freelancer_country' => $row['basic_info']->country, 
+					'freelancer_state' => $row['basic_info']->state, 
+					'freelancer_city' => $row['basic_info']->city, 
+					'freelancer_address' => $row['basic_info']->address, 
+					'user_image' => $user_profile_image, 
+					'is_online' => (($is_login == '1')?'<div class="round"> </div>':''),
+					'freelancer_public_id' =>$user_status->profile_id,
+					'total_positive_coins' => $total_positive_coins,
+					'total_negative_coins' => $total_negative_coins,
+					'total_connects' => $total_connects
+				);
+
+            }
+        }
+
+        $continents = $CI->Continent->get_all_continent_info();
+        if(!empty($continents)) {
+            foreach($continents as $continent) {
+                $arrContinent[] = array('key' => $continent->continent_id, 'value' => $continent->name, 'currentselection' => '');
+            }
+        }
+
+        $countries = $CI->Countries->get_all_country_info();
+        if(!empty($countries)) {
+            foreach($countries as $countrie) {
+                $arrCountry[] = array('key' => $countrie->country_id, 'value' => $countrie->name, 'currentselection' => '');
+            }
+        }
+
+        if(!empty($jobs)) {
+
+            foreach($jobs as $row) {
+
+                $arrJobs[] = array('task_id' => $row->task_id, 'user_task_id' => $row->user_task_id, 'task_name' => $row->task_name, 'task_total_budget' => $row->task_total_budget);
+
+            }
+
+        } 
+		
+        $data['freelancerInfo'] = $arrFreelancer;
+		if("" != $CI->uri->segment(2)){
+		$data['task_details'] = $CI->Hires->get_task_data_by_usertaskid($CI->uri->segment(2));
+		$data['proposal_info'] = $CI->Hires->get_proposal_info_data($postVal = array('task_id' => $data['task_details'][0]['basic_info']['task_id'] ,'freelancer_id'=> $data['freelancerInfo'][0]['freelancer_id'] ));
+		}
+        $data['jobs'] = $arrJobs;
+        if($skills = $CI->Skills->get_user_skills($freeLancerID)) {
+            $data['skills'] = implode(", ", $skills);
+        }
+        $data['countries'] = $arrCountry;  
+        $data['continents'] = $arrContinent;
+		// echo '<pre>'; print_r($data);die;
+		
+		$AccountForm = $CI->parser->parse('hire/direct_hire_freelancer',$data,true);
 		return $AccountForm;
 	}
 	#Abhishek
