@@ -237,7 +237,7 @@ exit; */
 								<input type="hidden" name="chkMakeOfferFreelancer" value="'.$row['basic_info']->user_id.'" />
 								<input type="hidden" name="fldSelectedFreelancer" value="'.$row['basic_info']->user_id.'" />
 								<a href="#" onclick="document.getElementById(\'frmMakeOffer_'.$row['basic_info']->user_id.'\').submit(); return false;" data-formaction="'.base_url().'make-an-offer" data-formid="'.$row['basic_info']->user_id.'" class="view-btn1 makeoffer"> Make offer </a>
-								<a href="#" data-formaction="'.base_url().'hire-freelancer" data-formid="'.$row['basic_info']->user_id.'" class="view-btn2 directhire"> Hire </a> </div>
+								<a href="#" data-formaction="'.base_url().'direct-hire-freelancer" data-formid="'.$row['basic_info']->user_id.'" class="view-btn2 directhire"> Hire </a> </div>
 								</form>
                                 </div>
                             </div>';
