@@ -33,7 +33,7 @@ class Subscription extends CI_Controller {
 			        'content' => $content,
 			        'title' => display('Subscription :: Hire-n-Work'),
 		        );
-		$this->template->full_customer_html_view($data);	
+		$this->template->full_website_html_view($data);	
     }
 	
 	public function payment(){
@@ -48,6 +48,6 @@ class Subscription extends CI_Controller {
 			        'content' => $content,
 			        'title' => display('Subscription :: Hire-n-Work'),
 		        );
-		$this->template->full_customer_html_view($data);
+		$this->template->full_website_html_view($data);
 	}
 }
