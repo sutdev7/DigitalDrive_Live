@@ -1,12 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <main id="main"> 
-<?php 
-$msg = $this->session->flashdata('msg'); 
-if(!empty($msg)) {
-  ?><section style="padding-top: 7%;"><?php echo $msg; ?></section><?php
-}
-?>
+
 
 <style type="text/css">
   .ongoing-task .table thead th{
@@ -19,8 +14,24 @@ if(!empty($msg)) {
 
   ============================-->
   
-  <div class="main-div-sec">
-    <div class="container">
+   <section id="profile_section">
+    <div class="profile PublicProfile">
+      <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+          </ol>
+        </nav>
+        <?php 
+            $msg = $this->session->flashdata('msg'); 
+            if(!empty($msg)) {
+              ?><section style="padding-top: 0.5%;"><?php echo $msg; ?></section><?php
+            }
+            ?>
+
+
       <div class="full" style="width:100%; float:left; position:relative;">
         <?php $this->load->view('user/molivi-section.php') ?>
         <div class="ongoing-task">
@@ -118,6 +129,7 @@ $query=$this->db->get_where('task',array('task_id'=>'{task_id}'))->row();
       </div>
     </div>
   </div>
+</section>
 </main>
 
 <!-- The Modal -->

@@ -5,22 +5,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <main id="main"> 
   
-  <?php 
-  $msg = $this->session->flashdata('msg'); 
-  if(!empty($msg)) {
-  ?>
-  <section style="padding-top: 7%;">
-    <?php echo $msg; ?>
-  </section>
-  <?php
-  }
-  ?>
+
 
   <!--==========================
       ConterDiv Section
     ============================-->
-  <div class="main-div-sec">
-    <div class="container">
+ <section id="profile_section">
+    <div class="profile PublicProfile">
+      <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Completed</li>
+          </ol>
+        </nav>
+
+        <?php 
+        $msg = $this->session->flashdata('msg'); 
+        if(!empty($msg)) {
+        ?>
+        <section style="padding-top: 0.5%;">
+          <?php echo $msg; ?>
+        </section>
+        <?php
+        }
+        ?>
       <?php $this->load->view('user/molivi-section.php') ?>
       <div class="ongoing-task">
         <!-- <div class="ongoing-task-lft">

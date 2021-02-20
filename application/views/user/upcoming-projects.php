@@ -5,18 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <main id="main"> 
   
-  <?php 
-  $msg = $this->session->flashdata('msg'); 
-  if(!empty($msg)) {
-  ?>
-  <section style="padding-top: 7%;">
-  <div class="container">
-    <?php echo $msg; ?>
-    </div>
-  </section>
-  <?php
-  }
-  ?>
+ 
   <style type="text/css">
   .ongoing-task .table thead th{
     color: #808d92 !important;
@@ -27,8 +16,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       ConterDiv Section
     ============================-->
   
-  <div class="main-div-sec">
-    <div class="container">
+  <section id="profile_section">
+    <div class="profile PublicProfile">
+      <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Upcoming Projects</li>
+          </ol>
+        </nav>
+         <?php 
+            $msg = $this->session->flashdata('msg'); 
+            if(!empty($msg)) {
+            ?>
+            <section style="padding-top: 0.5%;">
+            <div class="container">
+              <?php echo $msg; ?>
+              </div>
+            </section>
+            <?php
+            }
+            ?>
+
       <?php $this->load->view('user/molivi-section.php') ?>
       <div class="ongoing-task">
         <!-- <div class="ongoing-task-lft">
@@ -106,6 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </div>
   </div>
+</section>
 </main>
 
 <!-- The Modal -->
