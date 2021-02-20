@@ -90,7 +90,6 @@ $route['public-profile/(:any)'] = 'User/public_profile/$l';
 $route['reviews'] = 'review';
 $route['givereview/(:any)'] = 'review/give_review/$1';
 
-
 $route['settings'] = 'User/settings';
 $route['messages'] = 'User/messages';
 $route['messages/(:any)'] = 'User/messages/$1';
@@ -140,7 +139,7 @@ $route['admin/transaction-list'] = 'admin/transaction_list'; // by amardeep
 
 $route['analytics'] = 'Freelancer/analytics';
 $route['problem-ticket'] = 'Freelancer/problem_ticket';
-$route['problem-ticket'] = 'Freelancer/problem_ticket';
+//$route['problem-ticket'] = 'Freelancer/problem_ticket';
 $route['ticket-history'] = 'Freelancer/ticket_history';
 $route['user-compose-email/(:any)'] = 'Freelancer/user_compose_email/$1';
 $route['ticket-history-details/(:any)'] = 'Freelancer/ticket_history_details/$1';

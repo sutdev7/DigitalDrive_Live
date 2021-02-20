@@ -137,18 +137,23 @@ header{
     ============================-->
 
 
-  <section id="postDiv">
+ <section id="profile_section">
+    <div class="profile PublicProfile">
+      <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Micro profile</li>
+          </ol>
+        </nav>
    
-    <div class="container">
       <div class="row">
-        <header>
-          <h4 class="heading_title">My Micro profile</h4>
-         <a class="btn btn-info pull-right post_micro"href="<?= base_url().'post-microkey-step-1' ?>" class="<?php echo ($this->uri->segment(1) == '/post-microkey-step-1') ? "active" : '' ?> ">Post Micro Key</a>
-        </header>
+        <p class="pull-right" style="width: 99%; text-align: right;margin-top:0px; "> <a class="btn btn-info" href="<?= base_url().'post-microkey-step-1' ?>" class="<?php echo ($this->uri->segment(1) == '/post-microkey-step-1') ? "active" : '' ?> ">Post Micro Key</a></p>
         
         <div class="col-lg-12 main_div">
           <div class="postDiv_Box">
-            <div class="container">
+            
               
     <div class="main-body">
     
@@ -229,7 +234,6 @@ header{
            
 
           </div>
-        </div>
     </div>
           </div>
         </div>

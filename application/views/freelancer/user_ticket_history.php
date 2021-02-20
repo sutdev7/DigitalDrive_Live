@@ -8,22 +8,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="https://www.drivedigitally.com/hwfinal/assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
 <main id="main"> 
 
-<?php 
 
-	$frmValidationMsg = validation_errors(); 
-	if(!empty($frmValidationMsg)) {
-?>
-	<section style="padding-top: 7%;">
-		<?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
-	</section>
-<?php
-  }
-?>
   <!--==========================
       ConterDiv Section
     ============================-->
-  <section id="postDiv">
-    <div class="container">
+ <section id="profile_section">
+    <div class="profile PublicProfile">
+      <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Problem Ticket History </li>
+          </ol>
+        </nav>
+
+
+      <?php 
+
+          $frmValidationMsg = validation_errors(); 
+          if(!empty($frmValidationMsg)) {
+        ?>
+          <section style="padding-top: 0.5%;">
+            <?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
+          </section>
+        <?php
+          }
+        ?>
       <div class="row">
         <div class="col-lg-12">
           <div class="card-body"><?php echo $this->session->userdata('msg'); ?>

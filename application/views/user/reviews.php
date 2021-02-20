@@ -1,16 +1,29 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?><main id="main"> 
-  <?php   $msg = $this->session->flashdata('msg');   if(!empty($msg)) {  ?>  <section style="padding-top: 7%;">    <?php echo $msg; ?>  </section>  <?php  }    ($this->session->userdata('user_type') == 3)? $user_type = 'Client' : $user_type = 'Freelancer';    ?>
+ 
   <!--==========================
       ConterDiv Section
     ============================-->
-  <section id="profile_section">
-    <div class="profile_top">      
-		<div class="container">        
-			<div class="row">         
+ <section id="profile_section">
+    <div class="profile PublicProfile">
+      <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Reviews</li>
+          </ol>
+        </nav>
+
+		 <?php   $msg = $this->session->flashdata('msg');   if(!empty($msg)) {  ?>  
+		 	<section style="padding-top: 0.5%;">    <?php echo $msg; ?>  </section>  
+		 <?php  }    
+		 ($this->session->userdata('user_type') == 3)? $user_type = 'Client' : $user_type = 'Freelancer';    
+		 ?>  
+			<!-- <div class="row">         
 				<div class="col-lg-3"> </div>          
 				<div class="col-lg-9">            
 					<div class="profile_topLink <?php echo  ($this->session->userdata('user_type') == 4) ? 'freelancer' : 'client'; ?>">              
-						<!-- <ul>
+						<ul>
 							<li><a href="<?php echo base_url(); ?>user-bio"><img src="<?php  echo base_url('assets/img/BioIcon-1A.png'); ?>" alt=""> <?=$user_type?> Bio</a></li>  
 
 							<?php if($this->session->userdata('user_type') == 4) {?>
@@ -20,16 +33,16 @@
 							<li><a href="<?php echo base_url(); ?>gender"><img src="<?php  echo base_url('assets/img/GenderIcon-1A.png'); ?>" alt=""> Gender</a></li>                <li><a href="<?php echo base_url(); ?>payment"><img src="<?php  echo base_url('assets/img/PaymentIcon-1A.png'); ?>" alt=""> Payment</a></li>
 							<li><a href="<?php echo base_url(); ?>settings"><img src="<?php  echo base_url('assets/img/SettingIcon-1A.png'); ?>" alt=""> Settings</a></li>
 							<li class="active"><a href="<?php echo base_url(); ?>reviews"><img src="<?php  echo base_url('assets/img/ReviewIcon-1A.png'); ?>" alt=""> Reviews</a></li>
-						</ul>  -->           
+						</ul>          
 					</div>          
 				</div>        
-			</div>      
+			</div>  -->     
 		</div>    
 	</div>    
 	<div class="profile">      
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-3" style="margin-top:3%;">           
+				<div class="col-lg-3">           
 
 					<div class="pro_img"> 
 						<span class="pro_imgBox">
@@ -44,10 +57,10 @@
 				</div>
 
 
-				<div class="col-lg-9" style="margin-top: -13%;">            
+				<div class="col-lg-9"  style="margin-top:-1rem;">            
 				<div class="pro_info">             
-				<h4>Reviews</h4>            
-					<!--<div class="SearchPayHistory RvwSearch">                
+			<!--	<h4></h4>            
+					<div class="SearchPayHistory RvwSearch">                
 					<div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">               
 						<input class="form-control" type="text" value="" placeholder="From">                
 						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>				

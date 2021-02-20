@@ -7,34 +7,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- DataTables -->
   <link rel="stylesheet" href="https://www.drivedigitally.com/hwfinal/assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
 <main id="main"> 
-<?php 
 
-  $msg = $this->session->flashdata('msg'); 
-  if(!empty($msg)) {
-?>
-<section style="padding-top: 7%;">
-<?php echo $msg; ?>
-</section>
-<?php
-	}
-?>
-<?php 
-
-	$frmValidationMsg = validation_errors(); 
-	if(!empty($frmValidationMsg)) {
-?>
-	<section style="padding-top: 7%;">
-		<?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
-	</section>
-<?php
-  }
-?>
   <!--==========================
       ConterDiv Section
     ============================-->
-  <section id="postDiv">
-    <div class="container">
-<div class="row">
+  <section id="profile_section">
+    <div class="profile PublicProfile">
+      <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>public-profile">My Profile</a></li>
+            <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>ticket-history">Problem Ticket History</a> </li>
+            <li class="breadcrumb-item active" aria-current="page">Compose Email</li>
+          </ol>
+        </nav>
+
+      <?php 
+
+          $msg = $this->session->flashdata('msg'); 
+          if(!empty($msg)) {
+        ?>
+        <section style="padding-top: 0.5%;">
+        <?php echo $msg; ?>
+        </section>
+        <?php
+          }
+        ?>
+        <?php 
+
+          $frmValidationMsg = validation_errors(); 
+          if(!empty($frmValidationMsg)) {
+        ?>
+          <section style="padding-top:0.57%;">
+            <?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
+          </section>
+        <?php
+          }
+        ?>
+      <div class="row">
         <div class="col-lg-12">
           <div class="card card-info card-outline">
             <div class="card-header">Compose Email</div>

@@ -22,8 +22,16 @@
   ============================-->
   
   <section id="profile_section">
-    <div class="profile_top">
+    <div class="profile PublicProfile">
       <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo $user_type; ?> Bio</li>
+          </ol>
+        </nav>
+   
           <div class="row">
             <?php if($user_info[0]['profile_status'] == 0 ){?>
               <div class="col-lg-12">
@@ -102,7 +110,7 @@
     <div class="profile">
       <div class="container">
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-3" style="margin-top: -5rem;">
             <div class="pro_img"> 
               <span class="pro_imgBox">
                 <img class="profile-pic" src="{user_info}{user_image}{/user_info}" alt="Profile Image" /> 
@@ -121,9 +129,9 @@
               <a href="<?php echo base_url(); ?>public-profile" class="pro_imgBtn">View Public Profile</a> <a href="<?php echo base_url(); ?>logout" class="pro_logout" ><img src="<?php  echo base_url('assets/img/logout.png'); ?>" alt=""></a>
       </div>
           </div>
-          <div class="col-lg-9">
+          <div class="col-lg-9" style="margin-top: -5rem;">
             <div class="pro_info">
-              <h4><?=$user_type?> Bio</h4>
+              <h4>Personal Details</h4>
               <div class="row">
                 <div class="col-lg-3">
                   <label>Name</label>

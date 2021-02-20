@@ -6,38 +6,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
 <main id="main"> 
-<?php 
-  $msg = $this->session->flashdata('msg'); 
-  if(!empty($msg)) {
-?>
-<section style="padding-top: 7%;">
-<?php echo $msg; ?>
-</section>
-<?php
-	}
-?>
-<?php 
 
-	$frmValidationMsg = validation_errors(); 
-	if(!empty($frmValidationMsg)) {
-?>
-	<section style="padding-top: 7%;">
-		<?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
-	</section>
-<?php
-  }
-?>
   <!--==========================
       ConterDiv Section
     ============================-->
-  <section id="postDiv">
-    <div class="container">
+  <section id="profile_section">
+    <div class="profile PublicProfile">
+      <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Problem Ticket</li>
+          </ol>
+        </nav>
+      <?php 
+        $msg = $this->session->flashdata('msg'); 
+        if(!empty($msg)) {
+      ?>
+      <section style="padding-top: 0.5%;">
+      <?php echo $msg; ?>
+      </section>
+      <?php
+        }
+      ?>
+      <?php 
+
+        $frmValidationMsg = validation_errors(); 
+        if(!empty($frmValidationMsg)) {
+      ?>
+        <section style="padding-top: 0.5%;">
+          <?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
+        </section>
+      <?php
+        }
+      ?>
       <div class="row">
         <div class="col-lg-12">
           <div class="postDiv_Box">
             <form action="<?= base_url().'freelancer/save_problem_ticket' ?>" method="post">
               <div class="step_Box step_box2">
-                <h3>Problem Ticket</h3>
+                <!-- <h3>Problem Ticket</h3> -->
                 <ul>
                   <li class="w-100"> 
                     <span>

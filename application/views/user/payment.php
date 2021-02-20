@@ -5,37 +5,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <main id="main"> 
   
-  <?php 
-  $msg = $this->session->flashdata('msg'); 
-  if(!empty($msg)) {
-  ?>
-  <section style="padding-top: 7%;">
-    <?php echo $msg; ?>
-  </section>
-  <?php
-  }
   
-  ($this->session->userdata('user_type') == 3)? $user_type = 'Client' : $user_type = 'Freelancer';
-  
-  ?>
-
-  <?php 
-  $frmValidationMsg = validation_errors(); 
-  if(!empty($frmValidationMsg)) {
-  ?>
-  <section style="padding-top: 7%;">
-    <?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
-  </section>
-  <?php
-  }
-  ?>
 
   <!--==========================
       ConterDiv Section
     ============================-->
-  <section id="profile_section">
-    <div class="profile_top">
+   <section id="profile_section">
+    <div class="profile PublicProfile">
       <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Payment</li>
+          </ol>
+        </nav>
+        <?php 
+            $msg = $this->session->flashdata('msg'); 
+            if(!empty($msg)) {
+            ?>
+            <section style="padding-top: 0.5%;">
+              <?php echo $msg; ?>
+            </section>
+            <?php
+            }
+            
+            ($this->session->userdata('user_type') == 3)? $user_type = 'Client' : $user_type = 'Freelancer';
+            
+            ?>
+
+            <?php 
+            $frmValidationMsg = validation_errors(); 
+            if(!empty($frmValidationMsg)) {
+            ?>
+            <section style="padding-top: 7%;">
+              <?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
+            </section>
+            <?php
+            }
+            ?>
         <div class="row">
           <div class="col-lg-3"> </div>
           <div class="col-lg-9">
@@ -107,13 +115,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="profile">
       <div class="container">
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-3" style="margin-top: -5rem;">
             <div class="pro_img"> <span class="pro_imgBox"><img src="{user_info}{user_image}{/user_info}" alt="Profile Image" /> <a href="#" class="uplod"></a> </span>
               <h2><?php echo $this->session->userdata('user_name'); ?></h2>
               <p>{user_info} {city} {/user_info}, {user_info} {state} {/user_info}, {user_info} {country} {/user_info}</p>
               <a href="<?php echo base_url(); ?>public-profile" class="pro_imgBtn">View Public Profile</a> <a href="<?php echo base_url(); ?>logout" class="pro_logout" ><img src="<?php  echo base_url('assets/img/logout.png'); ?>" alt=""></a> </div>
           </div>
-          <div class="col-lg-9">
+          <div class="col-lg-9"  style="margin-top: -5rem;">
             <div class="pro_info">
               <div class="payment_method">
                 <ul class="nav nav-tabs">

@@ -11,10 +11,16 @@ if(!empty($msg)) {
   <!--==========================
       ConterDiv Section
     ============================-->
-  
-  <div class="main-div-sec">
-    <div class="container">
-    	
+   <section id="profile_section">
+    <div class="profile PublicProfile">
+      <div class="container">
+    	<nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+          </ol>
+        </nav>
       <div class="molivi-sec">
       	<?php if(isset($user_info[0]['profile_status']) && $user_info[0]['profile_status'] == 0){?>
 
@@ -126,5 +132,6 @@ if(!empty($msg)) {
 		</div>
       </div>
     </div>
-  </div>
+    </div>
+  </section>
 </main>

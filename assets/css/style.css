@@ -1659,7 +1659,7 @@ display:none;
 	width: 100%;
 	border-radius: 3px;
 	box-shadow: 24px 0 35px rgba(0, 0, 0, 0.1);
-	margin:50px 0 0;
+	margin:0px 0 0;
 }
 .postDiv_Box h3 {
 	color: #293134;
@@ -3148,7 +3148,7 @@ font-weight:700;
 	border-radius: 3px;
 	box-shadow: 24px 0 35px rgba(0, 0, 0, 0.1);
 	margin:45px 0 0 0;
-	padding: 40px;
+	padding: 25px;
 	position: relative;
 }
 .pro_logout {
@@ -3215,7 +3215,7 @@ font-weight:700;
 }
 .pro_img {
 	width:100%;
-	margin-top: -97px;
+	margin-top: 0px;
 	text-align: center;
 }
 .pro_img .pro_imgBox {
@@ -3619,7 +3619,7 @@ border: 2px solid #1189f9;
 	width: 100%;
 	float: left;
 	padding: 40px 40px 17px 40px;
-	margin-top: 8%;
+	margin-top: 1%;
 	background: #fff;
 	margin-bottom: 30px;
 	box-shadow: 0 2px 12px 0#eaeaea;
