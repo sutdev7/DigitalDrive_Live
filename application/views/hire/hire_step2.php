@@ -132,7 +132,8 @@
 
               <button type="submit" data-user_task_id="{taskinfo}{user_task_id}{/taskinfo}"
               data-task_id="{taskinfo}{task_id}{/taskinfo}" 
-              data-amount="{taskinfo}{task_total_budget}{/taskinfo}" 
+              data-amount="{taskinfo}{task_total_budget}{/taskinfo}"
+              data-usertaskid_milestoneid="{taskinfo}{usertaskid_milestoneid}{/taskinfo}" 
               class="btn btn-primary razorpay_now" data-toggle="modal" data-target="#SentModal">Make Payment</button>
             
             </div>
@@ -272,6 +273,7 @@ $('body').on('click', '.razorpay_now', function(e){
 var totalAmount = $(this).attr("data-amount");
 var task_id =  $(this).attr("data-task_id");
 var client_id= $(this).attr("data-user_task_id");
+var usertaskid_milestoneid= $(this).attr("data-usertaskid_milestoneid");
 var options = {
 "key": "rzp_test_6zWahD2t7IjCvW",// amardeep test account // "rzp_test_zchN665lTTrnce",  // digital drive test account
 "amount": (totalAmount * 100), // 2000 paise = INR 20
@@ -291,7 +293,7 @@ var options = {
     data: {
     razorpay_payment_id: response.razorpay_payment_id ,
     payment_type:"Razor", totalAmount : totalAmount ,
-    task_id : task_id, client_id: client_id,
+    task_id : task_id, client_id: client_id, usertaskid_milestoneid: usertaskid_milestoneid, 
     }, 
     success: function (msg) {
       // alert("ajax success");
