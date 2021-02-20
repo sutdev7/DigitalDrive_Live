@@ -155,8 +155,8 @@
             <hr class="payment_header_hr">
 
             <div class="content">
-
-               <h1>Payment is successfully Done !!, Verification email sent to inbox</h1>
+                <!-- , Verification email sent to inbox -->
+               <h1>Payment is successfully Done !!</h1>
 
                <?php if(isset($result[0]->name)){ ?>
 
