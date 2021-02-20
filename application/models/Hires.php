@@ -313,7 +313,7 @@ class Hires extends CI_Model {
 					'agreed_term' => $postValue['terms'],
 					'agreed_budget' => $task_budget,
 					'term_amount' => $postValue['amount'],
-					'deposit' => $postValue['deposit'],
+					// 'deposit' => $postValue['deposit'],
 					'proposal_id' => $postValue['proposal_id'],
 					// 'hired_end_date' => date('Y-m-d H:i:s',strtotime($postValue['due_date'])),
 					'hire_date' => $hire_start_date,

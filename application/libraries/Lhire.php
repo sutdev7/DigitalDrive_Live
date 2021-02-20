@@ -133,7 +133,8 @@ class Lhire {
 		$post_data = $CI->input->post(); 
 		
 		$return = $CI->Hires->hire_data_new_insert($post_data);
-		// print_r($post_data);exit;
+		$milestone_id_str= implode($post_data["milestone_amount"],'-');
+		// echo '<pre>';print_r($milestone_id_str);exit;
 		
 		if($return){
         ///	$CI->session->set_flashdata('msg', '<div class="alert alert-success text-center">'.$return['message'].'</div>');
@@ -143,11 +144,11 @@ class Lhire {
 		
 		//echo '<pre>'; print_r($CI->input->post()); die;
 		
-		if(trim($CI->input->post('deposit')) == 'deposit_fund_now'){
-			redirect('hire/step-2/'.$CI->input->post('fldJobTitle'), 'refresh');
-		}else{
-			redirect('search-freelancer', 'refresh');
-		}
+		// if(trim($CI->input->post('deposit')) == 'deposit_fund_now'){
+			redirect('hire/step-2/'.$CI->input->post('fldJobTitle').'-'.$milestone_id_str, 'refresh');
+		// }else{
+		// 	redirect('search-freelancer', 'refresh');
+		// }
 		
 	}
 	
@@ -155,18 +156,24 @@ class Lhire {
 		$CI =& get_instance();
         $CI->load->model('Tasks');
         $CI->load->model("Users");  
-		
-		$get_info = $CI->Tasks->get_task_info_by_user_task_id($user_task_id = $CI->uri->segment(3));
-		
-		
-		
+		$str = $CI->uri->segment(3);
+		$arr = explode('-',$str);
+		// echo '<pre>'; print_r(array_shift($arr)); die;
+
+		$get_info = $CI->Tasks->get_hired_task_info_by_user_task_id($user_task_id = array_shift($arr));
+		$query = $CI->db->select('sum(milestone_agreed_budget) as sum')->from('task_proposal_milestone')->where_in('milestone_id',$arr)->get();
+		// echo $CI->db->last_query();exit; 
+		// echo '<pre>'; print_r($query->row()); die;
+			$res = $query->row();
+			$totalsum = $res->sum;
+
 		if(!empty($get_info)){
-			$taskArr[] = array('task_id' => $get_info->task_id, 'user_task_id' => $get_info->user_task_id,  'task_name' => $get_info->task_name, 'task_total_budget' => $get_info->task_total_budget );
+			$taskArr[] = array('task_id' => $get_info[0]->task_id,'usertaskid_milestoneid'=> $str, 'user_task_id' => $get_info[0]->user_task_id, 'proposal_id'=> $get_info[0]->proposal_id,  'task_name' => $get_info[0]->hired_title, 'task_total_budget' => $totalsum );
 		}
 		
 		$data['taskinfo'] = $taskArr;
 		
-		//echo '<pre>'; print_r($data); die;
+		// echo '<pre>'; print_r($data); die;
 		
 		$AccountForm = $CI->parser->parse('hire/hire_step2',$data,true);
 		return $AccountForm;
