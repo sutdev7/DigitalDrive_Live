@@ -551,6 +551,25 @@ class Tasks extends CI_Model {
 
     } 
 
+    public function get_hired_task_info_by_user_task_id($user_task_id = null){
+
+        if(empty($user_task_id))
+            return FALSE;
+
+        $this->db->select('*');
+
+        $this->db->from('task_hired');
+        $this->db->join('task_proposal_milestone','task_proposal_milestone.proposal_id=task_hired.proposal_id');
+        // $this->db->join('task_proposal_milestone','task_proposal_milestone.proposal_id=')
+
+        $this->db->where('user_task_id', $user_task_id);
+
+        $query = $this->db->get();
+        // echo $this->db->last_query();exit;
+        return $query->result();
+
+    } 
+
 
 
     public function get_freelancer_hired_for_task($userID = null, $task_id = null){
