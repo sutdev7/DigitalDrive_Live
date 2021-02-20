@@ -147,7 +147,19 @@ class Laccount {
 
 	            if($CI->auth->sendVerificatinEmail( $CI->input->post('fldEmail'), $CI->input->post('fldUserType'))) {
 					$AccountForm = $CI->parser->parse('account/confirm-sign-up',array('uid' => $result['userId']),true);
+					if($data['subscription_plan'] == 1){
+
+						$data = array(
+							'subscription_plan' => $data['subscription_plan'],
+							);
+							$this->db->where('user_id', $result['userId']);
+							$this->db->update('user_login', $data);
+							redirect('sign-in'); // by amardeep
+
+
+					}else{
 					redirect('subscription/payment/'.$data['subscription_plan'].'/'.$result['userId'], 'refresh'); // by amardeep
+					}
 			        return $AccountForm;
 	            }
 
