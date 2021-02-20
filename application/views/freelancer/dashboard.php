@@ -14,6 +14,7 @@ if(!empty($msg)) {
   
   <div class="main-div-sec">
     <div class="container">
+    	
       <div class="molivi-sec">
       	<?php if(isset($user_info[0]['profile_status']) && $user_info[0]['profile_status'] == 0){?>
 
