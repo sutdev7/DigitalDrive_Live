@@ -269,7 +269,7 @@
                     </ul>
                   </div> -->
 
-				  <h3>Deposit</h3>
+				  <!-- <h3>Deposit</h3>
                   <div class="radiodiv" style="padding-top:0;">
                     <ul>
                       <li>
@@ -283,7 +283,7 @@
                           <span class="checkmark"></span> </label>
                       </li>
                     </ul>
-                  </div>
+                  </div> -->
 
                 </div>
               </div>
@@ -311,7 +311,10 @@
                                           <td><?php  echo $row["milestone_title"]; ?></td>
                                           
                                           <td>$<?php echo $row["milestone_agreed_budget"]; ?></td>
-										  <td><input type="checkbox" name="milestone_amount[]" value="<?php echo $row["milestone_agreed_budget"]; ?>"></td>
+										  <td>
+										  	<input type="checkbox" name="milestone_amount[]" value="<?php echo $row["milestone_id"]; ?>">
+										</td>
+										<!-- ,<?php echo $row["milestone_agreed_budget"]; ?> -->
                                           <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
                                           <!-- <td> -->
                                           <!-- <a data-toggle="tooltip" data-placement="top" title="withdraw">
