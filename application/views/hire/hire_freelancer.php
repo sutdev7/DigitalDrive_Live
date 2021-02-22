@@ -22,7 +22,7 @@
     ============================-->
     <form action="<?= base_url().'hire/add_hire_step1' ?>" method="post">
 	<input type="hidden" value="{freelancerInfo}{freelancer_id}{/freelancerInfo}" name="freelancer_id" id="freelancer_id">
-	<input type="hidden" value="{proposal_info}{proposal_id}{/proposal_info}" name="proposal_id" id="proposal_id">
+	<input type="hidden" value="<?php echo $proposal_info[0]["proposal_id"] ?>" name="proposal_id" id="proposal_id">
 	<input type="hidden" name="task_duration" id="task_duration">
     	<input type="hidden" name="task_duration_type" id="task_duration_type">
 	<input type="hidden" name="amount" id="whole_hiring_amount">
