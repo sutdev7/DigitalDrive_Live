@@ -39,30 +39,30 @@ class Razorpay extends CI_Controller {
     public function razorPaySuccess()
 
     { 
+      $arr = [];
+      if($this->input->post('usertaskid_milestoneid') != ""){
+        $str = $this->input->post('usertaskid_milestoneid');
+        $arr = explode('-',$str);
+        $user_task_id = array_shift($arr);
+      }
 
      $data = [
 
                'client_id' => $this->input->post('client_id'),
-
                'txn_id' => $this->input->post('razorpay_payment_id'),
-
                'amount' => $this->input->post('totalAmount'),
-
                'payment_type'=>$this->input->post('payment_type'),
-
                'task_id' => $this->input->post('task_id'),
-
+               'milestone_id' => serialize($arr) ,
                'payment_status' => 'yes',
-
                'created_date' => date('Y-m-d H-i-s'),
-
                'updated_date' => date('Y-m-d H-i-s'),
 
             ];
 
       $this->db->insert('payments', $data);
 
-    //   echo $this->db->last_query();exit;
+      // echo $this->db->last_query();exit;
 
       $insertId = $this->db->insert_id();
 
@@ -93,6 +93,33 @@ class Razorpay extends CI_Controller {
         $this->db->where('task_id', $this->input->post('task_id'));
 
         $this->db->update('task', $data);
+
+        // // project title
+				// $task_query = $this->db->select('task.*')->from('task')->where('task_id',$this->input->post('task_id'))->get();
+				// if($task_query->num_rows() >0){
+				// 	$task_info = $task_query->row();
+				// 	$task_name = $task_info->task_name;
+				// 	$user_task_id = $task_info->user_task_id;
+				// }else{
+				// 	$task_name = $user_task_id = '';
+				// }
+        
+				// $job_details_link = '<a href="'.base_url().'hired-job-details/'.$user_task_id.'">'.$task_name.'</a>';
+				
+				// // insert notification
+				// $notidata = array(
+				// 	'task_id' => $task_id,
+				// 	'offer_id' => 0,
+				// 	'notification_master_id' => 11,
+				// 	'notification_from' => $this->session->userdata('user_id'),
+				// 	'notification_to' => $postValue['freelancer_id'],
+				// 	'notification_details' => 'SEND HIRED ',
+				// 	'notification_message' => '<strong>'.'<a href="'.base_url().'public-profile/'.$this->session->userdata('profile_id').'">'.$this->session->userdata('user_name').'</a></strong> wants to hire you for <strong> '.$job_details_link.' </strong>',
+				// 	'notification_doc' => date('Y-m-d H:i:s')
+				// );
+				// $this->db->insert('task_notification',$notidata);
+
+
 
         // check already hired
 
