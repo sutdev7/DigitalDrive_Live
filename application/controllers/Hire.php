@@ -59,7 +59,7 @@ class Hire extends CI_Controller {
         		
 		$this->form_validation->set_rules('contract_title','Contract Title','required');
 	//	$this->form_validation->set_rules('fldJobTitle','Select Task','required');
-		$this->form_validation->set_rules('terms','Hired Terms','required');
+		$this->form_validation->set_rules('terms','Freelancer Terms','required');
 		// $this->form_validation->set_rules('deposite_milestone','Deposit','required');
 	//	$this->form_validation->set_rules('fldJobTitle', 'Job Title','required', 'callback_jobtitle_check['.$_REQUEST['fldJobTitle'],$_REQUEST['freelancer_id'].']');
 	 	$this->form_validation->set_rules('fldJobTitle', 'Job Title', 'required|callback_jobtitle_check[' .$_REQUEST['fldJobTitle']. ']');
