@@ -322,7 +322,7 @@ class Hires extends CI_Model {
 					'hired_doc' => $date_of_creation,
 					'hired_dom' => $date_of_creation,
 				);
-		// echo '<pre>';	print_r($data);exit;
+				// echo '<pre>';	print_r($data);exit;
 
 				$this->db->insert('task_hired',$data);
 					$insert_id = $this->db->insert_id();
