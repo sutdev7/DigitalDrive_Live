@@ -159,11 +159,12 @@ class Lhire {
 		$str = $CI->uri->segment(3);
 		$arr = explode('-',$str);
 		// echo '<pre>'; print_r(array_shift($arr)); die;
+		$taskArr =[];
 
 		$get_info = $CI->Tasks->get_hired_task_info_by_user_task_id($user_task_id = array_shift($arr));
 		$query = $CI->db->select('sum(milestone_agreed_budget) as sum')->from('task_proposal_milestone')->where_in('milestone_id',$arr)->get();
 		// echo $CI->db->last_query();exit; 
-		// echo '<pre>'; print_r($query->row()); die;
+		// echo '<pre>'; print_r($get_info); die;
 			$res = $query->row();
 			$totalsum = $res->sum;
 
