@@ -10,6 +10,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   .ongoing-task .table thead th{
     color: #808d92 !important;
   }
+  .ongoing-task .table tbody td p {
+    font-size: 18px !important;
+    margin-bottom: 0;
+}
 </style>
 
   <!--==========================
@@ -82,17 +86,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tbody>
               {jobs}
               <tr>
-                <td style="padding-left: 0px">
-                  <div class="annadiv">
-                      <div class="caption">
-                        <h3><p> {task_name}</p></h3>
-                        
-                      </div>
-                    </div>
-                </td>
-                <td>{total_proposal}</td>
-                 <td>{task_doc}</td>
-                <td><strong>${task_total_budget}</strong></td>
+                <td><h3><p> {task_name}</p></h3></td>
+                <td style="width: 18% !important;"><h3><p>{total_proposal}</p></h3></td>
+                 <td ><h3><p>{task_doc}</p></h3></td>
+                <td><h3><p>${task_total_budget}</p></h3></td>
                 <!-- <td>${task_total_budget}</td> -->
                
                 <td><small class="btn btn-danger" > <!-- <img src="<?php  echo base_url('assets/img/dot-sec.png'); ?>" alt=""> -->

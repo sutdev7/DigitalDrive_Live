@@ -7,6 +7,11 @@
   .ongoing-task .table thead th{
     color: #808d92 !important;
   }
+
+  .ongoing-task .table tbody td p {
+    font-size: 18px !important;
+    margin-bottom: 0;
+}
 </style>
   <!--==========================
 
@@ -65,8 +70,8 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>By</th>
+                   <th>Freelancer</th>
+                  <th>Title</th>                 
                  <!--  <th>Posted Date</th> -->
                   <!-- <th>Offers</th> -->
                   <th>Budget</th>
@@ -77,22 +82,14 @@
               {jobs}                
                 <tr>
                   <td>
-                    <div class="annadiv"> <span> <img src="{user_image}" alt="{freelancer_name}" style="width:45px;height:45px;"> </span>
-                      
-                      <div class="caption">
-                        <h3><p> {task_name}</p></h3>
-                        
-                      </div>
+                    <div class="annadiv"> 
+                      <span> <img src="{user_image}" alt="{freelancer_name}" style="width:45px;height:45px;"> </span>
+                      {is_online}                      
+                        <h2> <p>{freelancer_name}</p></h2>
+                        <p><img style="height: 18px;" src="<?php  echo base_url('assets/img/round-img1.png'); ?>" alt=""/> {freelancer_country} </p>
                     </div>
                   </td>
-                  <td style="padding-left: 0px"><div class="annadiv" ><!--  <span> <img src="{user_image}" alt="{freelancer_name}" style="width:45px;height:45px;"> </span> -->
-                      {is_online}
-                      <div class="caption">
-                        <h3> <p>{freelancer_name}</p></h3>
-                        <p> {freelancer_city}, {freelancer_state}, {freelancer_country} </p>
-                      </div>
-                    </div>
-				  </td>
+                  <td><h2><p> {task_name}</p></h2></td>
 
         <!--    <td><div class="annadiv">
                       
@@ -108,9 +105,11 @@ $query=$this->db->get_where('task',array('task_id'=>'{task_id}'))->row();
                     </div>
           </td> -->
                  <!--  <td>{offer_cnt} Offers</td> -->
-                  <td style="font-size: 19px;">${task_total_budget}</td>
-                  <td><small class="btn btn-danger" > <!-- <img src="<?php  echo base_url('assets/img/dot-sec.png'); ?>" alt=""> -->
-                   Action
+                <td><h2><p> ${task_total_budget}</p></h2></td>
+                  <td>
+                    <small class="btn btn-danger" > 
+                      <!-- <img src="<?php  //echo base_url('assets/img/dot-sec.png'); ?>" alt=""> -->
+                    Action
                     <ul>
                       <li><a href="<?php  echo base_url(); ?>task-details/{user_task_id}"> View Details </a> </li>
                       <li> <a href="#"> Disable Post </a></li>

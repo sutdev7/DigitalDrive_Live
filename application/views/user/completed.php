@@ -2,7 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
-
+<style type="text/css">
+  .ongoing-task .table tbody td p {
+    font-size: 18px !important;
+    margin-bottom: 0;
+}
+</style>
 <main id="main"> 
   
 
@@ -31,6 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php
         }
         ?>
+    <div class="full" style="width:100%; float:left; position:relative;">
       <?php $this->load->view('user/molivi-section.php') ?>
       <div class="ongoing-task">
         <!-- <div class="ongoing-task-lft">
@@ -66,23 +72,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>Title</th>
                 <th>Due Date</th>
                 <th>Budget</th>
-                <th></th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {jobs}              
               <tr>
-                <td><div class="annadiv"> <span> <img src="{user_image}" alt="{freelancer_name}" style="width:45px;height:45px;"> </span>
+                <td><div class="annadiv"> 
+                  <span> <img src="{user_image}" alt="{freelancer_name}" style="width:45px;height:45px;"> </span>
                     {is_online}
-                    <div class="caption">
-                      <h3> {freelancer_name} </h3>
-                      <p> {freelancer_city}, {freelancer_state}, {freelancer_country} </p>
-                    </div>
+                      <h3> <p>{freelancer_name}</p> </h3>
+                      <p> <img style="height: 18px;" src="<?php  echo base_url('assets/img/round-img1.png'); ?>" alt=""/>{freelancer_country} </p>
+                    
                   </div></td>
-                <td>{task_name}</td>
-                <td>{task_due_date}</td>
-                <td>${task_total_budget}</td>
-                <td><a href="<?php echo base_url().'view-contract/' ?>{hired_id}" class="view-btn"> View Contract </a></td>
+                <td><h3><p>{task_name}</p></h3></td>
+                <td><h3><p>{task_due_date}</p></h3></td>
+                <td><h3><p>${task_total_budget}</p></h3></td>
+                <td><a href="<?php echo base_url().'view-contract/' ?>{hired_id}" class="btn btn-primary"> View Contract </a></td>
               </tr>
               {/jobs}
             </tbody>
@@ -94,6 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </div>
   </div>
+</div>
 </main>
 
 <!-- The Modal -->

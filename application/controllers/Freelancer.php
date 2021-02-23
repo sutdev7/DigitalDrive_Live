@@ -355,7 +355,7 @@ class Freelancer extends CI_Controller {
 	}
 	
 	public function key_list(){
-		
+
 		$content = $this->lfreelancer->key_list();
 		$data = array(
 					'content' => $content,
@@ -525,7 +525,7 @@ class Freelancer extends CI_Controller {
 		redirect('problem-ticket');
 	}
 	public function job_list(){
-		$type = $this->uri->segment(2); 
+		$type = $this->uri->segment(2);
 		
 		$content = $this->lfreelancer->job_list_data($type);
 		
