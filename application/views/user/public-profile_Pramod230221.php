@@ -70,9 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {/user_skills} 
               </ul>
               {/user_info} -->
-              <a class="EditButton" data-toggle="modal" href="#EditArea"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
-            </div>
-        <div class="col-lg-12">
+              <a class="EditButton" data-toggle="modal" href="#EditArea"><i class="fa fa-pencil" aria-hidden="true"></i></a> </div>
             <div class="pro_info">
               <h4>Reviews</h4>
               <div class="RvwWrapper">
@@ -174,9 +172,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </ul>-->
               </div>
             </div>
-            </div>
-
-          <div class="col-lg-12">
+          </div>
+          <div class="col-lg-4">
             <div class="RhtSidePnl">
             
                 <div class="address-div">
@@ -230,26 +227,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
                 </div> 
-            <!-- <div class="pro_info">
-                <h4>Top Freelancer</h4> 
-               
-                   
+            
+                 <div class="RvwWrapper">
+                    <h3>Top Freelancer</h3>
                     <ul class="RvwLists">
                         <?php if (isset($top_freelancers) && !empty($top_freelancers)) { ?>
                             <?php foreach ($top_freelancers as $fRow) { ?>
-                                <li  style="width: 30% !important; border: 1px solid grey;margin-left: 5px;">
+                                <li>
                                     <div class="PflImgHldrWrpr">
                                         <div class="Imghldr" style="background:url(<?php echo $fRow->user_profile_image; ?>) no-repeat center center; background-size:cover;"></div>
                                         <?php if ($fRow->is_login) { ?>
-                                            <img class="onlineimg" src="<?php echo base_url('assets/img/activeIcon.png'); ?>" alt="">
-                                    
+                                            <img src="<?php echo base_url('assets/img/activeIcon.png'); ?>" alt=""></div>
                                         <?php } ?>
-                                    </div>
                                     <div class="Txthldr">
                                         <h2><?php echo $fRow->name; ?></h2>
-                                        <h5>
-                                          <img class="locationmap" src="<?php echo base_url('assets/img/round-img1.png'); ?>" alt="location"><?php echo $fRow->country; ?>
-                                        </h5><br/>
+                                        <h5><?php echo '<img src="http://localhost/DigitalDrive_Live/assets/img/round-img1.png" alt="location"> '.$fRow->country; ?></h5>
                                         <span class="plus">+ <?php echo $fRow->total_positive_coins; ?> Coins</span>
                                         <span class="plus"> <?php echo $fRow->total_negative_coins; ?> Coins</span>
                                     </div>
@@ -257,12 +249,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php } ?>
                         <?php } ?>
                     </ul>
-               </div> -->
+                </div>
+
 
             </div>
           </div>
         </div>
       </div>
+    </div>
   </section>
 </main>
 

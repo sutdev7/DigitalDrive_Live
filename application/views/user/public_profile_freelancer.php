@@ -73,7 +73,7 @@
                               <?php }else{ ?>
                               <img src="<?php echo base_url(); ?>/uploads/user/portfolio_image/<?php echo $portfolios->portfolio_image; ?>" style="width: 100%;height: 220px;"> 
                               <?php } ?>
-                              <div class="ptitle"><?php echo  $portfolios->portfolio_url ?>                           
+                              <div class="ptitle"><a href="<?php echo  $portfolios->portfolio_url ?>">Click to View</a>                           
                                 <!-- <div class="pdesc"><?php echo  $portfolios->portfolio_desc ?>
                                 </div> -->
                               </div>
@@ -204,7 +204,7 @@
                 </div>
 
 
-                <div class="RvwWrapper">
+                <!-- <div class="RvwWrapper">
                   <h3>Past Projects Ratings</h3>
                   <ul class="RvwLists">
                     <li>
@@ -244,7 +244,7 @@
                             </div>
                           </li>
                         </ul>
-                      </div>
+                      </div> -->
 
 
                     </div>
