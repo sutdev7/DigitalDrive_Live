@@ -172,7 +172,6 @@ $route['my-jobs/(:num)'] = 'Freelancer/save_job_list/$1';
 
 $route['offer-jobs'] = 'Freelancer/offer_jobs';
 
-
 $route['proposal'] = 'Freelancer/proposal';
 $route['active-jobs'] = 'Freelancer/active_jobs';
 $route['job-list/(:any)'] = 'Freelancer/job_list/$l';

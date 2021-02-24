@@ -158,30 +158,50 @@
 
           <div class="apply-job">
             <div class="btn">
-              <!--a href="javascript:void(0);" data-toggle="modal" data-target="#myModal">APPLY FOR THE JOB</a-->
-              <?php if (base64_decode($notification_row_id) != 0) { ?>
+              
+
+              <?php 
+              //echo base64_decode($notification_row_id);
+              if(base64_decode($notification_row_id) != 0) { ?>
                 <?php if ($task_is_completed_by_owner == 1 || $task_is_completed == 1) { ?>
+
                   <a href="Javascript:void(0)">PROJECT IS COMPLETED</a>
+
                 <?php } else if (!empty($hire_id)) { ?>
                   <a href="<?= base_url() . 'take-action' ?>/{notification_row_id}/<?php echo base64_encode('17'); ?>">COMPLETE</a>
+                  
                   <?php
                 } else {
+                  
                   if (base64_decode($notification_master_id) == 11) { ?>
-                    <a href="<?= base_url() . 'take-action' ?>/{notification_row_id}/<?php echo base64_encode('14'); ?>">ACCEPT THE JOB</a>
-                    <?php } else if (base64_decode($notification_master_id) == 9) {
-                    if ($offer_accepted == "yes") { ?>
+                      <a href="<?= base_url() . 'take-action' ?>/{notification_row_id}/<?php echo base64_encode('14'); ?>">ACCEPT THE JOB</a>
+                  <?php } else if (base64_decode($notification_master_id) == 9) {
+
+                    if($offer_accepted == "yes") { ?>
+
                       <a href="javascript:void(0)">OFFER ALREADY ACCEPTED</a>
+                    
                     <?php } else { ?>
                       <a href="<?= base_url() . 'take-action' ?>/{notification_row_id}/<?php echo base64_encode('12'); ?>">Accepted</a>
                     <?php }
-                    if ($offer_rejected == "yes") { ?>
+                    if ($offer_rejected=="yes") { ?>
                       <a href="#" class="view-btn2 reject">OFFER ALREADY REJECTED</a>
+                    
                     <?php } else { ?>
                       <a href="<?= base_url() . 'take-action' ?>/{notification_row_id}/<?php echo base64_encode('13'); ?>">REJECT</a>
+              
               <?php }
+                  } else{
+                    echo "NO ACTION";
                   }
+
                 }
-              } ?>
+
+              } else{
+                echo "NO ACTION";
+              }
+
+              ?>
             </div>
             <!-- <h5>Application end in 4d 5h 3m</h5> -->
             <!--h6>OR APPLY WITH</h6>
@@ -195,9 +215,12 @@
           </div>
 
           <div class="btn send-msg-btn">
-            <?php if (base64_decode($notification_row_id) != 0) { ?>
-              <?php if ($task_is_completed_by_owner == 1) { ?>
-              <?php } else if (!empty($hire_id)) { ?>
+            <?php 
+            if (base64_decode($notification_row_id) != 0) { 
+
+               if ($task_is_completed_by_owner == 1) { 
+
+                } else if (!empty($hire_id)) { ?>
                 <a href="<?= base_url() . 'problem-ticket' ?>">Cancel</a>
                 <?php
               } else {
@@ -207,6 +230,7 @@
                 }
               }
             } ?>
+
           </div>
 
           <div class="about-client-box">

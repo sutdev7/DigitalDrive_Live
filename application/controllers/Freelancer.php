@@ -551,8 +551,8 @@ class Freelancer extends CI_Controller {
 	}
 	
 	public function hired_job_details(){
+
 		$task_id = $this->uri->segment(2);
-		
 		$content = $this->lfreelancer->hired_job_details($task_id);
 		$data = array(
 					'content' => $content,

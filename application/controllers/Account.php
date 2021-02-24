@@ -54,6 +54,7 @@ class Account extends CI_Controller {
 		$this->template->full_website_html_view($data);	
 	}
 	// end by amar
+	
 
 	public function sign_up_as()
 	{

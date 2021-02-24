@@ -268,12 +268,7 @@
 
             </div>
 
-
-
           <form id="" name="frmSignUpAsMembership" action="<?php echo base_url(); ?>sign-up-as" method="post">
-
-
-
             <div class="row">
 
                  <div class="btn-group btn-group-toggle" data-toggle="buttons">

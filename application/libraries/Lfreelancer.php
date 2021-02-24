@@ -2478,6 +2478,7 @@ class Lfreelancer {
 
 		$task_notification_info=$CI->Notifications->get_task_notification($condition);
 
+		//print_r($task_notification_info); exit();
 	 
 
 		if(count($task_notification_info)>0){
@@ -2491,6 +2492,7 @@ class Lfreelancer {
 			$condition=array('task_id'=>$task_id,'notification_master_id'=>'9');
 
 			$task_notification_info=$CI->Notifications->get_task_notification($condition);
+			//print_r($task_notification_info); exit();
 
 			if(count($task_notification_info)>0){
 
@@ -2498,21 +2500,11 @@ class Lfreelancer {
 
 				$notification_master_id=$task_notification_info[0]->notification_master_id;
 
-			}
-
-			
-
-			
+			}		
 
 		}
 
-	    
-
-		
-
-		 
-
-        $data['task_info'] = $arrTask;
+		$data['task_info'] = $arrTask;
 
         $data['notification_row_id'] = isset($notification_row_id)? base64_encode($notification_row_id) : "";
 
@@ -2526,13 +2518,9 @@ class Lfreelancer {
 
 				
 
-		$data['creator_data'][] = array('client_id'=>base64_encode($creator_info['user_id']),'status'=>$creator_info['status'],'is_mobile_verified'=>$creator_info['is_mobile_verified'],'client_name'=> $creator_info['name'], 'since' => date('Y, M',strtotime($creator_info['doc'])), 'creator_post_count' => $creator_post_info  ); 
+		$data['creator_data'][] = array('client_id'=>base64_encode($creator_info['user_id']),'status'=>$creator_info['status'],'is_mobile_verified'=>$creator_info['is_mobile_verified'],'client_name'=> $creator_info['name'], 'since' => date('Y, M',strtotime($creator_info['doc'])), 'creator_post_count' => $creator_post_info  ); 	
 
-		
-
-		// echo '<pre>';print_r($data['task_info']);die('jjj');
-
-		
+		// echo '<pre>';print_r($data['task_info']);die('jjj');		
 
 		$is_cancelled=$task_details->task_is_cancelled;
 
@@ -2540,11 +2528,7 @@ class Lfreelancer {
 
 		$task_is_completed=$task_details->task_is_complete;
 
-		$task_is_completed_by_owner=$task_details->task_completed_by_owner;
-
-		
-
-		
+		$task_is_completed_by_owner=$task_details->task_completed_by_owner;		
 
 		//------------------------------PM
 
@@ -2552,9 +2536,7 @@ class Lfreelancer {
 
 		$data['task_is_completed'] =$task_is_completed;
 
-		$data['task_is_completed_by_owner'] =$task_is_completed_by_owner;
-
-		
+		$data['task_is_completed_by_owner'] =$task_is_completed_by_owner;		
 
 		$check_off_task = $CI->db->query("select * from offer_task where task_id = ".$task_id." and receiver_id = '".$CI->session->userdata('user_id')."'");
 
