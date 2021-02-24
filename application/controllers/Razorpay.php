@@ -83,7 +83,7 @@ class Razorpay extends CI_Controller {
         $data = array(
 
                 'task_status' => 1,
-
+                'task.task_hired' = 1,
                 'task_is_ongoing' => 1,
 
         );

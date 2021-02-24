@@ -1067,27 +1067,17 @@ class Freelancers extends CI_Model {
 			$this->db->where('task_proposal.user_id',$user_id);
 
 		}if($type == 'active'){
-
-			$this->db->select('task_hired.*, task.*, users.*');
-
+			$this->db->select('task_hired.*, DATE_FORMAT(task_hired.hired_end_date, "%d/%m/%Y") as hired_end_date, task.*, users.*');
 			$this->db->from('task_hired');
-
 			$this->db->join('task','task.task_id = task_hired.task_id');
-
 			$this->db->join('users','users.user_id = task.task_created_by');
-
 			$this->db->where('task.task_status', 1);
-
-			$this->db->where('task.task_hired', 1);
-
+			// $this->db->where('task.task_hired', 1);
 			$this->db->where('task.task_is_ongoing', 1);   
-
             $this->db->where('task.task_is_complete', 0); 
-
-            $this->db->where('task.task_completed_by_owner', 0);		
-
+            $this->db->where('task.task_completed_by_owner', 0);
+			$this->db->where('task_hired.hired_status', 1);   
 			$this->db->where('task_hired.freelancer_id',$user_id);
-
 			
 
 		} if($type == 'late'){
@@ -1221,25 +1211,16 @@ class Freelancers extends CI_Model {
 			$this->db->where('task_proposal.user_id',$user_id);
 
 		}else if($type == 'active'){
-
 			$this->db->select('task_hired.*, DATE_FORMAT(task_hired.hired_end_date, "%d/%m/%Y") as hired_end_date, task.*, users.*');
-
 			$this->db->from('task_hired');
-
 			$this->db->join('task','task.task_id = task_hired.task_id');
-
 			$this->db->join('users','users.user_id = task.task_created_by');
-
 			$this->db->where('task.task_status', 1);
-
-			$this->db->where('task.task_hired', 1);
-
+			// $this->db->where('task.task_hired', 1);
 			$this->db->where('task.task_is_ongoing', 1);   
-
             $this->db->where('task.task_is_complete', 0); 
-
-            $this->db->where('task.task_completed_by_owner', 0);		
-
+            $this->db->where('task.task_completed_by_owner', 0);
+			$this->db->where('task_hired.hired_status', 1);   
 			$this->db->where('task_hired.freelancer_id',$user_id);
 
 			if($searchValue!=""){
