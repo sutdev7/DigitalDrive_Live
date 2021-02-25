@@ -36,18 +36,20 @@ class Users extends CI_Model
         $area_of_interest_id = '';
 
         if (empty($user_data)){
-            return array( 'status' => FALSE, 'message' => 'invalid_data' );
+            $response =  array( 'status' => FALSE, 'message' => 'invalid_data' );
         }
 
         $account_exists = $this->db->select('*')->from('user_login')->where('email', $user_data['fldEmail'])->get()->num_rows();
 
         if ($account_exists > 0) {
 
-            return array( 'status' => FALSE, 'message' => 'account_already_exists' );
+            $response = array( 'status' => FALSE, 'message' => 'account_already_exists' );
 
         } else {
 
-            $id_generator     = $this->auth->generator(10);
+            $id_generator = $this->auth->generator(10);
+            $profile_id   = $this->auth->generator(20);
+            $user_name    =  $user_data['username'];
             $date_of_creation = date("Y-m-d H:i:s");
 
             $data1 = array(
@@ -86,7 +88,6 @@ class Users extends CI_Model
 
                         $result1  = $this->db->insert('area_of_interest', $data2);
                         $area_of_interest_id = $this->db->insert_id();
-
                     }
 
                     $user_area_of_interest = array(
@@ -102,7 +103,6 @@ class Users extends CI_Model
             }            
 
             if ($result) {
-
                 //Inset user Login table 
 
                 $password         = $user_data['fldPassword'];
@@ -120,33 +120,7 @@ class Users extends CI_Model
                 if ($user_data['fldUserType'] == 'client') {
 
                     $user_type  = 3;
-                   /* $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE 'CL%' ORDER BY unique_id DESC");
-                    $get_result   = $query_status->result();                    
-
-                    foreach ($get_result as $Fr) {
-                        $Fr_unique_id  = $Fr->unique_id;
-                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
-                    }
-
-                    $arr     = implode(',', $Fr_uniquefr);
-                    $numbers = array( $Fr_uniquefr);
-
-                    $missing = array();
-                    $maxvalue = max($Fr_uniquefr);
-                    for ($i = 1; $i < $maxvalue; $i++) {
-                        if (!in_array($i, $Fr_uniquefr)){
-                            $missing[] = $i;
-                        }
-                    }
-
-                    if (!empty($missing)) {
-                        $last_id= $missing[0];
-                    } else {
-                        $last_id = $this->getUserUniqueId($user_type);
-                    } */                  
-
                     $last_id        = $this->Users->getUserUniqueId($user_type);
-
                     $profile_status   = 0;
                     $status           = 0;
                     $total_connects   = 10;
@@ -158,33 +132,6 @@ class Users extends CI_Model
                 }  else if ($user_data['fldUserType'] == 'freelancer') {
 
                     $user_type    = 4;
-
-                    /*$query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE 'FR%' ORDER BY unique_id DESC");
-                    $get_result   = $query_status->result();
-                    foreach ($get_result as $Fr) {
-                        $Fr_unique_id  = $Fr->unique_id;
-                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
-                    }
-                    $arr     = implode(',', $Fr_uniquefr);
-                    $numbers = array($Fr_uniquefr);
-                    $missing = array();
-
-                    for ($i = 1; $i < max($Fr_uniquefr); $i++) {
-
-                        if (!in_array($i, $Fr_uniquefr))
-
-                            $missing[] = $i;
-
-                    }                   
-
-                    if (!empty($missing)) {
-                        $last_id= array_values($missing)[0];
-                    } else {
-                        $last_id = $this->Users->getUserUniqueId($user_type);
-                    }*/
-
-                    //echo 'mm'.$last_id; die();
-
                     $last_id = $this->Users->getUserUniqueId($user_type);
                     $profile_status   = 0;
                     $status           = 0;
@@ -193,43 +140,11 @@ class Users extends CI_Model
                     $unique_user_key  = $last_id;
                     $notification_msg = $user_data['username'] . " New Freelancer Register";
                     $notif            = "FR";
-
-                    
-
                 } 
 
                 else if ($user_data['fldUserType'] == 'nlancer') {
 
-                    $user_type    = 5;                   
-
-                   /* $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%NL%' ORDER BY unique_id DESC");
-                    $get_result   = $query_status->result();
-                    foreach ($get_result as $NL) {
-                        $Fr_unique_id  = $NL->unique_id;
-                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
-                    }
-                    if (is_array($Fr_uniquefr)) {
-                        $arr     = implode(',', $Fr_uniquefr);
-                        $numbers = array(
-                            $Fr_uniquefr
-                        );
-                    }
-                    $missing = array();
-                    if(is_array($Fr_uniquefr)) {
-                        for ($i = 1; $i < max($Fr_uniquefr); $i++) {
-                            if (!in_array($i, $Fr_uniquefr))
-                                $missing[] = $i;
-                        }
-                    }
-                    if (!empty($missing)) {
-                        $last_id= array_values($missing)[0];
-                    } else {
-
-                        $last_id = $this->Users->getUserUniqueId($user_type);
-
-                    }*/
-
-                    
+                    $user_type    = 5;
                     $last_id          = $this->Users->getUserUniqueId($user_type);
                     $profile_status   = 1;
                     $status           = 1;
@@ -243,37 +158,7 @@ class Users extends CI_Model
 
                 else if ($user_data['fldUserType'] == 'nclient') {
 
-                    $user_type    = 6;                    
-
-                   /* $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%NC%' ORDER BY unique_id DESC");
-                    $get_result   = $query_status->result();
-                    foreach ($get_result as $NL) {
-                        $Fr_unique_id  = $NL->unique_id;
-                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
-                    }
-                    if(is_array($Fr_uniquefr)) {
-                        $arr     = implode(',', $Fr_uniquefr);
-                        $numbers = array($Fr_uniquefr);
-                    }
-                    $missing = array();
-
-                    if(is_array($Fr_uniquefr)) {
-
-                        for ($i = 1; $i < max($Fr_uniquefr); $i++) {
-
-                            if (!in_array($i, $Fr_uniquefr))
-
-                                $missing[] = $i;
-
-                        }                        
-
-                    }
-                    if (!empty($missing)) {
-                        $last_id= array_values($missing)[0];
-                    } else {
-                        $last_id = $this->Users->getUserUniqueId($user_type);
-                    }*/
-
+                    $user_type    = 6;
                     $last_id        = $this->Users->getUserUniqueId($user_type);
                     $profile_status   = 1;
                     $status           = 1;
@@ -287,7 +172,7 @@ class Users extends CI_Model
                 // echo $unique_id; 
                 //$string1 = "tarunmodi";
                 //die();
-                $profile_id = $this->auth->generator(20);
+               
                 $data = array(
 
                     'user_id' => $id_generator,
@@ -320,36 +205,63 @@ class Users extends CI_Model
                 $this->db->insert('admin_notification', $data1);
 
                 if ($result3) {
-                    $sessData = array('profile_id'=>$profile_id,'user_name'=>$user_data['username']);
-                    $this->session->set_userdata($sessData);
+
+                    $notification_master_data = $this->db->select('*')->from('notification_type')->where('NOTIFICATION_TYPE_ID',29)->get()->row();
+
+                    if(!empty($notification_master_data)){
+                        $message = $notification_master_data->MESSAGE;
+                    }else{
+                        $message = '';
+                    }       
+
+                    $data = array(
+                        'offer_id' => 0,
+                        'task_id' => 0,
+                        'notification_from' => 'N4IND81M4L',
+                        'notification_to' => $this->session->userdata('user_id'),
+                        'notification_details' => "UPDATE_PROFILE",
+                        'notification_master_id' => '29',
+                        'notification_message' => '<strong>'.'<a href='.base_url().'public-profile/'.$profile_id.'>'.$user_name.'</a></strong> '.$message,
+                        'notification_doc' => $date_of_creation
+                    );
+
+                    $task_notification = $this->db->insert('task_notification',$data);
+
+                    $data2 = array(
+                        'FROM_USER' => 'N4IND81M4L',
+                        #this is for temprory
+                        //'TO_USER' => $this->session->userdata('user_id'),
+                        'TO_USER' => 'N4IND81M4L',
+                        'NOTIFICATION_TYPE_ID' => '29',
+                        'IS_VIEWED' => 'N',
+                        'notification_message' => '<strong>'.'<a href='.base_url().'public-profile/'.$profile_id.'>'.$user_name.'</a></strong> '.$message,
+                    );
+
+                    $user_notification = $this->db->insert('user_notification',$data2);                   
 
                     if ($user_data['fldUserType'] == 'nclient' || $user_data['fldUserType'] == 'nlancer') {
-
-                        return array( 'status' => TRUE, 'email_flag' => 0, 'message' => 'user_added_successfully', 'userId' => $id_generator );
+                        $response = array('status'=>TRUE, 'email_flag'=>FALSE,'message'=>'user_added_successfully','userId'=>$id_generator,'profile_id'=>$profile_id);
 
                     } else {
-
-                        return array( 'status' => TRUE, 'email_flag' => 1, 'message' => 'user_added_successfully', 'userId' => $id_generator );
+                        $response = array('status'=>TRUE,'email_flag'=>TRUE,'message'=>'user_added_successfully','userId'=>$id_generator,'profile_id'=>$profile_id);
 
                     }
 
                 }  else {
-
-                    return array( 'status' => FALSE, 'message' => 'unable_to_add_record_in_db' );
+                    $response = array('status'=>FALSE, 'message'=>'unable_to_add_record_in_db','profile_id'=>$profile_id);
 
                 }
-
-                
+                                
 
             } else{
-                return array( 'status' => FALSE, 'message' => 'unable_to_add_record_in_db' );
+                $response = array('status' => FALSE, 'message' => 'unable_to_add_record_in_db', 'profile_id'=>$profile_id);
             }
+           
 
         }        
+         return $response;        
 
-        
-
-    }
+    } // function end
 
 
 

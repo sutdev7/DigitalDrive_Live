@@ -190,60 +190,30 @@ class Account extends CI_Controller {
 
 		} else{
 
-			//$user_name= "Drive Digitally";
-			$user_name= base64_encode($this->input->post('fldEmail'));
+						
 			$content = $this->laccount->confirm_sign_up();
-            $content1 = $this->laccount->confirm_email_admin_singhup($user_name);
+            //$content1 = $this->laccount->confirm_email_admin_singhup($user_name);
 
-            // data insert into task_interested table
+			if(!empty($content) && $content['userId'] !=""){
 
-		$notification_master_data = $this->db->select('*')->from('notification_type')->where('NOTIFICATION_TYPE_ID',29)->get()->row();
+				$userId = $content['userId'];
+				$profile_id = $content['profile_id'];
+				$subscription_plan = $content['subscription_plan'];
+				$user_type = $content['user_type'];
+				$user_name = $content['user_name'];
+				if($subscription_plan == 1){					
+					redirect('sign-in','refresh');
+				
+				}else{ 
+					redirect('subscription/payment/'.$subscription_plan.'/'.$userId, 'refresh');
 
-		if(!empty($notification_master_data)){
-			$message = $notification_master_data->MESSAGE;
-		}else{
-			$message = '';
+				}
+
+			} else{
+				redirect('sign-up-as', 'refresh');	
+			}
 		}
-
-		$date_of_creation = date('Y-m-d H:i:s');
-
-		$data = array(
-
-			'offer_id' => 0,
-			'task_id' => 0,
-			'notification_from' => 'N4IND81M4L',
-			'notification_to' => $this->session->userdata('user_id'),
-			'notification_details' => "UPDATE_PROFILE",
-			'notification_master_id' => 29,
-			'notification_message' => '<strong>'.'<a href='.base_url().'public-profile/'.$this->session->userdata('profile_id').'>'.$this->session->userdata('user_name').'</a></strong> '.$message,
-			'notification_doc' => $date_of_creation
-		);
-
-		$result_sub = $this->db->insert('task_notification',$data);
-
-		$data = array(
-
-			'FROM_USER' => 'N4IND81M4L',
-			#this is for temprory
-			//'TO_USER' => $this->session->userdata('user_id'),
-			'TO_USER' => 'N4IND81M4L',
-			'NOTIFICATION_TYPE_ID' => '29',
-			'IS_VIEWED' => 'N',
-			'notification_message' => '<strong>'.'<a href='.base_url().'public-profile/'.$this->session->userdata('profile_id').'>'.$this->session->userdata('user_name').'</a></strong> '.$message,
-
-		);
-
-		$result_sub = $this->db->insert('user_notification',$data);
-			$data = array(
-		        'content' => $content,
-		        'title' => display('Sign Up Confirmation :: Hire-n-Work'),
-		    );		
-
-			$this->template->full_website_html_view($data);	
-	    }			
-
 	}
-
 
 
 	public function valid_password($password = '')
