@@ -526,7 +526,7 @@ $('body').on('click', '.razorpay_now', function(e){
   var options = {
 
   "key": "rzp_test_6zWahD2t7IjCvW", //"rzp_test_zchN665lTTrnce", // "rzp_test_6zWahD2t7IjCvW",
-  "amount": (totalAmount * 100), // 2000 paise = INR 20
+  "amount": (totalAmount * 100),   // 2000 paise = INR 20
   "name": "Digitally Drive",
   "description": "Payment",
   "image": "<?php  echo base_url('assets/img/logo.png'); ?>",
@@ -535,14 +535,10 @@ $('body').on('click', '.razorpay_now', function(e){
   "handler": function (response){
 
    // alert("handler");
-
-         // alert(response.razorpay_payment_id);
-
-        // alert(response.razorpay_order_id);
-
-        // alert(response.razorpay_signature)
-
-       // window.location.href = SITEURL + 'razorpay/RazorThankYou';
+   // alert(response.razorpay_payment_id);
+   // alert(response.razorpay_order_id);
+   // alert(response.razorpay_signature)
+   // window.location.href = SITEURL + 'razorpay/RazorThankYou';
 
     $.ajax({
       url: SITEURL + 'Razorpay/razorPaySubscription',
@@ -561,35 +557,28 @@ $('body').on('click', '.razorpay_now', function(e){
         console.log('error in payment insertion');
       }
     });
+
   } 
 
 };
 
 var rzp1 = new Razorpay(options);
 
-rzp1.on('payment.failed', function (response){
+  rzp1.on('payment.failed', function (response){
 
-        // alert(response.error.code);
+      // alert(response.error.code);
+      // alert(response.error.description);
+      // alert(response.error.source);
+      // alert(response.error.step);
+      // alert(response.error.reason);
+      // alert(response.error.metadata.order_id);
+      // alert(response.error.metadata.payment_id);
+       window.location.href = SITEURL + 'razorpay/cancel';
 
-        // alert(response.error.description);
+  });
 
-        // alert(response.error.source);
-
-        // alert(response.error.step);
-
-        // alert(response.error.reason);
-
-        // alert(response.error.metadata.order_id);
-
-        // alert(response.error.metadata.payment_id);
-
-        // window.location.href = SITEURL + 'razorpay/cancel';
-
-});
-
-rzp1.open();
-
-e.preventDefault();
+  rzp1.open();
+  e.preventDefault();
 
 });
 

@@ -167,124 +167,70 @@ class Laccount {
       	// $id_generator     = $this->auth->generator(10);
         if(is_array($_FILES) && !empty($_FILES['userImage']['name'])){
 
-            	//if(is_uploaded_file($_FILES['userImage']['tmp_name'])) {
-                    // $path = $_FILES['userImage']['name'];
-                    // $path_parts = pathinfo($path);
-                   // $filename = time() . '_' . $CI->session->userdata('user_id') . '.' . $path_parts['extension'];
-                    // $filename = time() .  '.' . $path_parts['extension'];
-                    // //print_r($path_parts);
-					//$sourcePath = $_FILES['userImage']['tmp_name'];
-                   // $targetPath = "./uploads/user/profile_image/".$filename;
+            	
+            $file = $_FILES['userImage']['tmp_name']; 
+	        $sourceProperties = getimagesize($file);
+	        $fileNewName = time();			        
+	        $ext = pathinfo($_FILES['userImage']['name'], PATHINFO_EXTENSION);
 
-                    $file = $_FILES['userImage']['tmp_name']; 
+	        $imageType = $sourceProperties[2];
+	        $user_image = $fileNewName. "_thump.". $ext;
+	        $folderPath = "uploads/user/profile_image/".$user_image;
+	        $data['user_image'] = $user_image;
+	        switch ($imageType) {
+	        	case IMAGETYPE_PNG:
+	                $imageResourceId = imagecreatefrompng($file); 
+	                $targetLayer = $this->imageResize($imageResourceId,$sourceProperties[0],$sourceProperties[1]);
+	                imagepng($targetLayer,$folderPath);			                
+                break;
+                case IMAGETYPE_GIF:
+	                $imageResourceId = imagecreatefromgif($file); 
+	                $targetLayer =$this->imageResize($imageResourceId,$sourceProperties[0],$sourceProperties[1]);
+	                imagegif($targetLayer,$folderPath);
+	            break;
+	            case IMAGETYPE_JPEG:
+	                $imageResourceId = imagecreatefromjpeg($file); 
+	                $targetLayer = $this->imageResize($imageResourceId,$sourceProperties[0],$sourceProperties[1]);
+	                imagejpeg($targetLayer,$folderPath);
+	            break;
+	            default:
+	                echo "Invalid Image type."; exit;
+	            break;
 
-			        $sourceProperties = getimagesize($file);
+	        }
 
-			        $fileNewName = time();			        
-
-			        $ext = pathinfo($_FILES['userImage']['name'], PATHINFO_EXTENSION);
-
-			        $imageType = $sourceProperties[2];
-			        $user_image = $fileNewName. "_thump.". $ext;
-			        $folderPath = "uploads/user/profile_image/".$user_image;
-			        $data['user_image'] = $user_image;
-			        switch ($imageType) {
-			        	case IMAGETYPE_PNG:
-			                $imageResourceId = imagecreatefrompng($file); 
-			                $targetLayer = $this->imageResize($imageResourceId,$sourceProperties[0],$sourceProperties[1]);
-			                imagepng($targetLayer,$folderPath);			                
-		                break;
-		                case IMAGETYPE_GIF:
-			                $imageResourceId = imagecreatefromgif($file); 
-			                $targetLayer =$this->imageResize($imageResourceId,$sourceProperties[0],$sourceProperties[1]);
-			                imagegif($targetLayer,$folderPath);
-			            break;
-			            case IMAGETYPE_JPEG:
-			                $imageResourceId = imagecreatefromjpeg($file); 
-			                $targetLayer = $this->imageResize($imageResourceId,$sourceProperties[0],$sourceProperties[1]);
-			                imagejpeg($targetLayer,$folderPath);
-			            break;
-			            default:
-			                echo "Invalid Image type."; exit;
-			            break;
-
-			        }
-
-			        /*if(move_uploaded_file($file,$folderPath)) {
-
-                     	$existing_data = $CI->session->userdata('user_image');
-
-                     	if(!empty($existing_data)) {
-
-                     		unlink("./uploads/user/profile_image/".$existing_data);
-
-                     	}
-
-                     }*/
-
-                }
+		}
 
         //echo "<pre>";print_r($data);echo "<pre>";print_r($_FILES);die;
+		$user_name = $data['fldEmail'];
+		$user_type = $data['fldUserType'];
+		$subscription_plan = $data['subscription_plan'];
 
 		$result = $CI->Users->register_user($data);
 
-
-
 		if($result['status']) {
 
-			if(array_key_exists('email_flag',$result) && !empty($result['email_flag']) ) {
+			$userdata = array(
+				'userId' => $result['userId'],
+				'profile_id' => $result['profile_id'],
+				'subscription_plan' => $subscription_plan,
+				'user_type' => $user_type,
+				'user_name' => $user_name
+			);
 
-				if($CI->auth->sendVerificatinEmail( $CI->input->post('fldEmail'), $CI->input->post('fldUserType'))) {
-
-					if($data['subscription_plan'] == 1){
-
-						// $data = array(
-						// 	'subscription_plan' => $data['subscription_plan'],
-						// 	);
-						// 	$this->db->where('user_id', $result['userId']);
-						// 	$this->db->update('user_login', $data);
-						
-						redirect('sign-in'); // by amardeep
-
-
-					}else{ 
-						redirect('subscription/payment/'.$data['subscription_plan'].'/'.$result['userId'], 'refresh'); // by amardeep
-					}
-
-					$AccountForm = $CI->parser->parse('account/confirm-sign-up',array('uid' => $result['userId']),true);
-			        return $AccountForm;
-
-	            }
-
-
-
-			} else {
-
-				$AccountForm = $CI->parser->parse('account/confirm-sign-up-room',array('uid' => $result['userId']),true);
-
-			    return $AccountForm;
-
+			if(array_key_exists('email_flag',$result) && $result['email_flag']==TRUE) {
+				
+				$CI->auth->sendVerificatinEmail($user_name,$user_type);
 			}
-
-
-
-           // $CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Failed!! Please try again.</div>');
-
-			//redirect('home', 'refresh');
-
-		}
-		else {
+			return $userdata; 
+			
+		} else {
 
 			if($result['message'] == 'account_already_exists') {
+				$CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">User with email \''.$data['fldEmail'].'\' already exist. Please try to re-register.</div>');	
 
-                $CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">User with email \''.$data['fldEmail'].'\' already exist. Please try to re-register.</div>');		
-
-			}
-
-			elseif($result['message'] == 'unable_to_add_record_in_db') {
-
+			} else if($result['message'] == 'unable_to_add_record_in_db') {
                 $CI->session->set_flashdata('msg', '<div class="alert alert-danger text-center">User registration failed. Please try to re-register.</div>');		
-
 			}
 
             redirect('sign-up-as', 'refresh');				

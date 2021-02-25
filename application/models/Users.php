@@ -2012,39 +2012,23 @@ class Users extends CI_Model
 
      */
 
-    public function check_valid_user($username, $password)
-
-    {
+    public function check_valid_user($username, $password) {
 
         
 
         //$password = md5("gef".$password);
 
         $password = md5("ctgs" . $password);
-
-        
-
         //$this->db->where(array('email'=>$username,'password'=>$password,'status'=>1));
-
         $this->db->where("(email = '$username' or username = '$username')");
-
         $this->db->where('password', $password);
-
         $this->db->where('status', 1);
-
-        
-
         $query  = $this->db->get('user_login');
-
+       // echo $this->db->last_query(); exit();
         $result = $query->result_array();
-
-        
-
         if (count($result) == 1) {
 
-            $user_id = $result[0]['user_id'];
-
-            
+            $user_id = $result[0]['user_id'];            
 
             $this->db->select('a.user_id,a.username,a.profile_id,a.email,a.mobile,a.is_mobile_verified,a.receive_transactional_notification,a.receive_task_update_notification,a.receive_task_reminder_notification,a.receive_helpful_notification,a.profile_image,a.user_type,a.total_points,b.name,b.country');
 
