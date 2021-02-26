@@ -87,11 +87,8 @@
               </label> -->
 
               <label class="btn btn-lg college_btn active">
-
                   <input class="checkinput " type="radio" name="catSelect_type" value="1" checked >
-
-                  <span id="">Stripe</span>
-
+                  <span id="StripeTab">Stripe</span>
               </label>
 
               <label class="btn btn-lg ">
@@ -106,7 +103,7 @@
 
                   <input class="checkinput" type="radio" name="catSelect_type" value="3">
 
-                  <span id="paypalTab">RazorPay <img src="https://cdn.razorpay.com/logo.svg" width="115px" alt=""></span>
+                  <span id="RazorPayTab">RazorPay <img src="https://cdn.razorpay.com/logo.svg" width="115px" alt=""></span>
 
               </label>
 
@@ -231,6 +228,9 @@
                         </li>
 
                       </ul>
+                       <div class="fullDiv_bottom mrgnMinus paybutton_1">
+                        <button type="submit" id="payBtn" class="btn btn-primary" data-toggle="modal" data-target="#SentModal">Make Payment</button>
+                      </div>
                       </form>
 
               </div>
@@ -239,15 +239,13 @@
 
 
 
-            <div class="fullDiv_bottom mrgnMinus paybutton_1">
-              <button type="submit" id="payBtn" class="btn btn-primary" data-toggle="modal" data-target="#SentModal">Make Payment</button>
-            </div>
+           
 
             
 
             <div class="fullDiv_bottom mrgnMinus paybutton_2">
 
-            <a href="<?php echo base_url('paypal/pay_subscription/{planinfo}{id}{/planinfo}'); ?>" class="btn">
+            <a href="<?php echo base_url('paypal/pay_subscription/{planinfo}{id}/{user_id}{/planinfo}'); ?>" class="btn">
               <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#SentModal">Make Payment</button>
             </a>
 
