@@ -83,7 +83,7 @@ class Razorpay extends CI_Controller {
       }
 
       $data = [
-        'client_id' => $this->input->post('client_id'),
+        'user_id' => $this->input->post('client_id'),
         'txn_id' => $this->input->post('razorpay_payment_id'),
         'amount' => $this->input->post('totalAmount'),
         'payment_type'=>$this->input->post('payment_type'),
@@ -294,7 +294,7 @@ class Razorpay extends CI_Controller {
      public function razorPaySubscription() {
 
       $data = [
-        'client_id' => $this->input->post('client_id'),
+        'user_id' => $this->input->post('client_id'),
         'txn_id' => $this->input->post('razorpay_payment_id'),
         'amount' => $this->input->post('totalAmount'),
         'payment_type'=>$this->input->post('payment_type'),
@@ -360,7 +360,7 @@ class Razorpay extends CI_Controller {
 
     $this->db->select('*');
     $this->db->from('payments');
-    $this->db->join('user_login', 'payments.client_id = user_login.user_id');
+    $this->db->join('user_login', 'payments.user_id = user_login.user_id');
     $this->db->join('subscription_plan', 'subscription_plan.id = user_login.subscription_plan');
     $this->db->where(['payments.id'=> $id]);
     $result = $this->db->get();
@@ -524,7 +524,7 @@ class Razorpay extends CI_Controller {
 
         'payments_id' => $paymentsdata[0]['id'],
 
-        // 'client_id' => $paymentsdata['client_id'],
+        // 'user_id' => $paymentsdata['client_id'],
 
         'txn_id' => $refund['id'],
 
