@@ -11,23 +11,21 @@ class Stripe extends CI_Controller {
 	}
 
 	public function pay(){
+		
 		$data = array();
-		// Get product data from the database
-        // $product = $this->product->getRows($id);
-		// If payment form is submitted with token
+
 		if($this->input->post('stripeToken')){
 			// Retrieve stripe token and user info from the posted form data
 			$postData = $this->input->post();
 			$postData["name"] = $_SESSION["user_name"];
 			$postData["email"] = $_SESSION["user_email"];
 			$postData["client_id"] = $this->input->post('client_id');
-			$postData["amount"] = $this->input->post('amount', true);
-			$postData["task_id"] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+			$postData["amount"] = $this->input->post('amount');
+			$postData["task_id"] = $this->input->post('task_id');
 			// Make payment
             $paymentID = $this->payment($postData);
             // echo"<pre>";print_r($paymentID);
-			// print_r($_POST);exit;
-			// If payment successful
+			
 			if($paymentID){
 				redirect('stripe/payment_status/'.$paymentID);
 			}else{
@@ -38,25 +36,28 @@ class Stripe extends CI_Controller {
 	}
 
 	function payment($postData){
+
 		if(!empty($postData)){
+
 			$token  = $postData['stripeToken'];
 			$name = $postData['name'];
 			$email = $postData['email'];
 		// Add customer to stripe
 			$customer = $this->stripe_lib->addCustomer($email, $token);
+
 			if($customer){
 				$charge = $this->stripe_lib->createCharge($customer->id, $postData['name'], $postData['amount']);
 				if($charge){
+
 					if($charge['amount_refunded'] == 0 && empty($charge['failure_code']) && $charge['paid'] == 1 && $charge['captured'] == 1){
+						
 						$transactionID = $charge['balance_transaction'];
 						$paidAmount = $charge['amount'];
 						$paidAmount = ($paidAmount/100);
 						$paidCurrency = $charge['currency'];
 						$payment_status = $charge['status'];
+						
 						$orderData = array(
-							// 'product_id' => $postData['id'],
-							// 'buyer_name' => $name,
-							// 'buyer_email' => $email,
 							'task_id' => $postData['task_id'],
 							'user_id' => $postData['client_id'],
 							'amount' => $paidAmount,

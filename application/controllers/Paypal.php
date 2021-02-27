@@ -15,28 +15,28 @@ class Paypal extends CI_Controller{
 
 
 
-	 function pay($taskid){
+	public function pay(){
 		// Set variables for paypal form
-		$returnURL = base_url().'paypal/success'; //payment success url
+		//echo "<pre>";print_r($_POST); exit();
+
 		$cancelURL = base_url().'paypal/cancel'; //payment cancel url
 		$notifyURL = base_url().'paypal/ipn'; //ipn url
-		// Get product data from the database
-		// $product = $this->product->getRows($id);
-		// echo $this->uri->segment(3);exit;
-		$product = $this->Tasks->getTaskDataById($this->uri->segment(3));
+		$task_id = $_POST['task_id'];
+		$payableamount = $_POST['payableamount'];
+		$userID = !empty($this->session->userdata('user_id'))?$this->session->userdata('user_id'):1;
+		$product = $this->Tasks->getTaskDataById($task_id);
 		// echo'<pre>';print_r($product);exit;
-		// Get current user ID from the session (optional)
 
-		$userID = !empty($this->session->all_userdata()['user_id'])?$this->session->all_userdata()['user_id']:1;
+		$returnURL = base_url().'paypal/success?item_number='.$task_id.'&custom='.$userID; //payment success url		
 		// Add fields to paypal form
 		$this->paypal_lib->add_field('return', $returnURL);
 		$this->paypal_lib->add_field('cancel_return', $cancelURL);
 		$this->paypal_lib->add_field('notify_url', $notifyURL);
-		// $this->paypal_lib->add_field('item_name', $product['name']);
+		$this->paypal_lib->add_field('item_name', $product->task_name);
 		$this->paypal_lib->add_field('custom', $userID);
 		$this->paypal_lib->add_field('item_number',  $product->task_id);
-		$this->paypal_lib->add_field('amount',  $product->task_total_budget);
-		  // echo'<pre>';print_r($this->paypal_lib);exit;
+		$this->paypal_lib->add_field('amount', $payableamount);
+		//echo'<pre>';print_r($this->paypal_lib);exit;
 		// Render paypal form
 		$this->paypal_lib->paypal_auto_form();
 
@@ -45,28 +45,16 @@ class Paypal extends CI_Controller{
 	 
 
 	public function success(){
-
-		// echo 'hello success';exit;
-		// print_r($this->input->get());exit;
-		// Get the transaction data
+		
+		$insertId ="";
 		$paypalInfo= $this->input->get();
+		//print_r($paypalInfo); exit();
 		$productData = $paymentData = array();
-		if(!empty($paypalInfo['item_number']) && !empty($paypalInfo['tx']) && !empty($paypalInfo['amt']) && !empty($paypalInfo['cc']) && !empty($paypalInfo['st'])){
-
-			$item_name = $paypalInfo['item_name'];
+		if(!empty($paypalInfo['tx']) && !empty($paypalInfo['amt']) && !empty($paypalInfo['cc']) && !empty($paypalInfo['st'])){
 			$task_id = $paypalInfo['item_number'];
-			$txn_id = $paypalInfo["tx"];
-			$payment_amt = $paypalInfo["amt"];
-			$currency_code = $paypalInfo["cc"];
-			$status = $paypalInfo["st"];
-			// Insert tansaction data into the database
-
-			$orderData = array(
-				// 'product_id' => $postData['id'],
-				// 'buyer_name' => $name,
-				// 'buyer_email' => $email,
+			$orderData = array(				
 				'task_id' => $paypalInfo['item_number'],
-				// 'user_id' => $postData['client_id'],
+				'user_id' => $paypalInfo['custom'],
 				'amount' => $paypalInfo["amt"],
 				'currency_code' => $paypalInfo["cc"],
 				'txn_id' => $paypalInfo["tx"],
@@ -83,22 +71,13 @@ class Paypal extends CI_Controller{
 			$insertId = $this->db->insert_id();
 			$data1 = array( 'hired_status' => 1);
 			$this->db->where('task_id', $task_id);
-			$this->db->update('task_hired', $data);
+			$this->db->update('task_hired', $data1);
+
 			$data2 = array('task_status' => 1, 'task.task_hired' => 1, 'task_is_ongoing' => 1);
 			$this->db->where('task_id', $task_id);
 			$this->db->update('task', $data2);
 
-			// Get product info from the database
-			// $productData = $this->product->getRows($item_number);
-			// Check if transaction data exists with the same TXN ID
-			// $paymentData = $this->payment->getPayment(array('txn_id' => $txn_id));
-
 		}
-
-		// Pass the transaction data to view
-		// $data['product'] = $productData;
-		// $data['payment'] = $paymentData;
-		// $this->load->view('paypal/success', $data);
 
 		$this->db->select('*');
         $this->db->from('payments');
@@ -106,9 +85,6 @@ class Paypal extends CI_Controller{
 		$this->db->join('task_hired', 'task_hired.task_id = payments.task_id');
         $this->db->join('user_login', 'task_hired.freelancer_id = user_login.user_id');
 		$this->db->where(['payments.id'=> $insertId]);
-		// $this->db->join('user_login', 'user_login.user_id = users.user_id');
-		// $this->db->join('country', 'country.country_id = users.country','left');
-		// $this->db->order_by('user_login.unique_id','asc');
 		$result = $this->db->get();
 		//echo $this->db->last_query();exit;
 		// echo'<pre>';print_r($result->result());exit;
@@ -122,8 +98,8 @@ class Paypal extends CI_Controller{
 			'content' => $content,
 			'title' => display('Sign Up As :: Hire-n-Work'),
 		);
-
-		$this->template->full_website_html_view($data);
+		//$this->template->full_website_html_view($data);
+		$this->template->full_customer_html_view($data);
 
 	}
 
