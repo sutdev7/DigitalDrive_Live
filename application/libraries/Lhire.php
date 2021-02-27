@@ -152,6 +152,7 @@ class Lhire {
 		
 	}
 	
+	
 	public function hire_step2($userInfo = null){
 		$CI =& get_instance();
         $CI->load->model('Tasks');

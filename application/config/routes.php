@@ -129,7 +129,6 @@ $route['received-offers/(:any)'] = 'Task/received_offers/$1';
 $route['key-list'] = 'Freelancer/key_list';
 $route['key-list/(:num)'] = 'Freelancer/key_list/$1';
 $route['key-list/(:any)/(:num)'] = 'Freelancer/key_list/$l/$1';
-
 //$route['public-profile'] = 'Freelancer/public_profile';
 //$route['public-profile/(:any)'] = 'Freelancer/public_profile/$l';
 $route['earnings'] = 'Freelancerearnings';//'Freelancer/earnings'; // by amardeep
