@@ -411,42 +411,38 @@
                             <h4>Available Key {connection}</h4>
                         </div>
 
-                      <div class="col-md-12 col-lg-12 col-xl-12" >
-                                <label class="containerdiv opendiv3" style="<?php echo $DisplayM;?>" >Go with Milestone
-                                    <input type="checkbox" name="terms" class="newopen2" value="pay_by_milestone" <?php echo $milestone; ?>>
-                                    <span class="checkmark"></span> </label>
-                          <div class="opendiv2" style="<?php echo $DisplayM;?>">
-                                  <ul>
-                                    <li class="row after-add-more">
-                                    <div class="col-lg-4 col-md-12 col-xs-12">
-                                      <label>Title</label>
-                                      <input type="text" name="milestone_title[]" class="form-control" placeholder="Title">
-                                    </div>
-                                    <!-- <div class="col-lg-4 col-md-12 col-xs-12">
-                                      <label>Hire Date</label>
-                                      <div id="datepicker" class="input-group date milestone_end_date" data-date-format="mm-dd-yyyy">
-                                      <input class="form-control" type="text" name="milestone_end_date[]" value="" />
-                                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span> </div>
-                                    </div> -->
-                                    <div class="col-lg-4 col-md-12 col-xs-12">
-                                      <label>Amount</label>
-                                      <div class="input-group amt"> <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                      <input class="form-control milestone_amount" id="" type="number" name="milestone_agreed_budget[]" value="" placeholder="00">
-                                      </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-12 col-xs-12">
-                                      <div> 
-                                        <a href="#" class="cancelBtn"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                      </div>
-                                    </div>
-                                    </li>
+<div class="col-md-12 col-lg-12 col-xl-12" >
+    
+    <label class="containerdiv opendiv3" style="<?php echo $DisplayM;?>" >Go with Milestone
+      <input type="checkbox" name="terms" class="newopen2" value="pay_by_milestone" <?php //echo $milestone; ?>>
+      <span class="checkmark"></span> 
+    </label>
 
-                                    <li class="row" style="padding:40px 0; border:none;"> 
-                                      <a href="#" class="plus_btn" id="addMore"><i class="fa fa-plus"></i> Add Another</a> <span class="optionalSpan"></span> 
-                                    </li>
-                                  </ul>
-                          </div>
-                      </div>
+    <div class="col-md-10 col-lg-10 col-xl-10 opendiv2">
+        <a href="#" class="plus_btn" id="addRow"><i class="fa fa-plus"></i> Add More</a> <span class="optionalSpan"></span> 
+    </div>
+    <div class="opendiv2" style="<?php echo $DisplayM;?>">
+        <table class="table table-bordered" id="addNewRow">
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" id="title_1" name="milestone_title[]" class="form-control" placeholder="Title">
+                    </td>
+                    <td>
+                      <span>
+                        <i class="fa fa-dollar" style="float: left;margin: 10px"></i>
+                        <input class="form-control milestone_amount" id="stoneAmt_1" type="number" name="milestone_agreed_budget[]" placeholder="00" style="width: 8rem;">
+                      </span>
+                    </td>
+                    <td>
+                      <button type="button" class="btn-primary removeRRow"><i class="fa fa-remove"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="rownum" id="rownum" value="1">
+    </div>
+</div>
 
 
                       <!-- end by amar -->
@@ -551,203 +547,172 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-                <div class="body">
-                      <div class="row cover">
+<div class="body">
+  <div class="row cover">
+    <div class="to-close">
+      <h2>Proposal Details</h2>
+      <p>
+        <i class="fa fa-dollar theme-color"></i> 
+        Bidding Amount: 
+        $<?php echo isset($proposal_info[0]["terms_amount_max"]) ? $proposal_info[0]["terms_amount_max"] : ""; ?>
+      </p>
+      
+      <p>
+        <i class="fa fa-calendar theme-color"></i> 
+        Posting Date: 
+        <?php echo isset($proposal_info[0]["doc"]) ? $proposal_info[0]["doc"] : ""; ?>
+      </p>
+      
+      <p>
+        <i class="fa fa-credit-card theme-color"></i> 
+        Payment Type: 
+        <?php echo isset($proposal_info[0]["milestone_type"]) ? ucwords($proposal_info[0]["milestone_type"]) : ""; ?>
+      </p>
+      
+      <?php if(isset($proposal_info[0]["milestone_type"]) && ($proposal_info[0]["milestone_type"] == "hourly")){ ?>
+          <p><i class="fa fa-clock-o theme-color"></i> 
+            Total no. of hour:   
+            <?php echo isset($proposal_info[0]["no_of_hr"]) ? $proposal_info[0]["no_of_hr"] : "";  ?>
+            &nbsp Amount / hour: 
+            <?php echo isset($proposal_info[0]["amount_per_hr"]) ? '$'.$proposal_info[0]["amount_per_hr"] : "";  ?>
+          </p>
+      <?php } ?>
+      <hr/>
+      
+      <h2 class="Atta">Download Attachment</h2>
+      <?php if("" != $proposal_info[0]["attachments"]){ ?>
+        <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>"><img style="padding: 10px; width: 84px; height: 84px;" src="<?php echo get_file_ext($proposal_info[0]["attachments"]) ?>" alt=""></a>
+        <br/>
+        <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>" class="" download><i class="fa fa-download"></i> Download</a>
+      <?php }else{ ?>
+        <p>No Attachment</p>
+      <?php } ?>
+      <br/> 
 
-                      <div class="to-close">
-                                      <h2>Proposal Details</h2>
-                                      <p><i class="fa fa-dollar theme-color"></i> Bidding Amount: $<?php echo isset($proposal_info[0]["terms_amount_max"]) ? $proposal_info[0]["terms_amount_max"] : "";  ?></p>
-                                      <p><i class="fa fa-calendar theme-color"></i> Posting Date: <?php echo isset($proposal_info[0]["doc"]) ? $proposal_info[0]["doc"] : "";  ?></p>
-                                      <p><i class="fa fa-credit-card theme-color"></i> Payment Type: <?php echo isset($proposal_info[0]["milestone_type"]) ? ucwords($proposal_info[0]["milestone_type"]) : "";  ?></p>
-                                      <?php if(isset($proposal_info[0]["milestone_type"]) && ($proposal_info[0]["milestone_type"] == "hourly")){ ?>
-                                      <p><i class="fa fa-clock-o theme-color"></i> 
-                                      Total no. of hour:   <?php echo isset($proposal_info[0]["no_of_hr"]) ? $proposal_info[0]["no_of_hr"] : "";  ?>
-                                      &nbsp Amount / hour: <?php echo isset($proposal_info[0]["amount_per_hr"]) ? '$'.$proposal_info[0]["amount_per_hr"] : "";  ?>
-                                      </p>
-                                      <?php } ?>
-                                      <hr/>
-                                      <h2 class="Atta">Download Attachment</h2>
-                                      <?php if("" != $proposal_info[0]["attachments"]){ ?>
-                                      <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>"><img style="padding: 10px; width: 84px; height: 84px;" src="<?php echo get_file_ext($proposal_info[0]["attachments"]) ?>" alt=""></a>
-                                      <br/>
-                                      <a href="<?php echo base_url(); ?>download_attachment_proposal/<?php echo isset($proposal_info[0]["attachments"]) ? $proposal_info[0]["attachments"] : "";  ?>" class="" download><i class="fa fa-download"></i> Download</a>
-                                      <?php }else{ ?>
-                                        <p>No Attachment</p>
-                                      <?php } ?>
-                                      <br/> 
-
-                                      <!--<p>{p_attachments}</p> -->
-                                     <!-- <form id="frm_attachment" action="<?php /*echo base_url() */?>download_attachment/{p_attachments}" method="post" style="width:100%;">
-                                          <p id="download_attachment_{p_attachments}" style="cursor: pointer;"><i class="fa fa-download"></i> Download Attachment </p>
-                                      </form>-->
-                                      <hr/>
-                                      <h2>Cover Letter</h2>
-                                      <div class="anyClass black_color proposal-remark"><?php echo isset($proposal_info[0]["cover_letter"]) ? $proposal_info[0]["cover_letter"] : "";  ?></div>
-                                      <hr/>
-
-                                  </div>
-                                <div class="mbl-table-nine">
-                                  <div class="mbldiv-scroll">
-                                  <h2>Budget details</h2>
-                                    <table class="table">
-                                      <thead>
-                                        <tr>
-                                          
-                                          <th>Date</th>
-                                          <th>Title</th>
-                                          <th>Budget</th>
-                                          <!-- <th>Provided By</th> -->
-                                          <!-- <th>Action</th> -->
-                                        </tr>
-                                      </thead>
-                                      <tbody id="dataList">
-                                      <!-- Display posts list -->
-                                        <?php if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
-                                        <tr>
-                                          <td> <?php  echo date('Y-m-d',strtotime($row["milestone_doc"])); ?></td>
-                                          <td><?php  echo $row["milestone_title"]; ?></td>
-                                          
-                                          <td>$<?php echo $row["milestone_agreed_budget"]; ?></td>
-                                          <!-- <td><?php //echo $row["provided_email"]; ?></td> -->
-                                          <!-- <td> -->
-                                          <!-- <a data-toggle="tooltip" data-placement="top" title="withdraw">
-                                          <i class="fa fa-money" style="font-size:24px;"></i></a>  -->
-                                              <!-- <a data-toggle="tooltip" data-placement="top" title="Details" href="<?php //echo base_url() ;?>hired-job-details/<?php echo $row['user_task_id'] ;?>"> -->
-                                                <!-- <i class="fa fa-eye" style="font-size:24px;" aria-hidden="true"></i> -->
-                                                <!-- </a> -->
-                                        <!-- </td> -->
-                                          
-                                        </tr>
-                                        <!-- <tr>
-                                          <td><img src="img/cal-img.png" alt=""> 10/12/2019 </td>
-                                          <td>UI Design</td>
-                                          
-                                          <td>$50</td>
-                                        </tr> -->
-                                          <?php } }else{ ?>
-                                          <tr><td  colspan="5"><p>Records not found...</p></td></tr>
-                                        <?php } ?>
-                                            <!-- Render pagination links -->
-                                          <tr>
-                                          <td  colspan="5">
-                                            <?php // echo ($this->ajax_pagination->create_links() !== "") ? $this->ajax_pagination->create_links():""; ?>
-                                            
-                                          </td>
-                                          </tr>
-                                        
-                                      </tbody>
-                                    </table>
-                                    
-                                  </div>
-                                  
-                                </div>
-
-                      </div>
-                </div>
-
-                <div class="line">
-
-                </div>
-
-                <footer class="footer">
-                    <div class="cta">
-                        <!-- <button class="btn submit" type="submit">Submit</button> -->
-                        <button class="btn cancel" data-dismiss="modal">Cancel</button>
-                    </div>
-                </footer>
-            </div>
-        </form>
-            <!-- <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div> -->
-        </div>
+      <!--<p>{p_attachments}</p> -->
+        <!-- <form id="frm_attachment" action="<?php /*echo base_url() */?>download_attachment/{p_attachments}" method="post" style="width:100%;">
+        <p id="download_attachment_{p_attachments}" style="cursor: pointer;"><i class="fa fa-download"></i> Download Attachment </p>
+        </form>-->
+      <hr/>
+      <h2>Cover Letter</h2>
+      <div class="anyClass black_color proposal-remark"><?php echo isset($proposal_info[0]["cover_letter"]) ? $proposal_info[0]["cover_letter"] : "";  ?></div>
+      <hr/>
 
     </div>
+    
+    <div class="mbl-table-nine">
+      <div class="mbldiv-scroll">
+        <h2>Budget details</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Title</th>
+              <th>Budget</th>
+              <!-- <th>Provided By</th> -->
+              <!-- <th>Action</th> -->
+            </tr>
+          </thead>
+          <tbody id="dataList">
+            <!-- Display posts list -->
+            <?php if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
+              <tr>
+                <td> <?php  echo date('Y-m-d',strtotime($row["milestone_doc"])); ?></td>
+                <td><?php  echo $row["milestone_title"]; ?></td>
+                <td>$<?php echo $row["milestone_agreed_budget"]; ?></td>
+              </tr>
+            <?php } }else{ ?>
+              <tr>
+                <td  colspan="5"><p>Records not found...</p></td>
+              </tr>
+            <?php } ?>
+            <!-- Render pagination links -->
+            <tr>
+              <td  colspan="5"></td>
+            </tr>
+          </tbody>
+        </table>
+                                    
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="line"></div>
+<footer class="footer">
+  <div class="cta">
+    <button class="btn cancel" data-dismiss="modal">Cancel</button>
+  </div>
+</footer>
+</div>
+</form>
+</div>
+</div>
 <!-- view proposal Modal end -->
+  
+<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+<script src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
- <script src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 <script> 
-    $(document).ready(function() {
-        // Basic
-        $('.dropify').dropify();
-
-        $("#terms_amount_max").on('change input', function(e) {
-            //console.log("In");
-          // $(".newopen2").prop('checked', true);
-          var gross_total = $(this).val();
-          if(isNaN(gross_total) || gross_total < 0) {
+$(document).ready(function() {
+    // Basic
+    $('.dropify').dropify();
+    $("#terms_amount_max").on('change input', function(e) {
+        //console.log("In");
+        // $(".newopen2").prop('checked', true);
+        var gross_total = $(this).val();
+        if(isNaN(gross_total) || gross_total < 0) {
             $("#portal_charges").val(0);
             $("#3rd_party_charges").val(0);                    
             $("#earn_amount").val(0);
             return false;
-          }
-          var commision=0;
-          var percentage=0;
-          if(gross_total<100){
-            commision=(gross_total*3)/100;
-            percentage="3%";
-          } 
-          if(gross_total>=100 && gross_total<=500){
-            commision=(gross_total*5)/100;
-            percentage="5%";
-          }
+        }
+        
+        var commision=0;
+        var percentage=0;
+        if(gross_total<100){
+          commision=(gross_total*3)/100;
+          percentage="3%";
+        } 
+        
+        if(gross_total>=100 && gross_total<=500){
+          commision=(gross_total*5)/100;
+          percentage="5%";
+        }
 
-          if(gross_total>500 && gross_total<=1000){
-            commision=(gross_total*10)/100;
-            percentage="10%";
-          }
+        if(gross_total>500 && gross_total<=1000){
+          commision=(gross_total*10)/100;
+          percentage="10%";
+        }
 
-          if(gross_total>1000 && gross_total<=3000){
-            commision=(gross_total*15)/100;
-            percentage="15%";
-          }
+        if(gross_total>1000 && gross_total<=3000){
+          commision=(gross_total*15)/100;
+          percentage="15%";
+        }
 
-          if(gross_total>3000){
-            commision=(gross_total*20)/100;
-            percentage="20%";
-          }
-          //console.log(percentage);
+        if(gross_total>3000){
+          commision=(gross_total*20)/100;
+          percentage="20%";
+        }
+        //console.log(percentage);
 
-          var freelancer_amount = gross_total - commision;
-          var thired_party_commision = (gross_total*2)/100;
-          freelancer_amount = freelancer_amount - thired_party_commision;
-          $("#portal_charges_percentage").val(percentage);
-          $("#portal_charges").val(commision);
-          $("#3rd_party_charges").val(thired_party_commision);
-          $("#3rd_party_percentage").val('2%');
-          $("#earn_amount").val(freelancer_amount);
-        });
+        var freelancer_amount = gross_total - commision;
+        var thired_party_commision = (gross_total*2)/100;
+        freelancer_amount = freelancer_amount - thired_party_commision;
+        
+        $("#portal_charges_percentage").val(percentage);
+        $("#portal_charges").val(commision);
+        $("#3rd_party_charges").val(thired_party_commision);
+        $("#3rd_party_percentage").val('2%');
+        $("#earn_amount").val(freelancer_amount);
+    });
 
-        // $("#addMore").on("click",function(e){ 
-        //   alert('hii');
-        // e.preventDefault();
-        //     var html = $(".after-add-more").first().clone();
-        // var total_element = $(".after-add-more").length;
-        // var total_element = total_element +1;
-        //     $(".after-add-more").last().after(html);
-        // $("#noofmilestone").html(total_element);
-        // });
-
-        // $("body").on("click",".cancelBtn",function(e){ 
-        // e.preventDefault();
-        // var total_element = $(".after-add-more").length;
-        // if(total_element >= 2){
-        //   $(this).parents(".after-add-more").remove();
-        // }
-            
-        // });
-
-        $("#savejob").click(function(){
-          $userTaskId = $("#user_task_id").val();
-            //console.log($taskid);
-            if($userTaskId !=""){
-              $.ajax({
+    $("#savejob").click(function(){
+        $userTaskId = $("#user_task_id").val();
+        //console.log($taskid);
+        if($userTaskId !=""){
+            $.ajax({
                 url: '<?php echo base_url();?>save-job',
                 method:'post',
                 data:{"userTaskId":$userTaskId},
@@ -756,169 +721,190 @@
                   if(res['status']=='200'){
                     location.reload();  
                   }
-                  
                 }
-              });
-            }
-        });
-
-        $("#savedJob").click(function(){
-          
-          window.open('<?php echo base_url();?>my-jobs', '_blank');
-        })
+            });
+        }
     });
+
+    $("#savedJob").click(function(){
+      window.open('<?php echo base_url();?>my-jobs', '_blank');
+    })
+});
 	
-    function copyToClipboard(element) {
-        var $temp = $("<input>");
-        $("body").append($temp);
-        $temp.val($(element).attr('href')).select();
-        document.execCommand("copy");
-        alert('Linked Copied');
-        $temp.remove();
-    }
+function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).attr('href')).select();
+    document.execCommand("copy");
+    alert('Linked Copied');
+    $temp.remove();
+}
 
-        var currentamount = 0;
-        var wholeamount = 0;
+var currentamount = 0;
+var wholeamount = 0;
     
-    function CalculateMS(){
-      var sumtotal=0;
-      wholeamount = $("#terms_amount_max").val();
-     var lastval = $(".milestone_amount").last().val();
-      $(".milestone_amount").each(function(){
-        sumtotal = sumtotal + Number($(this).val());
-      });
-      $restamount = wholeamount-sumtotal;
-      $balance = parseInt($restamount) + parseInt(lastval);
-     // alert($balance);
-      $(".milestone_amount").last().val($balance);
-
+function CalculateMS(){
+    var sumtotal=0;
+    wholeamount = $("#terms_amount_max").val();
+    var lastval = $(".milestone_amount").last().val();
+    if(isNaN(lastval) || lastval ==''){
+      lastval = 0;
     }
+    $(".milestone_amount").each(function(){
+      sumtotal = sumtotal + Number($(this).val());
+    });
+    
+    $restamount = wholeamount-sumtotal;
+    $balance = parseInt($restamount) + parseInt(lastval);
+    // alert($balance);
+    $(".milestone_amount").last().val($balance);
+}
+
+$(".newopen2").click(function(){
+    //alert($(this).is(":checked"));
+    if($(this).is(":checked")){
+      $(".opendiv2").show();
+      wholeamount = $("#terms_amount_max").val();
+      $(".milestone_amount").first().val(wholeamount);
+    }else{
+      $(".opendiv2").hide();
+    }
+    
+    $(".opendiv1").hide();
+});
+
+$('#addRow').click(function(){
+    wholeamount = $("#terms_amount_max").val();
+    var sumtotal = 0;
+    if(wholeamount <= 0){
+        alert("please Enter the bidding amount");
+    }else{
+        $(".milestone_amount").each(function(){
+            sumtotal = sumtotal + Number($(this).val());
+        });
+          
+        if(sumtotal >= wholeamount ){
+            alert("please reduce milestone amount to add different milestone");
+        } else{
+            var index = $('#rownum').val();    
+            index = parseInt(index) + 1;
+              
+            $('#addNewRow').find("tbody").append('<tr><td><input type="text" id="title_'+index+'" name="milestone_title[]" class="form-control" placeholder="Title"></td><td><span><i class="fa fa-dollar" style="float: left;margin: 10px"></i><input class="form-control milestone_amount" id="stoneAmt_'+index+'" type="number" name="milestone_agreed_budget[]" style="width:8rem;"></span></td><td><button type="button" class="btn-primary removeRRow"><i class="fa fa-remove"></i></button></td></tr>');
+            
+            $('#rownum').val(index);            
+            CalculateMS();
+        }
+    }
+});
+
+$(document).on('click', '.removeRRow',function(){
+    var index = $('#rownum').val();  
+      
+    if(index == 1){
+        alert('You cannot remove');
+    } else{
+        index = parseInt(index) - 1;
+        $(this).closest('tr').remove();
+        $('#rownum').val(index);  
+    }
+    CalculateMS();
+});
 
         
-  $("#addMore").on("click",function(e){ 
-                  // alert('hii');
-          e.preventDefault();
-          var html = $(".after-add-more").first().clone();
-          var total_element = $(".after-add-more").length;
-          var total_element = total_element +1;          
+/*$("#addMore").on("click",function(e){ 
+    // alert('hii');
+    e.preventDefault();
+    var html = $(".after-add-more").first().clone();
+    var total_element = $(".after-add-more").length;
+    var total_element = total_element +1;          
 
-          var firstval = $(".milestone_amount").first().val();
-          var lastval = $(".milestone_amount").last().val();
+    var firstval = $(".milestone_amount").first().val();
+    var lastval = $(".milestone_amount").last().val();
 
-          // alert("firstval" + firstval);
-          // alert("lastval" + lastval);
-          wholeamount = $("#terms_amount_max").val();
-          if(wholeamount <= 0){
-            alert("please select the bidding amount");
-          }else{
-
-              var sumtotal = 0;
-
-              // alert(wholeamount);
-              $(".milestone_amount").each(function(){
-                sumtotal = sumtotal + Number($(this).val());
-                // alert("currentval" + $(this).val());;
-              });
-              // alert("sumtotal" + sumtotal);
-              if( sumtotal >= wholeamount ){
-                alert("please reduce milestone amount to add different milestone");
-
-              }else{
-               
-               $(".milestone_amount").first().val(wholeamount- sumtotal );
-                $(".after-add-more").last().after(html);
-                $("#noofmilestone").html(total_element);
-            }
-          }
+    // alert("firstval" + firstval);
+    // alert("lastval" + lastval);
+    wholeamount = $("#terms_amount_max").val();
+    if(wholeamount <= 0){
+      alert("please select the bidding amount");
+    }else{
+      var sumtotal = 0;
+      // alert(wholeamount);
+      $(".milestone_amount").each(function(){
+        sumtotal = sumtotal + Number($(this).val());
+        // alert("currentval" + $(this).val());;
+      });
+      // alert("sumtotal" + sumtotal);
+      if( sumtotal >= wholeamount ){
+        alert("please reduce milestone amount to add different milestone");
+      }else{
+        $(".milestone_amount").first().val(wholeamount- sumtotal );
+        $(".after-add-more").last().after(html);
+        $("#noofmilestone").html(total_element);
+      }
+    }
       
   });
 
+  $(".cancelBtn").on("click",function(){ 
+    //e.preventDefault();
+    var total_element = $(".after-add-more").length;
+    //alert(total_element);
+    if(total_element > 1){
+      $(this).parents(".after-add-more").remove();
+      CalculateMS();
+    }
+  });*/
 
+  // $(".opendiv1").show();
+  //$(".opendiv2").hide();
+  //$(".opendiv3").hide();
 
-        $(".cancelBtn").on("click",function(){ 
-          //e.preventDefault();
+$(".newopen1").click(function(){
+    $(".opendiv1").show();
+    $(".opendiv2").hide();
+    $(".opendiv3").hide();
 
-          var total_element = $(".after-add-more").length;
-          //alert(total_element);
+    $("#terms_amount_max").val("");
+    $("#portal_charges").val("");
+    $("#3rd_party_charges").val("");
+    $("#earn_amount").val("");
+});
+      
+$(".newopen3").click(function(){
+    $(".opendiv2").hide();
+    $(".opendiv1").hide();
+    $(".opendiv3").show();
+    $("#no_of_hr").val("");
+    $("#amount_per_hr").val("");
+    $("#terms_amount_max").val("");
+    $("#portal_charges").val("");
+    $("#3rd_party_charges").val("");
+    $("#earn_amount").val("");
+    $(".newopen2").prop('checked', false);
+});
 
-          if(total_element > 1){
-            $(this).parents(".after-add-more").remove();
-             CalculateMS();
-          }
-            
-        });
+$("#amount_per_hr").on('input', function(){
+    hourlyamount();
+});
 
-       // $(".opendiv1").show();
-        //$(".opendiv2").hide();
-        //$(".opendiv3").hide();
+$("#no_of_hr").on('input', function(){
+    hourlyamount();
+});
 
-        $(".newopen1").click(function(){
-          $(".opendiv1").show();
-          $(".opendiv2").hide();
-          $(".opendiv3").hide();
+function hourlyamount(){
+    var noofhr = $("#no_of_hr").val();
+    var amountperhr = $("#amount_per_hr").val();
+    if(noofhr != "" && amountperhr != ""){
+        var termsamountmax = (noofhr * amountperhr);
+        $("#terms_amount_max").val(termsamountmax);
+        $("#terms_amount_max").trigger("change");
+    }
+}
 
-         
-
-          $("#terms_amount_max").val("");
-          $("#portal_charges").val("");
-          $("#3rd_party_charges").val("");
-          $("#earn_amount").val("");
-
-        });
-        
-        $(".newopen2").click(function(){
-          //alert($(this).is(":checked"));
-            if($(this).is(":checked")){
-              $(".opendiv2").show();
-              wholeamount = $("#terms_amount_max").val();
-              $(".milestone_amount").first().val(wholeamount);
-            
-            }else{
-              $(".opendiv2").hide();
-              
-            }
-          $(".opendiv1").hide();
-        });
-
-        
-        $(".newopen3").click(function(){
-          $(".opendiv2").hide();
-          $(".opendiv1").hide();
-          $(".opendiv3").show();
-          $("#no_of_hr").val("");
-          $("#amount_per_hr").val("");
-          $("#terms_amount_max").val("");
-          $("#portal_charges").val("");
-          $("#3rd_party_charges").val("");
-          $("#earn_amount").val("");
-          $(".newopen2").prop('checked', false);
-
-        });
-
-        $("#amount_per_hr").on('input', function(){
-          hourlyamount();
-        });
-
-        $("#no_of_hr").on('input', function(){
-          hourlyamount();
-        });
-
-        function hourlyamount(){
-          var noofhr = $("#no_of_hr").val();
-          var amountperhr = $("#amount_per_hr").val();
-          if(noofhr != "" && amountperhr != ""){
-            var termsamountmax = (noofhr * amountperhr);
-            $("#terms_amount_max").val(termsamountmax);
-          $("#terms_amount_max").trigger("change");
-          }
-        }
-
-
-
-        $(function (){
-          $('body').on('focus',".milestone_end_date", function(){
-            $(this).datepicker();
-          });
-        });
+$(function (){
+    $('body').on('focus',".milestone_end_date", function(){
+        $(this).datepicker();
+    });
+});
 </script>	
 <script src="../assets/js/job_page.js"></script>
