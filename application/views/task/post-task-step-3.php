@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           </li> -->
 
                           <li>
-                            <label class="containerdiv newopen3">Fixed Payment
+                            <label class="containerdiv newopen3">Do you need milestone
                               <input type="radio" name="milestone_type" id="fixed" value="fixed">
                               <span class="checkmark"></span> </label>
                           </li>
