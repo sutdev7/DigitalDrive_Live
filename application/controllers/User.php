@@ -573,5 +573,14 @@ function hashpassword($password) {
 	  $CI =& get_instance();
 	  echo $status = $CI->Messages->delete_chat_session_time();die;
 	}
+	
+	
+	/** function to get recent frnd id **/
+	public function get_recent_frnd_id()
+	{
+	  $CI =& get_instance();
+	  $url = $CI->Messages->get_recent_frnd_id();
+	  echo $url;die;
+	}
 }
 

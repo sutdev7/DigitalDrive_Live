@@ -78,7 +78,7 @@
              <form name="frmMakeOffer" id="frmMakeOffer_<?php echo $this->uri->segment(2);?>" action="" method="post">
               <input type="hidden" name="chkMakeOfferFreelancer" value="<?php echo $this->uri->segment(2);?>" />
               </form>
-			  <a href="#" data-formaction="<?php echo base_url(); ?>make-an-offer" data-formid="<?php echo $this->uri->segment(2);?>" class="view-btn1 makeoffer"> Make offer </a> 
+			  <!--<a href="#" data-formaction="<?php echo base_url(); ?>make-an-offer" data-formid="<?php echo $this->uri->segment(2);?>" class="view-btn1 makeoffer"> Make offer </a> -->
               <a href="#" data-formaction="<?php echo base_url(); ?>hire-freelancer" data-formid="<?php echo $this->uri->segment(2);?>" class="view-btn2 directhire"> Hire </a> 
             </div>
             <?php } ?>
