@@ -40,7 +40,12 @@ if(!empty($frmValidationMsg)) {
      <!--  <img src="{user_image}" class="user-img" style="width:60px;height:50px;"> -->
       <p class="text-center" style="font-size: 19px;color:black;"><b>{user_name}</b> </p>
       <p class="my-2 text-center">{microkey_title}</p>
-      <div style="display: inline-flex;"></div>
+      <div style="display: inline-flex;">
+       <div class="text-center" style="background: #0080008f;flex: 1;width: 81px;border-radius: 5px;"><a href="<?=base_url()?>reviews/{user_id}" title="" class="follow"  style="color: white;">{reviews_frelincer}Review</a></div>
+        <div class="text-center" style="background: red;width: 81px; margin-left: 33px;border-radius: 5px;"><a href="<?=base_url()?>messages/{user_id}" title="" class="message-us"style="color: white;"><i class="fa fa-envelope"></i></a></div>
+       <div class="text-center" style="background: skyblue;width: 81px; margin-left: 30px;border-radius: 5px;"> <a href="<?=base_url()?>direct-hire-freelancer/{user_id}" title="" class="hire-us" style="color: white;">Hire</a></div>
+
+      </div>
       <!-- <p class="my-2">{user_name} <span class="d-block small"><i class="fa fa-map-marker"></i> {user_city}, {user_state}, {user_country}</span></p>
       <p class="my-2 small"><span class="text-primary"><b>{user_projects}</b></span> Projects Done</p> -->
       
