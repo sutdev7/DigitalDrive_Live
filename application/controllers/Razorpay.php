@@ -1,226 +1,106 @@
 <?php
-
-
-
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-
-
 require_once(APPPATH."libraries/razorpay/razorpay-php/Razorpay.php");
-
 use Razorpay\Api\Api;
-
 use Razorpay\Api\Errors\SignatureVerificationError;
-
-
-
 class Razorpay extends CI_Controller {
 
+  public function __construct(){
+    parent::__construct();
+    $this->load->database();
+    $this->load->library(array('form_validation','session'));
+    $this->load->helper(array('url','html','form'));
+  }
 
+  public function index() {
+    $this->load->view('razorpay');
+  }   
 
-  
-
-
-
-    public function __construct()
-
-
-
-    {
-
-
-
-        parent::__construct();
-
-
-
-        $this->load->database();
-
-
-
-        $this->load->library(array('form_validation','session'));
-
-
-
-        $this->load->helper(array('url','html','form'));
-
-
-
-             
-
-
-
-     }
-
-
-
-  
-
-
-
-    public function index()
-
-
-
-    {
-
-
-
-        $this->load->view('razorpay');
-
-
-
-    }   
-
-
-
-    public function razorPaySuccess() {
+  public function razorPaySuccess() {
       $arr = [];
+      $milestone_id ="";
       if($this->input->post('usertaskid_milestoneid') != ""){
         $str = $this->input->post('usertaskid_milestoneid');
         $arr = explode('-',$str);
+        $milestone_id = $arr[1];
         $user_task_id = array_shift($arr);
       }
+     
 
+      $postValue = $this->input->post();
+      //print_r($postValue); exit();
+      $task_id = $this->input->post('task_id');
       $data = [
         'user_id' => $this->input->post('client_id'),
         'txn_id' => $this->input->post('razorpay_payment_id'),
         'amount' => $this->input->post('totalAmount'),
         'payment_type'=>$this->input->post('payment_type'),
-        'task_id' => $this->input->post('task_id'),
-        'milestone_id' => serialize($arr) ,
+        'task_id' => $task_id,
+        'milestone_id' => $milestone_id,
         'payment_status' => 'yes',
         'created_date' => date('Y-m-d H-i-s'),
         'updated_date' => date('Y-m-d H-i-s'),
       ];
 
-      $this->db->insert('payments', $data);
+    $this->db->insert('payments', $data);
      // echo $this->db->last_query();exit;
     $insertId = $this->db->insert_id();
     $data2 = array('hired_status' => 1);
-    $this->db->where('task_id', $this->input->post('task_id'));
+    $this->db->where('task_id', $task_id);
     $this->db->update('task_hired', $data2);
 
     $taskdata = array(
       'task_status' => 1,
-      'task.task_hired' => 1,
+      'task_hired' => 1,
       'task_is_ongoing' => 1
     );
-    $this->db->where('task_id', $this->input->post('task_id'));
+    $this->db->where('task_id', $task_id);
     $this->db->update('task', $taskdata);
+
+    $updateArr = array(
+      'milestone_current_status' => 'FS',
+      'milestone_dom' => date('Y-m-d H-i-s'),
+      'payment_status' => 'In Escrow paid',
+    );
+    $this->db->where('milestone_id',$milestone_id);
+    $this->db->update('task_proposal_milestone',$updateArr);
 
     // // project title
 
-				// $task_query = $this->db->select('task.*')->from('task')->where('task_id',$this->input->post('task_id'))->get();
-
-				// if($task_query->num_rows() >0){
-
-				// 	$task_info = $task_query->row();
-
-				// 	$task_name = $task_info->task_name;
-
-				// 	$user_task_id = $task_info->user_task_id;
-
-				// }else{
-
-				// 	$task_name = $user_task_id = '';
-
-				// }
-				// $job_details_link = '<a href="'.base_url().'hired-job-details/'.$user_task_id.'">'.$task_name.'</a>';
-				// // insert notification
-
-				// $notidata = array(
-
-				// 	'task_id' => $task_id,
-
-				// 	'offer_id' => 0,
-
-				// 	'notification_master_id' => 11,
-
-				// 	'notification_from' => $this->session->userdata('user_id'),
-
-				// 	'notification_to' => $postValue['freelancer_id'],
-
-				// 	'notification_details' => 'SEND HIRED ',
-
-				// 	'notification_message' => '<strong>'.'<a href="'.base_url().'public-profile/'.$this->session->userdata('profile_id').'">'.$this->session->userdata('user_name').'</a></strong> wants to hire you for <strong> '.$job_details_link.' </strong>',
-
-				// 	'notification_doc' => date('Y-m-d H:i:s')
-
-				// );
-
-				// $this->db->insert('task_notification',$notidata);
-
-        // check already hired
-			// $checkData = $this->db->select('hired_id')->from('task_hired')->where('task_id',$task_id)->where('freelancer_id',$postValue['freelancer_id'])->get();
-
-			// if($checkData->num_rows() == 0){
-
-      // $job_details_link = '<a href="'.base_url().'hired-job-details/'.$user_task_id.'">'.$task_name.'</a>';
-
-			// insert notification
-
-
-
-				// $notidata = array(
-
-
-
-				// 	'task_id' => $task_id,
-
-
-
-				// 	'offer_id' => 0,
-
-
-
-				// 	'notification_master_id' => 11,
-
-
-
-				// 	'notification_from' => $this->session->userdata('user_id'),
-
-
-
-				// 	'notification_to' => $postValue['freelancer_id'],
-
-
-
-				// 	'notification_details' => 'SEND HIRED ',
-
-
-
-				// 	'notification_message' => '<strong>'.'<a href="'.base_url().'public-profile/'.$this->session->userdata('profile_id').'">'.$this->session->userdata('user_name').'</a></strong> wants to hire you for <strong> '.$job_details_link.' </strong>',
-
-
-
-				// 	'notification_doc' => date('Y-m-d H:i:s')
-
-
-
-				// );
-
-
-
-        // $this->db->insert('task_notification',$notidata);
-
-
-
-      //   return array('status' => TRUE, 'message' => 'Hire request has been sent successfully.');
-
-
-
-			// }else{
-
-
-
-			// 	return array('status' => FALSE, 'message' => 'Request has been sent already.');
-
-
-
-			// }
-
-
+		$task_query = $this->db->select('task.*')->from('task')->where('task_id',$task_id)->get();
+      if($task_query->num_rows() >0){
+        $task_info = $task_query->row();
+        $task_name = $task_info->task_name;
+        $user_task_id = $task_info->user_task_id;
+      }else{
+        $task_name = $user_task_id = '';
+      }
+				
+    $job_details_link = '<a href="'.base_url().'hired-job-details/'.$user_task_id.'">'.$task_name.'</a>';
+
+      // check already hired  &  insert notification
+			$checkData = $this->db->select('hired_id')->from('task_hired')->where('task_id',$task_id)->where('freelancer_id',$postValue['freelancer_id'])->get();
+
+      if($checkData->num_rows() > 0){
+
+        $notidata = array(
+  			 'task_id' => $task_id,
+         'offer_id' => 0,
+         'notification_master_id' => 11,
+         'notification_from' => $this->session->userdata('user_id'),
+         'notification_to' => $postValue['freelancer_id'],
+         'notification_details' => 'SEND HIRED ',
+         'notification_message' => '<strong>'.'<a href="'.base_url().'public-profile/'.$this->session->userdata('profile_id').'">'.$this->session->userdata('user_name').'</a></strong> wants to hire you for <strong> '.$job_details_link.' </strong>',
+         'notification_doc' => date('Y-m-d H:i:s')
+        );
+
+       // print_r($notidata); exit();
+        
+        $this->db->insert('task_notification',$notidata);
+        //return array('status' => TRUE, 'message' => 'Hire request has been sent successfully.');
+
+      }
+     //  exit();
 
      if($insertId > 0){
       $arr = array('msg' => 'Payment successfully credited', 'status' => true, 'id' => $insertId);  
@@ -233,15 +113,8 @@ class Razorpay extends CI_Controller {
 
    }
 
-
-
-    
-
-
-
-    public function RazorThankYou($id) {
-
-     // $this->load->view('razorthankyou');
+  public function RazorThankYou($id) {
+    // $this->load->view('razorthankyou');
 		// $result= $this->db->get_where('payments', ['id'=>$id]);
 		$this->db->select('*');
     $this->db->from('payments');
@@ -249,9 +122,7 @@ class Razorpay extends CI_Controller {
     $this->db->join('task_hired', 'task_hired.task_id = payments.task_id');
     $this->db->join('user_login', 'task_hired.freelancer_id = user_login.user_id');
     $this->db->where(['payments.id'=> $id]);
-  // $this->db->join('user_login', 'user_login.user_id = users.user_id');
-  // $this->db->join('country', 'country.country_id = users.country','left');
-  // $this->db->order_by('user_login.unique_id','asc');
+  
     $result = $this->db->get();
   //echo $this->db->last_query();exit;
   // echo'<pre>';print_r($result->result());exit;
@@ -269,13 +140,7 @@ class Razorpay extends CI_Controller {
     $this->template->full_customer_html_view($data);
   }
 
-
-
-
-
-
-
-    public function cancel(){
+  public function cancel(){
       $parsedata = array();
       $content = $this->parser->parse('account/payment_cancel',$parsedata,true);
       $data = array(
@@ -285,13 +150,9 @@ class Razorpay extends CI_Controller {
       $this->template->full_customer_html_view($data);
     }
 
+  public function razorPaySubscription() {
 
-
-
-
-
-
-     public function razorPaySubscription() {
+    $user_id = $this->input->post('client_id');
 
       $data = [
         'user_id' => $this->input->post('client_id'),
@@ -313,35 +174,29 @@ class Razorpay extends CI_Controller {
       $this->db->where('user_id', $this->input->post('client_id'));
       $this->db->update('user_login', $data2);
 
-      // check already hired
-      // $checkData = $this->db->select('hired_id')->from('task_hired')->where('task_id',$task_id)->where('freelancer_id',$postValue['freelancer_id'])->get();
+      // check already hired Notification 
+     /* $checkData = $this->db->select('hired_id')->from('task_hired')->where('task_id',$task_id)->where('freelancer_id',$user_id)->get();
+      if($checkData->num_rows() == 0){
+        
+        $job_details_link = '<a href="'.base_url().'hired-job-details/'.$user_task_id.'">'.$task_name.'</a>';
+        $notidata = array(
+          'task_id' => $task_id,
+          'offer_id' => 0,
+          'notification_master_id' => 11,
+          'notification_from' => $this->session->userdata('user_id'),
+          'notification_to' => $user_id,
+          'notification_details' => 'SEND HIRED ',
+          'notification_message' => '<strong>'.'<a href="'.base_url().'public-profile/'.$this->session->userdata('profile_id').'">'.$this->session->userdata('user_name').'</a></strong> wants to hire you for <strong> '.$job_details_link.' </strong>',
+          'notification_doc' => date('Y-m-d H:i:s')
+       );
 
-      // if($checkData->num_rows() == 0){
-      // $job_details_link = '<a href="'.base_url().'hired-job-details/'.$user_task_id.'">'.$task_name.'</a>';
-      // // insert notification
-			
-      // $notidata = array(
+        $this->db->insert('task_notification',$notidata);
+       //   return array('status' => TRUE, 'message' => 'Hire request has been sent successfully.');
 
-      			// 	'task_id' => $task_id,
-            // 	'offer_id' => 0,
-            // 	'notification_master_id' => 11,
-            // 	'notification_from' => $this->session->userdata('user_id'),
-            // 	'notification_to' => $postValue['freelancer_id'],
-            // 	'notification_details' => 'SEND HIRED ',
-            // 	'notification_message' => '<strong>'.'<a href="'.base_url().'public-profile/'.$this->session->userdata('profile_id').'">'.$this->session->userdata('user_name').'</a></strong> wants to hire you for <strong> '.$job_details_link.' </strong>',
+       }else{
+        	return array('status' => FALSE, 'message' => 'Request has been sent already.');
 
-      			// 	'notification_doc' => date('Y-m-d H:i:s')
-      // );
-
-      // $this->db->insert('task_notification',$notidata);
-
-      //   return array('status' => TRUE, 'message' => 'Hire request has been sent successfully.');
-
-      // }else{
-
-          // 	return array('status' => FALSE, 'message' => 'Request has been sent already.');
-
-      // }
+       }*/
 
 
 
@@ -381,8 +236,14 @@ class Razorpay extends CI_Controller {
       'content' => $content,
       'title' => display('Sign Up As :: Hire-n-Work'),
     );
-
-    $this->template->full_website_html_view($data);
+    if($this->session->userdata('user_type')==4){
+      $this->template->full_freelancer_html_view($data);
+    }else if($this->session->userdata('user_type')==3){
+      $this->template->full_customer_html_view($data);
+    }else{
+      $this->template->full_website_html_view($data);   
+    }
+    //$this->template->full_website_html_view($data);
 
   }
 
@@ -570,70 +431,86 @@ class Razorpay extends CI_Controller {
 
     }
 
+    public function withdrawal_request(){
+      
+      $id=$this->uri->segment('3');
+      $query=$this->db->get_where('payments',['id'=> $id]);
+       if($query->num_rows() > 0){
+        $paymentsdata =$query->result_array();
+       } else{
+        $paymentsdata =[];
+       }
+
+      //  echo'<pre>';print_r($paymentsdata);exit;
+
+      if($paymentsdata[0]['withdrawal_status'] != 'paid' && $paymentsdata[0]['refund_status'] !='requested'){
+
+        $this->db->update('payments',['withdrawal_status'=> 'requested','updated_date'=>date('Y-m-d H:i:s')],['id'=> $paymentsdata[0]['id'], 'withdrawal_status !='=> 'paid','refund_status !='=>'requested']);
+        $updatedid = $this->db->affected_rows();
+        if($updatedid){          
+          $milestone_id = $paymentsdata[0]['milestone_id'];
+          $this->db->update('task_proposal_milestone',['request_change_in_milestone'=>'1','milesone_payment_request_date'=>date('Y-m-d H:i:s')],['milestone_id'=> $milestone_id]);
+        }
+
+      }else{
+        $updatedid = 0;
+      }
+      if($updatedid){
+
+        $this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You have successfully requested for withdrawal </div>');
+        redirect('earnings');
+
+      }else{
+        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Already Milstone Payment Requested/Canceled || Contact to admin </div>');
+        redirect('earnings');
+
+      }
+
+    }
 
 
     public function refund_request(){
 
       $id=$this->uri->segment('3');
-
       $query=$this->db->get_where('payments',['id'=> $id]);
-
-      $paymentsdata = $query->num_rows() > 0 ? $query->result_array(): [];
+      //$paymentsdata = $query->num_rows() > 0 ? $query->result_array(): [];
+       if($query->num_rows() > 0){
+        $paymentsdata =$query->result_array();
+       } else{
+        $paymentsdata =[];
+       }
 
       //  echo'<pre>';print_r($paymentsdata);exit;
 
-      // $data = [
+      $data = [
+         'payments_id' => $paymentsdata[0]['id'],
+         'client_id' => $paymentsdata['user_id'],
+         'txn_id' => $paymentsdata[0]['txn_id'], //$refund['id'],
+         'amount' =>  $paymentsdata[0]['amount'],
+         'payment_type'=>'Razor',
+         'task_id' => $paymentsdata[0]['task_id'],
+         'currency_code' => $refund['currency'],
+         'payment_status' => 'processing',// $refund['entity'],
+         'created_date' => date('Y-m-d H-i-s'),
+         'updated_date' => date('Y-m-d H-i-s'),
+      ];
 
-      //   'payments_id' => $paymentsdata[0]['id'],
+        $this->db->insert('payments_withdra', $data);
+        //echo $this->db->last_query();exit;
+        $insertId = $this->db->insert_id();
 
-      //   // 'client_id' => $paymentsdata['client_id'],
+      if($paymentsdata[0]['withdrawal_status'] != 'requested' && $paymentsdata[0]['withdrawal_status'] != 'paid'){
 
-      //   'txn_id' => $paymentsdata[0]['txn_id'], //$refund['id'],
-
-      //   'amount' =>  '',
-
-      //   'payment_type'=>'Razor',
-
-      //   'task_id' => $paymentsdata[0]['task_id'],
-
-      //   // 'currency_code' => $refund['currency'],
-
-      //   'payment_status' => 'processing',// $refund['entity'],
-
-      //   'created_date' => date('Y-m-d H-i-s'),
-
-      //   'updated_date' => date('Y-m-d H-i-s'),
-
-      // ];
-
-      // $this->db->insert('payments_withdra', $data);
-
-      // // echo $this->db->last_query();exit;
-
-      // $insertId = $this->db->insert_id();
-
-      if($paymentsdata[0]['withdrawal_status'] != 'requested'){
-
-      $this->db->update('payments',['withdrawal_status'=> 'requested','updated_date'=>date('Y-m-d H:i:s')],['id'=> $paymentsdata[0]['id'], 'withdrawal_status !='=> 'paid']);
-
-      //  echo $this->db->last_query();exit;
-
-      $updatedid = $this->db->affected_rows();
+        $this->db->update('payments',['refund_status'=> 'requested','updated_date'=>date('Y-m-d H:i:s')],['id'=> $paymentsdata[0]['id']]);
+        //  echo $this->db->last_query();exit;
+        $updatedid = $this->db->affected_rows();
 
       }else{
-
-        $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Already requested !! Contact to admin </div>');
-
-        redirect('earnings');
-
+        $updatedid = 0;
       }
-
-
 
       if($updatedid > 0){
-
-        $this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You have successfully requested for withdrawal </div>');
-
+        $this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You have successfully requested for Refund </div>');
         redirect('earnings');
 
       }else{
@@ -642,9 +519,7 @@ class Razorpay extends CI_Controller {
 
         redirect('earnings');
 
-      }
-
-           
+      }           
 
     }
 

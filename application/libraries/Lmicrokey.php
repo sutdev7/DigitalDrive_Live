@@ -463,9 +463,7 @@ class Lmicrokey {
 		$CI->load->model('Microkeys');
         $CI->load->library("pagination");
 		
-		//$CI->session->userdata('user_id') = "PMPQMWGW76";
-
-		
+		//$CI->session->userdata('user_id') = "PMPQMWGW76";		
 		// Search text
 		$searchValue = "";
 		 $searchValue = $CI->input->post('search');
@@ -484,8 +482,7 @@ class Lmicrokey {
 		
 		if($CI->uri->segment(2)){
 			$rowno = ($CI->uri->segment(2));
-		}
-		else{
+		} else{
 			$rowno = 1;
 		}
 		

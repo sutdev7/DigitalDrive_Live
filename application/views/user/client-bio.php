@@ -203,10 +203,10 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-4">
+               <!--  <div class="col-lg-4">
                   <label>VAT</label>
                   <h5>{user_info} {vat} {/user_info} <a href="#EditVAT" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i></a></h5>
-                </div>
+                </div> -->
                 <div class="col-lg-4">
                   <label>Language</label>
                   <h5>{user_info} {user_languages} {/user_info} <a href="#EditLanguage" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i></a></h5>
@@ -515,9 +515,9 @@
     <div class="modal-content"> 
       <form name="frmSaveUserInfo" class="userInfo" method="post" action="<?php echo base_url(); ?>user/saveUserData" >
         <!-- Modal Header -->
-        <div class="modal-header">VAT
+        <!-- <div class="modal-header">VAT
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
+        </div> -->
         <!-- Modal body -->
         <div class="modal-body">
           <p>Edit VAT No.</p>
@@ -710,7 +710,7 @@
        $(".file-upload").click();
     });    
   }); 
-  <!--===== Validation ====-->
+  //<!-- ===== Validation ====-->
   jQuery(document).ready(function(){
    jQuery('#bioedit').click(function(){
     // e.preventDefault();

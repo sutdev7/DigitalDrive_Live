@@ -61,6 +61,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </span> 
                   </li>
                 </ul>
+                
+                <ul>
+                  <li class="w-100"> 
+                    <span>
+                        <label>Project Name</label>
+                        <div class="select-style">
+                            <select name="task_id" required>
+                            {task_details}
+                                <option value="{task_id}">{task_name}</option>
+                            {/task_details} 
+                            </select>
+                        </div>
+                    </span> 
+                  </li>
+                </ul>
+
                 <ul>
                   <li class="w-100">
                     <span>
@@ -69,6 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </span>
                   </li>
                 </ul>
+                
                 <ul>
                   <li class="w-100">
                     <span>

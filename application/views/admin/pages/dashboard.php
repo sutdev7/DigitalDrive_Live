@@ -629,57 +629,75 @@ background: orange;;
   <div class="notify" data-notify-type="notice">
      <a href="<?php echo base_url()?>admin/freelancer-list" style="color: white;">Freelancer (<b id="div1"></b>)</a>
    </div>
-<div class="notify" data-notify-type="notice">
-  <a href="<?php echo base_url()?>admin/client-list" style="color: white;">Client (<b id="div2"></b>)</a>
-</div>
-<div class="notify" data-notify-type="notice">
-  <a href="<?= base_url()?>admin/naluacer-lists/client" style="color: white;" >Room (<b id="div3"></b>)</a>
-</div>
-<div class="notify" data-notify-type="notice">
-  <a href="<?= base_url() ?>" style="color: white;">Ticket (<b id="div4"></b>)</a>
-</div>
+  
+  <div class="notify" data-notify-type="notice">
+    <a href="<?php echo base_url()?>admin/client-list" style="color: white;">Client (<b id="div2"></b>)</a>
+  </div>
+  
+  <div class="notify" data-notify-type="notice">
+    <a href="<?= base_url()?>admin/naluacer-lists/client" style="color: white;" >Room (<b id="div3"></b>)</a>
+  </div>
+  
+  <div class="notify" data-notify-type="notice">
+    <a href="<?= base_url() ?>" style="color: white;">Ticket (<b id="div4"></b>)</a>
+  </div>
+
+  <div class="notify" data-notify-type="notice">
+    <a href="<?= base_url() ?>admin/freelancer-list" style="color: white;">Bio Profile (<b id="div5"></b>)</a>
+  </div>
     
   <script src="<?php echo base_url()?>assets/jquery.notify.js"></script>
   <script type="text/javascript">
-    setInterval(function(){auto_refresh_functionFreelincer();}, 500);
-     function auto_refresh_functionFreelincer(){
-   $.ajax({
-    type:"post",
-     url:"<?=base_url()?>admin/count_inactive_freelance_admin",
- datatype:"html",
-     success:function(data)
-      {
-       $('#div1').html(data);
-      }
-     });
-    $.ajax({
-    type:"post",
-     url:"<?=base_url()?>admin/count_inactive_client",
- datatype:"html",
-     success:function(data)
-      {
-       $('#div2').html(data);
-      }
-     });
-    $.ajax({
-    type:"post",
-     url:"<?=base_url()?>admin/count_inactive_room",
- datatype:"html",
-     success:function(data)
-      {
-       $('#div3').html(data);
-      }
-     });
-     $.ajax({
-    type:"post",
-     url:"<?=base_url()?>admin/count_unsolved_ticket",
- datatype:"html",
-     success:function(data)
-      {
-       $('#div4').html(data);
-      }
-     });
- }
+    setInterval(function(){
+      auto_refresh_functionFreelincer();
+    }, 500);
+    
+    function auto_refresh_functionFreelincer(){
+        $.ajax({
+            type:"post",
+            url:"<?=base_url()?>admin/count_inactive_freelance_admin",
+            datatype:"html",
+            success:function(data) {
+                $('#div1').html(data);
+            }
+        });
+    
+        $.ajax({
+            type:"post",
+            url:"<?=base_url()?>admin/count_inactive_client",
+            datatype:"html",
+            success:function(data) {
+                $('#div2').html(data);
+            }
+        });
+    
+        $.ajax({
+            type:"post",
+            url:"<?=base_url()?>admin/count_inactive_room",
+            datatype:"html",
+            success:function(data) {
+                $('#div3').html(data);
+            }
+        });
+     
+        $.ajax({
+            type:"post",
+            url:"<?=base_url()?>admin/count_unsolved_ticket",
+            datatype:"html",
+            success:function(data) {
+                $('#div4').html(data);
+            }
+        });
+
+        $.ajax({
+            type:"post",
+            url:"<?=base_url()?>admin/count_bio_profile_admin",
+            datatype:"html",
+            success:function(data) {
+                $('#div5').html(data);
+            }
+        });
+    }
 
 
 

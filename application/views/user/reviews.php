@@ -47,9 +47,11 @@
 					<div class="pro_img"> 
 						<span class="pro_imgBox">
 						<img src="{user_info}{user_image}{/user_info}" alt="Profile Image" /> <a href="#" class="uplod"></a> </span>              
-						<h2><?php echo $this->session->userdata('user_name'); ?></h2>            
+						<h2>{user_info} {name} {/user_info}
+							<?php //echo $this->session->userdata('user_name'); ?>
+						</h2>
 						<p>{user_info} {city} {/user_info}, {user_info} {state} {/user_info}, {user_info} {country} {/user_info}</p>           
-						<a href="<?php echo base_url(); ?>public-profile" class="pro_imgBtn">View Public Profile</a> 
+						<a href="<?php echo base_url(); ?>public-profile/{user_info}{id}{/user_info}" class="pro_imgBtn">View Public Profile</a> 
 						<a href="<?php echo base_url(); ?>logout" class="pro_logout" ><img src="<?php  echo base_url('assets/img/logout.png'); ?>" alt=""></a> 
 					
 					</div>         

@@ -755,5 +755,22 @@ class Messages extends CI_Model {
 		  $time = time() - 3;
 		  $CI->db->query("delete from user_chat_session WHERE chat_date < '" . $time . "'");
 	}
+	
+	
+	/** function to get recent frnd id**/
+	public function get_recent_frnd_id()
+	{
+	    $sql = "select user_messages.user_id_from from user_messages where user_messages.user_id_to = '".$this->session->userdata('user_id')."' order by user_messages.id desc limit 1";
+
+		$query = $this->db->query($sql);
+		$result = $query->result();
+		if(is_array($result))
+		{	
+		$result = array_shift($result);
+		return base_url()."messages/".$result->user_id_from;
+		} else {
+		return "#";
+		}
+	}
 
 }		

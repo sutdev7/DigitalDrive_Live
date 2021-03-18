@@ -97,26 +97,34 @@ class Admimodel extends CI_Model {
 	
 	public function get_user_list($usertype = 0, $status = ""){
 		
-		$this->db->select('users.*,user_login.*,user_login.status as active_status,country.name as country_name');
-		$this->db->from('users');
-		$this->db->join('user_login', 'user_login.user_id = users.user_id');
-		$this->db->join('country', 'country.country_id = users.country','left');
+		$this->db->select('u.*,ul.*,ul.status as active_status,cy.name as country_name,ubi.account_number');
+		$this->db->from('users u');
+		$this->db->join('user_login ul', 'ul.user_id = u.user_id');
+		$this->db->join('use_bank_info ubi', 'ubi.user_id = ul.user_id','left');
+		$this->db->join('country cy', 'cy.country_id = u.country','left');
+		
 		if($usertype != 0){
-			$this->db->where('user_type',$usertype);
+			$this->db->where('ul.user_type',$usertype);
 		}
+		
 		if($status != ""){
             if ($status == "active") {
-				//echo 'hii';
-                $this->db->where('user_login.profile_status',1);
+                $this->db->where('ul.profile_status',1);
+                $this->db->where('u.status',1);
             } else if ($status == "inactive") {
-				//echo 'noo';
-                $this->db->where('user_login.profile_status',0);
+                $this->db->where('ul.profile_status',0);
+                $this->db->where('u.status',1);
             }
-		}
-        $this->db->where('users.status',1);
-		$this->db->order_by('user_login.unique_id','asc');
+		}else {
+			$this->db->where('ubi.account_number!=""');
+			$this->db->where_in('ul.profile_status',array('1','0'));
+			$this->db->where('u.status',1);
+        }
+
+		$this->db->order_by('u.doc','DESC');
+		//$this->db->order_by('user_login.unique_id','asc');
 		$result = $this->db->get();
-	//print_r($this->db->last_query());
+		//print_r($this->db->last_query());
 		if($result->num_rows() > 0){
 			return $result->result();
 		}else{
@@ -407,6 +415,40 @@ public function get_user_tasko_id($userid = ''){
 			return array();
 		}
 	}
+
+	public function get_portal_charges_list(){
+		$this->db->select('id,portal_charge,paypal_charge,razorpay_charge,stripe_charge,doc');
+		$this->db->from('portal_charge');
+		$this->db->where('status',1);
+		$result = $this->db->get();
+		if($result->num_rows() > 0){ 
+			return $result->result_array();
+		}else{
+			return false;
+		}
+	}
+
+	public function get_category_skills(){
+		$this->db->select('category_id,category_name,sub_category_name,status');
+		$this->db->from('category');
+		$this->db->where('status',1);
+		$result = $this->db->get();
+		if($result->num_rows() > 0){ 
+			return $result->result();
+		}else{
+			return false;
+		}
+	}
+
+	public function updateRecords($tableName, $data, $column, $value) {
+        $this->db->where($column, $value);
+        $this->db->update($tableName, $data);
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 	
 	public function add_data($submitdata = array()){
 		
@@ -521,9 +563,32 @@ public function get_user_tasko_id($userid = ''){
 		}
 		
 		$return2 = $this->db->where('user_id',base64_decode($submitdata['user_id']))->update('user_login',$userlogindata);
-		
-		//echo base64_decode($submitdata['user_id']); die;
-		
+
+		$notification_master_data = $this->db->select('*')->from('notification_type')->where('NOTIFICATION_TYPE_ID',29)->get()->row();
+		//echo"<pre>";print_r($notification_master_data);exit;
+		$profile_id   = $this->auth->generator(20);
+		$user_id = base64_decode($submitdata['user_id']);
+		$user_name    = $submitdata['email'];
+		$date_of_creation = date("Y-m-d H:i:s");
+
+        if(!empty($notification_master_data)){
+            $message = $notification_master_data->MESSAGE;
+        }else{
+            $message = '';
+        }       
+
+        $dataA = array(
+            'user_id_from' => 'N4IND81M4L',
+            'user_id_to' => $user_id,
+            'message_content' => $message,            
+            'date_time' => $date_of_creation,            
+            'status' => '1',
+            'is_read' => 'N'
+        );
+        //echo"<pre>";print_r($dataA);exit;
+        //$task_notification = $this->db->insert('task_notification',$data);
+        $this->db->insert('user_messages',$dataA);
+		//echo $this->db->last_query();exit;
 		$this->db->trans_complete();
 		if($this->db->trans_status() === FALSE){
 			return false;
@@ -732,8 +797,7 @@ public function get_user_tasko_id($userid = ''){
 			return array();
 		}
 	}
-	public function history_ticket_details($id)
-	{
+	public function history_ticket_details($id)	{
 		$data['admin_view']= 0;
 		$this->db->where('ticket_no', $id); 
 		$return	= $this->db->update('user_ticket_history', $data);
@@ -742,24 +806,42 @@ public function get_user_tasko_id($userid = ''){
 		$this->db->where('ticket_no', $id);
 		$this->db->order_by('id', 'desc');
 		$result = $this->db->get();
+		//echo $this->db->last_query();exit;
 		if($result->num_rows() > 0){ 
 			return $result->result();
 		}else{
 			return array();
 		}
 	}
-	public function ticket_details($problem_ticket_no)
-	{
-		$this->db->select('user_grievance.*, country.name as country_name, users.*, user_login.email, user_login.mobile, user_login.created, user_login.profile_image');
-		$this->db->join('users', 'users.user_id = user_grievance.user_id');
-		$this->db->join('country', 'country.country_id = users.country');
-		$this->db->join('user_login', 'user_login.user_id = users.user_id');
-		$this->db->where('user_grievance.problem_ticket_no', $problem_ticket_no);
-		$result = $this->db->get('user_grievance');
+
+	public function ticket_details($problem_ticket_no){
+		
+		$this->db->select('ug.id AS ug_id,ug.task_id,ug.user_type AS ug_usertype,ug.user_id AS ug_userid,ug.grievance_id as ug_gvid,ug.grievance_subject AS ug_gvsubject,ug.grievance_content AS ug_gvcontent,ug.doc AS ug_doc,ug.problem_ticket_no AS ug_tkno,ug.problem_status AS ug_pbstatus,ug.dom AS ug_dom, cy.name as country_name, u.*, ul.email, ul.mobile, ul.created, ul.profile_image');
+		$this->db->from('user_grievance ug');
+		$this->db->join('users u', 'u.user_id = ug.user_id');
+		$this->db->join('country cy', 'cy.country_id = u.country');
+		$this->db->join('user_login ul', 'ul.user_id = u.user_id');
+		$this->db->where('ug.problem_ticket_no', $problem_ticket_no);
+		$result = $this->db->get();
+		//echo $this->db->last_query();exit;
 		if($result->num_rows() > 0){ 
 			return $result->row();
 		}else{
 			return array();
+		}
+	}
+
+	public function grivienceDetails($gv_id){
+		
+		$this->db->select('fid,problem_type');
+		$this->db->from('grievance');
+		$this->db->where('fid', $gv_id);
+		$result = $this->db->get();
+		//echo $this->db->last_query();exit;
+		if($result->num_rows() > 0){ 
+			return $result->result_array();
+		}else{
+			return false;
 		}
 	}
     public function get_user_counts($usertype = 0, $count = false) {

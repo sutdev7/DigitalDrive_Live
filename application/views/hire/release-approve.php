@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="bod-sec">
             <h2> Frelancer </h2>
             {freelancer_details}
-			<div class="img2-ses"> <span> <img src="{user_image}" alt="img" style="width:69px;height:69px;"> </span>
+			     <div class="img2-ses"> <span> <img src="{user_image}" alt="img" style="width:69px;height:69px;"> </span>
               <div class="caption">
                 <h3> {freelancer_name} </h3>
                 <p>{freelancer_address}, {freelancer_city}, {freelancer_state}, {freelancer_country}</p>
@@ -38,9 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <small> - 2 Coins </small> 
                 </div>
             </div>
-			{/freelancer_details}
-			
-			
+			{/freelancer_details}		
 			
             <div class="mili-ston">
               <div class="mili-ston-box">
@@ -50,14 +48,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <h3> Due Date </h3>
                 <big> {milestone_end_date} </big> </div>
               <div class="mili-ston-box">
-                <h3> Ammount </h3>
+                <h3>Payable Ammount </h3>
                 <big> ${milestone_agreed_budget} </big> </div>
             </div>
           </div>
           <div class="message-sec">
             <!--<h3> <img src="img/com.png" alt="img"> Message from <span>@Bob Frapples</span> </h3>
             <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>-->
-            <ul class="Portfolio_img">
+           <!--  <ul class="Portfolio_img">
               <li>
                 <div class="Portfolio_box"> <img src="img/p1.png" alt="">
                   <div class="Por_overlay"> <a href="img/p1.png" class="venobox vbox-item" data-gall="gallery-carousel"> <img src="img/full.png" alt=""></a> <a href="#" class="download"> <img src="img/down.png" alt=""></a> </div>
@@ -68,9 +66,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="Por_overlay"> <a href="img/p2.png" class="venobox vbox-item" data-gall="gallery-carousel"> <img src="img/full.png" alt=""></a> <a href="#" class="download"> <img src="img/down.png" alt=""></a> </div>
                 </div>
               </li>
-            </ul>
+            </ul> -->
 			<form action="<?= base_url().'Hire/submit_release_approve' ?>" method="post">
-				<input type="hidden" name="milestone_id" value="<?=$this->uri->segment(2)?>">
+				<!-- <input type="text" name="milestone_id" value="<?php //echo $this->uri->segment(2)?>"> -->
+        <input type="hidden" name="milestone_id" value="{milestone_id}">
+        <input type="hidden" name="task_total_budget" value="{milestone_agreed_budget}">
+        <input type="hidden" name="task_id" value="{task_id}">
+        <input type="hidden" name="user_task_id" value="{user_task_id}">
+        <input type="hidden" name="freelancer_id" value="{freelancer_id}">
+        
+
 				<div class="radiodiv">
 				  <ul>
 					<li>
@@ -85,10 +90,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</li>
 				  </ul>
 					<div class="opendiv1">
-						<div class="Budget_div">
-						  <h3>${milestone_agreed_budget} </h3>
-						  <span>Amount</span>
-						</div>
+						<!-- <div class="Budget_div">
+						   <span></span>
+              <h3>${milestone_agreed_budget} </h3>
+						 
+						</div> -->
 						<input type="submit" value="Release" name="submit" class="sub_btn">
 					</div>
 					<div class="opendiv2">

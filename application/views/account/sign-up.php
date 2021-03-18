@@ -1,98 +1,51 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/10.0.2/css/intlTelInput.css"/>
 
 <style>
-
 .skill span.selection {
-
     width: 100%;
-
 }
 
 .skill span.select2-search.select2-search--inline {
-
     float: none;
-
 }
 
 .skill span.select2-selection.select2-selection--multiple:last-child {
-
     margin-left: 0px;
-
     float: left;
-
     width: 100%;
-
     border-radius: 4px;
-
     height: 50px;
-
     color: #293134;
-
     font-size: 16px;
-
     font-weight: 400;
-
     margin-bottom: 25px;
-
     border: 1px solid #ccc;
-
 }
 
 .skill .select2-container--default .select2-selection--multiple .select2-selection__choice {
-
     display: inline-flex;
-
 }
 
 .skill span .select2-selection_choice_display {
-
     width: auto;
-
 }
 
 .skill span .select2-selection__choice__display {
-
     width: auto;
-
 }
-
-
-
-
-
 </style>
 
 <main id="main"> 
-
-  
-
   <?php 
-
-  $msg = $this->session->flashdata('msg'); 
-
-  if(!empty($msg)) {
-
+    $msg = $this->session->flashdata('msg'); 
+    if(!empty($msg)) {
   ?>
-
   <section style="padding-top: 7%;">
-
     <?php echo $msg; ?>
-
   </section>
-
-  <?php
-
-  }
-
-  ?>
-
-  
+  <?php } ?>  
 
   <!--==========================
 
@@ -314,8 +267,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="alink2"> 
 
               <!--<a href="#" class="facebookLink"><i class="fa fa-facebook"></i> Facebook</a>--> 
-
-               <a href="<?=base_url()?>googlelogin/login/<?=$sign_up_as?>" class="googleLink"><i class="fa fa-google-plus"></i> Google +</a> 
+              <?php if(isset($subscription_plan) && $subscription_plan !='1'){?>
+                <a href="<?=base_url()?>googlelogin/login/<?=$sign_up_as?>/<?=$subscription_plan?>" class="googleLink"><i class="fa fa-google-plus"></i> Google +</a>
+              <?php } else{ ?>
+                <a href="<?=base_url()?>googlelogin/login/<?=$sign_up_as?>" class="googleLink"><i class="fa fa-google-plus"></i> Google +</a>
+              <?php } ?>
+               
 
               <!-- <a href="#" class="linkedinLink"><i class="fa fa-linkedin"></i> Linkedin</a>  -->
 

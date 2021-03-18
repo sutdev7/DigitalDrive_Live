@@ -12,6 +12,43 @@ class Freelancers extends CI_Model {
 
     
 
+    public function get_task_details($task_id=''){
+    	$user_type = $this->session->userdata('user_type');
+    	if(isset($task_id) && $task_id !=''){
+    		$this->db->select('t.task_id,t.task_name,th.hired_id');
+    		$this->db->from('task t');
+    		$this->db->join('task_hired th', 'th.task_id=t.task_id');
+    		$this->db->where('t.task_status','1');
+    		$this->db->where('t.task_id', $task_id);
+    		if($user_type == 4){
+    			$this->db->where('th.freelancer_id',$this->session->userdata('user_id'));
+    		}else{
+    			$this->db->where('t.task_created_by',$this->session->userdata('user_id'));
+    		}
+    		//$this->db->select('task_id,task_name')->from('task')->where('task.task_status','1')->where('task.task_id',$task_id);
+    	}else{
+    		$this->db->select('t.task_id,t.task_name,th.hired_id');
+    		$this->db->from('task t');
+    		$this->db->join('task_hired th', 'th.task_id=t.task_id');
+    		$this->db->where('t.task_status','1');
+    		if($user_type == 4){
+    			$this->db->where('th.freelancer_id',$this->session->userdata('user_id'));
+    		}else{
+    			$this->db->where('t.task_created_by',$this->session->userdata('user_id'));
+    		}
+    		//$this->db->where('th.freelancer_id',$this->session->userdata('user_id'));
+    	}
+		
+    	
+		$query = $this->db->get();
+		//echo $this->db->last_query();exit;
+		if($query->num_rows() > 0){
+			return $query->result_array();
+		}else{
+			return false;
+		}
+    }
+
     public function get_grievance(){
 
 		$user_type = $this->session->userdata('user_type');
@@ -207,62 +244,39 @@ class Freelancers extends CI_Model {
     
 
     public function add_ticket($userInfo = array(), $submitData = array()){
-
 		// check last id
-
 		$info = $this->db->query("select max(id) maxid from user_grievance")->row();
 
 		if(!empty($info) && $info->maxid !=''){
-
 			$ticket_id = 'TICK'.date('Y').($info->maxid + 1);
-
 		}else{
-
 			$ticket_id = 'TICK'.date('Y').'1';
-
-		}
-
-		
+		}	
 
 		$data = array(
-
 			'user_type' => $userInfo['user_type'],
-
 			'user_id' => $userInfo['user_id'],
-
 			'grievance_id' => $submitData['problem_id'],
-
+			'task_id' => $submitData['task_id'],
 			'grievance_subject' => ($submitData['grievance_subject'] != '' )?$submitData['grievance_subject'] : '',
-
 			'grievance_content' => $submitData['grievance_content'],
-
 			'problem_ticket_no' => $ticket_id,
-
 			'doc' => date('Y-m-d H:i:s')
-
 		);
 
-
-
 		$result = $this->db->insert('user_grievance',$data);
-
 		if($result){
-
 			return array('status' => TRUE, 'message' => $ticket_id);
-
 		}else{
-
 			return array('status' => FALSE, 'message' => 'unable_to_add_record_in_db');
-
-		}        
-
+		}
 	}
 
 	
 
 	public function search_jobs_by_keyword_count($searchValue = ''){
 
-		$sql = "select distinct(main.task_id) as task_id  from ( select tr.area_of_interest_id, t.task_id, t.task_name, ari.name as skill_name,conti.name as continent_name, count.name as country_name from task_requirements tr join task t on t.task_id = tr.task_id left join area_of_interest ari on ari.area_of_interest_id = tr.area_of_interest_id left join continent conti on conti.continent_id = t.task_origin_location left join country count on count.country_id = t.task_origin_country where (tr.deleted = 0 or tr.deleted is null) and t.task_is_complete=0 AND t.task_hired=0 AND t.task_is_ongoing=0 AND ( t.task_name like '%".addslashes($searchValue)."%' or ari.name like '".addslashes($searchValue)."%' or conti.name like '".addslashes($searchValue)."%' or count.name like '".addslashes($searchValue)."%' or t.task_total_budget = '".addslashes($searchValue)."' )
+		$sql = "select distinct(main.task_id) as task_id  from ( select tr.area_of_interest_id, t.task_id, t.task_name, ari.name as skill_name,conti.name as continent_name, count.name as country_name from task_requirements tr join task t on t.task_id = tr.task_id left join area_of_interest ari on ari.area_of_interest_id = tr.area_of_interest_id left join continent conti on conti.continent_id = t.task_origin_location left join country count on count.country_id = t.task_origin_country where tr.deleted=0 AND t.task_is_complete=0 AND t.task_hired=0 AND t.task_is_ongoing=0 AND ( t.task_name like '%".addslashes($searchValue)."%' or ari.name like '".addslashes($searchValue)."%' or conti.name like '".addslashes($searchValue)."%' or count.name like '".addslashes($searchValue)."%' or t.task_total_budget = '".addslashes($searchValue)."' )
 
 				) main";
 
@@ -291,8 +305,6 @@ class Freelancers extends CI_Model {
 		if($searchValue !=''){ 
 
 			$sql = "select distinct(main.task_id) as task_id from ( select tr.area_of_interest_id, t.task_id, t.task_name, ari.name as skill_name,conti.name as continent_name, count.name as country_name from task_requirements tr join task t on t.task_id = tr.task_id  left join area_of_interest ari on ari.area_of_interest_id = tr.area_of_interest_id left join continent conti on conti.continent_id = t.task_origin_location left join country count on count.country_id = t.task_origin_country where (tr.deleted = 0 or tr.deleted is null) and t.task_is_complete=0 AND t.task_hired=0 AND t.task_is_ongoing=0 AND (t.task_id='".$searchValue."' OR t.task_name like '%".addslashes($searchValue)."%' or ari.name like '".addslashes($searchValue)."%' or conti.name like '".addslashes($searchValue)."%' or count.name like '".addslashes($searchValue)."%' or t.task_total_budget = '".addslashes($searchValue)."' ) ) main ";
-
-			
 
 			$searchresult = $this->db->query($sql);
 
@@ -334,39 +346,25 @@ class Freelancers extends CI_Model {
 
 		
 
-        $this->db->select('task.*,continent.name as continent_name,country.name as country_name');
-
-        $this->db->from('task');  
-
-		$this->db->join('continent', 'continent.continent_id = task.task_origin_location');
-
-		$this->db->join('country', 'country.country_id = task.task_origin_country');
-
+        $this->db->select('t.*,continent.name as continent_name,country.name as country_name');
+        $this->db->from('task AS t');  
+		$this->db->join('continent', 'continent.continent_id = t.task_origin_location');
+		$this->db->join('country', 'country.country_id = t.task_origin_country');
 		if(!empty($task_arr)){
+			$this->db->where('t.task_id in ('.$task_arr.')');
 
-			$this->db->where('task.task_id in ('.$task_arr.')');
-
+		} else{
+			$this->db->where('t.task_is_complete=0 AND t.task_hired=0 AND t.task_is_ongoing=0');
 		}
 
-		$this->db->order_by('task.task_doc','desc');
-
+		$this->db->order_by('t.task_doc','desc');
 		$this->db->limit($limit, $start);
-
-		
-
-        $query = $this->db->get();
-
-
-
-        //echo $this->db->last_query(); 
-
-
-
-        foreach ($query->result() as $row){
-
-
-
-            $task_attachments = $task_requirements = array();
+		$query = $this->db->get();
+        //echo $this->db->last_query();
+		if($query->num_rows()>0){
+			$taskList = $query->result();
+        foreach ($taskList as $row){
+        	$task_attachments = $task_requirements = array();
 
             $this->db->select('task_attachments.*');
 
@@ -470,25 +468,16 @@ class Freelancers extends CI_Model {
 
 			);
 
-
-
-
-
-
-
-            $task_details[] = array('basic_info' => $basic_info, 'task_attachments' => $task_attachments, 'task_requirements' => $task_requirements);
+			$task_details[] = array('basic_info' => $basic_info, 'task_attachments' => $task_attachments, 'task_requirements' => $task_requirements);
 
 
 
         }
-
-		
-
-		// echo '<pre>'; print_r($task_details); die;
-
-
-
-        return $task_details;  
+    } else{
+    	$task_details =[];
+    }
+    // echo '<pre>'; print_r($task_details); die;
+    return $task_details;  
 
 	}
 
@@ -503,35 +492,18 @@ class Freelancers extends CI_Model {
 		}else{
 
 			$this->db->select('task.task_id, offer_task.receiver_id');
-
 			$this->db->from('offer_task');
-
 			$this->db->join('task', 'task.task_id = offer_task.task_id');        
-
 			$this->db->where('task.task_status', 1);
-
-			$this->db->where('task.task_is_complete', 0); 
-
-			$this->db->where('task.task_is_ongoing', 0);         
-
+			#$this->db->where('task.task_is_complete', 0); 
+			#$this->db->where('task.task_is_ongoing', 0);         
 			$this->db->where('(task.task_is_deleted IS NULL OR task.task_is_deleted=0)');
-
 			$this->db->where('task.task_id',$task_id);
-
 			$this->db->where('(offer_task.offer_status=1 AND offer_task.offer_is_deleted=0)');		
-
 			$query = $this->db->get();
-
-
-
 			//echo $this->db->last_query();
-
 			return $query->num_rows();
-
 		}
-
-		 
-
 	}
 
 	
@@ -567,24 +539,13 @@ class Freelancers extends CI_Model {
 			$this->db->select('task.task_id, task_proposal.*');
 
 			$this->db->from('task_proposal');
-
 			$this->db->join('task', 'task.task_id = task_proposal.task_id');        
-
 			$this->db->where('task.task_status', 1);
-
-			$this->db->where('task.task_is_complete', 0); 
-
-			$this->db->where('task.task_is_ongoing', 0);         
-
+			#$this->db->where('task.task_is_complete', 0); 
+			#$this->db->where('task.task_is_ongoing', 0);         
 			$this->db->where('task_proposal.task_id',$task_id);
-
 			$query = $this->db->get();
-
-			
-
 			//echo $this->db->last_query();
-
-			
 
 			if($return_type == ''){
 
@@ -671,11 +632,8 @@ class Freelancers extends CI_Model {
 		}
 
 		$date_of_creation = date("Y-m-d H:i:s");
-
 		$amount_per_hr = ("" != $this->input->post('amount_per_hr')) ? $this->input->post('amount_per_hr') : "";
-
 		$no_of_hr = ("" != $this->input->post('no_of_hr')) ? $this->input->post('no_of_hr') : "";
-
 		$insert = array(
 
 			'task_id' => $this->input->post('task_id'),
@@ -720,10 +678,7 @@ class Freelancers extends CI_Model {
 
 			if(isset($postValue['milestone_agreed_budget'])){
 
-		// echo 'hiii'.'<pre>';print_r($postValue);exit;
-
-
-
+				// echo 'hiii'.'<pre>';print_r($postValue);exit;
 				foreach($postValue['milestone_agreed_budget'] as $key => $row){		 //echo $key; echo $row;	
 
 					// $date = date_parse_from_format("m-d-Y", $postValue['milestone_end_date'][$key]);
@@ -733,29 +688,16 @@ class Freelancers extends CI_Model {
 					$data_milestone = array(
 
 						'proposal_id' => $insert_id,
-
 						'milestone_title' => $postValue['milestone_title'][$key],
-
-						// 'milestone_end_date' => date('Y-m-d H:i:s',strtotime($milestone_date)),
-
 						'milestone_agreed_budget' => $postValue['milestone_agreed_budget'][$key],
-
-						'milestone_current_status' => 'FS',
-
+						'milestone_current_status' => 'NR',
+						'payment_status' => 'Pending',
 						'milestone_doc' => $date_of_creation,
-
 						'milestone_created_by' => $this->session->userdata('user_id'),
-
 						'milestone_type' => 'milestone',
 
 					);
-
-					
-
 					//echo '<pre>'; print_r($data_milestone);
-
-					
-
 					$this->db->insert('task_proposal_milestone',$data_milestone);
 
 					// echo $this->db->last_query();exit;
@@ -1761,15 +1703,16 @@ class Freelancers extends CI_Model {
 
 		if($hired_id != 0){
 
-			$this->db->select('task_hired_milestone.*,task_hired.*,DATE_FORMAT(task_hired_milestone.milestone_end_date, "%d/%m/%Y") as milestone_end_date');
+			$this->db->select('task_proposal_milestone.*,task_hired.*,DATE_FORMAT(task_proposal_milestone.milestone_end_date, "%d/%m/%Y") as milestone_end_date');
 
-			$this->db->from('task_hired_milestone');
+			$this->db->from('task_proposal_milestone');
 
-			$this->db->join('task_hired','task_hired.hired_id = task_hired_milestone.hired_id');
+			$this->db->join('task_hired','task_hired.proposal_id = task_proposal_milestone.proposal_id');
 
 			$this->db->where('task_hired.task_id',$task_id);
 
 			$query = $this->db->get();
+			//echo $this->db->last_query(); exit();
 
 			if($query->num_rows() > 0){
 

@@ -105,9 +105,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <p><i class="fa fa-dollar theme-color"></i> Bidding Amount: ${terms_amount_max}</p>
                                       <p><i class="fa fa-calendar theme-color"></i> Posting Date: {posting_date}</p>
                                       {amoutperhr_details}
+                                      
+                                      {attachments}
                                       <hr/>
                                       <h2 class="Atta">Download Attachment</h2>
-                                      {attachments}
                                       <a href="<?php echo base_url(); ?>download_attachment_proposal/{file_name}"><img style="padding: 10px; width: 84px; height: 84px;" src="{file_ext_type}" alt=""></a>
                                       <br/>
                                       <a href="<?php echo base_url(); ?>download_attachment_proposal/{file_name}" class="" download><i class="fa fa-download"></i> Download</a>
@@ -141,10 +142,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </thead>
                                             <tbody id="dataList">
                                             <!-- Display posts list -->
+                                            <?php  
+                                                    //print_r($jobs);
+                                                   // $proposal_info = $jobs[1]['proposal_info'];
+                                                    //print_r($proposal_info);
+                                                   // echo date('d/m/Y',strtotime($doc)); 
+                                                    ?>
                                             {proposal_info}
-                                              <?php //if(!empty($proposal_info)){ foreach($proposal_info as $row){ ?>
                                               <tr>
-                                                <td> <?php  echo date('Y-m-d',strtotime("{doc}")); ?></td>
+                                                <td> 
+                                                 {doc}                                                  
+                                                </td>
                                                 <td>{milestone_title}<?php  //echo $row["milestone_title"]; ?></td>
                                                 
                                                 <td>${milestone_agreed_budget}<?php //echo $row["milestone_agreed_budget"]; ?></td>
@@ -204,9 +212,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <div class="col-sm-4">
                                           <a href="#"  id="btnCloseOffer_{p_attachments}" class="view-btn1 makeoffer"> SEND   </a>
                                       </div>
+                                    <?php 
+
+                                   // print_r($jobs[0]); exit();
+                                       $hiredis = $jobs[0]['hired_id'];
+                                      // print_r($hiredis);
+                                    if(empty($hiredis)) {
+                                      ?>
                                       <div class="col-sm-4">
                                           <a href="#" data-formaction="<?php echo base_url(); ?>hire-freelancer/{user_task_id}" data-formid="{user_id}" class="view-btn2 directhire"> Hire </a>
                                       </div>
+                                    <?php } ?>
                                      <!--  <div class="col-sm-4">
                                           <a href="#" data-formaction="<?php //echo base_url(); ?>make-an-offer" data-formid="{user_id}" class="view-btn1 makeoffer"> Make offer </a>
                                       </div> -->

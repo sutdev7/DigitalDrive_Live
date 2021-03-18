@@ -40,9 +40,9 @@ if(!empty($frmValidationMsg)) {
       <p class="text-center" style="font-size: 19px;color:black;"><b>{user_name}</b> </p>
       <p class="my-2 text-center">{microkey_title}</p>
       <div style="display: inline-flex;">
-       <div class="text-center" style="background: #0080008f;flex: 1;width: 81px;border-radius: 5px;"><a href="<?=base_url()?>reviews" title="" class="follow"  style="color: white;">{reviews_frelincer}Review</a></div>
-        <div class="text-center" style="background: red;width: 81px; margin-left: 33px;border-radius: 5px;"><a href="<?=base_url()?>messages/N4IND81M4L" title="" class="message-us"style="color: white;"><i class="fa fa-envelope"></i></a></div>
-       <div class="text-center" style="background: skyblue;width: 81px; margin-left: 30px;border-radius: 5px;"> <a href="<?=base_url()?>hired" title="" class="hire-us" style="color: white;">Hire</a></div>
+       <div class="text-center" style="background: #0080008f;flex: 1;width: 81px;border-radius: 5px;"><a href="<?=base_url()?>reviews/{user_id}" title="" class="follow"  style="color: white;">{reviews_frelincer}Review</a></div>
+        <div class="text-center" style="background: red;width: 81px; margin-left: 33px;border-radius: 5px;"><a href="<?=base_url()?>messages/{user_id}" title="" class="message-us"style="color: white;"><i class="fa fa-envelope"></i></a></div>
+       <div class="text-center" style="background: skyblue;width: 81px; margin-left: 30px;border-radius: 5px;"> <a href="<?=base_url()?>direct-hire-freelancer/{user_id}" title="" class="hire-us" style="color: white;">Hire</a></div>
       </div>
       <!-- <p class="my-2">{user_name} <span class="d-block small"><i class="fa fa-map-marker"></i> {user_city}, {user_state}, {user_country}</span></p>
       <p class="my-2 small"><span class="text-primary"><b>{user_projects}</b></span> Projects Done</p> -->
@@ -62,7 +62,8 @@ if(!empty($frmValidationMsg)) {
   </div>
   
   <!--  <div class="w-100 text-center mt-3"><a href="<?=base_url()?>freelancer/details_project/{microkey_id}" style="text-decoration: none;color: silver" title="" class="view-more-pro"><b>View Profile </b></a></div> -->
-  <div class="w-100 text-center mt-3"><a href="<?=base_url()?>freelancer/details_project/{user_id}" title="" class="view-more-pro"><b>View Profile </b></a></div>
+  <div class="w-100 text-center mt-3"><a href="<?=base_url()?>public-profile/{user_id}" title="" class="view-more-pro"><b>View Profile </b></a></div>
+  <!-- <div class="w-100 text-center mt-3"><a href="<?=base_url()?>freelancer/details_project/{user_id}" title="" class="view-more-pro"><b>View Profile </b></a></div> -->
    <!--  <div class="w-100 border-top mt-3">
       <p class="text-center text-muted small mt-2 mb-0" style="font-size: 12px">{last_login}</p>
     </div> -->

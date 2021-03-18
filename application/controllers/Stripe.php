@@ -22,6 +22,7 @@ class Stripe extends CI_Controller {
 			$postData["client_id"] = $this->input->post('client_id');
 			$postData["amount"] = $this->input->post('amount');
 			$postData["task_id"] = $this->input->post('task_id');
+			$postData["milestone_id"] =  explode("-",$this->input->post('usertaskid_milestoneid'))[1];
 			// Make payment
             $paymentID = $this->payment($postData);
             // echo"<pre>";print_r($paymentID);
@@ -42,6 +43,7 @@ class Stripe extends CI_Controller {
 			$token  = $postData['stripeToken'];
 			$name = $postData['name'];
 			$email = $postData['email'];
+			$milestone_id = $postData['milestone_id'];
 		// Add customer to stripe
 			$customer = $this->stripe_lib->addCustomer($email, $token);
 
@@ -64,7 +66,8 @@ class Stripe extends CI_Controller {
 							'currency_code' => $paidCurrency,
 							'txn_id' => $transactionID,
 							'payment_status' => 'yes',
-							'payment_type' => 'Stripe'
+							'payment_type' => 'Stripe',
+							'milestone_id' => $milestone_id
 						);
 						$this->db->insert('payments', $orderData);
 						//   echo $this->db->last_query();exit;
@@ -79,6 +82,16 @@ class Stripe extends CI_Controller {
 						  );
 						  $this->db->where('task_id', $postData['task_id']);
 						  $this->db->update('task', $data);
+
+						  $updateArr = array(
+					      'milestone_current_status' => 'AR',
+					      'milestone_approval_date' => date('Y-m-d H-i-s'),
+					      'milestone_dom' => date('Y-m-d H-i-s'),
+					      'payment_status' => '1',
+					    );
+					    $this->db->where('milestone_id',$milestone_id);
+					    $this->db->update('task_proposal_milestone',$updateArr);
+
 						  if($payment_status == 'succeeded' || $insertId > 0){
 						  	return $insertId;
 						  }

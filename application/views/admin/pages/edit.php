@@ -9,7 +9,7 @@
 		$gender = trim($info->gender);
 		$date_of_birth =$info->date_of_birth;
 		$bio = $info->bio;
-		$mobile = $info->mobile;
+		$mobile = str_replace('+', '', $info->phone_no);
 		$country = $info->country;
 		$state =$info->state;
 		$city = $info->city;

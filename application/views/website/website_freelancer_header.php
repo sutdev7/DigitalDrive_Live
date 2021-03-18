@@ -46,7 +46,7 @@
             </ul>
         </nav>
         <ul class="nav-right_Div">
-            <li><a href="<?php echo base_url(); ?>messages/N4IND81M4L"> Messages <span class="oferDiv" style="display:none;"></span></a></li>
+            <li><a href="#" class="recent_frnd_id"> Messages <span class="oferDiv" style="display:none;"></span></a></li>
             <!--  <li class="dropdown"> <a href="#" class="noti dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell" aria-hidden="true"></i> <span class="badge2">01</span></a> -->
 
             <li id="notify" class="dropdown" onclick="readnotification()"> <a href="#" class="noti dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell" aria-hidden="true"></i>
@@ -68,6 +68,7 @@
                     <li><a href="<?php echo base_url(); ?>public-profile">Public Profile</a></li>
                     <li><a href="<?php echo base_url(); ?>freelancer/details_projectFreelincer/<?=$this->session->userdata('user_id')?>" >My Micro Profile</a></li>
                     <li><a href="<?php echo base_url(); ?>user-bio">Freelancer Bio</a></li>
+                    <li><a href="<?php echo base_url(); ?>subscription">Upgrade Membership</a></li>
                     <li><a href="<?php echo base_url(); ?>settings">Settings</a></li>
                     <li><a href="<?php echo base_url(); ?>reviews">Reviews</a></li>
                     <li><a href="<?php echo base_url(); ?>problem-ticket">Problem Ticket</a></li>
@@ -105,7 +106,21 @@
 </header> -->
 <!-- #header -->
 
+<script type="text/javascript">
+setInterval(function(){ get_recent_frnd_id() }, 2000);
+function get_recent_frnd_id()
+{
+// function to check recent frnd id through recent message
+      $.ajax({
+          method: "POST",
+          url: "<?php echo base_url(); ?>User/get_recent_frnd_id/",
+          data: {}
+      }).done(function(msg) {
+          $(".recent_frnd_id").attr('href',msg);
 
+      });
+}	
+</script>
 <script>
     function readnotification() {
         $.ajax({

@@ -1,12 +1,11 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
 <style type="text/css">
   .postDiv_Box .step_Box ul li label {
     font-size: 14px;
   }
 </style>
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
-
 
 <main id="main"> 
   

@@ -93,12 +93,12 @@
                         <!-- <span class="sidebar_badge"><?php// echo count_inactive_freelance(); ?></span> -->
                      </a>
                   </li>
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                      <a href="<?= base_url() . 'admin/freelancer-list' ?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Freelancer Work</p>
                      </a>
-                  </li>
+                  </li> -->
                   <li class="nav-item">
                      <a href="<?= base_url() . 'admin/freelancer-list' ?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
@@ -137,7 +137,7 @@
                </ul>
             </li>
             <li><a href="<?= base_url() . 'admin/category-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'category-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Project Category </a></li>
-            <li><a href="<?= base_url() . 'admin/issue-category-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'issue-category-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Issue Category </a></li>
+             <li><a href="<?= base_url() . 'admin/issue-category-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'issue-category-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Issue Category </a></li>
             <!--Abhishek-->
             <li><a href="<?= base_url() . 'admin/freelancer-micro-list' ?>" class="nav-link <?= ($this->uri->segment(2) == 'freelancer-micro-list') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Freelancer Micro </a></li>
            
@@ -151,7 +151,8 @@
             <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'problem-ticket') ? 'menu-open' : '' ?> ">
                <a href="javascript:void(0);" class="nav-link <?= ($this->uri->segment(2) == 'problem-ticket') ? 'active' : '' ?> ">
                <i class="fas fa-user-tie"></i> Problem Ticket <i class="right fas fa-angle-left"></i>
-               <!-- <span class="sidebar_badge"><?php //echo count_unsolved_ticket(); ?></span> </a> -->
+               <!-- <span class="sidebar_badge"><?php //echo count_unsolved_ticket(); ?></span>  -->
+            </a> 
                <ul class="nav nav-treeview">
                   <li class="nav-item">
                      <a href="<?php echo base_url() . 'admin/problem-ticket/solved'; ?>" class="nav-link <?php echo ($this->uri->segment(3) == 'solved') ? 'active' : '' ?>">
@@ -161,15 +162,16 @@
                   </li>
                   <li class="nav-item">
                      <a href="<?php echo base_url() . 'admin/problem-ticket/unsolved'; ?>" class="nav-link <?php echo ($this->uri->segment(3) == 'unsolved') ? 'active' : '' ?> ">
-                        <!-- <i class="far fa-circle nav-icon"></i>
-                        <p>Unsolved <span class="sidebar_badge"><?php //echo count_unsolved_ticket(); ?></span> -->
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Unsolved 
+                           <!-- <span class="sidebar_badge"><?php //echo count_unsolved_ticket(); ?></span> -->
                         </p>
                      </a>
                   </li>
                </ul>
             </li>
             <!-- <li><a href="<?= base_url() . 'admin/problem_ticket_history' ?>" class="nav-link <?= ($this->uri->segment(2) == 'problem_ticket_history') ? 'active' : '' ?>"><i class="fas fa-bars"></i> Ticket History</a></li> -->
-            <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'problem-ticket') ? 'menu-open' : '' ?> ">
+            <li class="nav-item has-treeview <?php echo ($this->uri->segment(2) == 'user-messages') ? 'menu-open' : '' ?> ">
                <a href="javascript:;" class="nav-link">
                <i class="fas fa-envelope"></i>  Messages <i class="right fas fa-angle-left"></i>
                </a>
@@ -219,7 +221,14 @@
                </ul>
             </li>-->
             <!--    <li><a href="<?= base_url() . 'admin/user-messages' ?>" class="nav-link"><i class="nav-icon fas fa-envelope"></i> <p> Inbox</p></a></li>-->
-			</ul></li>
+         </ul></li>
+            <li>
+               <a href="<?= base_url().'admin/commission' ?>" class="nav-link">
+                  <i class="fas fa-user-tie"></i>
+                  <p>Commission</p>
+               </a>
+            </li>
+
             <li>
                <a href="<?= base_url() . 'logout' ?>" class="nav-link">
                   <i class="nav-icon fas fa-sign-out-alt"></i>

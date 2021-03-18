@@ -62,7 +62,7 @@
               <input type="hidden" name="fldTotalBudget" value="{fldTotalBudget}" />                                            
               <div class="postDiv_BoxFrm">
                 <div class="step_Box">
-                <h3 class="p-0">Portfolio</h3>
+                 <h3 class="p-0">Portfolio</h3>
                   <ul>
                     <li>
                       <label style="font-size: 14px;"><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i>Upload Main Image of Your Micro Profile</label>

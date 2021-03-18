@@ -1,6 +1,4 @@
 <style>
-
-
 .switch {
 	position: relative;
 	display: block;
@@ -136,116 +134,103 @@
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body"><?php echo $this->session->userdata('msg'); ?>
-					  <table id="example1" class="table table-bordered table-striped">
-						<thead>
-						<tr>
-						  <th align="center">Sl No.</td>
-						  	<?php if($status=="unsolved"){?>
-						  		<th >Unique ID </td>
-						  		<th  >Problem Crated Date </td>	
-						  			<th  >Ticket Unique ID</td>	
-						  	<?php }?>
-						  	<?php if($status=="solved"){?>
-						 <th  align="center">User Type</th> 
-						<?php }?>
-						  <th  align="center">Username</th>
-						  <th align="center" >Problem Category</th>
-						  
-						  <th  align="center" >Ticket No</th>
-						  <th  >Problem Status</th>
-						  <?php if($status=="solved"){?>
-						 <th  align="center">Date Created</th> 
-						<?php }?>
-						  <!--  -->
-						  <th  align="center">Actions</th>
-						</tr>
-						</thead>
+					  	<table id="example1" class="table table-bordered table-striped">
+							<thead>
+								<tr>
+								  <th align="center">Sl No.</td>
+								  	<?php if($status=="unsolved"){ ?>
+								  		<th>Unique ID </td>
+								  		<th>Problem Crated Date </td>	
+								  		<th>Ticket Unique ID</td>	
+								  	<?php } ?>
+								  	<?php if($status=="solved"){?>
+								 		<th align="center">User Type</th> 
+									<?php } ?>
+							  		<th align="center">Username</th>
+							  		<th align="center" >Problem Category</th>
+							    	<th align="center" >Ticket No</th>
+							  		<th>Problem Status</th>
+								  	<?php if($status=="solved"){?>
+								 		<th align="center">Date Created</th> 
+									<?php }?>
+									<th align="center">Actions</th>
+								</tr>
+							</thead>
 						<tbody>
-						<?php
-						if(!empty($info)){ $count = 1;
-							foreach($info as $key => $row){
-								
-								$sql ="SELECT * FROM user_ticket_history where ticket_no='".$row->problem_ticket_no."' and admin_view = 1";
-								$query = $this->db->query($sql);
-                                $countmsg = $query->num_rows();
-							?>
-							<tr>
-							  <td><?=  $count ?><br>
-							  	<?= ($countmsg>0) ? '<div class="newmsg">'.$countmsg.' New</div>' : '' ?>
-							  	
-							  </td>
-							 
-							  <?php if($status=="unsolved"){?>
-						  		 <td><?= $row->unique_id ?></td>
-						  		 <td><?php $date=date_create($row->doc);echo date_format($date,"d M Y"); ?></td>
-						  		 <td><?= $row->problem_ticket_no ?></td>
-						  	<?php }?>
-						  	<?php if($status=="solved"){?>
-							 <td><?php 
-							  	if($row->user_type == 3){
-							  		echo 'client';
-							  	}
-							  	elseif($row->user_type == 4){
-							  		echo 'freelancer';
-							  	}
-							  	?></td> 
-							  <?php }?>
-							  <td><?= $row->name ?></td>
-							  <td><?= $row->problem_type ?></td>
-							 
-							  <td><?= $row->problem_ticket_no ?></td>
-							  <td>
-								  <label class="switch">
-	                              <input class="switch-input" type="checkbox" 
-								  <?php echo ($row->problem_status == 'solved') ?  'checked="checked"' : '' ?>/>
-	                              <span class="switch-label" data-id =<?= $row->id ?> data-off="unsolved" 
-	                              data-on="solved" ></span>
-	                              <span class="switch-handle"></span> 
-	                              </label>
-							  		
-							  	</td>
-							  	<?php if($status=="solved"){?>
-						<td><?= date('d M Y',strtotime($row->doc)) ?></td>
-						<?php }?>
-							 <!-- <td><?= date('d M Y',strtotime($row->doc)) ?></td> -->
-							  <td> <!--<a href="<?= base_url()?>admin/problem_ticket_details/<?= $row->id ?>" title="View Details" target="_blank"><i class="fa fa-eye"></i></a>
-							  	<a href="<?= base_url()?>admin/compose_email/<?= $row->id ?>" title="Compose Email"><i class="fa fa-inbox" aria-hidden="true"></i></a>-->
-
-							  	<a href="<?= base_url()?>admin/history_ticket_details/<?= $row->problem_ticket_no ?>" title="Compose Email"><i class="fa fa-at" aria-hidden="true"></i></a>
-
-							  </td>
-							</tr>
 							<?php
-							$count ++;
-							}
-						}else{
-							?>
-							<tr><td colspan="8">No Data Found</td></tr>
-							<?php
-						}
-						?>
+							if(!empty($info)){ 
+								$count = 1;
+								foreach($info as $key => $row){
+									$sql ="SELECT * FROM user_ticket_history where ticket_no='".$row->problem_ticket_no."' and admin_view = 1";
+									$query = $this->db->query($sql);
+	                                $countmsg = $query->num_rows();
+								?>
+								<tr>
+								  	<td><?=  $count ?><br>
+								  	<?= ($countmsg>0) ? '<div class="newmsg">'.$countmsg.' New</div>' : '' ?>
+								  	</td>
+								 
+								  	<?php if($status=="unsolved"){?>
+								  		<td><?= $row->unique_id ?></td>
+								  		<td><?php $date=date_create($row->doc);echo date_format($date,"d M Y"); ?></td>
+								  		<td><?= $row->problem_ticket_no ?></td>
+							  		<?php } ?>
+							  		<?php if($status=="solved"){?>
+								 	<td>
+								 		<?php 
+										  	if($row->user_type == 3){
+										  		echo 'client';
+										  	} else if($row->user_type == 4){
+								  				echo 'freelancer';
+								  			}
+								  		?>
+								  	</td> 
+								  	<?php } ?>
+								  	<td><?= $row->name ?></td>
+								  	<td><?= $row->problem_type ?></td>
+								 	<td><?= $row->problem_ticket_no ?></td>
+								  	<td>
+									  <label class="switch">
+			                              <input class="switch-input" type="checkbox" 
+										  <?php echo ($row->problem_status == 'solved') ?  'checked="checked"' : '' ?>/>
+			                              <span class="switch-label" data-id =<?= $row->id ?> data-off="unsolved" 
+			                              data-on="solved" ></span>
+			                              <span class="switch-handle"></span> 
+		                              </label>
+								  	</td>
+								  	<?php if($status=="solved"){?>
+										<td><?= date('d M Y',strtotime($row->doc)) ?></td>
+									<?php } ?>
+								 	
+								  	<td> 
+								  		<a href="<?= base_url()?>admin/history_ticket_details/<?= $row->problem_ticket_no ?>" title="Compose Email"><i class="fa fa-at" aria-hidden="true"></i></a>
+									</td>
+								</tr>
+							<?php $count ++;
+								}
+							}else{ ?>
+								<tr><td colspan="8">No Data Found</td></tr>
+							<?php } ?>
 						</tbody>
 						<tfoot>
 						<tr>
-						  <th align="center">Sl No.</td>
-						  	<?php if($status=="unsolved"){?>
-						  		<th >Unique ID </td>
-						  		<th  >Problem Crated Date </td>	
-						  			<th  >Ticket Unique ID</td>	
-						  	<?php }?>
-						  	<?php if($status=="solved"){?>
-						 <th  align="center">User Type</th> 
-						<?php }?>
-						  <th  align="center">Username</th>
-						  <th align="center" >Problem Category</th>
-						  
-						  <th  align="center" >Ticket No</th>
-						  <th  >Problem Status</th>
-						  <?php if($status=="solved"){?>
-						 <th  align="center">Date Created</th> 
-						<?php }?>
-						  <!--  -->
-						  <th  align="center">Actions</th>
+						  	<th align="center">Sl No.</td>
+						  	<?php if($status=="unsolved"){ ?>
+						  		<th>Unique ID </td>
+						  		<th>Problem Crated Date </td>	
+						  		<th>Ticket Unique ID</td>	
+						  	<?php } ?>
+						  	<?php if($status=="solved"){ ?>
+						 		<th  align="center">User Type</th> 
+							<?php } ?>
+						  	<th align="center">Username</th>
+						  	<th align="center">Problem Category</th>
+						  	<th align="center">Ticket No</th>
+						  	<th>Problem Status</th>
+						  	<?php if($status=="solved"){ ?>
+						 		<th align="center">Date Created</th> 
+							<?php } ?>
+						  	<th align="center">Actions</th>
 						</tr>
 						</tfoot>
 					  </table>

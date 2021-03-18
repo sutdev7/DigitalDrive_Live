@@ -43,8 +43,12 @@ class Notifications extends CI_Model {
 	}
 	
 	public function insert_notification($tableName = '',$insert = array()){
-		if ($this->db->insert($tableName, $insert)) { 
-			return TRUE; 
+		if (!empty($insert)) { 
+
+			$this->db->insert($tableName, $insert);
+			$insert_id = $this->db->insert_id();
+			return  $insert_id; 
+
 		}else{
 			return FALSE;
 		}

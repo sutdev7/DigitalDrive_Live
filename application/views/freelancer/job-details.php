@@ -810,54 +810,7 @@ $(document).on('click', '.removeRRow',function(){
     CalculateMS();
 });
 
-        
-/*$("#addMore").on("click",function(e){ 
-    // alert('hii');
-    e.preventDefault();
-    var html = $(".after-add-more").first().clone();
-    var total_element = $(".after-add-more").length;
-    var total_element = total_element +1;          
-
-    var firstval = $(".milestone_amount").first().val();
-    var lastval = $(".milestone_amount").last().val();
-
-    // alert("firstval" + firstval);
-    // alert("lastval" + lastval);
-    wholeamount = $("#terms_amount_max").val();
-    if(wholeamount <= 0){
-      alert("please select the bidding amount");
-    }else{
-      var sumtotal = 0;
-      // alert(wholeamount);
-      $(".milestone_amount").each(function(){
-        sumtotal = sumtotal + Number($(this).val());
-        // alert("currentval" + $(this).val());;
-      });
-      // alert("sumtotal" + sumtotal);
-      if( sumtotal >= wholeamount ){
-        alert("please reduce milestone amount to add different milestone");
-      }else{
-        $(".milestone_amount").first().val(wholeamount- sumtotal );
-        $(".after-add-more").last().after(html);
-        $("#noofmilestone").html(total_element);
-      }
-    }
-      
-  });
-
-  $(".cancelBtn").on("click",function(){ 
-    //e.preventDefault();
-    var total_element = $(".after-add-more").length;
-    //alert(total_element);
-    if(total_element > 1){
-      $(this).parents(".after-add-more").remove();
-      CalculateMS();
-    }
-  });*/
-
-  // $(".opendiv1").show();
-  //$(".opendiv2").hide();
-  //$(".opendiv3").hide();
+ 
 
 $(".newopen1").click(function(){
     $(".opendiv1").show();

@@ -107,13 +107,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
             </div>
             <div class="col-lg-8">
-              <div class="make-offerDiv">
+              <!-- <div class="make-offerDiv">
                 <form name="frmSelectedFreelancer" id="frmSelectedFreelancer" action="<?php echo base_url(); ?>make-an-offer" method="post">
                   <div class="make-offerDiv-lft" id="selectedFreelancer"> 
                   </div>
                 </form>
                 <div class="make-offerDiv-rht"> <a href="#" id="linkMakeOffer" class="make-of"> Make offer </a> </div>
-              </div>
+              </div> -->
               <div class="search-settingsDiv" id="searchResult">
                 <h2><small> Result </small> </h2>
                 <!-- {freelancerInfo}

@@ -200,8 +200,8 @@
 	                              </label>
 								</div></td>
 							 
-							  <td>
-							  <div class="btn-group">
+							<  <td>
+								<div class="btn-group">
 									<a type="button" class="btn btn-info" title="details Info" href="<?= base_url().'admin/microkey_client_details_page_details/'.($row->id).'/'.($row->user_id) ?>"><i class="fa fa-info"></i></a>
 								</div>
 								

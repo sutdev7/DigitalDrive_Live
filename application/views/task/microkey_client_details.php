@@ -78,7 +78,8 @@ border: 2px solid
                 <em><i class="fa fa-user" aria-hidden="true"></i> {task_freelancer_hire} Hired</em> </span>-->
                 <span>
                 	<h5>Proposals</h5>
-                	<em><i class="fa fa-book" aria-hidden="true"></i><?= count($task_info[0]['commentArr']) ?></em>
+
+                	<em><i class="fa fa-book" aria-hidden="true"></i>{commentArr}</em>
             	</span>				
 				</div>
 				
@@ -155,7 +156,7 @@ border: 2px solid
           </div>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-4" style="margin-top: -16%;">
         	
           <div class="task_Right_Div">
           	<h5>Hired Freelancer</h5>

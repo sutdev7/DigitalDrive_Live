@@ -392,7 +392,17 @@ class Microkeys extends CI_Model {
         return $query->num_rows();
     
     }
-
+     #Abhishek 
+     public function get_microkey_count_freelance_by_id($val_id){
+        
+        $this->db->select('user_id');
+        $this->db->from('microkey');
+        $this->db->where('user_id',$val_id);
+        $query = $this->db->get();
+        return $query->num_rows();
+    
+    }
+    #Abhishek 
     public function get_microkey_data_freelance($searchValue,$rowperpage,$rowno){
         
         //echo $rowno; echo $rowperpage; die;
@@ -474,6 +484,65 @@ class Microkeys extends CI_Model {
         }
     
     }
+
+     #Abhishek  Changes
+    public function get_microkey_data_freelanceAllprojectByid($id){
+        
+        $this->db->from('microkey');
+        $this->db->where('user_id',$id);
+        $this->db->limit('5');
+        $query = $this->db->get()->result_array();
+
+        return $query;
+    }
+
+    /*
+     * User profile details By ID
+     */
+    public function get_user_profile_info_by_id($aId = null)
+    {
+        $user_data = $user_languages = $user_skills = array();
+        
+        if (empty($aId))
+            return FALSE;
+        
+        $this->db->select('users.*,user_login.total_points,user_login.total_positive_coins,user_login.total_negative_coins,user_login.total_coins,user_login.profile_id,user_login.profile_image,user_login.is_login,user_login.profile_title,user_login.profile_title_skill,user_login.profile_status,user_login.phone_no,,country.name as country_name');
+        $this->db->from('users');
+        $this->db->join('user_login', 'user_login.user_id = users.user_id');
+        $this->db->join('country', 'country.country_id = users.country', 'left');
+        $this->db->where('users.user_id', $aId);
+        $this->db->group_by('users.user_id');
+        $query                   = $this->db->get();
+        $user_data['basic_info'] = $query->row();
+        
+        // Get user selected languages
+        
+        
+        // Get user selected skills
+       
+        
+        // Get user country
+        $this->db->select('users.user_id,users.country,country.name ');
+        $this->db->from('users');
+        $this->db->join('country', 'country.country_id = users.country', 'left');
+        $this->db->where('users.user_id', $aId);
+        $this->db->group_by('users.user_id');
+        
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            $result                           = $query->row();
+            $user_data['basic_info']->country = $result->name;
+        }
+        
+        if (!empty($user_data)) {
+            return $user_data;
+        } else {
+            return array();
+        }
+    }
+    
+ 
+    
 
      /*
      * Get user Micro Kek Unque Value.

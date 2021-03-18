@@ -7,12 +7,9 @@ class Transaction extends CI_Model {
 	public function __construct(){
 
 		parent::__construct();
-		if(!$this->auth->is_logged()) {
-        	$this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You haven\'t login to the portal. Please login to proceed further.</div>');
-        	redirect('sign-in', 'refresh');
 
-		}
-		
+
+
 		$this->table = 'payments';
 
     }
@@ -22,41 +19,22 @@ class Transaction extends CI_Model {
     public function get_transaction_list($count = 0, $status = ""){
 
 		$this->db->select('*');
-
         $this->db->from('payments');
-
 		$this->db->join('task', 'task.task_id = payments.task_id');
-
 		$this->db->join('task_hired', 'task_hired.task_id = payments.task_id');
-
-        $this->db->join('user_login', 'task_hired.freelancer_id = user_login.user_id');
-
+        $this->db->join('task_proposal_milestone', 'task_proposal_milestone.milestone_id = payments.milestone_id');
+		//$this->db->join('user_login', 'user_login.user_id = users.user_id');
 		
-
-		// $this->db->join('user_login', 'user_login.user_id = users.user_id');
-
-		// $this->db->join('country', 'country.country_id = users.country','left');
-
-		// $this->db->order_by('user_login.unique_id','asc');
-
 		$result = $this->db->get();
-
-		// echo'<pre>';print_r($result->result());exit;
-
+		//echo'<pre>';print_r($result->result());exit;
 		if($count == 1){
-
 			return $result->num_rows();
-
 		}
 
 		if($result->num_rows() > 0){
-
 			return $result->result();
-
-		}else{
-
+		} else{
 			return array();
-
 		}
 
 	}
@@ -114,32 +92,60 @@ class Transaction extends CI_Model {
 	public function get_freelancer_inescrow_income($count = 0, $status = ""){
 
 		if($count == 2){
+
 			$this->db->select('sum(payments.amount) as inescrow');
+
 		}else{
+
 			$this->db->select('*');
+
 		}
+
         $this->db->from('payments');
+
 		$this->db->join('task', 'task.task_id = payments.task_id');
+
 		$this->db->join('task_hired', 'task_hired.task_id = payments.task_id');
+
         $this->db->join('user_login', 'task_hired.freelancer_id = user_login.user_id');
+
 		$this->db->where('user_login.user_id',$_SESSION["user_id"]);
+
 		$this->db->where('payments.payment_status','yes');
+
 		// $this->db->join('user_login', 'user_login.user_id = users.user_id');
+
 		// $this->db->join('country', 'country.country_id = users.country','left');
+
 		// $this->db->order_by('user_login.unique_id','asc');
+
 		$result = $this->db->get();
+
 		//  echo $this->db->last_query();exit;
+
 		// echo'<pre>';print_r($result->result());exit;
-		if($count == 1){
+
+		if($result !== FALSE && $count == 1){
+
 			return $result->num_rows();
-		}else if($count == 2){
+
+		}else if($result !== FALSE && $count == 2){
+
 			return $result->result_array();
+
 		}
-		if($result->num_rows() > 0){
+
+		if($result !== FALSE && $result->num_rows() > 0){
+
 			return $result->result_array();
+
 		}else{
+
 			return array();
+
 		}
+
+
 
 	}
 
@@ -169,7 +175,7 @@ class Transaction extends CI_Model {
 
 		$this->db->where('user_login.user_id',$_SESSION["user_id"]);
 
-		$this->db->where('payments_withdra.payment_status','refund');
+		$this->db->where('payments_withdra.payment_status','yes');
 
 		// $this->db->join('user_login', 'user_login.user_id = users.user_id');
 
@@ -183,17 +189,17 @@ class Transaction extends CI_Model {
 
 		// echo'<pre>';print_r($result->result());exit;
 
-		if($count == 1){
+		if($result !== FALSE && $count == 1){
 
 			return $result->num_rows();
 
-		}else if($count == 2){
+		}else if($result !== FALSE && $count == 2){
 
 			return $result->result_array();
 
 		}
 
-		if($result->num_rows() > 0){
+		if($result !== FALSE && $result->num_rows() > 0){
 
 			return $result->result_array();
 
@@ -245,17 +251,17 @@ class Transaction extends CI_Model {
 
 		// echo'<pre>';print_r($result->result());exit;
 
-		if($count == 1){
+		if($result !== FALSE && $count == 1){
 
 			return $result->num_rows();
 
-		}else if($count == 2){
+		}else if($result !== FALSE && $count == 2){
 
 			return $result->result_array();
 
 		}
 
-		if($result->num_rows() > 0){
+		if($result !== FALSE && $result->num_rows() > 0){
 
 			return $result->result_array();
 
@@ -274,66 +280,35 @@ class Transaction extends CI_Model {
 	function getRows($params = array()){
 
 		$this->db->select('*');
-
 		$this->db->from($this->table);
-
-		
-
 		if(array_key_exists("where", $params)){
-
 			foreach($params['where'] as $key => $val){
-
 				$this->db->where($key, trim($val));
-
 			}
-
 		}
-
-		
 
 		if(array_key_exists("search", $params)){
-
 			// Filter data by searched keywords
-
 			if(!empty($params['search']['keywords'])){
-
 				$this->db->like('task.task_name', trim($params['search']['keywords']));
-
 			}
-
 		}
-
-		
 
 		// Sort data by ascending or desceding order
-
 		if(!empty($params['search']['sortBy'])){
-
 			$this->db->order_by('task.task_name', $params['search']['sortBy']);
-
 		}else{
-
 			$this->db->order_by('id', 'desc');
-
 		}
 
-		
-
 		if(array_key_exists("returnType",$params) && $params['returnType'] == 'count'){
-
 			// $result = $this->db->count_all_results();
-
 			$this->db->join('task', 'task.task_id = payments.task_id');
-
 			$this->db->join('task_hired', 'task_hired.task_id = payments.task_id');
-
 			$this->db->join('user_login', 'task_hired.freelancer_id = user_login.user_id');
-
 			$query = $this->db->get();
-
 			// echo $this->db->last_query();exit;
-
-			$result = ($query->num_rows() > 0)?$query->num_rows():0;
+			$result = ($query !== FALSE && $query->num_rows() > 0)?$query->num_rows():0;
 
 		}else{
 
@@ -346,15 +321,10 @@ class Transaction extends CI_Model {
 				}
 
 				$this->db->join('task', 'task.task_id = payments.task_id');
-
 				$this->db->join('task_hired', 'task_hired.task_id = payments.task_id');
-
 				$this->db->join('user_login', 'task_hired.freelancer_id = user_login.user_id');
-
 				$query = $this->db->get();
-
 				// echo $this->db->last_query();exit;
-
 				$result = $query->row_array();
 
 			}else{
@@ -381,7 +351,7 @@ class Transaction extends CI_Model {
 
 				// echo $this->db->last_query();exit;
 
-				$result = ($query->num_rows() > 0)?$query->result_array():FALSE;
+				$result = ($query !== FALSE && $query->num_rows() > 0)?$query->result_array():FALSE;
 
 			}
 
@@ -392,39 +362,6 @@ class Transaction extends CI_Model {
 		// Return fetched data
 
 		return $result;
-
-	}
-
-
-	public function get_freelancer_inescrow_data($count = 0, $status = ""){
-
-		if($count == 2){
-			$this->db->select('sum(payments.amount) as inescrow');
-		}else{
-			$this->db->select('*');
-		}
-        $this->db->from('payments');
-		$this->db->join('task', 'task.task_id = payments.task_id');
-		$this->db->join('task_hired', 'task_hired.task_id = payments.task_id');
-        $this->db->join('user_login', 'task_hired.freelancer_id = user_login.user_id');
-		// $this->db->where('user_login.user_id',$_SESSION["user_id"]);
-		$this->db->where('payments.payment_status','yes');
-		// $this->db->join('user_login', 'user_login.user_id = users.user_id');
-		// $this->db->join('country', 'country.country_id = users.country','left');
-		// $this->db->order_by('user_login.unique_id','asc');
-		$result = $this->db->get();
-		//  echo $this->db->last_query();exit;
-		// echo'<pre>';print_r($result->result());exit;
-		if($count == 1){
-			return $result->num_rows();
-		}else if($count == 2){
-			return $result->result_array();
-		}
-		if($result->num_rows() > 0){
-			return $result->result_array();
-		}else{
-			return array();
-		}
 
 	}
 

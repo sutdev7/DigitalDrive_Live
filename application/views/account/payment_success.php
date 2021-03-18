@@ -64,7 +64,7 @@
 <?php  //print_r($result); echo '{result}{email}{/result}' ?>
 <div class="container">
    <div class="row">
-      <div class="col-md-6 mx-auto mt-5">
+      <div class="col-md-8 mx-auto mt-5">
          <div class="payment">
           <div class="payment_header">
             <div class="check"><i class="fa fa-check" aria-hidden="true"></i></div>
@@ -72,7 +72,14 @@
             <hr class="payment_header_hr">
             <div class="content">
                <!-- Verification email sent to inbox -->
-               <h1>Payment is successfully Done !!</h1>
+
+        <?php if($this->session->userdata('user_id') =="") { ?>
+            <h2>You are successfully registered with us.</h2>
+            <p><b>Your account verification link sent on your registered email id</b></p>
+        <?php } ?>
+
+               <h2>Payment is successfully Done !!</h2>
+               <p></p>
 
                <?php if(isset($result[0]->name)){ ?>
                 <p><b>Your Upgraded Plan:</b> {result}{name}{/result}</p>
@@ -82,7 +89,13 @@
               <p><b>Paid Amount:</b> {result}{amount}{/result} {result}{currency_code}{/result}</p>
               <p><b>Payment Status:</b> {result}{payment_status}{/result}</p>
               <p><b>Payment Type:</b> {result}{payment_type}{/result}</p>
+            <?php if($this->session->userdata('user_id') =="") { ?>
               <a href="<?php echo base_url(); ?>sign-in">Sign in & Complete Profile</a>
+          	<?php } else{?>
+          		<a href="<?php echo base_url(); ?>dashboard">Go to Dashboard</a>
+          	<?php  } ?>
+
+
             </div>
          </div>
      </div>

@@ -68,7 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-div-5">
                   <div class="task_Left_Div pink">
                     <label>In Escrow</label>
-                    <h4>$0</h4>
+                    <h4>${contract_total_budget_escrow}</h4>
                   </div>
                 </div>
                 <div class="col-div-5">
@@ -95,21 +95,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {/freelancer_details}
                 <div class="col-md-7 pflBox3">
                   <div class="row">
-                    <div class="col-md-4"><a href="<?php echo base_url(); ?>messages" class="msgLink">Send Message</a></div>
-                    <div class="col-md-4">
-                      <!--<form name="frmCloseContract" id="frmCloseContract" action="<?php echo base_url(); ?>close-contract" method="post">
-                        <input type="hidden" name="fldContractID" value="{contractID}" /> 
-                        <input type="hidden" name="fldOfferID" value="{offerID}" />
-                        <input type="hidden" name="fldTaskID" value="{taskID}" />
-                        <input type="hidden" name="fldFreelancerID" value="{freelancerID}" />                         
-                      </form>-->
-                      <a href="<?= base_url().'close-contract/'.$this->uri->segment(2) ?>" class="nLink">Close Contract</a>
-                    </div>
-                    <div class="col-md-4">
-						<!--<a href="#myModal" class="nLink" data-toggle="modal">Raise Problem To Hire-n-Work </a>-->
-						<a href="<?= base_url().'problem-ticket' ?>" class="nLink" >Raise Problem</a>
-					
-					</div>
+                    <div class="col-md-4"><a href="<?php echo base_url(); ?>messages" class="msgLink">Send Message</a></div>                    
+                  <?php if($task_is_complete==0) { ?>
+                    <div class="col-md-4"><a href="<?= base_url().'close-contract/'.$this->uri->segment(2) ?>" class="nLink">Close Contract</a></div>
+                    <div class="col-md-4"><a href="<?= base_url().'problem-ticket' ?>" class="nLink" >Raise Problem</a></div>
+                  <?php } ?>
                   </div>
                 </div>
               </div>
@@ -130,57 +120,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tbody>
                   {contract_milestone_info}
                   <tr>
-                    <td>{task_name}</td>
+                    <td>{title}</td>
                     <td><img src="<?php echo base_url(); ?>assets/img/cal-img.png" alt=""> {due_date} <a href="#" data-toggle="modal" data-target="#myModa{milestone_id}"> Change </a> </td>
                     <td>${amount}</td>
                     <td>{status}</td>
                     <td>{payment_status}</td>
                   </tr>
 				  
-<div class="myModal-newdiv3">
-  <div class="modal" id="myModa{milestone_id}">
-    <div class="modal-dialog">
-      <div class="modal-content"> 
-        <form name="frmChangeDate" class="frmChangeDateModal" id="formid{milestone_id}" action="<?php echo base_url(); ?>Hire/ajax_change_milestone_date" method="post">
-        <input type="hidden" name="frmChangeDate_milestone_id" id="frmChangeDate_milestone_id" value="{milestone_id}" />
+                  <div class="myModal-newdiv3">
+                    <div class="modal" id="myModa{milestone_id}">
+                      <div class="modal-dialog">
+                        <div class="modal-content"> 
+                          <form name="frmChangeDate" class="frmChangeDateModal" id="formid{milestone_id}" action="<?php echo base_url(); ?>Hire/ajax_change_milestone_date" method="post">
+                          <input type="hidden" name="frmChangeDate_milestone_id" id="frmChangeDate_milestone_id" value="{milestone_id}" />
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Change Date</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">            
-          <div class="add-mileston">
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-xs-12">
-                <label>Select Date</label>
-                <div id="ChangeDatePicker{milestone_id}" class="input-group date duedatemilestone" data-date-format="dd-mm-yyyy">
-                  <input class="form-control" type="text" name="frmChangeDate" id="frmChangeDate" value="">
-                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span> </div>
-              </div>
-              <div> </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary btnChangeDate" data-dismiss="modal" id="{milestone_id}"> Save </button>
-        </div>
-        
-        </form>
-      </div>
-    </div>
-  </div>
-</div>				  
-	 
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h4 class="modal-title">Change Date</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          
+                          <!-- Modal body -->
+                          <div class="modal-body">            
+                            <div class="add-mileston">
+                              <div class="row">
+                                <div class="col-lg-12 col-md-12 col-xs-12">
+                                  <label>Select Date</label>
+                                  <div id="ChangeDatePicker{milestone_id}" class="input-group date duedatemilestone" data-date-format="dd-mm-yyyy">
+                                    <input class="form-control" type="text" name="frmChangeDate" id="frmChangeDate" value="">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span> </div>
+                                </div>
+                                <div> </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btnChangeDate" data-dismiss="modal" id="{milestone_id}"> Save </button>
+                          </div>
+                          
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>	 
 				  
                   {/contract_milestone_info}
                 </tbody>
               </table>
-              <div class="bottom-add"> <a href="#" class="add_new_milestone" data-toggle="modal" data-contract="{contract_id}" data-target="#myModal6"> + Add Another </a> </div>
+               <div class="bottom-add"> <a href="#" class="add_new_milestone" data-toggle="modal" data-contract="{contract_id}" data-target="#myModal6"> + Add Another </a> </div>
             </div>
             <!--<div class="massage-from-box">
               {freelancer_details}
@@ -200,9 +189,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="modal" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content"> 
+        
         <form action="<?php echo base_url(); ?>complain" name="frmPostComplain" id="frmPostComplain" method="post" enctype="multipart/form-data">
         <input type="hidden" name="fldContractID" value="{contract_id}" />
         <input type="hidden" name="fldOfferID" value="{offerID}" />
+        <input type="hidden" name="proposal_id" value="{hired_proposal}" />
         <input type="hidden" name="fldTaskID" value="{taskID}" />
         <input type="hidden" name="fldFreelancerID" value="{freelancerID}" />                        
 
@@ -277,6 +268,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="modal-content"> 
         <form name="frmAddNewMilestone" id="frmAddNewMilestone" action="<?php echo base_url(); ?>Hire/ajax_add_new_milestone" method="post">
         <input type="hidden" name="frmAddNewMilestone_Contract_id" id="frmAddNewMilestone_Contract_id" value="<?= $this->uri->segment(2) ?>" /> 
+        <input type="hidden" name="proposal_id" value="{hired_proposal}" />
+        <input type="hidden" name="hired_id" value="{contract_id}" />
+        <input type="hidden" name="user_task_id" value="{user_task_id}" />
 
         <!-- Modal Header -->
         <div class="modal-header">
@@ -306,19 +300,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div> </div>
             </li>
-            <div class="radiodiv">
+            <div class="radiodiv" style="width: 50% !important;">
               <ul>
                 <li>
-					<label class="containerdiv"> Deposit the fund Now
-						<input type="radio" name="fldMilestoneDepositMode" value="deposit_fund_now" />
-						<span class="checkmark"></span>
-					</label>
+        					<label class="containerdiv"> Deposit the fund Now
+        						<input type="radio" name="fldMilestoneDepositMode" value="deposit_fund_now" />
+        						<span class="checkmark"></span>
+        					</label>
                 </li>
                 <li>
-					<label class="containerdiv"> Deposit the fund later
-						<input type="radio" name="fldMilestoneDepositMode" checked value="deposit_fund_later" />
-						<span class="checkmark"></span>
-					</label>
+          					<label class="containerdiv"> Deposit the fund later
+          						<input type="radio" name="fldMilestoneDepositMode" checked value="deposit_fund_later" />
+          						<span class="checkmark"></span>
+          					</label>
                 </li>
               </ul>
             </div>
@@ -414,13 +408,20 @@ $(document).ready(function(){
     })
     .done(function( msg ) { 
 		var msg = JSON.parse(msg);
-		if(msg.status === 1){
+		    if(msg.status === 1){
           alert('New Milestone added successfully');
+          if(msg.paynow !=""){
+            window.location="<?php echo base_url()?>hire/step-2/"+msg.paynow;
+          } else{
+            location.reload();
+          }
         }
         else {
-           alert('Milestone addition unsuccessful');        
+           alert('Milestone addition unsuccessful'); 
+           location.reload();
         }
-        location.reload();              
+        
+
     });      
   });
 

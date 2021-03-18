@@ -33,9 +33,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                            <!--  <p class="my-2">Don Bros <span class="d-block small"><i
                                                         class="fa fa-map-marker"></i> Sydney, NSW, Australia</span>
                                             </p> -->
-                                             <p class="my-2 text-center "><i
-                                                        class="fa fa-map-marker text-info"></i> &nbsp;&nbsp;<?=$value->cname?></span></p>
-                                            <p class="my-2 text-center" style="height: 66px"><?= substr($value->bio, 0, 100); ?>
+                                             <p class="my-2 text-center "><!-- <i
+                                                        class="fa fa-map-marker text-info"></i> --><img src="<?=base_url()?>assets/img/round-img1.png"> &nbsp;&nbsp;<?=$value->cname?></span></p>
+                                            <p class="my-2 text-center" ><?=$value->profile_title; ?>
                                             </p>
                                             <!-- <p class="my-2 small"><span class="text-primary"><b>50</b></span>
                                                 Projects

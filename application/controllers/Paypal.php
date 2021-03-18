@@ -22,12 +22,14 @@ class Paypal extends CI_Controller{
 		$cancelURL = base_url().'paypal/cancel'; //payment cancel url
 		$notifyURL = base_url().'paypal/ipn'; //ipn url
 		$task_id = $_POST['task_id'];
+		$milestone_id = explode("-", $_POST['usertaskid_milestoneid'])[1];
+
 		$payableamount = $_POST['payableamount'];
 		$userID = !empty($this->session->userdata('user_id'))?$this->session->userdata('user_id'):1;
 		$product = $this->Tasks->getTaskDataById($task_id);
 		// echo'<pre>';print_r($product);exit;
 
-		$returnURL = base_url().'paypal/success?item_number='.$task_id.'&custom='.$userID; //payment success url		
+		$returnURL = base_url().'paypal/success?item_number='.$task_id.'&custom='.$userID.'&milestone_id='.$milestone_id; //payment success url		
 		// Add fields to paypal form
 		$this->paypal_lib->add_field('return', $returnURL);
 		$this->paypal_lib->add_field('cancel_return', $cancelURL);
@@ -50,14 +52,18 @@ class Paypal extends CI_Controller{
 		$paypalInfo= $this->input->get();
 		//print_r($paypalInfo); exit();
 		$productData = $paymentData = array();
+		$task_id = $paypalInfo['item_number'];
+		$milestone_id = $paypalInfo['milestone_id'];
+
 		if(!empty($paypalInfo['tx']) && !empty($paypalInfo['amt']) && !empty($paypalInfo['cc']) && !empty($paypalInfo['st'])){
-			$task_id = $paypalInfo['item_number'];
+			
 			$orderData = array(				
 				'task_id' => $paypalInfo['item_number'],
 				'user_id' => $paypalInfo['custom'],
 				'amount' => $paypalInfo["amt"],
 				'currency_code' => $paypalInfo["cc"],
 				'txn_id' => $paypalInfo["tx"],
+				'milestone_id'=>$milestone_id,
 				'payment_status' => 'yes',
 				'payment_type' => 'paypal',
 				'created_date' => date('Y-m-d H-i-s'),
@@ -77,6 +83,16 @@ class Paypal extends CI_Controller{
 			$this->db->where('task_id', $task_id);
 			$this->db->update('task', $data2);
 
+			$updateArr = array(
+		      'milestone_current_status' => 'AR',
+		      'milestone_approval_date' => date('Y-m-d H-i-s'),
+		      'milestone_dom' => date('Y-m-d H-i-s'),
+		      'payment_status' => '1',
+		    );
+		    $this->db->where('milestone_id',$milestone_id);
+		    $this->db->update('task_proposal_milestone',$updateArr);
+
+
 		}
 
 		$this->db->select('*');
@@ -89,10 +105,47 @@ class Paypal extends CI_Controller{
 		//echo $this->db->last_query();exit;
 		// echo'<pre>';print_r($result->result());exit;
 		if($result->num_rows() > 0){
-			$parsedata['result'] = $result->result();
-		}else{
+			$parsedata1 = $result->result();
+			$parsedata['result'] = $parsedata1;
+
+			//Updating Notification 
+			$freelancer_id = $parsedata1->freelancer_id;
+			$task_query = $this->db->select('task.*')->from('task')->where('task_id',$task_id)->get();
+		      if($task_query->num_rows() >0){
+		        $task_info = $task_query->row();
+		        $task_name = $task_info->task_name;
+		        $user_task_id = $task_info->user_task_id;
+		      }else{
+		        $task_name = $user_task_id = '';
+		      }
+						
+		    $job_details_link = '<a href="'.base_url().'hired-job-details/'.$user_task_id.'">'.$task_name.'</a>';
+
+		      // check already hired  &  insert notification
+			$checkData = $this->db->select('hired_id')->from('task_hired')->where('task_id',$task_id)->where('freelancer_id',$freelancer_id)->get();
+
+		    if($checkData->num_rows() > 0){
+
+		        $notidata = array(
+		  		 'task_id' => $task_id,
+		         'offer_id' => 0,
+		         'notification_master_id' => 11,
+		         'notification_from' => $this->session->userdata('user_id'),
+		         'notification_to' => $freelancer_id,
+		         'notification_details' => 'SEND HIRED ',
+		         'notification_message' => '<strong>'.'<a href="'.base_url().'public-profile/'.$this->session->userdata('profile_id').'">'.$this->session->userdata('user_name').'</a></strong> wants to hire you for <strong> '.$job_details_link.' </strong>',
+		         'notification_doc' => date('Y-m-d H:i:s')
+		        );
+
+		       // print_r($notidata); exit();		        
+		        $this->db->insert('task_notification',$notidata);
+		    }
+
+		    }else{
+
 			$parsedata['result'] = array();
 		}
+
 		$content = $this->parser->parse('account/payment_success',$parsedata,true);
 		$data = array(
 			'content' => $content,
@@ -124,31 +177,17 @@ class Paypal extends CI_Controller{
 		// Retrieve transaction data from PayPal IPN POST
 
 		$paypalInfo = $this->input->post();
-
 		// echo'<pre>';print_r($paypalInfo);exit;
-
 		if(!empty($paypalInfo)){
-
 			// Validate and get the ipn response
-
 			$ipnCheck = $this->paypal_lib->validate_ipn($paypalInfo);
-
-
-
 			// Check whether the transaction is valid
-
 			if($ipnCheck){
-
 				// Check whether the transaction data is exists
-
 				$prevPayment = $this->payment->getPayment(array('txn_id' => $paypalInfo["txn_id"]));
-
 				// print_r($prevPayment);exit;
-
 				if(!$prevPayment){
-
 					// Insert the transaction data in the database
-
 					$data['user_id']	= $paypalInfo["custom"];
 
 					$data['product_id']	= $paypalInfo["item_number"];
@@ -164,8 +203,6 @@ class Paypal extends CI_Controller{
 					$data['payer_email']	= $paypalInfo["payer_email"];
 
 					$data['status'] = $paypalInfo["payment_status"];
-
-	
 
 					$this->payment->insertTransaction($data);
 

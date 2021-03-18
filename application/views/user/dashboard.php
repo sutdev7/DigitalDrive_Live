@@ -95,11 +95,9 @@
                       
                       <div class="caption">
                         <h3> <p></p></h3>
-                        <?php
-
-$query=$this->db->get_where('task',array('task_id'=>'{task_id}'))->row();
-//echo $this->db->last_query($query);
-                         echo $query->task_doc;
+                          <?php //$query=$this->db->get_where('task',array('task_id'=>'{task_id}'))->row();
+                          //echo $this->db->last_query($query);
+                        // echo $query->task_doc;
                          ?>
                       </div>
                     </div>

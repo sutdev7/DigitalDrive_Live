@@ -26,6 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | -------------------------------------------------------------------------
 |
 | There are three reserved routes:
+
 |
 |	$route['default_controller'] = 'welcome';
 |
@@ -89,7 +90,9 @@ $route['paymentupdate'] = 'User/paymentupdate';
 $route['public-profile'] = 'User/public_profile';
 $route['public-profile/(:any)'] = 'User/public_profile/$l';
 $route['reviews'] = 'review';
+$route['reviews/(:any)'] = 'review';
 $route['givereview/(:any)'] = 'review/give_review/$1';
+
 
 $route['settings'] = 'User/settings';
 $route['messages'] = 'User/messages';
@@ -129,6 +132,7 @@ $route['received-offers/(:any)'] = 'Task/received_offers/$1';
 $route['key-list'] = 'Freelancer/key_list';
 $route['key-list/(:num)'] = 'Freelancer/key_list/$1';
 $route['key-list/(:any)/(:num)'] = 'Freelancer/key_list/$l/$1';
+
 //$route['public-profile'] = 'Freelancer/public_profile';
 //$route['public-profile/(:any)'] = 'Freelancer/public_profile/$l';
 $route['earnings'] = 'Freelancerearnings';//'Freelancer/earnings'; // by amardeep
@@ -139,7 +143,8 @@ $route['admin/transaction-list'] = 'admin/transaction_list'; // by amardeep
 
 $route['analytics'] = 'Freelancer/analytics';
 $route['problem-ticket'] = 'Freelancer/problem_ticket';
-//$route['problem-ticket'] = 'Freelancer/problem_ticket';
+$route['problem-ticket/(:any)'] = 'Freelancer/problem_ticket_details';//Asif
+$route['problem-ticket'] = 'Freelancer/problem_ticket';
 $route['ticket-history'] = 'Freelancer/ticket_history';
 $route['user-compose-email/(:any)'] = 'Freelancer/user_compose_email/$1';
 $route['ticket-history-details/(:any)'] = 'Freelancer/ticket_history_details/$1';
@@ -149,6 +154,7 @@ $route['direct-hire/step-2/(:any)'] = 'Hire/direct_hire_step2/$l';
 $route['hire/step-2/(:any)'] = 'Hire/hire_step2/$l';
 $route['hire-freelancer'] = 'Hire/hire_freelancer';
 $route['direct-hire-freelancer'] = 'Hire/direct_hire_freelancer';
+$route['direct-hire-freelancer/(:any)'] = 'Hire/direct_hire_freelancer/$1';
 $route['hire-freelancer/(:any)'] = 'Hire/hire_freelancer/$1';
 $route['job-details/(:any)'] = 'Freelancer/freelancer_job_details/$l';
 $route['hired-job-details/(:any)'] = 'Freelancer/hired_job_details/$l';
@@ -171,6 +177,7 @@ $route['my-jobs/(:num)'] = 'Freelancer/save_job_list/$1';
 
 $route['offer-jobs'] = 'Freelancer/offer_jobs';
 
+
 $route['proposal'] = 'Freelancer/proposal';
 $route['active-jobs'] = 'Freelancer/active_jobs';
 $route['job-list/(:any)'] = 'Freelancer/job_list/$l';
@@ -185,6 +192,9 @@ $route['freelancer-close-contract/(:any)/(:any)'] = 'Freelancer/close_contract/$
 /************************************************/
 //$route['admin/login'] = 'Admin/login';
 $route['updatenotif'] = 'Admin/updatenotif';
+
+$route['admin/commission'] = 'Admin/commisionAdd';
+$route['admin/commissionUpdate'] = 'Admin/commisionUpdate';
 
 $route['admin/dashboard'] = 'Admin/dashboard';
 $route['admin/client-list/(:any)'] = 'Admin/client_list/$1';
@@ -273,6 +283,9 @@ $route['view-microkey-task/(:any)'] = 'Tasklist/view_microkey_task/$1';//Non LOg
 $route['view-task-details/(:any)'] = 'Tasklist/view_task_details/$1';//Non LOggedin View of TAsk
 
 $route['admin/issue-category-list'] = 'Admin/issue_category_list';//New Issue Menu
+
+//Asif 
+$route['sign-up-success/(:any)'] = 'Account/sign_up_success/$1';//New Issue Menu
 
 
 

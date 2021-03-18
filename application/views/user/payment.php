@@ -22,23 +22,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </nav>
         <?php 
             $msg = $this->session->flashdata('msg'); 
-            if(!empty($msg)) {
-            ?>
-            <section style="padding-top: 0.5%;">
-              <?php echo $msg; ?>
-            </section>
-            <?php
-            }
+            if(!empty($msg)) { ?>
+                <section style="padding-top: 0.3%;"><div class="alert alert-success text-center"><?php echo $msg; ?></div></section>
+            <?php }
             
             ($this->session->userdata('user_type') == 3)? $user_type = 'Client' : $user_type = 'Freelancer';
             
-            ?>
-
-            <?php 
             $frmValidationMsg = validation_errors(); 
             if(!empty($frmValidationMsg)) {
             ?>
-            <section style="padding-top: 7%;">
+            <section style="padding-top: 0.3%;">
               <?php echo '<div class="alert alert-danger text-center">' . $frmValidationMsg . '</div>'; ?>
             </section>
             <?php

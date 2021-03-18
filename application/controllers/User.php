@@ -31,7 +31,8 @@ function hashpassword($password) {
 			// );
 			// $this->template->full_customer_html_view($data);	
 
-			redirect('client-dashboard/'.$this->session->userdata('username'),'refresh');
+			//redirect('client-dashboard/'.$this->session->userdata('username'),'refresh');
+			redirect('upcoming-projects','refresh');
 
 		}elseif($this->session->userdata('user_type') == 4){
 
@@ -98,15 +99,29 @@ function hashpassword($password) {
 		    'title' => display('Search Freelancer :: Hire-n-Work'),
 		);
 		$this->template->full_customer_html_view($data);
-	}		
+	}
+
 	public function client_bio(){
 		$content = $this->luser->client_bio_page();
+		$userType = $this->session->userdata('user_type');
+		if($userType == 4){
+			$type = 'Freelancer Bio';
+		}else{
+			$type = 'Client Bio';
+		}
 		$data = array(
 			'content' => $content,
-			'title' => display('Client Bio :: Hire-n-Work'),
+			'title' => display(''.$type.' :: Hire-n-Work'),
 		);
-		$this->template->full_customer_html_view($data);		
+		
+		if($userType == 4){
+			$this->template->full_freelancer_html_view($data);
+		}else{
+			$this->template->full_customer_html_view($data);
+		}
+		//$this->template->full_customer_html_view($data);		
 	}
+
 	public function editprofile(){
 		$content = $this->luser->edit_profile_page();
 		$data = array(
@@ -300,25 +315,22 @@ function hashpassword($password) {
 	public function paymentsave() {
 		$this->load->model('Users');
 		$CI =& get_instance();
-            $CI->load->model('Users');
-			$user_name =$this->session->userdata('user_name');
+        $CI->load->model('Users');
+		$user_name =$this->session->userdata('user_name');
 
-			$data= $CI->input->post();
+		$data= $CI->input->post();
 
-			$data = array(
-			    'account_number' => $CI->input->post('account_number'),
-			    'account_name' => $CI->input->post('account_name'),
-			    'bank_name' => $CI->input->post('bank_name'),
-			    'ifsc_code' => $CI->input->post('ifsc_code'),
-			    'bank_address' => $CI->input->post('bank_address'),
-			    'user_id' => $CI->session->userdata('user_id')
-			    
-				,
-			   
-		  );
-			$inserting = $this->db->insert('use_bank_info',$data);
+		$data = array(
+			'account_number' => $CI->input->post('account_number'),
+			'account_name' => $CI->input->post('account_name'),
+			'bank_name' => $CI->input->post('bank_name'),
+			'ifsc_code' => $CI->input->post('ifsc_code'),
+			'bank_address' => $CI->input->post('bank_address'),
+			'user_id' => $CI->session->userdata('user_id')
+		);
+		$inserting = $this->db->insert('use_bank_info',$data);
 			
-			$content = $this->laccount->confirm_email_admin($user_name);	
+		$content = $this->laccount->confirm_email_admin($user_name);	
 		redirect(base_url().'payment');
 		
 		
@@ -343,8 +355,13 @@ function hashpassword($password) {
 		  );
 			$this->db->where('user_id', $user_id);
 			$inserting = $this->db->update('use_bank_info',$data);
-		
-		redirect(base_url().'payment');
+			if($this->session->userdata('user_type') == 3){
+				$CI->session->set_flashdata('msg', 'Your Bio Profile Updated | You can post/hire after Admin Approval');	
+			} else{
+				$CI->session->set_flashdata('msg', 'Your Bio Profile Updated | You can bid after Admin Approval');
+			}
+			
+			redirect(base_url().'payment');
 		
 	}
 	
@@ -572,6 +589,15 @@ function hashpassword($password) {
 	{
 	  $CI =& get_instance();
 	  echo $status = $CI->Messages->delete_chat_session_time();die;
+	}
+	
+	
+	/** function to get recent frnd id **/
+	public function get_recent_frnd_id()
+	{
+	  $CI =& get_instance();
+	  $url = $CI->Messages->get_recent_frnd_id();
+	  echo $url;die;
 	}
 }
 

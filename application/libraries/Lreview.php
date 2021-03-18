@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Lreview {
-	public function review_page(){
+	public function review_page($freelancer_id=''){
 		$CI =& get_instance();
 		$data = $userInfo = array();
 		$CI->load->model('Users');
@@ -10,14 +10,19 @@ class Lreview {
 		$CI->load->model('Freelancers');
 		$CI->load->library('Ltask');
 		
+		if(isset($freelancer_id) && $freelancer_id !=''){
+			$FR_id = $freelancer_id;
+		}else{
+			$FR_id = $CI->session->userdata('user_id');
+		}
 		
-		$user_profile_image = $CI->session->userdata('user_image');
+		/*$user_profile_image = $CI->session->userdata('user_image');
 	    if(empty($user_profile_image)) {
 	    	$user_profile_image = base_url('assets/img/no-image.png');
 	    } else {
 	    	$user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);	    	
-	    }
-        $userData = $CI->Users->get_user_profile_info_by_id($CI->session->userdata('user_id'));	
+	    }*/
+        $userData = $CI->Users->get_user_profile_info_by_id($FR_id);	
         if($userData['basic_info']->gender == 'M') {
         	$arrGender[] = array('key' => 'M', 'value' => 'Male', 'checked' => 'checked', 'element_id' => 'radio-btn-1', 'icon' => base_url('assets/img/maleIcon.png'));
         	$arrGender[] = array('key' => 'F', 'value' => 'Female', 'checked' => '', 'element_id' => 'radio-btn-2', 'icon' => base_url('assets/img/femaleIcon.png'));
@@ -27,11 +32,30 @@ class Lreview {
         }
 
         if(!empty($userData)) {
-            $userInfo = array('id' => $userData['basic_info']->user_id, 'name' => $userData['basic_info']->name, 'country' => $userData['basic_info']->country, 'gender' => $arrGender, 'date_of_birth' => $userData['basic_info']->date_of_birth, 'bio' => $userData['basic_info']->bio, 'address' => $userData['basic_info']->address, 'state' => $userData['basic_info']->state, 'city' => $userData['basic_info']->city, 'vat' => $userData['basic_info']->vat, 'user_image' => $user_profile_image);
+        	
+        	if(isset($userData['basic_info']->profile_image) && $userData['basic_info']->profile_image !=''){
+        		$user_profile_image=base_url('uploads/user/profile_image/'.$userData['basic_info']->profile_image);
+        	}else{
+        		$user_profile_image = base_url('assets/img/no-image.png');
+        	}
+
+            $userInfo = array(
+            	'id' => $userData['basic_info']->user_id, 
+            	'name' => $userData['basic_info']->name, 
+            	'country' => $userData['basic_info']->country, 
+            	'gender' => $arrGender, 
+            	'date_of_birth' => $userData['basic_info']->date_of_birth, 
+            	'bio' => $userData['basic_info']->bio, 
+            	'address' => $userData['basic_info']->address, 
+            	'state' => $userData['basic_info']->state, 
+            	'city' => $userData['basic_info']->city, 
+            	'vat' => $userData['basic_info']->vat, 
+            	'user_image' => $user_profile_image
+            );
         }
         $data['user_info'][] = $userInfo;    
 		
-		$condition=array("review_received"=>$CI->session->userdata('user_id'),"show_review"=>1);
+		$condition=array("review_received"=>$FR_id,"show_review"=>1);
 		$reviews_data=$CI->Reviews->get_reviews($condition);
 		
 		$reviews=array();
@@ -59,21 +83,14 @@ class Lreview {
 					//'total_positive_coins'=>$rv->total_positive_coins,
 					//'total_negative_coins'=>$rv->total_negative_coins,
 					'coins'=>$rv->coins
-					
-				
 				);
 			}
-			
-			
-			
-		}
-		
+		}		
 	
 		$data['reviews']=$reviews;
 				
 		$AccountForm = $CI->parser->parse('user/reviews',$data,true); 
 		return $AccountForm;
-		
 	}
 	
 	

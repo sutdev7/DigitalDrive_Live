@@ -275,557 +275,255 @@ class Users extends CI_Model
 
 
 
-     public function register_user_google($user_data = array())
-
-    {
-
-        
-
+    public function register_user_google($user_data = array()) {
         $area_of_interest_id = '';
-
-        
-
-        if (empty($user_data))
-
+        if (empty($user_data)){
             return array(
-
                 'status' => FALSE,
-
                 'message' => 'invalid_data'
-
             );
+        }        
 
-        
-
-        $account_exists = $this->db->select('*')->from('user_login')->where('email', $user_data['fldEmail'])->get()->num_rows();
+        $account_exists=$this->db->select('*')->from('user_login')->where('email',$user_data['fldEmail'])->get()->num_rows();
 
         if ($account_exists > 0) {
-
             return array(
-
                 'status' => FALSE,
-
                 'message' => 'account_already_exists'
-
             );
-
         } else {
-
             $id_generator     = $this->auth->generator(10);
-
-            $date_of_creation = date("Y-m-d H:i:s");
-
-            
+            $date_of_creation = date("Y-m-d H:i:s");            
 
             $data1 = array(
-
                 'user_id' => $id_generator,
-
                 'name' => $user_data[4],
-
-                
-
                 'status' => 1,
-
                 'doc' => $date_of_creation
-
-            );
-
-            
+            );           
 
             $result = $this->db->insert('users', $data1);
 
-            
-
-            
-
-            
-
-            
-
             if ($result) {
-
                 //Inset user Login table 
-
-               
-
                 $code             = $this->auth->generateCode(10);
-
                 $user_type        = 2;
-
                 $profile_status   = 1;
-
                 $total_connects   = 10;
-
-                $unique_id        = '';
-
-                $unique_user_key  = '';
-
-                $notification_msg = "";
-
-
-
-                if ($user_data[5] == 'client') {
-
-                    $user_type    = 3;
-
-                    $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%CL%' ORDER BY unique_id DESC");
-
-                    $get_result   = $query_status->result();
-
-                    
-
-                    foreach ($get_result as $Fr) {
-
-                        $Fr_unique_id  = $Fr->unique_id;
-
-                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
-
-                    }
-
-                    
-
-                    $arr     = implode(',', $Fr_uniquefr);
-
-                    $numbers = array(
-
-                        $Fr_uniquefr
-
-                    );
-
-                    
-
-                    
-
-                    
-
-                    $missing = array();
-
-                    for ($i = 1; $i < max($Fr_uniquefr); $i++) {
-
-                        if (!in_array($i, $Fr_uniquefr))
-
-                            $missing[] = $i;
-
-                    }
-
-                   
-
-                    
-
-                    if (!empty($missing)) {
-
-                        $last_id= array_values($missing)[0];
-
-                        
-
-                    } else {
-
-                        $last_id = $this->Users->getUserUniqueId($user_type);
-
-                    }
-
-                    
-
-                    
-
-                    $profile_status   = 0;
-
-                    $status           = 0;  
-
-                    $total_connects   = 10;
-
-                    $unique_id        = 'CL' . $last_id;
-
-                    $unique_user_key  = $last_id;
-
-                    $notification_msg = $user_data['username'] . " New Client Register";
-
-                    $notif            = "CL";
-
-                } 
-
-                elseif ($user_data[5] == 'freelancer') {
-
-                    $user_type    = 4;
-
-                    $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%FR%' ORDER BY unique_id DESC");
-
-                    $get_result   = $query_status->result();
-
-                    
-
-                    foreach ($get_result as $Fr) {
-
-                        $Fr_unique_id  = $Fr->unique_id;
-
-                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
-
-                    }
-
-                    $arr     = implode(',', $Fr_uniquefr);
-
-                    $numbers = array(
-
-                        $Fr_uniquefr
-
-                    );
-
-                    
-
-                    
-
-                    
-
-                    $missing = array();
-
-                    for ($i = 1; $i < max($Fr_uniquefr); $i++) {
-
-                        if (!in_array($i, $Fr_uniquefr))
-
-                            $missing[] = $i;
-
-                    }
-
-                   
-
-                    if (!empty($missing)) {
-
-                        $last_id= array_values($missing)[0];
-
-                        
-
-                    } else {
-
-                        $last_id = $this->Users->getUserUniqueId($user_type);
-
-                    }
-
-                   
-
-                    
-
-                    $profile_status   = 0;
-
-                    $status           = 0;
-
-                    $total_connects   = 30;
-
-                    $unique_id        = 'FR' . $last_id;
-
-                    $unique_user_key  = $last_id;
-
-                    $notification_msg = $user_data['username'] . " New Freelancer Register";
-
-                    $notif            = "FR";
-
-                    
-
-                } 
-
-                elseif ($user_data['fldUserType'] == 'nlancer') {
-
-                    $user_type    = 5;
-
-                   
-
-                    $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%NL%' ORDER BY unique_id DESC");
-
-                    $get_result   = $query_status->result();
-
-                    
-
-                    foreach ($get_result as $NL) {
-
-                        $Fr_unique_id  = $NL->unique_id;
-
-                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
-
-                    }
-
-
-
-                    if(is_array($Fr_uniquefr)) {
-
-                        $arr     = implode(',', $Fr_uniquefr);
-
-                        $numbers = array(
-
-                            $Fr_uniquefr
-
-                        );
-
-                    }
-
-
-
-                    
-
-                    $missing = array();
-
-                    if(is_array($Fr_uniquefr)) {
-
-                        for ($i = 1; $i < max($Fr_uniquefr); $i++) {
-
-                            if (!in_array($i, $Fr_uniquefr))
-
-                                $missing[] = $i;
-
-                        }                        
-
-                    }
-
-                   
-
-                    if (!empty($missing)) {
-
-                        $last_id= array_values($missing)[0];
-
-                        
-
-                    } else {
-
-                        $last_id = $this->Users->getUserUniqueId($user_type);
-
-                    }
-
-                    
-
-                    $profile_status   = 1;
-
-                    $status           = 1;
-
-                    $total_connects   = 10;
-
-                    $unique_id        = 'NL' . $last_id;
-
-                    $unique_user_key  = $last_id;
-
-                    $notification_msg = $user_data['username'] . " New Room Freelancer Register";
-
-                    $notif            = "NL";
-
-                }
-
-                elseif ($user_data['fldUserType'] == 'nclient') {
-
-                    $user_type    = 6;
-
-                    
-
-                    $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%NC%' ORDER BY unique_id DESC");
-
-                    $get_result   = $query_status->result();
-
-                    
-
-                    foreach ($get_result as $NL) {
-
-                        $Fr_unique_id  = $NL->unique_id;
-
-                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
-
-                    }
-
-
-
-                    if(is_array($Fr_uniquefr)) {
-
-                        $arr     = implode(',', $Fr_uniquefr);
-
-                        $numbers = array(
-
-                            $Fr_uniquefr
-
-                        );
-
-                    }
-
-
-
-                    
-
-                    $missing = array();
-
-                    if(is_array($Fr_uniquefr)) {
-
-                        for ($i = 1; $i < max($Fr_uniquefr); $i++) {
-
-                            if (!in_array($i, $Fr_uniquefr))
-
-                                $missing[] = $i;
-
-                        }                        
-
-                    }
-
-
-
-                  
-
-                    if (!empty($missing)) {
-
-                        $last_id= array_values($missing)[0];
-
-                        
-
-                    } else {
-
-                        $last_id = $this->Users->getUserUniqueId($user_type);
-
-                    }
-
-                    
-
-                    $profile_status   = 1;
-
-                    $status           = 1;
-
-                    $total_connects   = 10;
-
-                    $unique_id        = 'NC' . $last_id;
-
-                    $unique_user_key  = $last_id;
-
-                    $notification_msg = $user_data['username'] . " New Room Client Register";
-
-                    $notif            = "NC";
-
-                }                
-
                 
+                $unique_id = $unique_user_key = $notification_msg = "";
+                
+                if ($user_data[5] == 'client') {
+                    $user_type    = 3;
+                    $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%CL%' ORDER BY unique_id DESC");
+                    $get_result   = $query_status->result();                    
+
+                    foreach ($get_result as $Fr) {
+                        $Fr_unique_id  = $Fr->unique_id;
+                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
+                    }                   
+
+                    $arr     = implode(',', $Fr_uniquefr);
+                    $numbers = array(
+                        $Fr_uniquefr
+                    );
+                    $missing = array();
+                    for ($i = 1; $i < max($Fr_uniquefr); $i++) {
+                        if (!in_array($i, $Fr_uniquefr)){
+                            $missing[] = $i;
+                        }
+                    }
+
+                    if (!empty($missing)) {
+                        $last_id= array_values($missing)[0];
+                    } else {
+                        $last_id = $this->Users->getUserUniqueId($user_type);
+                    }
+
+                    $profile_status   = 0;
+                    $status           = 0;
+                    $total_connects   = 10;
+                    $unique_id        = 'CL' . $last_id;
+                    $unique_user_key  = $last_id;
+                    $notification_msg = $user_data['username'] . " New Client Register";
+                    $notif            = "CL";
+                } 
+                else if ($user_data[5] == 'freelancer') {
+                    $user_type    = 4;
+                    $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%FR%' ORDER BY unique_id DESC");
+                    $get_result   = $query_status->result();
+                    foreach ($get_result as $Fr) {
+                        $Fr_unique_id  = $Fr->unique_id;
+                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
+                    }
+                    $arr     = implode(',', $Fr_uniquefr);
+                    $numbers = array(
+                        $Fr_uniquefr
+                    );
+                    $missing = array();
+                    for ($i = 1; $i < max($Fr_uniquefr); $i++) {
+                        if (!in_array($i, $Fr_uniquefr)){
+                            $missing[] = $i;
+                        }
+                    }                   
+
+                    if (!empty($missing)) {
+                        $last_id= array_values($missing)[0];
+                    } else {
+                        $last_id = $this->Users->getUserUniqueId($user_type);
+                    }
+                    $profile_status   = 0;
+                    $status           = 0;
+                    $total_connects   = 30;
+                    $unique_id        = 'FR' . $last_id;
+                    $unique_user_key  = $last_id;
+                    $notification_msg = $user_data['username'] . " New Freelancer Register";
+                    $notif            = "FR";
+                } 
+                else if ($user_data['fldUserType'] == 'nlancer') {
+                    $user_type    = 5;
+                    $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%NL%' ORDER BY unique_id DESC");
+                    $get_result   = $query_status->result();
+
+                    foreach ($get_result as $NL) {
+                        $Fr_unique_id  = $NL->unique_id;
+                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
+                    }
+
+                    if(is_array($Fr_uniquefr)) {
+                        $arr     = implode(',', $Fr_uniquefr);
+                        $numbers = array(
+                            $Fr_uniquefr
+                        );
+                    }
+
+                    $missing = array();
+                    if(is_array($Fr_uniquefr)) {
+                        for ($i = 1; $i < max($Fr_uniquefr); $i++) {
+                            if (!in_array($i, $Fr_uniquefr)){
+                                $missing[] = $i;
+                            }
+                        }
+                    }
+
+                    if (!empty($missing)) {
+                        $last_id= array_values($missing)[0];
+                    } else {
+                        $last_id = $this->Users->getUserUniqueId($user_type);
+                    }
+
+                    $profile_status   = 1;
+                    $status           = 1;
+                    $total_connects   = 10;
+                    $unique_id        = 'NL' . $last_id;
+                    $unique_user_key  = $last_id;
+                    $notification_msg = $user_data['username'] . " New Room Freelancer Register";
+                    $notif            = "NL";
+                } 
+                else if ($user_data['fldUserType'] == 'nclient') {
+                    $user_type    = 6;
+                    $query_status = $this->db->query("SELECT unique_id FROM user_login WHERE unique_id LIKE '%NC%' ORDER BY unique_id DESC");
+                    $get_result   = $query_status->result();
+                    foreach ($get_result as $NL) {
+                        $Fr_unique_id  = $NL->unique_id;
+                        $Fr_uniquefr[] = substr($Fr_unique_id, 2);
+                    }
+
+                    if(is_array($Fr_uniquefr)) {
+                        $arr     = implode(',', $Fr_uniquefr);
+                        $numbers = array(
+                            $Fr_uniquefr
+                        );
+                    }
+
+                    $missing = array();
+
+                    if(is_array($Fr_uniquefr)) {
+                        for ($i = 1; $i < max($Fr_uniquefr); $i++) {
+                            if (!in_array($i, $Fr_uniquefr)){
+                                $missing[] = $i;
+                            }
+                        }
+                    }
+
+                    if (!empty($missing)) {
+                        $last_id= array_values($missing)[0];
+                    } else {
+                        $last_id = $this->Users->getUserUniqueId($user_type);
+                    }
+                    $profile_status   = 1;
+                    $status           = 1;
+                    $total_connects   = 10;
+                    $unique_id        = 'NC' . $last_id;
+                    $unique_user_key  = $last_id;
+                    $notification_msg = $user_data['username'] . " New Room Client Register";
+                    $notif            = "NC";
+                }                
 
                 #Changes For Images
 
                 $data   = array(
-
                     'user_id' => $id_generator,
-
                     'profile_id' => $this->auth->generator(20),
-
                     'unique_id' => $unique_id,
-
                     'unique_user_key' => $unique_user_key,
-
                     'username' => $user_data[0],
-
                     'email' => $user_data[1],
-
                     'phone_no' => $user_data[2],
-
                     'profile_image' => $user_data[3],
-
-                    
-
                     'user_type' => $user_type,
-
                     'status' => $status,
-
                     'profile_status' => $profile_status,
-
                     'total_connects' => $total_connects,
-
                     'doc' => $date_of_creation
-
                 );
 
                 $result = $this->db->insert('user_login', $data);
-
                 $data1  = array(
-
                     'user_id_from' => $id_generator,
-
                     'message_content' => $notification_msg,
-
                     'date_time' => date('Y-m-d H:i:s'),
-
                     'notif' => $notif,
-
                     'notify_status' => 0
-
                 );
 
                 $this->db->insert('admin_notification', $data1);
 
                 if ($result) {
-
                     if ($user_data['fldUserType'] == 'nclient' || $user_data['fldUserType'] == 'nlancer') {
-
                         return array(
-
                             'status' => TRUE,
-
                             'email_flag' => 0,
-
                             'message' => 'user_added_successfully',
-
                             'userId' => $id_generator
-
                         );
-
                     } else {
-
                         return array(
-
                             'status' => TRUE,
-
                             'email_flag' => 1,
-
                             'message' => 'user_added_successfully',
-
                             'userId' => $id_generator
-
                         );
-
                     }
-
-                } 
-
-                else {
-
+                } else {
                     return array(
-
                         'status' => FALSE,
-
                         'message' => 'unable_to_add_record_in_db'
-
                     );
-
                 }
-
-                
-
             }
-
         }
 
-        
-
         return array(
-
             'status' => FALSE,
-
             'message' => 'unable_to_add_record_in_db'
-
         );
-
     }
-
-    
 
     #Abhishek 
 
-    public function get_user_profile_info($limit, $start)
-
-    {
-
+    public function get_user_profile_info($limit, $start) {
         $user_data = $user_languages = $user_skills = array();
-
-        
-
-       
-
-        
 
         $this->db->select('users.*,user_login.*,country.name as cname');
 
@@ -1398,52 +1096,37 @@ class Users extends CI_Model
 
      */
 
-    public function get_user_info_by_profile_id($pId = null)
+    public function get_user_info_by_profile_id($pId = null) {
 
-    {
-
-        if (empty($pId))
-
+        if (empty($pId)){
             return FALSE;
-
-        
+        }        
 
         $this->db->select('*');
-
         $this->db->from('user_login');
-
-        $this->db->where('profile_id', $pId);
-
+        $this->db->where('user_id', $pId);//Asif
+        //$this->db->where('profile_id', $pId);
         $query = $this->db->get();
-
+        //echo $this->db->last_query();exit;
         return $query->row();
-
     }
 
     
 
 
 
-     public function get_user_profile_info_by_id_details($user_id)
+     public function get_user_profile_info_by_id_details($user_id){
 
-    {
-
-        if (empty($user_id))
-
+        if (empty($user_id)){
             return FALSE;
-
-        
+        }        
 
         $this->db->select('*');
-
         $this->db->from('user_login');
-
         $this->db->where('user_id', $user_id);
-
         $query = $this->db->get();
-
+        echo $this->db->last_query();exit;
         return $query->row();
-
     }
 
     /*
@@ -2024,7 +1707,7 @@ class Users extends CI_Model
         $this->db->where('password', $password);
         $this->db->where('status', 1);
         $query  = $this->db->get('user_login');
-       // echo $this->db->last_query(); exit();
+        //echo $this->db->last_query(); exit();
         $result = $query->result_array();
         if (count($result) == 1) {
 
@@ -2041,7 +1724,7 @@ class Users extends CI_Model
             $this->db->where('a.status', 1);
 
             $query = $this->db->get();
-
+            //echo $this->db->last_query(); exit();
             
 
             $result = $query->result_array();
@@ -2158,86 +1841,40 @@ class Users extends CI_Model
 
     
 
-    public function check_gmail_valid_user_google($email = null)
-
-    {
-
-        
-
-        
-
+    public function check_gmail_valid_user_google($email = null){
         $this->db->where("email = '$email'");
-
-       
-
         $query = $this->db->get('user_login');
-
-        
-
-        
-
+        //echo $this->db->last_query($result);exit;
         //$query = $this->db->get('user_login');
-
         $result = $query->result_array();
-
-      
-
-   
-
+        //print_r($result);exit;
         if (count($result) == 1) {
-
-            $user_id = $result[0]['user_id'];
-
-             
+            $user_id = $result[0]['user_id'];             
 
             $this->db->select('a.user_id,a.profile_id,a.email,a.mobile,a.is_mobile_verified,a.receive_transactional_notification,a.receive_task_update_notification,a.profile_status,a.receive_task_reminder_notification,a.receive_helpful_notification,a.profile_image,a.user_type,a.total_points,b.name,b.country');
-
             $this->db->from('user_login a');
-
             $this->db->join('users b', 'b.user_id = a.user_id');
+            $this->db->where('a.user_id', $user_id);           
 
-            $this->db->where('a.user_id', $user_id);
-
-            
-
-            $query = $this->db->get();
-
-            
+            $query = $this->db->get();            
 
             $result = $query->result_array();
-
-            //echo $this->db->last_query($result);
-
-               
+            //echo $this->db->last_query($result);              
 
             if ($result) {
-
                 $data = array(
-
                     'is_login' => 1,
-
                     'last_login' => date('Y-m-d H:i:s')
-
-                );
-
-                
+                );                
 
                 $this->db->where('user_id', $result[0]['user_id']);
-
                 $this->db->update('user_login', $data);
-
-            }
-
-            
+            }           
 
             return $result;
-
-        }
-
-        
+        }        
 
         return false;
-
     }
 
     public function update_user_login_status($userId = null, $userStatus = 0)
@@ -3264,125 +2901,47 @@ class Users extends CI_Model
 
     
 
-    public function get_top_freelancers_profile_info($filter = array())
+    public function get_top_freelancers_profile_info($filter = array()) {
 
-    {
-
-        $freelancerList = array();
-
-        
-
+        $freelancerList = array(); 
         $this->db->select('users.*,user_login.*, country.name as country');
-
         $this->db->from('users');
-
         $this->db->join('user_login', 'user_login.user_id = users.user_id');
-
         $this->db->join('country', 'country.country_id = users.country', 'left');
-
-        $this->db->where('user_login.total_positive_coins >', 0);
-
+        $this->db->where('user_login.total_positive_coins >5');
         $this->db->where('user_login.user_type', 4);
-
         $this->db->where('user_login.status', 1);
-
         if (isset($filter['not_user_id'])) {
-
-            //                $this->db->where('user_id !=', $filter['not_user_id']);
-
+           $this->db->where('users.user_id !=', $filter['not_user_id']);
         }
-
         if (isset($filter['limit']['limit'])) {
-
             $this->db->limit($filter['limit']['limit'], (isset($filter['limit']['from'])) ? $filter['limit']['from'] : 0);
-
         }
-
         $this->db->order_by('user_login.total_positive_coins', 'desc');
-
-        $query          = $this->db->get();
-
-        $freelancerList = $query->result();
-
-        //showQuery();die;
-
+        $this->db->group_by('users.user_id');
+        $query = $this->db->get();
         //echo $this->db->last_query(); die;
-
-        if (!empty($freelancerList)) {
-
+        
+        $freelancerList2 =[];
+        if ($query->num_rows()>0) {
+            $freelancerList = $query->result();
             foreach ($freelancerList as $row) {
 
                 $user_languages     = $user_skills = array();
-
                 $user_profile_image = $row->profile_image;
-
                 if (empty($user_profile_image)) {
-
                     $user_profile_image = base_url('assets/img/no-image.png');
 
                 } else {
-
                     $user_profile_image = base_url('uploads/user/profile_image/' . $user_profile_image);
-
                 }
-
                 $row->user_profile_image = $user_profile_image;
-
-                //                // Get user selected languages
-
-                //                $this->db->select('user_languages.language_id,languages.name');
-
-                //                $this->db->from('user_languages');
-
-                //                $this->db->join('languages', 'languages.language_id = user_languages.language_id');
-
-                //                $this->db->where('user_languages.user_id', $row->user_id);
-
-                //                $query_lang = $this->db->get();
-
-                //                foreach ($query_lang->result() as $row_lang) {
-
-                //                    $user_languages[] = $row_lang->name;
-
-                //                }
-
-                //
-
-                //                // Get user selected skills
-
-                //                $this->db->select('user_area_of_interest.area_of_interest_id,area_of_interest.name,user_area_of_interest.user_id');
-
-                //                $this->db->from('user_area_of_interest');
-
-                //                $this->db->join('area_of_interest', 'area_of_interest.area_of_interest_id = user_area_of_interest.area_of_interest_id');
-
-                //                $this->db->where('user_area_of_interest.user_id', $row->user_id);
-
-                //                $query_skill = $this->db->get();
-
-                //                foreach ($query_skill->result() as $row_skill) {
-
-                //                    $user_skills[] = array('skill_id' => $row_skill->area_of_interest_id, 'skill_name' => $row_skill->name, 'user_id' => $row_skill->user_id);
-
-                //                }
-
-                
-
-                //                    $freelancerList[] = $row;
-
+                $freelancerList2[] = $row;
             }
 
         }
-
-        
-
-        //            echo '<pre>'; print_r($freelancerList); die;
-
-        
-
-        
-
-        return $freelancerList;
+        //echo '<pre>'; print_r($freelancerList2); die;
+        return $freelancerList2;
 
     }
 

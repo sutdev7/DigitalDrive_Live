@@ -18,6 +18,38 @@ class Admin extends CI_Controller {
 	public function index(){
 	
 	}
+
+	public function commisionAdd(){
+		$data['chargesDetails'] = $this->Admimodel->get_portal_charges_list();
+
+		$this->load->view('admin/includes/admin_header_all');
+		$this->load->view('admin/includes/navbar');
+		$this->load->view('admin/pages/commission', $data);
+		$this->load->view('admin/includes/admin_footer_all');
+	}
+
+	public function commisionUpdate(){
+		//echo"<pre>";print_r($_POST);exit;
+		if($_SERVER['REQUEST_METHOD'] === 'POST'){
+			if(isset($_POST['submit'])){
+				$portal_id = $this->input->post('portal_charge_id');
+				$data['portal_charge'] = $this->input->post('portal_charge');
+				$data['paypal_charge'] = $this->input->post('paypal_charge');
+				$data['razorpay_charge'] = $this->input->post('razorpay_charge');
+				$data['stripe_charge'] = $this->input->post('stripe_charge');
+				$data['dom'] = date('Y-m-d H:i:s');
+				$result = $this->Admimodel->updateRecords('portal_charge', $data, 'id', $portal_id);
+				if($result){
+					$this->session->set_flashdata('msg', '<div class="alert alert-success text-center">Charges  Updated Successfully</div>');	
+					redirect('admin/commission','refresh'); 
+				}else{
+					$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Something went wrong</div>');	
+					redirect('admin/commission','refresh'); 
+				}				
+			}
+		}
+		
+	}
 		
 	public function sign_up(){
 		if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -42,12 +74,12 @@ class Admin extends CI_Controller {
 		
 	public function dashboard(){
 				// Start Amardeep
-				$data['txnlist'] = $this->Transaction->get_transaction_list($count = 1, $status);
-				// End Amardeep
-				$data['freelancer_count']       = $this->Admimodel->get_user_counts($usertype = 4, true);
-                $data['client_count']           = $this->Admimodel->get_user_counts($usertype = 3, true);
-                $data['naluacer_count']         = $this->Admimodel->get_user_counts($usertype = 5, true);
-                $data['problem_ticket_count']   = $this->Admimodel->get_problem_ticket_count();
+		$data['txnlist'] = $this->Transaction->get_transaction_list($count = 1, $status);
+		// End Amardeep
+		$data['freelancer_count']       = $this->Admimodel->get_user_counts($usertype = 4, true);
+        $data['client_count']           = $this->Admimodel->get_user_counts($usertype = 3, true);
+        $data['naluacer_count']         = $this->Admimodel->get_user_counts($usertype = 5, true);
+        $data['problem_ticket_count']   = $this->Admimodel->get_problem_ticket_count();
 
 		$this->load->view('admin/includes/admin_header_all');
 		$this->load->view('admin/includes/navbar');
@@ -70,6 +102,37 @@ class Admin extends CI_Controller {
 
 		echo $count;
     }
+
+    public  function count_bio_profile_admin() {
+		
+		$usertype=4;
+		$count = 0;
+		
+		$sql = "SELECT u.name,u.gender,ul.status,ul.profile_status,ubi.account_number,ul.user_type FROM users u JOIN user_login ul ON ul.user_id=u.user_id JOIN use_bank_info ubi ON ubi.user_id=ul.user_id WHERE ul.user_type = '".$usertype."' AND ubi.account_number != '' AND ul.profile_status IN ('1','0') AND u.status = 1 ORDER BY u.doc DESC";
+		$query = $this->db->query($sql);
+		//echo $this->db->last_query();exit;
+         if ($query->num_rows() > 0) {
+            $data = $query->result_array();
+            $count = count($data);
+            echo $count;
+        } else {
+            echo $count;
+        }
+    }
+
+    /*public  function count_bio_profile_admin() {
+		
+		$usertype=4;
+		$count = 0;
+		
+		$this->db->join('user_login', 'user_login.user_id = users.user_id');
+		$this->db->where('user_type',$usertype);
+		$this->db->where('users.status',1);
+		$this->db->where('user_login.profile_status',1);
+		$count = $this->db->count_all_results('users');
+
+		echo $count;
+    }*/
 
      public function count_inactive_client() {
 		$count = 0;
@@ -152,13 +215,17 @@ class Admin extends CI_Controller {
 	public function user_edit(){
 		
 		$uricheck = base64_decode($this->uri->segment(4));
-		
+		//print_r($uricheck);exit;
 		if(trim($uricheck) == 'c'){
-			$user_type = '3'; $data['info'] = array();
+			$user_type = '3'; 
+			$data['info'] = array();
 		}else if(trim($uricheck) == 'f'){
-			$user_type = '4'; $data['info'] = array();
+			$user_type = '4'; 
+			$data['info'] = array();
 		}else{
-			$user_type = ''; $user_id = $uricheck;
+			$user_type = ''; 
+			$user_id = $uricheck;
+			$data['user_id'] = $this->uri->segment(4);
 			// get user info
 			$data['info'] = $this->Admimodel->get_user_info($user_id);
 			$data['bankinfo'] = $this->Admimodel->get_user_bank_info($user_id);
@@ -166,11 +233,12 @@ class Admin extends CI_Controller {
 			$data['portfolioData']=$this->Admimodel->get_user_portfolio_id($user_id);
 			$data['taskDetails']=$this->Admimodel->get_user_tasko_id($user_id);
 		}
+		
 		$upd_array=array(
 			'notify_status' => 1
-			);
-			$this->db->where('user_id_from', $uricheck);
-		    $this->db->update('admin_notification', $upd_array);
+		);
+		$this->db->where('user_id_from', $uricheck);
+		$this->db->update('admin_notification', $upd_array);
 		$data['countrylist'] = $this->Admimodel->get_country_list();
 		//echo '<pre>'; print_r($data['country']);die;
 		
@@ -245,7 +313,8 @@ class Admin extends CI_Controller {
 		$this->form_validation->set_rules('email','Email', 'required');
 		//$this->form_validation->set_rules('password','Password', 'required');
 		
-		$submitData = $this->input->post();   //echo '<pre>'; print_r($this->input->post()); die;     
+		$submitData = $this->input->post();
+		//echo '<pre>'; print_r($this->input->post()); die;
 		
 		if($this->form_validation->run() == false){ 
 			redirect('admin/user/edit/'.base64_encode($this->input->post('user_id')));		
@@ -280,8 +349,7 @@ class Admin extends CI_Controller {
             }
 			
 			if($return){
-				$this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> Data update successfully.
-	</div>');
+				$this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> Data update successfully.</div>');
 			}else{
 				$this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!</strong> Please try again.</div>');
 			}
@@ -295,7 +363,15 @@ class Admin extends CI_Controller {
 	}
 		
 	public function freelancer_list($status = ""){
-		$data['userlist'] = $this->Admimodel->get_user_list($usertype = 4, $status);
+		if($status =='active' || $status =='inactive'){
+			$data['userlist'] = $this->Admimodel->get_user_list($usertype = 4, $status);
+			$data['tblHeader'] = ['Sl No.','Id','Username','Email','Country','Mobile','Action'];
+			$data['tblFooter'] = ['Sl No.','Id','Username','Email','Country','Mobile','Action'];
+		}else{
+			$data['freelanceUserList'] = $this->Admimodel->get_user_list($usertype = 4, $status);
+			$data['tblHeader'] = ['Sl No.','Id','Username','Email','Country','Mobile','Total Coin','Total Earning','Action'];
+			$data['tblFooter'] = ['Sl No.','Id','Username','Email','Country','Mobile','Total Coin','Total Earning','Action'];
+		}
 		
 		$this->load->view('admin/includes/admin_header_all');
 		$this->load->view('admin/includes/navbar');
@@ -619,8 +695,7 @@ class Admin extends CI_Controller {
 				redirect('admin/category-add');
 			}else{
 				$return = $this->Admimodel->insert_data('area_of_interest',$submitData); 
-				$this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> Data update successfully.
-	</div>');
+				$this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> Data update successfully.</div>');
 				redirect('admin/category-list');
 			}
 		}
@@ -642,12 +717,14 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/includes/admin_footer_all');
 		
 	}
+
 	public function category_skills_add(){
 		$data =  array('category_name' => $this->input->post('category_name'),'parent_id'=>$this->input->post('parent_id'),'status'=>1 );
 		
 		$this->db->insert('skillcategory',$data);
 		redirect('admin/category');
 	}
+
 	public function cat_id_data($category_id){
 		$s_cat_id=$this->Admimodel->cat_id_data($category_id);
 		return $s_cat_id->category_id;
@@ -726,19 +803,22 @@ class Admin extends CI_Controller {
 	}
 	
 	public function problem_ticket_list($problem_status = ""){
-            $problem_status = trim(strtolower($problem_status));
-             $data['status']=trim(strtolower($problem_status));
-            if ($problem_status != "" && in_array($problem_status, array("solved", "unsolved"))) {
-				$data['info'] = $this->Admimodel->get_problem_ticket_list($problem_status);
-				$this->load->view('admin/includes/admin_header_all');
-				$this->load->view('admin/includes/navbar');
-				$this->load->view('admin/pages/problem_ticket_list',$data);
-				$this->load->view('admin/includes/admin_footer_all');
-            } else {
-                $this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You haven\'t login to the portal. Please login to proceed further.</div>');
-				redirect('dashboard', 'refresh');                
-            }
+        $problem_status = trim(strtolower($problem_status));
+        $data['status'] = trim(strtolower($problem_status));
+
+        if ($problem_status != "" && in_array($problem_status, array("solved", "unsolved"))) {
+			$data['info'] = $this->Admimodel->get_problem_ticket_list($problem_status);
+			
+			$this->load->view('admin/includes/admin_header_all');
+			$this->load->view('admin/includes/navbar');
+			$this->load->view('admin/pages/problem_ticket_list',$data);
+			$this->load->view('admin/includes/admin_footer_all');
+        } else {
+        	$this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You haven\'t login to the portal. Please login to proceed further.</div>');
+			redirect('dashboard', 'refresh');                
+        }
 	}
+
 	// public function user_messages($user_id = ""){
  //            $data['user_message'] = $this->Admimodel->get_message_users();
  //            $this->load->view('admin/includes/admin_header_all');
@@ -903,21 +983,24 @@ class Admin extends CI_Controller {
 			$this->load->view('admin/pages/history_ticket_details', $data);
 			$this->load->view('admin/includes/admin_footer_all');
 		}
-	public function history_ticket_details($problem_ticket_no)
-		{
-			$data['info'] = $this->Admimodel->history_ticket_details($problem_ticket_no);
-			$data['user_details'] = $this->Admimodel->ticket_details($problem_ticket_no);
-			$data['problem_ticket_no'] = $problem_ticket_no;
+	
+	public function history_ticket_details($problem_ticket_no){
+			
+		$data['info'] = $this->Admimodel->history_ticket_details($problem_ticket_no);
+		$data['user_details'] = $this->Admimodel->ticket_details($problem_ticket_no);
+		//echo"<pre>";print_r($data['user_details']);exit;
+		$data['grievance_type'] = $this->Admimodel->grivienceDetails($data['user_details']->ug_gvid);
+		$data['problem_ticket_no'] = $problem_ticket_no;
 
-            $data['send_mail'] = isset($data['user_details']->email) ? $data['user_details']->email : '';
-            $data['user_id'] = isset($data['user_details']->user_id) ? $data['user_details']->user_id : '';
+        $data['send_mail'] = isset($data['user_details']->email) ? $data['user_details']->email : '';
+        $data['user_id'] = isset($data['user_details']->user_id) ? $data['user_details']->user_id : '';
 
 		//echo "<pre>";Print_r($data);die;
-			$this->load->view('admin/includes/admin_header_all');
-			$this->load->view('admin/includes/navbar');
-			$this->load->view('admin/pages/history_ticket_details', $data);
-			$this->load->view('admin/includes/admin_footer_all');
-		}
+		$this->load->view('admin/includes/admin_header_all');
+		$this->load->view('admin/includes/navbar');
+		$this->load->view('admin/pages/history_ticket_details', $data);
+		$this->load->view('admin/includes/admin_footer_all');
+	}
 
 
         public function compose_email($grievance_id) {

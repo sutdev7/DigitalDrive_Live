@@ -77,12 +77,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               $micro_values= $query->num_rows();
 
               $this->db->select('*');
-    $this->db->from('skillcategory');
-    $this->db->where('status','1');
-    $this->db->where('parent_id','0');
-    $this->db->group_by('category_name');
-    $this->db->order_by('category_name','asc');
-    $category_skills = $this->db->get()->result();
+              $this->db->from('skillcategory');
+              $this->db->where('status','1');
+              $this->db->where('parent_id','0');
+              $this->db->group_by('category_name');
+              $this->db->order_by('category_name','asc');
+              $category_skills = $this->db->get()->result();
     
           
     ?>
@@ -100,29 +100,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <h3>Description  </h3>
                 <ul>
                   <li><span>
-					      <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Micro key Title</label>
+                <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Micro key Title</label>
                           <input class="form-control" type="text" name="fldTaskTitle" value="{fldTaskTitle}" placeholder="Enter Here" required>
-					   </span>
-					        
+             </span>
+                  
                    <span>
                     <label><i class="fa fa-star" style="font-size:7px;color:#f00;" aria-hidden="true"></i> Skill Required</label> <select class="js-example-tags" multiple="multiple" name="fldSkillRequired[]">
                       {skills}
                         <option value="{key}" {currentselection}>{value}</option>
                       {/skills}
                     </select>
-                    <!-- <select class="js-example-tags" multiple="multiple" name="fldSkillRequired[]">
-                      {skills}
-                        <option value="{key}" {currentselection}>{value}</option>
-                      {/skills}
-                    </select>-->
+                   
                     </span> </li>
                 </ul>
-			         <ul>
+               <ul>
                   <li>
                     <span>
                     <label>Category</label>
                   <div class="select-style">
-                    <select   id="fldSelCat" onchange="myFunction(event)">
+                    <select   id="fldSelCat">
                       <?php foreach($category_skills as $row){?>
                       <option value="<?=$row->category_id?>"><?=$row->category_name?></option>
                     <?php }?>
@@ -143,8 +139,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </span>
                   </li>
                 </ul>
-				
-				
+        
+        
               </div>
               <?php 
               
@@ -206,18 +202,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             jQuery(document).ready(function(){
                 // Basic
                jQuery('.dropify').dropify({
-					messages: {
-						'default': 'Drag and drop a file here or click.Hover over on file after upload to remove this file.',
-						'replace': 'Drag and drop or click to replace',
-						'remove':  'Remove',
-						'error':   'Ooops, something wrong happended.'
-					}
-				});
+          messages: {
+            'default': 'Drag and drop a file here or click.Hover over on file after upload to remove this file.',
+            'replace': 'Drag and drop or click to replace',
+            'remove':  'Remove',
+            'error':   'Ooops, something wrong happended.'
+          }
+        });
 
            
             });
-			
-			//$("#save_continue_task").click(function(event) {
+      
+      //$("#save_continue_task").click(function(event) {
               /* Act on the event */
             //  $('#post_task_step2_form').submit();
             //});

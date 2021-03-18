@@ -55,7 +55,7 @@ class Skills extends CI_Model {
                 
         return $skill_list;
     }
-    /*
+ /*
      * All Skills Jha
      */
     public function get_all_skill_data(){

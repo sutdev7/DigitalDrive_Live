@@ -9,7 +9,11 @@ class Review extends CI_Controller {
 		$this->load->library('Lreview');        if(!$this->auth->is_logged() && $this->uri->segment(1)!='browse-task') {        	$this->session->set_flashdata('msg', '<div class="alert alert-info text-center">You haven\'t login to the portal. Please login to proceed further.</div>');        	redirect('sign-in', 'refresh');        }    }
 
 	public function index()	{
-		$content = $this->lreview->review_page();
+		$FR_id = $this->uri->segment(2);
+		if(isset($FR_id) && $FR_id !=''){
+			$freelancer_id = $FR_id;
+		}
+		$content = $this->lreview->review_page($freelancer_id);
 		$data = array(
 			'content' => $content,
 			'title' => display('Reviews :: Hire-n-Work'),

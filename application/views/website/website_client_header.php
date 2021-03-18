@@ -12,7 +12,7 @@
         <li><a href="<?php echo base_url(); ?>micro-freelancer">Micro Freelancer</a></li>
         <li><a href="<?php echo base_url(); ?>search-freelancer">Search Freelancer</a></li>
         <li><a href="<?php echo base_url(); ?>rehire-freelancer">Rehire Freelancer</a></li>
-        <li><a href="<?php echo base_url(); ?>sent-offer">Sent Offers</a></li>
+        <!-- <li><a href="<?php //echo base_url(); ?>sent-offer">Sent Offers</a></li> -->
 		<li><a href="<?php echo base_url(); ?>user-analytics">Analytics</a></li>
       </ul>
       <ul class="nav-right_Div d-block d-sm-none">
@@ -31,7 +31,7 @@
       </ul>
     </nav>
     <ul class="nav-right_Div">
-      <li><a href="<?php echo base_url(); ?>messages/N4IND81M4L">Messages<span class="oferDiv" style="display:none;"></span></a></li>
+      <li><a href="#" class="recent_frnd_id">Messages<span class="oferDiv" style="display:none;"></span></a></li>
  
 	   <li id="notify" class="dropdown" onclick="readnotification()"> 
 		   <a href="#" class="noti dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell" aria-hidden="true"></i> <div id="count_notifications"></div>
@@ -65,7 +65,21 @@
   </div>
 </header>
 <!-- #header -->
+<script type="text/javascript">
+setInterval(function(){ get_recent_frnd_id() }, 2000);
+function get_recent_frnd_id()
+{
+// function to check recent frnd id through recent message
+      $.ajax({
+          method: "POST",
+          url: "<?php echo base_url(); ?>User/get_recent_frnd_id/",
+          data: {}
+      }).done(function(msg) {
+          $(".recent_frnd_id").attr('href',msg);
 
+      });
+}	
+</script>
 <script>
  function readnotification(){
 	 $.ajax({
@@ -164,10 +178,16 @@ setInterval(notification_ajax_call, intervala);
 setInterval(notification_read_ajax_call, intervalb);
 setInterval(msg_notification_ajax_call, intervalb);
 
+
 	 jQuery(document).ready(function() {
        notification_ajax_call;
        notification_read_ajax_call; 
 	   msg_notification_ajax_call;
     });
+	
+	
+  
+  
+
 
 </script>

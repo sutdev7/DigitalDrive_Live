@@ -31,14 +31,15 @@
             <div class="row">
           <div class="col-lg-12">
           <?php 
-          if($this->session->flashdata('msg')){
-            echo $this->session->flashdata('msg');
-          } 
+            if($this->session->flashdata('msg')){
+               echo $this->session->flashdata('msg');
+            } 
+            
             $user_profile_image = $user_details->profile_image;
+            
             if(empty($user_profile_image)) {
               $user_profile_image = base_url('assets/img/no-image.png');
-            }
-            else {
+            }else {
               $user_profile_image = base_url('uploads/user/profile_image/'.$user_profile_image);          
             }           
           
@@ -89,11 +90,11 @@
                         </thead>
                         <tbody>
                            <tr>
-                              <td><?php echo date("d/m/Y",strtotime($user_details->doc)); ?></td>
-                              <td>08/14/2017</td>
-                              <td><?php echo isset($info[0]->grievance_type) ? $info[0]->grievance_type : '';?></td>
+                              <td><?php echo date("d/m/Y",strtotime($user_details->ug_doc)); ?></td>
+                              <td><?php if(isset($user_details->ug_dom) && $user_details->ug_dom !='0000-00-00 00:00:00'){echo date("d/m/Y",strtotime($user_details->ug_dom));}else{echo 'NA';} ?></td>
+                              <td><?php echo isset($grievance_type[0]['problem_type']) ? $grievance_type[0]['problem_type'] : '';?></td>
                               <td><span class="text-warning">High</span></td>
-                              <td><span class="text-primary"><?php echo isset($user_details->problem_status) ? $user_details->problem_status : 'Open';?></span></td>
+                              <td><span class="text-primary"><?php echo isset($user_details->ug_pbstatus) ? $user_details->ug_pbstatus : 'Open';?></span></td>
                            </tr>
                         </tbody>
                      </table>
@@ -103,26 +104,39 @@
                   <div class="comment">
                      <div class="comment-author-ava"><img src="<?php echo $user_profile_image; ?>" alt="Avatar"></div>
                      <div class="comment-body">
-                        <p class="comment-text"><?php echo $user_details->grievance_content ;?></p>
+                        <p class="comment-text"><?php echo $user_details->ug_gvsubject ;?></p>
                         <div class="comment-footer"><span class="comment-meta"><?php echo $user_details->name; ?></span> <span class="comment-meta">   (<?php echo date("F j, Y", strtotime($user_details->dom)) ;?>)<span></div>
                      </div>
                   </div>
-                  <?php  if(!empty($info)){ $vcount = count($info); $vcount2 = 0;
-         
-                        foreach($info as $information) { $vcount2++;  ?>
+                  <?php  
+                     if(!empty($info)){ 
+                        $vcount = count($info); 
+                        $vcount2 = 0;
+                        foreach($info as $information) { 
+                           $vcount2++;  
+                  ?>
                   <div class="comment <?php echo ($vcount == $vcount2) ? "last_comment" : "" ?>">
-                     <div class="comment-author-ava"><img src="<?php echo ($information->user_type=='outbox')?$user_profile_image:base_url('assets/img/logo.png')?>" alt="Avatar"></div>
+                     <div class="comment-author-ava">
+                        <img src="<?php echo ($information->user_type=='outbox')?$user_profile_image:base_url('assets/img/logo.png')?>" alt="Avatar">
+                     </div>
                      <div class="comment-body">
                         <p class="comment-text"><?php echo $information->email_body ;?></p>
-                        <div class="comment-footer"><span class="comment-meta"><?php echo ($information->user_type=='outbox')?$user_details->name:$this->session->userdata('user_name'); ?></span> <span class="comment-meta">   (<?php echo date("F j, Y", strtotime($information->dom)) ;?>)<span></div>
+                        <div class="comment-footer">
+                           <span class="comment-meta"><?php echo ($information->user_type=='outbox')?$user_details->name:$this->session->userdata('user_name'); ?></span> 
+                           <span class="comment-meta">   (<?php echo date("F j, Y", strtotime($information->dom)) ;?>)<span>
+                        </div>
+                     </div>
+                  </div> 
+                  <?php } 
+               }else{ ?>
+           
+                  <div class="comment">
+                     <div class="comment-body">
+                        <p class="comment-text">
+                           <div class="" style="text-align: center;padding: 50px;"><?php echo $user_details->ug_gvcontent; ?></div>
+                        </p>
                      </div>
                   </div>
-           <?php }}else{ ?>
-           
-                <div class="comment"><div class="comment-body">
-                        <p class="comment-text"><div class="" style="text-align: center;padding: 50px;">No message list found</div></p>
-
-                     </div></div>
 
              <?php } ?>   
 

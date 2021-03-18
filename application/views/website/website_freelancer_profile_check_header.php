@@ -42,7 +42,7 @@
           </li>
         </ul>
       </li>
-      <li class="dropdown user user-menu d-none d-sm-block"> <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src="<?php echo $this->session->userdata('user_site_image'); ?>" style="width:40px;height:40px;border-radius: 100%;" class="img-circle" alt="User Image"> <!--<span>Paul Molive</span>--> </a>
+      <li class="dropdown user user-menu d-none d-sm-block"> <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src="<?php echo $this->session->userdata('user_site_image'); ?>" style="width:40px;height:40px;border-radius: 100%;" class="img-circle" alt="User Image1"> <!--<span>Paul Molive</span>--> </a>
         <ul class="dropdown-menu">
 			<li><a class="msg_alert"  href="#" class="disableMenu">Dashboard</a></li>
 			<li><a class="msg_alert" href="#" class="disableMenu">Public Profile</a></li>

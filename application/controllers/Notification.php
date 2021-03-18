@@ -32,7 +32,7 @@ class Notification extends CI_Controller {
 		$this->load->library('Lnotification');
 		$notification_row_id = base64_decode($this->uri->segment(2));
 		$action_id = base64_decode($this->uri->segment(3));
-	 	
+	 	//exit();
 		if($notification_row_id !=''){
 			$this->lnotification->take_action_condition($notification_row_id,$action_id);
 		}

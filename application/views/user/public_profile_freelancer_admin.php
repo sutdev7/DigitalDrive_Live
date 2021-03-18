@@ -147,9 +147,9 @@
         <div class="pro_info">
           <h4>Reviews</h4>
           <div class="RvwWrapper">
-            <ul class="RvwLists">									<?php											if(@count($reviews>0)){							foreach($reviews as $rv){						?>
+            <ul class="RvwLists">                 <?php                     if(@count($reviews>0)){             foreach($reviews as $rv){           ?>
               <li>
-                <div class="PflImgHldrWrpr">								<div class="Imghldr" style="background:url(img/img-profile.jpg) no-repeat center center; background-size:cover;"></div>																<a class="pull-left" href="<?php echo base_url().'public-profile/'.$rv['profile_id']; ?>" target="_blank">
+                <div class="PflImgHldrWrpr">                <div class="Imghldr" style="background:url(img/img-profile.jpg) no-repeat center center; background-size:cover;"></div>                               <a class="pull-left" href="<?php echo base_url().'public-profile/'.$rv['profile_id']; ?>" target="_blank">
                   <?php
                     $user_profile_image = $rv['profile_image'];
                     if (empty($user_profile_image)) {
@@ -160,10 +160,10 @@
                   ?>
                  <img class="media-object img-circle " src="<?php echo $user_profile_image; ?>" style="width:69px;height:69px;">
 
-                  </a>													</div> 
-                <div class="Txthldr">									<h2><?php echo $rv['name']; ?></h2>									<h5><?php echo $rv['country'] ?></h5>									<p><?php echo $rv['review_provided']; ?></p>								<span class="plus"><?php echo $rv['total_positive_coins'] ?> Coins</span> <span class="plus plus2"> <?php echo $rv['total_negative_coins'] ?> Coins</span>							<!--<span class="TimeStamp">2 Days ago</span>	-->											</div>
+                  </a>                          </div> 
+                <div class="Txthldr">                 <h2><?php echo $rv['name']; ?></h2>                 <h5><?php echo $rv['country'] ?></h5>                 <p><?php echo $rv['review_provided']; ?></p>                <span class="plus"><?php echo $rv['total_positive_coins'] ?> Coins</span> <span class="plus plus2"> <?php echo $rv['total_negative_coins'] ?> Coins</span>              <!--<span class="TimeStamp">2 Days ago</span> -->                     </div>
               </li>
-            <?php	} ?>											<?php	}?>										<?php if(count($reviews)==0){ ?>						<li><div class="Txthldr">No Reviews</div></li>																	<?php } ?> 
+            <?php } ?>                      <?php }?>                   <?php if(count($reviews)==0){ ?>            <li><div class="Txthldr">No Reviews</div></li>                                  <?php } ?> 
           <!--        <li>
                     <div class="PflImgHldrWrpr">
                       <div class="Imghldr" style="background:url(img/img-profile.jpg) no-repeat center center; background-size:cover;"></div>

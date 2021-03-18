@@ -45,8 +45,14 @@ class Subscription extends CI_Controller {
 			'content' => $content,
 			'title' => display('Subscription :: Hire-n-Work'),
 		);
-
-		$this->template->full_website_html_view($data);	
+		if($this->session->userdata('user_type')==4){
+			$this->template->full_freelancer_html_view($data);
+		}else if($this->session->userdata('user_type')==3){
+			$this->template->full_customer_html_view($data);
+		}else{
+			$this->template->full_website_html_view($data);		
+		}
+		//$this->template->full_website_html_view($data);	
 
     }
 
@@ -74,7 +80,15 @@ class Subscription extends CI_Controller {
 			'content' => $content,
 			'title' => display('Subscription :: Hire-n-Work'),
 		);
-		$this->template->full_website_html_view($data);
+		
+		if($this->session->userdata('user_type')==4){
+			$this->template->full_freelancer_html_view($data);
+		}else if($this->session->userdata('user_type')==3){
+			$this->template->full_customer_html_view($data);
+		}else{
+			$this->template->full_website_html_view($data);		
+		}
+		//$this->template->full_website_html_view($data);
 
 	}
 

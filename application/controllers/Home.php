@@ -15,6 +15,7 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
+		//echo "here";exit;
 		if($this->auth->is_logged()) {
 			
 			if($this->session->userdata('user_type') == 1){

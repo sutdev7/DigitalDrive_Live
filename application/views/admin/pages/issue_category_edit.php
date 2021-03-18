@@ -20,7 +20,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Category Details</h1>
+            <h1 class="m-0 text-dark">Issue Category Details<?echo $status;?></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -48,8 +48,8 @@
 							<label for="status" class="col-sm-2 col-form-label">User Type</label>
 							<div class="col-sm-8">
 							  <select class="form-control" name="user_type" id="user_type">
-								<option value="3" <?= ($name ==1) ? 'selected' : '' ?> >Client</option>
-								<option value="4" <?= ($name ==0) ? 'selected' : '' ?> >Freelincer</option>
+								<option value="3" <?= ($name ==3) ? 'selected' : '' ?> >Client</option>
+								<option value="4" <?= ($name ==4) ? 'selected' : '' ?> >Freelincer</option>
 							  </select>
 							</div>
 						</div>
@@ -66,7 +66,7 @@
 						
 						
 						<div class="col-md-6 offset-md-2">
-							<input type="submit" name="submit" value="submit" class="btn btn-success">
+							<input type="submit" name="submit" value="Update" class="btn btn-success">
 						</div>
 					</div>
 				</div>

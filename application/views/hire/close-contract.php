@@ -2,18 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
-<main id="main"> 
-  
+<main id="main">   
   <?php 
   $msg = $this->session->flashdata('msg'); 
-  if(!empty($msg)) {
-  ?>
+  if(!empty($msg)) { ?>
   <section style="padding-top: 7%;">
     <?php echo $msg; ?>
   </section>
-  <?php
-  }
-  ?>
+  <?php } ?>
 
   <!--==========================
       ConterDiv Section
@@ -126,6 +122,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- <div class="col-lg-12"> -->
                 <!-- <div class="postDiv_Box"> -->
                   <form action="<?= base_url().'hire/save_problem_ticket' ?>" method="post">
+                    <input type="hidden" name="hired_id" value="{task_details}{hired_id}{/task_details}">
                     <div class="step_Box step_box2">
                       <!-- <h3>Problem Ticket</h3> -->
                       <ul>
@@ -142,6 +139,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           </span> 
                         </li>
                       </ul>
+
+                      <ul>
+                        <li class="w-100"> 
+                          <span>
+                              <label>Project Name</label>
+                              <div class="select-style">
+                                  <select name="task_id" required>
+                                  {task_details}
+                                      <option value="{task_id}">{task_name}</option>
+                                  {/task_details} 
+                                  </select>
+                              </div>
+                          </span> 
+                        </li>
+                      </ul>
+
                       <ul>
                         <li class="w-100">
                           <span>

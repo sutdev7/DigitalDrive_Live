@@ -42,7 +42,12 @@
 					  <table id="example1" class="table table-bordered table-striped">
 						<thead>
 						<tr >
-						  <td>Sl No.</td>
+							<?php 
+							if(!empty($tblHeader)){
+								foreach ($tblHeader as $key => $value) {?>
+									<th><?php echo $value;?></th>
+							<?php } } ?>
+						  <!-- <td>Sl No.</td>
 						  <th>Id</th>
 						  <th>Username</th>
 						  <th>Email</th>
@@ -50,13 +55,13 @@
 						  <th>Mobile</th>
 						  <th>Total Coin</th>
 						  <th>Total Earning</th>
-						  <th>Action</th>
+						  <th>Action</th> -->
 						</tr>
 						</thead>
 						<tbody>
 						<?php
-						
-						if(!empty($userlist)){ $count = 1;
+						if(!empty($userlist)){ 
+							$count = 1;
 							foreach($userlist as $row){
 							?>
 							<tr class=<?= ($row->profile_status==0 && $row->user_type ==4) ? 'notactive' : 'active' ?>>
@@ -66,8 +71,6 @@
 							  <td><?= $row->email ?></td>
 							  <td><?= $row->country_name ?></td>
 							  <td><?= $row->phone_no ?></td>
-							  <td><?= $row->total_points ?></td>
-							  <td><?= $row->total_coins ?></td>
 							  <td>
 								<div class="btn-group">
 									<a type="button" class="btn btn-info" title="Edit Info" href="<?= base_url().'admin/user/edit/'.base64_encode($row->user_id) ?>"><i class="fa fa-edit"></i></a>
@@ -77,20 +80,54 @@
 								</div>
 							  </td>
 							</tr>
-							<?php
+						<?php
 							}
-						}else{
-							?>
-							<tr><td colspan="">No Data Found</td></tr>
-							<?php
-						}
-						
+						}else if(!empty($freelanceUserList)){ 
+							$countFR = 1;
+							foreach($freelanceUserList as $FRrow){
+								if($FRrow->account_number !='' && $FRrow->profile_status==0 && $FRrow->user_type ==4){
+									$status = 'style="background: #b2e5b2;"';
+								}else if($FRrow->profile_status==0 && $FRrow->user_type ==4){
+									$status = 'style="background: #e6baba !important;"';
+								}else{
+									$status = 'style="background: #dee2e6;"';
+								}
 						?>
+							<tr class="" <?php echo $status;?>>
+							  <td><?= $countFR++ ?></td>
+							  <td><?= $FRrow->unique_id ?></td>
+							  <td><?= $FRrow->username ?></td>
+							  <td><?= $FRrow->email ?></td>
+							  <td><?= $FRrow->country_name ?></td>
+							  <td><?= $FRrow->phone_no ?></td>
+							
+							  <td><?= $FRrow->total_points ?></td>
+							  <td><?= $FRrow->total_coins ?></td>
+							
+							  <td>
+								<div class="btn-group">
+									<a type="button" class="btn btn-info" title="Edit Info" href="<?= base_url().'admin/user/edit/'.base64_encode($FRrow->user_id) ?>"><i class="fa fa-edit"></i></a>
+								</div>
+								<div class="btn-group">
+									<a type="button" class="btn btn-danger" title="Delete" href="<?= base_url().'admin/user/delete/'.base64_encode($FRrow->user_id) ?>" onClick="return confirm('Do you want to delete ?');"><i class="fa fa-trash"></i></a>
+								</div>
+							  </td>
+							</tr>	
+						<?php } 
+
+						}else{ ?>
+							<tr><td colspan="">No Data Found</td></tr>
+						<?php } ?>
 						
 						</tbody>
 						<tfoot>
 						<tr>
-						  <td>Sl No.</td>
+							<?php 
+							if(!empty($tblFooter)){
+								foreach ($tblFooter as $Fkey => $Fvalue) {?>
+									<th><?php echo $Fvalue;?></th>
+							<?php } } ?>
+						  <!-- <td>Sl No.</td>
 						  <th>Id</th>
 						  <th>Username</th>
 						  <th>Email</th>
@@ -98,7 +135,7 @@
 						  <th>Mobile</th>
 						  <th>Total Point</th>
 						  <th>Total Cash</th>
-						  <th>Action</th>
+						  <th>Action</th> -->
 						</tr>
 						</tfoot>
 					  </table>
