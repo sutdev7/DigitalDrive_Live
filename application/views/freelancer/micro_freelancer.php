@@ -10,6 +10,7 @@ if(!empty($msg)) {
   <?php
 }
  
+
 $frmValidationMsg = validation_errors(); 
 if(!empty($frmValidationMsg)) {
   ?>
