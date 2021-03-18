@@ -9266,6 +9266,7 @@ li.breadcrumb-item.active {
     top: -20px;
     left: 0px;
     font-weight: 600;
+	white-space: nowrap;
 }
 .chat-back-sec .cap {
     padding: 4px 13px;
@@ -10522,3 +10523,9 @@ div[contenteditable="false"]
 }
 
 .deleted_dots1{display:none}
+
+div#msgID {
+    display: block;
+    width: 100%;
+    padding: 20px 0 0 0;
+}
